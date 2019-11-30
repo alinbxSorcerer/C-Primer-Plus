@@ -1,0 +1,2699 @@
+* B. Reference Section
+
+
+This portion of the book provides summaries of basic C features along with a more detailed look at particular topics. Here are the sections:
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec1][Section I: Additional Reading]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec2][Section II: C Operators]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec3][Section III: Basic Types and Storage Classes]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec4][Section IV: Expressions, Statements, and Program Flow]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec5][Section V: The Standard ANSI C Library with C99 and C11 Additions]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec6][Section VI: Extended Integer Types]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec7][Section VII: Expanded Character Support]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec8][Section VIII: C99/C11 Numeric Computational Enhancements]]
+
+[[file:graphics/squf.jpg]] [[file:app02.html#app02lev1sec9][Section IX: Differences Between C and C++]]
+
+** Section I: Additional Reading
+
+
+If you want to learn more about C and programming, you will find the following references useful.
+
+*** Online Resources
+
+
+C programmers helped create the Internet, and the Internet can help you with C. The Internet is always growing and changing; the resources listed here are a sample of what is available at the time of this writing. Of course, the Internet changes continuously, and you may find other resources.
+
+Probably the place to start, if you have a specific question about C or just want to expand your knowledge, is to visit the C FAQ (Frequently Asked Questions) site:
+
+c-faq.com
+
+However, its coverage mainly is just through C89.
+
+If you have questions about the C library, you can get information from the following site: [[http://www.acm.uiuc.edu/webmonkeys/book/c_guide/index.html][www.acm.uiuc.edu/webmonkeys/book/c_guide/index.html]]
+
+The next site provides a comprehensive discussion of pointers: [[http://pweb.netcom.com/~tjensen/ptr/pointers.htm][pweb.netcom.com/~tjensen/ptr/pointers.htm]]
+
+You also can use search engines such as Google and Yahoo! Search to find articles and sites about specific topics:
+
+[[http://www.google.com][www.google.com]]
+[[http://search.yahoo.com][search.yahoo.com]]
+[[http://www.bing.com][www.bing.com]]
+
+You can use the advanced search features of these sites to tune your searches more finely. For example, you can try searching for C tutorials.
+
+Newsgroups give you the opportunity to ask questions on the Net. Newsgroups typically are accessed through newsreader programs accessing an account provided by your Internet provider service. Another means of access is via web browser at the following address: [[http://groups.google.com]]
+
+You should take the time to read the newsgroups first to get an idea of what topics are covered. For example, if you have a question about how to do something in C, try these news groups:
+
+comp.lang.c
+comp.lang.c.moderated
+
+Here you'll find people willing and able to help. The questions should be about the standard C language. Don't ask here about how to get unbuffered input on a Unix system; there are specialized newsgroups for platform-specific questions. And above all, don't ask them how to do homework problems!
+
+If you have a question about interpreting the C standard, try this group:
+
+comp.std.c
+
+But don't ask here how to declare a pointer to a three-dimensional array; that's the sort of question to address to the comp.lang.c group.
+
+Finally, if you're interested in the history of C, Dennis Ritchie, the creator of C, describes the genesis and development of C in a 1993 article at the following site.
+
+cm.bell-labs.com/cm/cs/who/dmr/chist.html
+
+*** C Language Books
+
+
+Feuer, Alan R. /The C Puzzle Book, Revised Printing./ Upper Saddle River, NJ: Addison-Wesley Professional, 1998.
+
+This book contains many programs whose output you are supposed to predict. Predicting the output gives you a good opportunity to test and expand your understanding of C. The book includes answers and explanations.
+
+Kernighan, Brian W. and Dennis M. Ritchie. /The C Programming Language, Second Edition/. Englewood Cliffs, NJ: Prentice Hall, 1988.
+
+This is the second edition of the first book on C. (Note that the creator of C, Dennis Ritchie, is one of the authors.) The first edition constituted the definition of “K&R” C, the unofficial standard for many years. This edition incorporates ANSI changes based on the ANSI draft that was standard at the time the book was written. The book includes many interesting examples. It does, however, assume that the reader is familiar with systems programming.
+
+Koenig, Andrew. /C Traps and Pitfalls/. Reading, MA: Addison-Wesley, 1989.
+
+The title says it all.
+
+Summit, Steve. /C Programming FAQs/. Reading, MA: Addison-Wesley, 1995.
+
+This is an expanded book version of the Internet FAQ.
+
+*** Programming Books
+
+
+Kernighan, Brian W. and P.J. Plauger. /The Elements of Programming Style, Second Edition/. New York: McGraw-Hill, 1978.
+
+This slim, out-of-print classic draws on examples from other texts to illustrate the do's and don'ts of clear, effective programming.
+
+Knuth, Donald E. /The Art of Computer Programming, Volume 1 (Fundamental Algorithms), Third Edition/. Reading, MA: Addison-Wesley, 1997.
+
+This non-slim classic standard reference examines data representation and algorithm analysis in great detail. It is advanced and mathematical in nature. Volume 2 (Seminumerical Algorithms, 1997) includes an extensive discussion of pseudorandom numbers. Volume 3 (Sorting and Searching, 1998), as the name suggests, examines sorting and searching. Examples are given in pseudocode and assembly language.
+
+Sedgewick, Robert. /Algorithms in C, Parts 1-4: Fundamentals, Data Structures, Sorting, Searching, Third Edition./ Reading, MA: Addison-Wesley Professional, 1997/
+
+Not surprisingly, this book covers data structures, sorting, and searching.
+
+*** Reference Books
+
+
+Harbison, Samuel P. and Steele, Guy L. /C: A Reference Manual, Fifth Edition/. Englewood Cliffs, NJ: Prentice Hall, 2002.
+
+This reference manual presents the rules of the C language and describes most of the standard library functions. It incorporates discussion of C99 and provides many examples.
+
+Plauger, P.J. /The Standard C Library/. Englewood Cliffs, NJ: Prentice Hall, 1992.
+
+This large reference manual describes the standard library functions, with more explanation than you would find in a typical compiler manual.
+
+/The International C Standard/. /ISO/IEC 9899:2011/
+
+At the time of this writing, the standard is available as a $285 electronic download from [[http://www.ansi.org][www.ansi.org]] and as a €238 download from the IEC. Do not expect to learn C from this document because it is not intended as a tutorial. Here is a representative sentence: “If more than one declaration of a particular identifier is visible at any point in a translation unit, the syntactic context disambiguates uses that refer to different entities.”
+
+*** C++ Books
+
+
+Prata, Stephen. /C++ Primer Plus, Sixth Edition/. Upper Saddle River, NJ: Addison-Wesley, 2012.
+
+This book introduces you to the C++ language (the C++11 standard) and to the philosophy of object-oriented programming.
+
+Stroustrup, Bjarne. /The C++ Programming Language, Fourth Edition/. Reading, MA: Addison-Wesley, 2013.
+
+This book, by the creator of C++, presents the C++11 standard.
+
+** Section II: C Operators
+
+
+C is rich in operators. [[file:app02.html#app02tab01b][Table RS.II.1]] lists the C operators in order of decreasing precedence and indicates how they associate. All operators are binary (two operands) unless otherwise indicated. Note that some binary and unary operators, such as =*= (multiplication) and =*= (indirection), share the same symbol but have different precedence. Following the table are summaries of each operator.
+
+[[file:graphics/rs11tab01.jpg]]
+Table RS.II.1 The C Operators
+
+*** Arithmetic Operators
+
+
+=+= adds the value at its right to the value at its left.
+
+=+=, as a unary operator, produces a value equal in magnitude (and of the same sign) to the operand to the right.
+
+=–= subtracts the value at its right from the value at its left.
+
+=–=, as a unary operator, produces a value equal in magnitude (but opposite in sign) to the operand to the right.
+
+=*= multiplies the value at its right by the value at its left.
+
+=/= divides the value at its left by the value at its right. The answer is truncated if both operands are integers.
+
+=%= yields the remainder when the value at its left is divided by the value to its right (integers only).
+
+=++= adds 1 to the value of the variable to its right (prefix mode) or adds 1 to the value of the variable to its left (postfix mode).
+
+=--= is like =++=, but subtracts 1.
+
+*** Relational Operators
+
+
+Each of the following operators compares the value at its left to the value at its right:
+
+[[file:graphics/910tab01.jpg]]
+
+**** Relational Expressions
+
+
+A simple relational expression consists of a relational operator with an operand on each side. If the relation is true, the relational expression has the value =1=. If the relation is false, the relational expression has the value =0=. Here are two examples:
+
+=5 > 2= is true and has the value =1=.
+
+=(2 + a) == a= is false and has the value =0=.
+
+*** Assignment Operators
+
+
+C has one basic assignment operator and several combination assignment operators. The === operator is the basic form:
+
+=== assigns the value at its right to the lvalue on its left.
+
+Each of the following assignment operators updates the lvalue at its left by the value at its right, using the indicated operation (we use R--H for right-hand and L--H for left-hand):
+
+=+== adds the R--H quantity to the L--H variable and places the result in the L-H variable.
+
+=-== subtracts the R--H quantity from the L--H variable and places the result in the L-H variable.
+
+=*== multiplies the L--H variable by the R--H quantity and places the result in the L-H variable.
+
+=/== divides the L--H variable by the R--H quantity and places the result in the L-H variable.
+
+=%== gives the remainder from dividing the L--H quantity by the R--H quantity and places the result in the L-H variable.
+
+=&== assigns L--H =&= R--H to the L--H quantity and places the result in the L-H variable.
+
+=|== assigns L--H =|= R--H to the L--H quantity and places the result in the L-H variable.
+
+=^== assigns L--H =^= R--H to the L--H quantity and places the result in the L-H variable.
+
+=>>== assigns L--H =>>= R--H to the L--H quantity and places the result in the L-H variable.
+
+=<<== assigns L--H =<<= R--H to the L--H quantity and places the result in the L-H variable.
+
+**** Example
+
+
+=rabbits *= 1.6;= has the same effect as =rabbits = rabbits * 1.6;.=
+
+*** Logical Operators
+
+
+Logical operators normally take relational expressions as operands. The =!= operator takes one operand. The rest take two: one to the left, and one to the right.
+
+&&     AND
+||     OR
+!      NOT
+
+**** Logical Expressions
+
+
+=expression1 && expression2= is true if, and only if, both expressions are true.
+
+=expression1 || expression2= is true if either one or both expressions are true.
+
+=!expression= is true if the expression is false, and vice versa.
+
+**** Order of Evaluation for Logical Expressions
+
+
+Logical expressions are evaluated from left to right. Evaluation stops as soon as something is discovered that renders the expression false.
+
+**** Examples
+
+
+=6 > 2 && 3 == 3= is true.
+
+=! ( 6 > 2 && 3 == 3 )= is false.
+
+=x != 0 && 20/x < 5.= The second expression is evaluated only if =x= is nonzero.
+
+*** The Conditional Operator
+
+
+=? := takes three operands, each of which is an expression. They are arranged this way:
+
+expression1 ? expression2 : expression3
+
+The value of the whole expression equals the value of expression2 if expression1 is true, and equals the value of expression3 otherwise.
+
+**** Examples
+
+
+=( 5 > 3 ) ? 1 : 2= has the value =1=.
+
+=( 3 > 5 ) ? 1 : 2= has the value =2=.
+
+=( a > b ) ? a : b= has the value of the larger of =a= or =b=.
+
+*** Pointer-Related Operators
+
+
+=&= is the address operator. When followed by a variable name, =&= gives the address of that variable.
+
+=*= is the indirection or dereferencing operator. When followed by a pointer, =*= gives the value stored at the pointed-to address.
+
+**** Example
+
+
+Here, =&nurse= is the address of the variable =nurse=:
+
+
+
+nurse = 22;
+ptr = &nurse; /* pointer to nurse */
+val = *ptr;
+
+The net effect is to assign the value =22= to =val=.
+
+*** Sign Operators
+
+
+=–= is the minus sign and reverses the sign of the operand.
+
+=+= is the plus sign and leaves the sign unchanged.
+
+*** Structure and Union Operators
+
+
+Structures and unions use operators to identify individual members. The membership operator is used with structures and unions, and the indirect membership operator is used with pointers to structures or unions.
+
+**** The Membership Operator
+
+
+The membership operator (=.=) is used with a structure or union name to specify a member of that structure or union. If =name= is the name of a structure and =member= is a member specified by the structure template, =name.member= identifies that member of the structure. The type of =name.member= is the type specified for =member=. The membership operator can also be used in the same fashion with unions.
+
+**** Example
+
+
+struct {
+        int code;
+        float cost;
+} item;
+
+item.code = 1265;
+
+This statement assigns a value to the =code= member of the structure =item=.
+
+**** The Indirect Membership Operator (or Structure Pointer Operator)
+
+
+The indirect membership operator (=–>=) is used with a pointer to a structure or union to identify a member of that structure or union. Suppose that =ptrstr= is a pointer to a structure and that =member= is a member specified by the structure template. Then =ptrstr->member= identifies that member of the pointed-to structure. The indirect membership operator can be used in the same fashion with unions.
+
+**** Example
+
+
+struct {
+        int code;
+        float cost;
+} item, * ptrst;
+ptrst = &item;
+ptrst->code = 3451;
+
+This program fragment assigns a value to the =code= member of =item=. The following three expressions are equivalent:
+
+
+
+ptrst->code  item.code  (*ptrst).code
+
+*** Bitwise Operators
+
+
+All the following bitwise operators, except =~=, are binary operators:
+
+=~= is the unary operator and produces a value with each bit of the operand inverted.
+
+=&= is AND and produces a value in which each bit is set to 1 only if both corresponding bits in the two operands are 1.
+
+=|= is OR and produces a value in which each bit is set to 1 if either, or both, corresponding bits of the two operands are 1.
+
+=^= is EXCLUSIVE OR and produces a value in which each bit is set to 1 only if one or the other (but not both) of the corresponding bits of the two operands is 1.
+
+=<<= is left-shift and produces a value obtained by shifting the bits of the left-hand operand to the left by the number of places given by the right-hand operand. Vacated slots are filled with zeros.
+
+= is right-shift and produces a value obtained by shifting the bits of the left-hand operand to the right by the number of places given by the right-hand operand. For unsigned integers, the vacated slots are filled with zeros. The behavior for signed values is implementation dependent.
+
+**** Examples
+
+
+Suppose you have the following:
+
+int x = 2;
+int y = 3;
+
+Then =x & y= has the value =2= because only bit 1 is “on” for both =x= and =y=. Also, =y<<x= has the value =12= because that is the value obtained when the bit pattern for =3= is shifted two bits to the left.
+
+*** Miscellaneous Operators
+
+
+=sizeof= yields the size, in units the size of a =char= value, of the operand to its right. Typically, a =char= value is 1 byte in size. The operand can be a type-specifier in parentheses, as in =sizeof (float)=, or it can be the name of a particular variable, array, or so on, as in =sizeof foo=. A =sizeof= expression is of type =size_t=.
+
+=_Alignof= (C11) yields the alignment requirement for the type specified by its operand. Some systems require that a particular type be stored at an address that is a multiple of some particular value, such as four. This integer is the alignment requirement.
+
+=(type)= is the cast operator and converts the value that follows it to the type specified by the enclosed keyword(s). For example, =(float) 9= converts the integer =9= to the floating-point number =9.0=.
+
+=,= is the comma operator; it links two expressions into one and guarantees that the leftmost expression is evaluated first. The value of the whole expression is the value of the right-hand expression. This operator is typically used to include more information in a =for= loop control expression.
+
+**** Example
+
+
+
+
+for (step = 2, fargo = 0; fargo < 1000; step *= 2)
+ fargo += step;
+
+** Section III: Basic Types and Storage Classes
+
+
+*** Summary: The Basic Data Types
+
+
+C's basic types fall into two categories: integers and floating-point numbers. The different varieties give you choices for range and precision.
+
+**** Keywords
+
+
+The basic data types are set up using the following eight keywords: =int=, =long=, =short=, =unsigned=, =char=, =float=, =double=, and =signed= (ANSI C).
+
+**** Signed Integers
+
+
+Signed integers can have positive or negative values:
+
+=int= is the basic integer type for a given system.
+
+=long= or =long int= can hold an integer at least as large as the largest =int= and possibly larger; =long= is at least 32 bits.
+
+The largest =short= or =short int= integer is no larger than the largest =int=, and may be smaller. A =short= is at least 16 bits. Typically, =long= is bigger than =short=, and =int= is the same as one of the two. For example, C DOS compilers for the PC provided 16-bit =short= and =int= and 32-bit =long=. It all depends on the system.
+
+The =long long= type, provided by the C99 standard, is at least as big as =long= and is at least 64 bits.
+
+**** Unsigned Integers
+
+
+Unsigned integers have zero or positive values only, which extends the range of the largest possible positive number. Use the keyword =unsigned= before the desired type: =unsigned int=, =unsigned long=, =unsigned short=, or =unsigned long long=. A lone =unsigned= is the same as =unsigned int=.
+
+**** Characters
+
+
+Characters are typographic symbols such as =A=, =&=, and =+=. By definition, one byte of memory is used for a =char= variable. In the past, 8 bits has been the most typical size for =char=. However, the ability of C to cope with larger character sets can lead to 16-bit or even 32-bit bytes.
+
+=char= is the keyword for this type. Some implementations use a signed =char=, but others use an unsigned =char=. ANSI C allows you to use the keywords =signed= and =unsigned= to specify which form you want. Technically, =char=, =unsigned char=, and =signed char= are three distinct types, with the =char= type having the same representation as one of the other two.
+
+**** Boolean Type (C99)
+
+
+The C99 Boolean type is =_Bool=. It's an unsigned integer type that can hold one of two values: =0= for false and =1= for true. Including the =stdbool.h= header file allows you to use =bool= for =_Bool=, =true= for =1=, and =false= for =0=, making code compatible with C++.
+
+**** Real and Complex Floating Types
+
+
+C99 recognizes two domains of floating types: real floating and complex floating types. Collectively, the two domains constitute the floating types.
+
+Real floating-point numbers can have positive or negative values. C recognizes three real floating types:
+
+=float= is the basic floating-point type for the system. It can represent at least six significant digits accurately. Typically, =float= uses 32 bits.
+
+=double= is a (possibly) larger unit for holding floating-point numbers. It may allow more significant figures and perhaps larger exponents than =float=. It can represent at least 10 significant digits accurately. Typically, =double= uses 64 bits.
+
+=long double= is a (possibly) even larger unit for holding floating-point numbers. It may allow more significant figures and perhaps larger exponents than =double=.
+
+Complex numbers have two components: a real part and an imaginary part. C99 represents a complex number internally with a two-element array, with the first component being the real part and the second component being the imaginary part. There are three complex types:
+
+=float _Complex= represents the real and imaginary parts with type =float= values.
+
+=double _Complex= represents the real and imaginary parts with type =double= values.
+
+=long double _Complex= represents the real and imaginary parts with type =long double= values.
+
+In each case, the prefix type is termed the /corresponding real type/. For example, =double= is the corresponding real type for =double _Complex=.
+
+Under C99, the complex types were optional in a freestanding environment, in which C programs can run without an operating system. Under C11, they are optional for both freestanding and hosted environments.
+
+There also are three imaginary types; these are optional in both freestanding environments and hosted environments (environments in which C programs run under an operating system). An imaginary number has just an imaginary part. The three types are listed here:
+
+=float _Imaginary= represents the imaginary part with a type =float= value.
+
+=double _Imaginary= represents the imaginary part with a type =double= value.
+
+=long double _Imaginary= represents the imaginary part with a type =long double= value.
+
+Complex numbers can be initialized using real numbers and the value =I=, defined in =complex.h= and representing =i=, the square root of −1:
+
+
+
+#include <complex.h>  // for I
+double _Complex z = 3.0;          // real part = 3.0, imaginary part = 0
+double _Complex w = 4.0 * I;      // real part = 0.0, imaginary part = 4.0
+double Complex u = 6.0 -- 8.0 * I; // real part = 6.0, imaginary part = -8.0
+
+The =complex.h= library, discussed later in this appendix, includes functions that return the real and the imaginary components of a complex number.
+
+*** Summary: How to Declare a Simple Variable
+
+
+*1.* Choose the type you need.
+
+*2.* Choose a name for the variable.
+
+*3.* Use this format for a declaration statement:
+
+type-specifiervariable-name;
+
+The type-specifier is formed from one or more of the type keywords. Here are some examples:
+
+int erest;
+unsigned short cash;
+
+*4.* To declare more than one variable of the same type, separate the variable names with commas:
+
+char ch, init, ans;
+
+*5.* You can initialize a variable in a declaration statement:
+
+float mass = 6.0E24;
+
+--------------
+
+Summary: Storage Classes
+
+*Keywords:*
+
+auto, extern, static,
+register, _Thread_local (C11)
+
+*General Comments:*
+
+The storage class of a variable determines its scope, its linkage, and its storage duration. A storage class is determined both by where the variable is defined and by its associated keyword. Variables defined outside all functions are external, have file scope, external linkage, and static storage duration. Variables declared inside a function are automatic unless one of the other keywords is used. They have block scope, no linkage, and automatic storage duration. Variables defined with the keyword =static= inside a function have block scope, no linkage, and static storage duration. Variables defined with the keyword =static= outside a function have file scope, internal linkage, and static storage duration.
+
+C11 has added a new storage class qualifier: =_Thread_local=. An object declared with this qualifier has thread storage duration, meaning it persists for the lifetime of the thread in which it is declared and that it's initialized when the thread begins. Thus such an object is local to the thread.
+
+*Properties:*
+
+The following summarizes properties of the storage classes:
+
+[[file:graphics/918tab01.jpg]]
+
+Note that the keyword =extern= is used only to redeclare variables that have been defined externally elsewhere. The act of defining the variable outside a function makes it external.
+
+--------------
+
+In addition to these storage classes, C provides allocated memory. This memory is allocated by calling one of the =malloc()= family of functions, which returns a pointer that can be used to access the memory. The memory remains allocated until a call to =free()= or until the program terminates. Access to the memory can be from any function that has access to a pointer to the memory. For example, a function can return the pointer value to another function, which then can access the memory.
+
+*** Summary: Qualifiers
+
+
+**** Keywords
+
+
+Use the following keywords to qualify variables:
+
+=const=, =volatile=, =restrict=
+
+**** General Comments
+
+
+A qualifier constrains a variable's use in some way. A =const= variable, after it's initialized, can't be altered. The compiler can't assume that a =volatile= variable hasn't been changed by some outside agency, such as a hardware update. A pointer qualified with =restrict= is understood to provide the only access (in a particular scope) to a block of memory.
+
+**** Properties
+
+
+The declaration
+
+const int joy = 101;
+
+establishes that the value of =joy= is fixed at =101=.
+
+The declaration
+
+
+
+volatile unsigned int incoming;
+
+establishes that the value of =incoming= might change between one occurrence of =incoming= in a program and its next occurrence.
+
+The declaration
+
+const int * ptr = &joy;
+
+establishes that the pointer =ptr= can't be used to alter the value of the variable =joy=. The pointer can, however, be made to point to another location.
+
+The declaration
+
+int * const ptr = &joy;
+
+establishes that the pointer =ptr= can't have its value changed; that is, it can point only to =joy=. However, it can be used to alter =joy=.
+
+The prototype
+
+
+
+void simple (const char * s);
+
+establishes that after the formal argument =s= is initialized to whatever value is passed to =simple()= in a function call, =simple()= may not alter the value to which =s= points.
+
+The prototype
+
+
+
+void supple(int * const pi);
+
+and the equivalent prototype
+
+void supple(int pi[const]);
+
+establish that the function =supple()= will not alter the value of the parameter =pi=.
+
+The prototype
+
+
+
+void interleave(int * restrict p1, int * restrict p2, int n);
+
+indicates that =p1= and =p2= are each the sole access to the respective blocks of memory to which they point; this implies that there is no overlap between the two blocks.
+
+** Section IV: Expressions, Statements, and Program Flow
+
+
+*** Summary: Expressions and Statements
+
+
+In C, expressions represent values, and statements represent instructions to the computer.
+
+**** Expressions
+
+
+An /expression/ is a combination of operators and operands. The simplest expression is just a constant or a variable with no operator, such as =22= or =beebop=. More complex examples are =55 + 22= and =vap = 2 * (vip + (vup = 4))=.
+
+**** Statements
+
+
+A /statement/ is a command to the computer. Any expression followed by a semicolon forms a statement, although not necessarily a meaningful one. Statements can be simple or compound. /Simple statements/ terminate in a semicolon, as shown in these examples:
+
+[[file:graphics/920tab02.jpg]]
+
+(Technically, the Standard assigns declarations their own category rather than grouping them with statements.)
+
+/Compound statements/, or /blocks/, consist of one or more statements (which themselves can be compound) enclosed in braces. The following =while= statement is an example:
+
+while (years < 100)
+{
+    wisdom = wisdom + 1;
+    printf("%d %dn", years, wisdom);
+    years = years + 1;
+}
+
+*** Summary: The while Statement
+
+
+**** Keyword
+
+
+The keyword for the =while= statement is =while=.
+
+**** General Comments
+
+
+The =while= statement creates a loop that repeats until the test expression becomes false, or zero. The =while= statement is an /entry-condition/ loop; the decision to go through one more pass of the loop is made /before/ the loop has been traversed. Therefore, it is possible that the loop is never traversed. The statement part of the form can be a simple statement or a compound statement.
+
+**** Form
+
+
+while (expression)
+statement
+
+The statement portion is repeated until the expression becomes false or zero.
+
+**** Examples
+
+
+
+
+while (n++ < 100)
+      printf(" %d %dn",n, 2*n+1);
+
+while (fargo < 1000)
+{
+      fargo = fargo + step;
+      step = 2 * step;
+}
+
+*** Summary: The for Statement
+
+
+**** Keyword
+
+
+The =for= statement keyword is =for=.
+
+**** General Comments
+
+
+The =for= statement uses three control expressions, separated by semicolons, to control a looping process. The initialize expression is executed once, before any of the loop statements are executed. If the test expression is true (or nonzero), the loop is cycled through once. Then the update expression is evaluated, and it is time to check the test expression again. The =for= statement is an /entry-condition/ loop; the decision to go through one more pass of the loop is made /before/ the loop has been traversed. Therefore, it is possible that the loop is never traversed. The statement part of the form can be a simple statement or a compound statement.
+
+**** Form
+
+
+
+
+for (initialize ; test ; update)
+statement
+
+The loop is repeated until test becomes false or zero.
+
+C99 allows the initialization part to include a declaration. The scope and duration of the variable is restricted to the =for= loop.
+
+**** Examples
+
+
+
+
+for (n = 0;  n < 10 ; ++n)
+      printf("%d %dn", n, 2 * n+1);
+for (int k = 0;  k < 10 ; ++k)           // C99
+ printf("%d %dn", k, 2 * k+1);
+
+*** Summary: The do while Statement
+
+
+**** Keywords
+
+
+The keywords for the =do while= statement are =do= and =while=.
+
+**** General Comments
+
+
+The =do while= statement creates a loop that repeats until the test expression becomes false or zero. The =do while= statement is an /exit-condition/ loop; the decision to go through one more pass of the loop is made /after/ the loop has been traversed. Therefore, the loop must be executed at least once. The statement part of the form can be a simple statement or a compound statement.
+
+**** Form
+
+
+do
+statement
+while (expression);
+
+The statement portion is repeated until expression becomes false or zero.
+
+**** Example
+
+
+do
+    scanf("%d", &number)
+while(number != 20);
+
+*** Summary: Using if Statements for Making Choices
+
+
+**** Keywords
+
+
+The keywords for =if= statements are =if= and =else=.
+
+**** General Comments
+
+
+In each of the following forms, the statement can be either a simple statement or a compound statement. A “true” expression, more generally, means one with a nonzero value.
+
+**** Form 1
+
+
+if (expression)
+statement
+
+The statement is executed if expression is true.
+
+**** Form 2
+
+
+if (expression)
+statement1
+else
+statement2
+
+If the expression is true, statement1 is executed. Otherwise, statement2 is executed.
+
+**** Form 3
+
+
+if (expression1)
+statement1
+else if (expression2)
+statement2
+else
+statement3
+
+If expression1 is true, statement1 is executed. If expression1 is false but expression2 is true, statement2 is executed. Otherwise, if both expressions are false, statement3 is executed.
+
+**** Example
+
+
+
+
+if (legs == 4)
+    printf("It might be a horse.n");
+ else if (legs > 4)
+     printf("It is not a horse.n");
+ else    /* case of legs < 4 */
+ {
+     legs++;
+  printf("Now it has one more leg.n");
+ }
+
+*** Summary: Multiple Choice with switch
+
+
+**** Keyword
+
+
+The keyword for the =switch= statement is =switch=.
+
+**** General Comments
+
+
+Program control jumps to the statement bearing the value of expression as a label. Program flow then proceeds through the remaining statements unless redirected again. Both expression and labels must have integer values (type =char= is included), and the labels must be constants or expressions formed solely from constants. If no label matches the expression value, control goes to the statement labeled =default=, if present. Otherwise, control passes to the next statement following the =switch= statement. After control goes to a particular label, all the subsequent statements in the =switch= are executed until the end of the =switch=, or a =break= statement, is encountered, whichever comes first.
+
+**** Form
+
+
+
+
+switch (expression)
+{
+    case label1 : statement1
+    case label2 : statement2
+    default     : statement3
+}
+
+There can be more than two labeled statements, and the =default= case is optional.
+
+**** Examples
+
+
+
+
+switch (value)
+    case 1  : find_sum(ar, n);
+              break;
+    case 2  : show_array(ar, n);
+              break;
+    case 3  : puts("Goodbye!");
+              break;
+    default : puts("Invalid choice, try again.");
+              break;
+}
+
+switch (letter)
+{
+    case 'a' :
+    case 'e' : printf("%d is a voweln", letter);
+    case 'c' :
+    case 'n' : printf("%d is in "cane"n", letter);
+    default  : printf("Have a nice day.n");
+}
+
+If =letter= has the value ='a'= or ='e'=, all three messages are printed; ='c'= and ='n'= cause the last two to be printed. Other values print only the last message.
+
+*** Summary: Program Jumps
+
+
+**** Keywords
+
+
+The keywords for program jumps are =break=, =continue=, and =goto=.
+
+**** General Comments
+
+
+The three instructions =break=, =continue=, and =goto= cause program flow to jump from one location of a program to another location.
+
+**** The break Command
+
+
+The =break= command can be used with any of the three loop forms and with the =switch= statement. It causes program control to skip the rest of the loop or =switch= containing it, and to resume with the next command following the loop or =switch=.
+
+**** Example
+
+
+
+
+while ((ch = getchar())  != EOF)
+{
+    putchar(ch);
+    if (ch == ' ')
+          break;      // terminate loop
+    chcount++;
+}
+
+**** The continue Command
+
+
+The =continue= command can be used with any of the three loop forms, but not with =switch=. It causes program control to skip the remaining statements in a loop. For a =while= or =for= loop, the next loop cycle is started. For a =do while= loop, the exit condition is tested and then, if necessary, the next loop cycle is started.
+
+**** Example
+
+
+
+
+while ((ch = getchar())  != EOF)
+{
+     if (ch == ' ')
+          continue;     // go to test condition
+     putchar(ch);
+     chcount++;
+}
+
+This fragment echoes and counts nonspace characters.
+
+**** The goto Command
+
+
+A =goto= statement causes program control to jump to a statement bearing the indicated label. A colon is used to separate a labeled statement from its label. Label names follow the rules for variable names. The labeled statement can come either before or after the =goto=.
+
+**** Form
+
+
+goto label;
+label : statement
+
+**** Example
+
+
+top : ch = getchar();
+      if (ch != 'y')
+  goto top;
+
+** Section V: The Standard ANSI C Library with C99 and C11 Additions
+
+
+The ANSI C library classifies functions into several groups, with each group having an associated header file. This appendix gives you an overview of the library, listing the header files and briefly describing their associated functions. Some of these functions (for example, several I/O functions) are discussed in much greater detail in the text. More generally, for complete descriptions, consult the documentation for your implementation, or a reference manual, or try an online reference such as the following: [[http://www.acm.uiuc.edu/webmonkeys/book/c_guide/]]
+
+*** Diagnostics: assert.h
+
+
+This header file defines =assert()= as a macro. Defining the macro identifier =NDEBUG= before including the =assert.h= header file deactivates the =assert()= macro. The expression used as an argument is typically a relational or logical expression that should be true at that point in the program if the program is functioning properly. [[file:app02.html#app02tab01][Table RS.V.1]] describes the =assert()= macro.
+
+[[file:graphics/rs-vtab01.jpg]]
+Table RS.V.1 Diagnostic Macro
+
+C11 adds the =static_assert= macro, which expands to =_Static_assert=.=_Static_assert=, in turn, is a keyword that is considered a form of declaration. It provides a compile-time check that used this way:
+
+
+
+_Static_assert (constant-expression, string-literal);
+
+If the constant expression evaluates to zero, the compiler issues an error message that includes the string-literal. Otherwise, there is no effect.
+
+*** Complex Numbers: complex.h (C99)
+
+
+The C99 standards add extensive support for complex number calculations, and C11 expands the support. Implementations may choose to provide an =_Imaginary= type in addition to the =_Complex= type. Under C11, both are optional. C99 made =_Complex= obligatory and =_Imaginary= optional. [[file:app02.html#app02lev1sec8][Section VIII]] of this appendix discusses complex number support a bit further. The header file defines the following macros listed in [[file:app02.html#app02tab02][Table RS.V.2]].
+
+[[file:graphics/rs-vtab02.jpg]]
+Table RS.V.2 The complex.h Macros
+
+The C implementation of complex numbers, supported by the =complex.h= header file, is quite different from the C++ implementation, supported by the =complex= header file. C++ uses classes to define a complex type.
+
+The =STDC CX_LIMITED_RANGE= pragma can be used to indicate whether the usual mathematical formulas can be used (the on setting) or if special attention has to be paid for extreme values (the off setting):
+
+
+
+#include <complex.h>
+#pragma STDC CX_LIMITED_RANGE on
+
+The library functions come in three flavors: =double=, =float=, and =long double=. [[file:app02.html#app02tab03][Table RS.V.3]] lists the =double= version. The =float= and =long double= versions append an =f= and an =l=, respectively, to the function names. Thus, =csinf()= is the =float= version of =csin()=, and =csinl()= is the =long double= version.
+
+[[file:graphics/rs-vtab03.jpg]]
+
+[[file:graphics/rs-vtab03a.jpg]]
+
+Table RS.V.3 Complex Number Functions
+
+Angles are measured in radians.
+
+*** Character Handling: ctype.h
+
+
+These functions take =int= arguments, which should be able to be represented as either =unsigned char= values or as =EOF=; the effect of supplying other values is undefined. In [[file:app02.html#app02tab04][Table RS.V.4]], “true” is used as shorthand for “a nonzero value.” Interpretation of some definitions depends on the current locale setting, which is controlled by the functions of =locale.h=; the table shows the interpretations for the “C” locale.
+
+[[file:graphics/rs-vtab04.jpg]]
+Table RS.V.4 Character-Handling Functions
+
+*** Error Reporting: errno.h
+
+
+The =errno.h= header file supports an older error-reporting mechanism. The mechanism provides an external static memory location that can be accessed by the identifier (or, possibly, the macro) =ERRNO=. Some library functions place a value in this location to report an error. A program including this header file then can check the value of =ERRNO= to see whether a particular error has been reported. The =ERRNO= mechanism is regarded as less than state of the art, and math functions no longer are required to set =ERRNO= values. The standard provides for three macro values representing particular errors, but an implementation can provide more. [[file:app02.html#app02tab05][Table RS.V.5]] lists the standard macros.
+
+[[file:graphics/rs-vtab05.jpg]]
+Table RS.V.5 The =errno.h= Macros
+
+*** Floating-Point Environment: fenv.h (C99)
+
+
+The C99 standard provides access to and control of the floating-point environment through the =fenv.h= header file.
+
+The /floating-point environment/ consists of a set of status flags and control modes. An exceptional circumstance that occurs during floating-point calculation, such as dividing by zero, can “raise an exception.” This means the event sets one of the floating-environment flags. The control mode value can control, for example, the direction of rounding. The =fenv.h= header defines a set of macros representing several exceptions and control modes, and it provides prototypes for functions that interact with the environment. The header also provides a pragma for enabling or disabling access to the floating-point environment.
+
+The directive
+
+#pragma STDC FENV_ACCESS on
+
+turns on access to the environment, and the directive
+
+#pragma STDC FENV_ACCESS off
+
+turns it off. If external, the pragma should be given before any outside declarations, or at the beginning of a compound block. It remains in effect until superseded by another occurrence of the pragma, or until the end of the file (external directive) or the end of the compound statement (block directive).
+
+The header file defines two types, shown in [[file:app02.html#app02tab06][Table RS.V.6]].
+
+[[file:graphics/rs-vtab06.jpg]]
+Table RS.V.6 The =fenv.h= Types
+
+The header file defines macros representing several possible floating-point exceptions and control states. The implementation may define additional macros, provided they begin with =FE_= followed by an uppercase character. [[file:app02.html#app02tab07][Table RS.V.7]] shows the standard exception macros.
+
+[[file:graphics/rs-vtab07.jpg]]
+Table RS.V.7 The =fenv.h= Types
+
+[[file:app02.html#app02tab08][Table RS.V.8]] shows the standard function prototypes in the =fenv.h= header file. Note that often argument values and return values correspond to the macros in [[file:app02.html#app02tab07][Table RS.V.7]]. For example, =FE_UPWARD= is an appropriate argument for =fesetround()=.
+
+[[file:graphics/rs-vtab08.jpg]]
+
+[[file:graphics/rs-vtab08a.jpg]]
+
+Table RS.V.8 The =fenv.h= Types
+
+*** Floating-point Characteristics: float.h
+
+
+The =float.h= header file defines several macros representing various limits and parameters. [[file:app02.html#app02tab09][Table RS.V.9]] lists the macros, with C11 additions shown in italics. Many of the macros refer to this model of floating-point representation:
+
+[[file:graphics/933equ01.jpg]]
+
+[[file:graphics/rs-vtab09.jpg]]
+
+[[file:graphics/rs-vtab09a.jpg]]
+
+[[file:graphics/rs-vtab09b.jpg]]
+
+Table RS.V.9 The =float.h= Macros
+
+If the very first digit /f/_{1} is nonzero (and /x/ is nonzero), the number is termed a /normalized floating-point number/. [[file:app02.html#app02lev1sec8][Section VIII]] of this appendix explains this and the meanings of some of these macros more fully.
+
+*** Format Conversion of Integer Types: inttypes.h (C99)
+
+
+This header file defines several macros that can be used as format specifiers for the expanded integer types. [[file:app02.html#app02lev1sec6][Reference Section VI]], “[[file:app02.html#app02lev1sec6][Extended Integer Types]],” discusses these further. This header file also declares the following type:
+
+imaxdiv_t
+
+This is a structure type representing the return value of the =idivmax()= function.
+
+This header file also includes =stdint.h= and declares several functions that use the greatest-width integer type, which is declared as =intmax= in =stdint.h=. [[file:app02.html#app02tab10][Table RS.V.10]] lists these functions.
+
+[[file:graphics/rs-vtab10.jpg]]
+Table RS.V.10 Greatest-Width Integer Functions
+
+*** Alternative Spellings: iso646.h
+
+
+This header provides 11 macros that expand to the indicated operators, as shown in [[file:app02.html#app02tab11][Table RS.V.11]].
+
+[[file:graphics/rs-vtab11.jpg]]
+Table RS.V.11 Alternative Spellings
+
+*** Localization: locale.h
+
+
+A /locale/ is a group of settings that controls items such as the symbol used as a decimal point. Locale values are stored in a structure of type =struct lconv=, defined in the =locale.h= header file. A locale can be specified by a string, which acts to specify a particular set of values for the structure members. The default locale is designated by the string ="C"=. [[file:app02.html#app02tab12][Table RS.V.12]] lists the localization functions, and a brief discussion follows.
+
+[[file:graphics/rs-vtab12.jpg]]
+Table RS.V.12 Localization Functions
+
+The required possible values for the =locale= parameter to =setlocale()= are ="C"=, which is the default, and =""=, which represents the implementation-defined native environment. An implementation can define additional locales. The possible values for the =category= parameter to =setlocale()= are represented by the macros listed in [[file:app02.html#app02tab13][Table RS.V.13]].
+
+[[file:graphics/rs-vtab13.jpg]]
+Table RS.V.13 Category Macros
+
+[[file:app02.html#app02tab14][Table RS.V.14]] lists the required members of a =struct lconv= structure.
+
+[[file:graphics/rs-vtab14.jpg]]
+
+[[file:graphics/rs-vtab14a.jpg]]
+
+[[file:graphics/rs-vtab14b.jpg]]
+
+Table RS.V.14 Required =struct lconv= Members
+
+*** Math Library: math.h
+
+
+With C99, the =math.h= header file defines two types:
+
+float_t
+double_t
+
+These types are at least as wide as =float= and =double=, respectively, and =double_t= is at least as wide as =float_t=. These are intended to be the most efficient types for doing =float= and =double= calculations, respectively.
+
+This header file also defines several macros, as described in [[file:app02.html#app02tab15][Table RS.V.15]]; all but =HUGE_VAL= are C99 additions. Some of these are discussed in more detail in [[file:app02.html#app02lev1sec8][Section VIII]], “[[file:app02.html#app02lev1sec8][C99 Numeric Computational Enhancements]].”
+
+[[file:graphics/rs-vtab15.jpg]]
+
+[[file:graphics/rs-vtab15a.jpg]]
+
+Table RS.V.15 The =math.h= Macros
+
+The math functions typically work with type =double= values. C99 has added =float= and =long double= versions of these functions, which are indicated by adding an =f= suffix and an =l= suffix, respectively, to the function name. For example, the language now provides these prototypes:
+
+
+
+double sin(double);
+float sinf(float);
+long double sinl(long double);
+
+For brevity, [[file:app02.html#app02tab16][Table RS.V.16]] lists just the =double= versions of the functions of the math library. The table refers to =FLT_RADIX=. This constant, defined in =float.h=, is the base used for exponentiation in the internal floating-point representation. The most common value is =2=.
+
+[[file:graphics/rs-vtab16.jpg]]
+
+[[file:graphics/rs-vtab16a.jpg]]
+
+[[file:graphics/rs-vtab16b.jpg]]
+
+[[file:graphics/rs-vtab16c.jpg]]
+
+[[file:graphics/rs-vtab16d.jpg]]
+
+Table RS.V.16 ANSI C Standard Math Functions
+
+*** Non-Local Jumps: setjmp.h
+
+
+The =setjmp.h= header file enables you to bypass the usual function-call, function-return sequence. The =setjmp()= function stores information about the current execution environment (for example, a pointer to the current instruction) in a type =jmp_buf= variable (an array type defined in this header file), and the l=ongjmp()= function transfers execution to such an environment. The functions are intended to help handle error conditions, not to be used as part of normal program flow control. [[file:app02.html#app02tab17][Table RS.V.17]] lists the functions.
+
+[[file:graphics/rs-vtab17.jpg]]
+Table RS.V.17 The =setjmp.h= Functions
+
+*** Signal Handling: signal.h
+
+
+A /signal/ is a condition that can be reported during program execution. It is represented by a positive integer. The =raise()= function sends, or /raises/, a signal, and the =signal()= function sets the response to a particular signal.
+
+The standard defines an integer type, =sig_atomic_t=, used to specify objects that are atomic with respect to signal handlers. That is, updating an atomic type is an indivisible process.
+
+The standard provides the macros listed in [[file:app02.html#app02tab18][Table RS.V.18]] to represent possible signals; an implementation can add further values. They can be used as arguments to =raise()= and =signal()=.
+
+[[file:graphics/rs-vtab18.jpg]]
+Table RS.V.18 Signal Macros
+
+The =signal()= function takes as its second argument a pointer to a =void= function that takes an =int= argument. It also returns a pointer of the same type. A function invoked in response to a signal is termed a /signal handler/. The standard defines three macros fitting this prototype:
+
+void  (*funct)(int);
+
+[[file:app02.html#app02tab19][Table RS.V.19]] lists these macros.
+
+[[file:graphics/rs-vtab19.jpg]]
+Table RS.V.19 Type =void (*f)(int)= Macros
+
+If the signal =sig= is raised and =func= points to a function (see the =signal()= prototype in [[file:app02.html#app02tab20][Table RS.V.20]]), first, under most circumstances, =signal(sig, SIG_DFL)= is called to reset signal handling to the default, and then =(*func)(sig)= is called. The signal-handling function pointed to by =func= can terminate by executing a return statement or by calling =abort()=, =exit()=, or =longjmp()=. [[file:app02.html#app02tab20][Table RS.V.20]] lists the signal functions.
+
+[[file:graphics/rs-vtab20.jpg]]
+Table RS.V.20 Signal Functions
+
+*** Alignment: stdalign.h (C11)
+
+
+The =stdalign.h= header file defines four macros relating to determining and specifying alignment properties of data objects. [[file:app02.html#app02tab21][Table RS.V.21]] lists these macros. The first two create aliases that are compatible with C++ usage.
+
+[[file:graphics/rs-vtab21.jpg]]
+Table RS.V.21 =stdalign.h= Macros
+
+*** Variable Arguments: stdarg.h
+
+
+The =stdarg.h= header file provides a means for defining a function having a variable number of arguments. The prototype for such a function should have a parameter list with at least one parameter followed by ellipses:
+
+
+
+void f1(int n, ...);                 /* valid   */
+int f2(int n, float x, int k, ...);  /* valid   */
+double  f3(...);                       /* invalid */
+
+In the following table, the term parmN is the identifier used for the last parameter preceding the ellipses. In the preceding examples, parmN would be =n= for the first case and =k= for the second case.
+
+The header file declares a =va_list= type to represent a data object used to hold the parameters corresponding to the ellipses part of the parameter list. [[file:app02.html#app02tab22][Table RS.V.22]] lists three macros to be used in the function with the variable parameter list. An object of type =va_list= should be declared before using these macros.
+
+[[file:graphics/rs-vtab22.jpg]]
+Table RS.V.22 Variable Argument List Macros
+
+*** Atomics Support: stdatomic.h (C11)
+
+
+This header file, along with =threads.h=, provides support for concurrent programming. This topic is well beyond the scope of this book, but, in general terms, the =stdatomic.h= header file provides macros for creating atomic operations. The programming community uses the term /atomic/ as Democritus did in his theory of matter, meaning indivisible. An operation, such as assigning one structure to another, may appear to be atomic at the programming level but may consist of multiple steps at the machine language level. If a program is split into multiple threads, one thread might read or modify data that a second thread is in the process of using. You could, for instance, wind up with a chimera of a structure having some members assigned values by one thread and other members assigned values by a different thread. The =stdatomic.h= header file enables you to create operations that act as if they were atomic so that one thread cannot interrupt the work of another thread.
+
+*** Boolean Support: stdbool.h (C99)
+
+
+This header file defines the four macros shown in [[file:app02.html#app02tab23][Table RS.V.23]].
+
+[[file:graphics/rs-vtab23.jpg]]
+Table RS.V.23 The =stdbool.h= Macros
+
+*** Common Definitions: stddef.h
+
+
+This header file defines some types and macros, as shown in [[file:app02.html#app02tab24][Tables RS.V.24]] and [[file:app02.html#app02tab25][RS.V.25]]
+
+[[file:graphics/rs-vtab24.jpg]]
+Table RS.V.24 The =stddef.h= Types
+
+[[file:graphics/rs-vtab25.jpg]]
+Table RS.V.25 The =stddef.h= Macros
+
+**** Example
+
+
+
+
+#include <stddef.h>
+
+struct car
+{
+    char brand[30];
+    char model[30];
+    double hp;
+    double price;
+};
+int main(void)
+{
+    size_t into = offsetof(struct car, hp);  /* offset of hp member */
+    ...
+
+*** Integer Types: stdint.h
+
+
+This header file uses the =typedef= facility to create integer type names that specify the properties of the integers. This header file is included by the =inttypes.h= header file, which provides macros for use in input/output function calls. [[file:app02.html#app02lev1sec6][Reference Section VI]] (“[[file:app02.html#app02lev1sec6][Extended Integer Types]]”) outlines how these types may be used.
+
+**** Exact-Width Types
+
+
+One set of =typedef=s identify types with precise sizes. [[file:app02.html#app02tab26][Table RS.V.26]] lists the names and sizes. Note, however, that not all systems may be able to support all the types.
+
+[[file:graphics/rs-vtab26.jpg]]
+Table RS.V.26 Exact-Width Types
+
+**** Minimum-Width Types
+
+
+The minimum-width types guarantee a type that is at least a certain number of bits in size. [[file:app02.html#app02tab27][Table RS.V.27]] lists the minimum-width types. These types always exist.
+
+[[file:graphics/rs-vtab27.jpg]]
+Table RS.V.27 Minimum Width Types
+
+**** Fastest Minimum-Width Types
+
+
+For a particular system, some integer representations can be faster than others. So =stdint.h= also defines the fastest type for representing at least a certain number of bits. [[file:app02.html#app02tab28][Table RS.V.28]] lists the fastest minimum-width types. These types always exist. In some cases, there might be no clear-cut choice for fastest; in that case, the system simply specifies one of the choices.
+
+[[file:graphics/rs-vtab28.jpg]]
+Table RS.V.28 Fastest Minimum-Width Types
+
+**** Maximum-Width Types
+
+
+The =stdint.h= header file also defines maximum-width types. A variable of this type can hold any integer value possible for the system, taking the sign into account. [[file:app02.html#app02tab29][Table RS.V.29]] lists the types.
+
+[[file:graphics/rs-vtab29.jpg]]
+Table RS.V.29 Maximum-Width Types
+
+**** Integers That Can Hold Pointer Values
+
+
+The header file also has two integer types, listed in [[file:app02.html#app02tab30][Table RS.V.30]], that can hold pointer values accurately. That is, if you assign a type =void *= value to one of these types, and then assign the integer type back to the pointer, no information is lost. Either or both types might not exist.
+
+[[file:graphics/rs-vtab30.jpg]]
+Table RS.V.30 Integer Types for Holding Pointer Values
+
+**** Defined Constants
+
+
+The =stdint.h= header file defines constants representing limiting values for the types defined in that header file. The constants are named after the type. Take the type name, replace the =_t= with =_MIN= or =_MAX=, and make all the characters uppercase to get the name of the constant representing the minimum or maximum value for the type. For example, the smallest value for the =int32_t= type is =INT32_MIN=, and the largest value for the =uint_fast16_t= type is =UINT_FAST16_MAX=. [[file:app02.html#app02tab31][Table RS.V.31]] summarizes these constants, with N standing for the number of bits, along with defined constants relating to the =intptr_t=, =uintptr_t=, =intmax_t=, and =uintmax_t= types. The magnitude of these constants will equal or exceed (unless “exactly” is specified) the listed amount.
+
+[[file:graphics/rs-vtab31.jpg]]
+Table RS.V.31 Integer Constants
+
+The header file also defines some constants for types defined elsewhere. [[file:app02.html#app02tab32][Table RS.V.32]] lists them.
+
+[[file:graphics/rs-vtab32.jpg]]
+Table RS.V.32 Further Integer Constants
+
+**** Extended Integer Constants
+
+
+The =stdint.h= header file defines macros for specifying constants of the various extended integer types. Essentially, the macro is a type cast to the underlying type---that is, to the fundamental type that represents the extended type in a particular implementation.
+
+The macro names are formed by taking the type name, replacing the =_t= with =_C=, and making all the letters uppercase. For example, to make =1000= a type =uint_least64_t= constant, use the expression =UINT_LEAST64_C(1000)=.
+
+*** Standard I/O Library: stdio.h
+
+
+The ANSI C standard library includes several standard I/O functions associated with streams and the =stdio.h= file. [[file:app02.html#app02tab33][Table RS.V.33]] presents the ANSI prototypes for these functions, along with a brief explanation of what they do. (Many are described more fully in [[file:ch13.html#ch13][Chapter 13]], “[[file:ch13.html#ch13][File Input/Output]].”) The header file also defines the =FILE= type, the values =EOF= and =NULL=, and the standard I/O streams =stdin=, =stdout=, and =stderr=, along with several constants used by the functions in this library.
+
+[[file:graphics/rs-vtab33.jpg]]
+
+[[file:graphics/rs-vtab33a.jpg]]
+
+[[file:graphics/rs-vtab33b.jpg]]
+
+[[file:graphics/rs-vtab33c.jpg]]
+
+Table RS.V.33 C Standard I/O Functions
+
+*** General Utilities: stdlib.h
+
+
+The ANSI C standard library includes a variety of utility functions defined in =stdlib.h=. The header file defines the types shown in [[file:app02.html#app02tab34][Table RS.V.34]].
+
+[[file:graphics/rs-vtab34.jpg]]
+Table RS.V.34 Types Declared in =stdlib.h=
+
+The header file defines the constants listed in [[file:app02.html#app02tab35][Table RS.V.35]].
+
+[[file:graphics/rs-vtab35.jpg]]
+Table RS.V.35 Constants Defined in =stdlib.h=
+
+[[file:app02.html#app02tab36][Table RS.V.36]] lists the functions whose prototypes are found in =stdlib.h=.
+
+[[file:graphics/rs-vtab36.jpg]]
+
+[[file:graphics/rs-vtab36a.jpg]]
+
+[[file:graphics/rs-vtab36b.jpg]]
+
+[[file:graphics/rs-vtab36c.jpg]]
+
+[[file:graphics/rs-vtab36d.jpg]]
+
+[[file:graphics/rs-vtab36e.jpg]]
+
+[[file:graphics/rs-vtab36f.jpg]]
+
+Table RS.V.36 General Utilities
+
+*** _Noreturn: stdnoreturn.h
+
+
+This defines the macro =noreturn=, which expands to =_Noreturn=.
+
+*** String Handling: string.h
+
+
+The =string.h= library defines the =size_t= type and the =NULL= macro for the null pointer. It provides several functions for analyzing and manipulating character strings and a few that deal with memory more generally. [[file:app02.html#app02tab37][Table RS.V.37]] lists the functions.
+
+[[file:graphics/rs-vtab37.jpg]]
+
+[[file:graphics/rs-vtab37a.jpg]]
+
+[[file:graphics/rs-vtab37b.jpg]]
+
+[[file:graphics/rs-vtab37c.jpg]]
+
+Table RS.V.37 String Functions
+
+The =strtok()= function is a bit unusual in how it is used, so here is a short example:
+
+
+
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char data[] = "  C ist  too#muchnfun!";
+    const char tokseps[] = " tn#"; /* separators  */
+    char * pt;
+
+    puts(data);
+    pt = strtok(data,tokseps);       /* intial call  */
+    while (pt)                       /* quit on NULL */
+    {
+        puts (pt);                   /* show token   */
+        pt = strtok(NULL, tokseps);  /* next token   */
+    }
+    return 0;
+}
+
+Here is the output:
+
+  C is    too#much
+fun!
+C
+is
+too
+much
+fun!
+
+*** Type-Generic Math: tgmath.h (C99)
+
+
+The =math.h= and =complex.h= libraries provide many instances of functions that differ in type only. For example, the following six functions all compute sines:
+
+
+
+double sin(double);
+float sinf(float);
+long double sinl(long double);
+double complex csin(double complex);
+float csinf(float complex);
+long double csinl(long double complex);
+
+The =tgmath.h= header file defines macros that expand a generic call to the appropriate function as indicated by the argument type. The following code illustrates using the =sin()= macro, which expands into various forms of the sine function:
+
+
+
+#include <tgmath.h>
+...
+double dx, dy;
+float fx, fy;
+long double complex clx, cly;
+dy = sin(dx);   // expands to dy = sin(dx)  (the function)
+fy = sin(fx);   // expands to fy = sinf(fx)
+cly = sin(clx); // expands to cly = csinl(clyx)
+
+The header defines generic macros for three classes of functions. The first class consists of =math.h= and =complex.h= functions defined with six variations, using =l= and =f= suffixes and the =c= prefix, as with the previous =sin()= example. In this case, the generic macro has the same name as the type =double= version of the function.
+
+The second class consists of =math.h= functions defined with three variations, using the =l= and =f= suffixes and having no complex counterparts, such as =erf()=. In this case, the macro name is the same as the suffix-free function, =erf()=, in this example. The effect of using such a macro with a complex argument is undefined.
+
+The third class consists of =complex.h= functions defined with three variations, using the =l= and =f= suffixes and having no real counterparts, such as =cimag()=. In this case, the macro name is the same as the suffix-free function, =cimag()=, in this example. The effect of using such a macro with a real argument is undefined.
+
+[[file:app02.html#app02tab38][Table RS.V.38]] lists the generic macro functions.
+
+[[file:graphics/rs-vtab38.jpg]]
+Table RS.V.38 Generic Math Functions
+
+Prior to C11, implementers had to resort to extensions to the standard to implement generic macros. But the addition of the =_Generic= expression allows a straightforward implementation using standard C11.
+
+*** Threads: threads.h (C11)
+
+
+This header file, along with =stdatomic.h=, provides support for concurrent programming. This topic is well beyond the scope of this book, but, in general terms, this header supports multiple threads of execution, which, in principle, could be assigned to different processors.
+
+*** Date and Time: time.h
+
+
+The =time.h= header file defines three macros. The first, also defined in many other header files, is =NULL=, representing the null pointer. The second macro is =CLOCKS_PER_SEC=; dividing the value returned by =clock()= by this macro yields time in seconds. The third (C11) is =TIME_UTC=, a positive integer constant designating the UTC (Coordinated Universal Time) time base, a potential argument to the =timespec_get()= function.
+
+The UTC is the present primary world time standard. It is used, for example, in aviation, weather forecasts, synchronizing computer clocks, and as a common standard for the Internet and the World Wide Web.
+
+The header file defines the types listed in [[file:app02.html#app02tab39][Table RS.V.39]].
+
+[[file:graphics/rs-vtab39.jpg]]
+Table RS.V.39 Types Defined in =time.h=
+
+The =timespec= structure contains at least the two members shown in [[file:app02.html#app02tab40][Table RS.V.40]].
+
+[[file:graphics/rs-vtab40.jpg]]
+Table RS.V.40 Members of a =timespec= Structure
+
+The components of the calendar type are referred to as /broken-down time/. [[file:app02.html#app02tab41][Table RS.V.41]] lists the required members of a =struct tm= structure.
+
+[[file:graphics/rs-vtab41.jpg]]
+Table RS.V.41 Members of a =struct tm= Structure
+
+The term /calendar time/ represents the current date and time; for example, it could be the number of seconds elapsed since the first second of 1900. The term /local time/ is the calendar time expressed for a local time zone. [[file:app02.html#app02tab42][Table RS.V.42]] lists the time functions.
+
+[[file:graphics/rs-vtab42.jpg]]
+
+[[file:graphics/rs-vtab42a.jpg]]
+
+Table RS.V.42 Time Functions
+
+[[file:app02.html#app02tab43][Table RS.V.43]] shows the format specifiers used by the =strftime()= function. Many replacement values, such as month names, depend on the current locale.
+
+[[file:graphics/rs-vtab43.jpg]]
+
+[[file:graphics/rs-vtab43a.jpg]]
+
+Table RS.V.43 Format Specifiers Used by the =strftime()= Function
+
+*** Unicode Utilities: uchar.h (C11)
+
+
+The C99 =wchar.h= header file provides two means of supporting larger character sets. C11 adds support specifically targeting Unicode by providing types suitable for UTF-16 and UTF-32 encoding (see [[file:app02.html#app02tab44][Table RS.V.44]]).
+
+[[file:graphics/rs-vtab44.jpg]]
+Table RS.V.44 Types Declared in =uchar.h=
+
+The header file declares functions (see [[file:app02.html#app02tab45][Table RS.V.45]]) for converting multibyte character strings to =chart16_t= and =char32_t= formats, and vice versa.
+
+[[file:graphics/rs-vtab45.jpg]]
+Table RS.V.45 Wide-Character, Multibyte Conversion Functions
+
+*** Extended Multibyte and Wide-Character Utilities: wchar.h (C99)
+
+
+Each implementation has a basic character set, and the C =char= type is required to be wide enough to handle that set. An implementation may also support an extended character set, and these characters may have a representation that requires more than one byte per character. Multibyte characters can be stored along with single-byte characters in an ordinary array of =char=, with particular byte values indicating the presence and size of a multibyte character. The interpretation of multibyte characters can depend on a /shift state/. In the initial shift state, single-byte characters retain their usual interpretation. Specific multibyte characters can then change the shift state. A particular shift state stays in effect until explicitly changed.
+
+The =wchar_t= type provides a second way of representing extended characters, with the type being wide enough to represent the encoding of any member of the extended character set. This wide-character representation allows single characters to be stored in a =wchar_t= variable and strings of wide characters to be stored in an array of =wchar_t=. The wide character representation of a character need not be the same as the multibyte representation, because the latter may use shift states whereas the former does not.
+
+The =wchar.h= header file provides facilities for handling both representations of extended characters. It defines the types shown in [[file:app02.html#app02tab46][Table RS.V.46]]. (Some of these types are also defined in other header files.)
+
+[[file:graphics/rs-vtab46.jpg]]
+Table RS.V.46 Types Defined in =wchar.h=
+
+The header file also defines some macros, as shown in [[file:app02.html#app02tab47][Table RS.V.47]].
+
+[[file:graphics/rs-vtab47.jpg]]
+Table RS.V.47 Macros Defined in =wchar.h=
+
+The library provides input/output functions that are analogs to the standard I/O functions described in =stdio.h=. In those cases that a standard I/O function returns =EOF=, the corresponding wide-character function returns =WEOF=. [[file:app02.html#app02tab48][Table RS.V.48]] lists these functions.
+
+[[file:graphics/rs-vtab48.jpg]]
+
+[[file:graphics/rs-vtab48a.jpg]]
+
+Table RS.V.48 Wide-Character I/O Functions
+
+There is one wide-character I/O function without a standard I/O counterpart:
+
+int fwide(FILE *stream, int mode);
+
+If =mode= is positive, it first attempts to make the stream represented by the parameter =stream-=/wide-character oriented/; if =mode= is negative, it first attempts to make the stream /byte oriented/; if =mode= is 0, it doesn't attempt to change the stream orientation. It attempts to change the orientation only if the stream initially has none. In all cases, it returns a positive value if the stream is wide-character oriented, a negative value if the stream is byte oriented, and zero if the stream has no orientation.
+
+The header provides several string conversion and manipulation functions modeled on those in =string.h=. In general, =str= in the =string.h= identifier is replaced with =wcs=, so =wcstod()= is the wide character version of the =strtod()= function. [[file:app02.html#app02tab49][Table RS.V.49]] lists these functions.
+
+[[file:graphics/rs-vtab49.jpg]]
+
+[[file:graphics/rs-vtab49a.jpg]]
+
+Table RS.V.49 Wide-Character String Utilities
+
+The header file also declares a one-time function modeled on the =strftime()= function from the =time.h= header file:
+
+
+
+size_t wcsftime(wchar_t * restrict s, size_t maxsize,
+const wchar_t * restrict format,
+const struct tm * restrict timeptr);
+
+Finally, the header file declares several functions for converting wide-character strings to multibyte strings, and vice versa, as shown in [[file:app02.html#app02tab50][Table RS.V.50]].
+
+[[file:graphics/rs-vtab50.jpg]]
+
+[[file:graphics/rs-vtab50a.jpg]]
+
+[[file:graphics/rs-vtab50b.jpg]]
+
+Table RS.V.50 Wide-Character, Multibyte Conversion Functions
+
+*** Wide Character Classification and Mapping Utilities: wctype.h (C99)
+
+
+The =wctype.h= library provides wide character analogs to the character functions of =ctype.h= along with a few additional functions. It also defines the three types and the macro shown in [[file:app02.html#app02tab51][Table RS.V.51]].
+
+[[file:graphics/rs-vtab51.jpg]]
+Table RS.V.51 =wctype.h= Types and Macros
+
+The character classifications in this library return true (nonzero) if the wide-character argument satisfies the conditions described by the function. In general, the wide-character function returns true if the corresponding =ctype.h= function returns true for the single-byte character corresponding to the wide character. [[file:app02.html#app02tab52][Table RS.V.52]] lists these functions.
+
+[[file:graphics/rs-vtab52.jpg]]
+Table RS.V.52 Wide-Character Classification Functions
+
+The library also includes two classification functions that are termed =extensible= because they use the =LC_CTYPE= value of the current locale to classify characters. [[file:app02.html#app02tab53][Table RS.V.53]] lists these functions.
+
+[[file:graphics/rs-vtab53.jpg]]
+Table RS.V.53 Extensible Wide-Character Classification Functions
+
+The valid arguments for =wctype()= consist of the names of the wide-character classification functions stripped of the =isw= prefix and expressed as strings. For example, =wctype("alpha")= characterizes the class of characters tested by the =iswalpha()= function. Therefore, the call
+
+iswctype(wc, wctype("alpha"))
+
+is equivalent to the call
+
+iswalpha(wc)
+
+except that characters are classified using the =LC_CTYPE= categories.
+
+The library provides four conversion-related functions. Two are wide-character equivalents to =toupper()= and =tolower()= from the =ctype.h= library. The third is an extensible version that uses the =LC_CTYPE= setting from the locale to determine which characters are considered uppercase or lowercase. The fourth provides suitable classification arguments for the third. [[file:app02.html#app02tab54][Table RS.V.54]] lists these functions.
+
+[[file:graphics/rs-vtab54.jpg]]
+Table RS.V.54 Wide-Character Transformation Functions
+
+** Section VI: Extended Integer Types
+
+
+As described in [[file:ch03.html#ch03][Chapter 3]], “[[file:ch03.html#ch03][Data and C]],” the C99 header file =inttypes.h= provides a systematic set of alternative names for the various integer types. These names describe the properties of the type more clearly than do the standard names. For example, type =int= might be 16 bits, 32 bits, or 64 bits, but the =int32_t= type always is 32 bits.
+
+More precisely, the =inttypes.h= header file defines macros that can be used with =scanf()= and =printf()= to read and write integers of these types. This header file includes the =stdlib.h= header file, which provides the actual type definitions. The formatting macros are strings that can be concatenated with other strings to produce the proper formatting directions.
+
+The types are defined using =typedef=. For example, a system with a 32-bit =int= might use this definition:
+
+typedef int int32_t;
+
+The format specifiers are defined using the =#define= directive. For example, a system using the previous definition for =int32_t= might have this definition:
+
+
+
+#define PRId32 "d"   // output specifier
+#define SCNd32 "d"   // input specifier
+
+Using these definitions, you could declare an extended integer variable, input a value, and display it as follows:
+
+
+
+int32_t cd_sales;  // 32-bit integer
+scanf("%" SCNd32, &cd_sales);
+printf("CD sales = %10" PRId32 " unitsn", cd_sales);
+
+String concatenation then combines strings, if needed, to get the final control string. Thus, the previous code gets converted to the following:
+
+
+
+int cd_sales;  // 32-bit integer
+scanf("%d", &cd_sales);
+printf("CD sales = %10d unitsn", cd_sales);
+
+If you moved the original code to a system with a 16-bit =int=, that system might define =int32_t= as =long=, =PRId32= as ="ld"=, and =SCNd32= as ="ld"=. But you could use the same code, knowing that it uses a 32-bit integer.
+
+The rest of this reference section lists the extended types along with the format specifiers and macros representing the type limits.
+
+*** Exact-Width Types
+
+
+One set of =typedef=s identify types with precise sizes. The general form is =int=N=_t= for signed types and =uint=N=_t= for unsigned types, with N indicating the number of bits. Note, however, that not all systems can support all the types. For example, there could be a system for which the smallest usable memory size is 16 bits; such a system would not support the =int8_t= and =uint8_t= types. The format macros can use either =d= or =i= for the signed types, so =PRIi8= and =SCNi8= also work. For the unsigned types, you can substitute =o=, =x=, or =X= for =u= to obtain the =%o=, =%x=, or %=X= specifier instead of =%u=. For example, you can use =PRIX32= to print a =uint32_t= type value in hexadecimal format. [[file:app02.html#app02tab01a][Table RS.VI.1]] lists the exact-width types, format specifiers, and value limits.
+
+[[file:graphics/rs-v1tab01.jpg]]
+Table RS.VI.1 Exact-Width Types
+
+*** Minimum-Width Types
+
+
+The minimum-width types guarantee a type that is at least a certain number of bits in size. These types always exist. For example, a system that does not support 8-bit units could define =int_least_8= as a 16-bit type. [[file:app02.html#app02tab02a][Table RS.VI.2]] lists minimum-width types, format specifiers, and value limits.
+
+[[file:graphics/rs-v1tab02.jpg]]
+Table RS.VI.2 Minimum-Width Types
+
+*** Fastest Minimum-Width Types
+
+
+For a particular system, some integer representations can be faster than others. For example, =int_least16_t= might be implemented as =short=, but the system might do arithmetic faster using type =int=. So =inttypes.h= also defines the fastest type for representing at least a certain number of bits. These types always exist. In some cases, there might be no clear-cut choice for fastest; in that case, the system simply specifies one of the choices. [[file:app02.html#app02tab03a][Table RS.VI.3]] lists fastest minimum-width types, format specifiers, and value limits.
+
+[[file:graphics/rs-v1tab03.jpg]]
+Table RS.VI.3 Fastest Minimum-Width Types
+
+*** Maximum-Width Types
+
+
+Sometimes you may want the largest integer type available. [[file:app02.html#app02tab04a][Table RS.VI.4]] lists these types. They may, in fact, be wider than =long long= or =unsigned long long=, because a system may provide additional types wider than the required types.
+
+[[file:graphics/rs-v1tab04.jpg]]
+Table RS.VI.4 Maximum-Width Types
+
+*** Integers That Can Hold Pointer Values
+
+
+The =inttypes.h= header file (via the included =stdint.h= header file) defines two integer types, listed in [[file:app02.html#app02tab05a][Table RS.VI.5]], that can hold pointer values accurately. That is, if you assign a type =void *= value to one of these types, and then assign the integer type back to the pointer, no information is lost. Either or both types might not exist.
+
+[[file:graphics/rs-v1tab05.jpg]]
+Table RS.VI.5 Integer Types for Holding Pointer Values
+
+*** Extended Integer Constants
+
+
+You can indicate a long constant with the =L= suffix, as in =445566L=. How do you indicate that a constant is type =int32_t=? Use macros defined in =inttypes.h=. For example, the expression =INT32_C(445566)= expands to a type =int32_t= constant. Essentially, the macro is a type cast to the underlying type---that is, to the fundamental type that represents =int32_t= in a particular implementation.
+
+The macro names are formed by taking the type name, replacing the =_t= with =_C=, and making all the letters uppercase. For example, to make =1000= a type =uint_least64_t= constant, use the expression =UINT_LEAST64_C(1000)=.
+
+** Section VII: Expanded Character Support
+
+
+C wasn't designed originally as an international programming language. Its choice of characters was based on the more or less standard U.S. keyboard. The international popularity of C, however, has led to several extensions supporting different and larger character sets. This section of the reference provides an overview of these additions.
+
+*** Trigraph Sequences
+
+
+Some keyboards don't provide all the symbols used in C. Therefore, C provides alternative representations of several symbols with a set of three-character sequences, called /trigraph sequences/. [[#app02tab01c][Table RS.VII.1]] lists these trigraphs.
+
+[[file:graphics/rs-v11tab01.jpg]]
+Table RS.VII.1 Trigraph Sequences
+
+C replaces all occurrences of these trigraphs in a source code file, even in a quoted string, with the corresponding symbol. Thus,
+
+
+
+??=include <stdio.h>
+??=define LIM 100
+int main()
+??<
+    int q??(LIM??);
+    printf("More to come.??/n");
+    ...
+??>
+
+becomes the following:
+
+
+
+#include <stdio.h>
+#define LIM 100
+int main()
+{
+    int q[LIM];
+    printf("More to come.n");
+    ...
+}
+
+You may have to turn on a compiler flag to activate this feature.
+
+*** Digraphs
+
+
+Recognizing the clumsiness of the trigraph system, C99 provides two-character tokens, called /digraphs/, that can be used instead of certain standard C punctuators. [[#app02tab02c][Table RS.VII.2]] lists these digraphs.
+
+[[file:graphics/rs-v11tab02.jpg]]
+Table RS.VII.2 Digraphs
+
+Unlike trigraphs, digraphs within a quoted string have no special meaning. Thus,
+
+%:include <stdio.h>
+%:define LIM 100
+int main()
+<%
+    int q<:LIM:>;
+    printf("More to come.:>");
+    ...
+%>
+
+behaves the same as the following:
+
+
+
+#include <stdio.h>
+#define LIM 100
+int main()
+{
+    int q[LIM];
+ printf("More to come.:>");  // :> just part of string
+    ...
+}                            // :> same as }
+
+*** Alternative Spellings: iso646.h
+
+
+Using trigraph sequences, you can write the =||= operator as =??!??!=, which is a bit unappealing. C99, via the =iso646.h= header ([[file:app02.html#app02lev1sec5][Section V]], [[file:app02.html#app02tab11][Table RS.V.11]]), provides macros that expand into operators. The standard refers to these macros as /alternative spellings/.
+
+If you include the =iso646.h= header file, a statement such as
+
+if(x == M1 or x == M2)
+    x and_eq 0XFF;
+
+expands to the following:
+
+if(x == M1 || x == M2)
+ x &= 0XFF;
+
+*** Multibyte Characters
+
+
+The standard describes a multibyte character as a sequence of one or more bytes representing a member of the extended character set of either the source or execution environment. The source environment is the one in which you prepare the source code; the execution environment is the one in which you run the compiled program. The two can be different. For example, you could develop a program in one environment with the intent of running in another environment. The extended character set is a superset of the basic character set that C requires.
+
+An implementation may provide an extended character set that allows you, for example, to enter keyboard characters not corresponding to the basic character set. These can be used in string literals and character constants and can appear in files. An implementation may also provide multibyte equivalents of characters in the basic character set that can be used instead of trigraphs or digraphs.
+
+A German implementation, for example, might allow you to use an umlauted character in a string:
+
+
+
+puts("eins zwei drei vier fünf");
+
+In general, the extended character sets available to a program depend upon the locale setting.
+
+*** Universal Character Names (UCNs)
+
+
+Multibyte characters can be used in strings but not in identifiers. Universal character names (UCNs) are a C99 addition that allows you to use characters from an extended character set as part of identifier names. The system extends the escape sequence concept to allow encoding of characters from the ISO/IEC 10646 standard. This standard is the joint work of the International Organization for Standardization (ISO) and the International Electrotechnical Commission (IEC) and provides numeric codes for a vast list of characters. The 10646 standard coordinates closely with Unicode (see the sidebar).
+
+--------------
+
+Unicode and ISO 10646
+
+Unicode provides a solution to the representation of various character sets by providing a standard numbering system for a great number of characters and symbols, grouping them by type. For example, the ASCII code is incorporated as a subset of Unicode, so U.S. Latin characters such as A and Z have the same representation under both systems. But Unicode also incorporates other Latin characters, such as those used in European languages; characters from other alphabets, including Greek, Cyrillic, Hebrew, Cherokee, Arabic, Thai, and Bengali; and ideographs, such as those used for Chinese and Japanese. So far Unicode represents more than 110,000 symbols and 100 scripts, and it is still under development. If you want to know more, you can check the Unicode Consortium's website, at [[http://www.unicode.org][www.unicode.org]].
+
+Unicode assigns a number, called a /code point/, for each of its characters. The typical notation for Unicode code points looks like this: U-222B. The U identifies this as a Unicode character, and the 222B is the hexadecimal number for the character, an integral sign, in this case.
+
+The International Organization for Standardization (ISO) established a working group to develop ISO 10646, also a standard for coding multilingual text. The ISO 10646 group and the Unicode group have worked together since 1991 to keep their standards synchronized with one another.
+
+--------------
+
+There are two forms of UCN sequences. The first is =u= hexquad, where hexquad is a sequence of four hexadecimal digits; =u00F6= is an example. The second is =U= hexquadhexquad; =U0000AC01= is an example. Because each hexadecimal digit corresponds to four bits, the =u= form can be used for codes representable by a 16-bit integer, and the =U= form can be used for codes representable by a 32-bit integer.
+
+If your system implements UCNs and includes the desired characters in the extended character set, UCNs can be used in strings, character constants, and identifiers:
+
+
+
+wchar_t valueu00F6u00F8 = L'u00f6';
+
+*** Wide Characters
+
+
+C99, through the =wchar.h= and =wctype.h= libraries, provides yet more support for larger character sets through the use of wide characters. These header files define =wchar_t= as an integer type; the exact type is implementation dependent. Its intended use is to hold characters from an extended character set that is a superset of the basic character set. By definition, the =char= type is sufficient to handle the basic character set. The =wchar_t= type may need more bits to handle a greater range of code values. For example, =char= might be an 8-bit byte and =wchar_t= might be a 16-bit =unsigned short=.
+
+Wide-character constants and string literals are indicated with an =L= prefix, and you can use the =%lc= and =%ls= modifiers to display wide-character data:
+
+
+
+wchar_t wch = L'I';
+wchar_t w_arr[20] = L"am wide!";
+printf("%lc %lsn", wch, w_arr);
+
+If, for example, =wchar_t= is implemented as a 2-byte unit, the 1-byte code for ='I'= would be stored in the low-order byte of =wch=. Characters not from the standard set might require both bytes to hold the character code. You could use universal character codes, for example, to indicate characters whose code values exceed the =char= range:
+
+
+
+wchar_t w = L'u00E2'; /* 16-bit code value */
+
+An array of =wchar_t= values can hold a wide-character string, with each element holding a single wide-character code. A =wchar_t= value with a code value of =0= is the =wchar_t= equivalent of the null character, and it is termed a /null wide character/. It is used to terminate wide-character strings.
+
+You can use the =%lc= and =%ls= specifiers to read wide characters:
+
+wchar_t wch1;
+wchar_t w_arr[20];
+puts("Enter your grade:");
+scanf("%lc", &wch1);
+puts("Enter your first name:");
+scanf("%ls",w_arr);
+
+The =wchar.h= header file offers further wide-character support. In particular, it provides wide-character I/O functions, wide-character conversion functions, and wide-character string-manipulation functions. For the most part, they are wide-character equivalents of existing functions. For example, you can use =fwprintf()= and =wprintf()= for output and =fwscanf()= and =wscanf()= for input. The main differences are that these functions require a wide-character control string and they deal with input and output streams of wide characters. For example, the following displays information as a sequence of wide characters:
+
+
+
+wchar_t * pw = L"Points to a wide-character string";
+int dozen = 12;
+wprintf(L"Item %d: %lsn", dozen, pw);
+
+Similarly, there are =getwchar()=, =putwchar()=, =fgetws()=, and =fputws()= functions. The header defines a =WEOF= macro that plays the same role that =EOF= does for byte-oriented I/O. It's required to be a value that does not correspond to a valid character. Because it is possible that all values of =wchar_t= type are valid characters, the library defines a =wint_t= type that can encompass all =wchar_t= values plus =WEOF=.
+
+There are equivalents to the =string.h= library functions. For example, =wcscpy(ws2, ws1)= copies the wide-character string pointed to by =ws1= to the wide-character array pointed to by =ws2=. Similarly, there is a =wcscmp()= function for comparing wide strings, and so on.
+
+The =wctype.h= header file adds character-classification functions to the mix. For example, =iswdigit()= returns true if its wide-character argument is a digit, and the =iswblank()= function returns true if its argument is a blank. The standard values for a blank are a space, written as =L' '=, and a horizontal tab, written as =L't'=.
+
+The C11 standard, through the =uchar.h= header file, provides additional wide character support by defining two types designed to match two common Unicode encoding formats. The first type, =char16_t=, is the smallest available unsigned integer type that can hold a 16-bit code. It can be used with the hexquad UCN form and the Unicode UTF-16 encoding scheme.
+
+char16_t = 'u00F6';
+
+The second type, =char32_t=, is the smallest available unsigned integer type that can hold a 32-bit code. It can be used with the hexquad UCN form and the Unicode UTF-32 encoding scheme.
+
+char32_t = 'U0000AC01';
+
+The prefixes =u= and =U= can be used to denote =char16_t= and =char32_t= strings, respectively.
+
+
+
+char16_t ws16[11] = u"Tannhu00E4user";
+char32_t ws32[13] = U"cafU000000E9 au lait";
+
+Note these two types are more specific than =wchar_t=. For example, =wchar_t= might be wide enough for 32-bit codes on one system but only wide enough for 16-bit codes on another. Also, the two new types are compatible with C++ usage.
+
+*** Wide Characters and Multibyte Characters
+
+
+Wide characters and multibyte characters are two different approaches to dealing with extended character sets. A multibyte character, for example, might be a single byte, two bytes, three bytes, or more. All wide characters will have just one width. Multibyte characters might use a shift state (that is, a byte that determines how subsequent bytes are interpreted); wide characters don't have a shift state. A file of multibyte characters would be read into an ordinary array of =char= using the standard input functions; a file of wide characters would be read into a wide-character array using one of the wide-character input functions.
+
+C99, through the =wchar.h= library, provides functions for converting between the multibyte and =wchar_t= representations. The =mbrtowc()= function converts a multibyte character to a wide character, and the =wcrtomb()= function converts a wide character to a multibyte character. Similarly, the =mbstrtowcs()= function converts a multibyte string to a wide character string, and the =wcstrtombs()= function converts a wide character string to a multibyte string.
+
+C11, through the =uchar.h= library, provides functions for converting between multibyte and =char16_t= representations and between multibyte and =char32_t= representations.
+
+** Section VIII: C99/C11 Numeric Computational Enhancements
+
+
+Historically, FORTRAN has been the premier language for numerical scientific and engineering computation. C90 brought C computational methods into closer agreement with FORTRAN. For example, the specification of floating-point characteristics used in =float.h= is based on the model developed by the FORTRAN standardization committee. The C99 and C11 standards continue the work of enhancing C's appropriateness for computational work. For example variable-length arrays, added in C99 but made optional in C11, correspond better than traditional C arrays to FORTRAN usage. (C11 specifies a =__STDC_NO_VLA__= macro that evaluates to 1 if the implementation doesn't support variable length arrays.)
+
+*** The IEC Floating-Point Standard
+
+
+The International Electotechnical Committee (IEC) has published a standard for floating-point calculations (IEC 60559). The standard includes discussion of floating-point formats, precision, NaNs, infinities, rounding practices, conversions, exceptions, recommended functions and algorithms, and so on. C99 accepts this standard as a guide to the C implementation of floating-point calculations. Most of the C99 additions to floating-point facilities are part of this effort, such as the =fenv.h= header file and several of the new math functions. Also, the =float.h= header defines several macros relating to the IEC floating-point model.
+
+**** The Floating-Point Model
+
+
+Let's take a quick look at the floating-point model. The standard visualizes a floating-point value /x/ as being a power of a number base times a fraction in that number base, rather like C's E-notation, in which we can write 876.54 as 0.87654E3. As you might expect, the formal representation looks more formidable:
+
+[[file:graphics/990equ01.jpg]]
+
+Briefly, this represents a number as a product of a power, or exponent, /e/, of the number base, /b/, multiplied by a /significand/, a multidigit fraction.
+
+Here are the meanings of the various components:
+
+/s/ is the sign (±1).
+/b/ is the /radix/, or number base used. The most common value is 2 because floating-point processors commonly use binary math.
+/e/ represents an integer exponent. (It shouldn't be confused with numeric constant e used as a base for natural logarithms). It will be limited to a range having a minimum and maximum value. Those values will depend on the number of bits set aside to store the exponent.
+/f/_{k} represent the possible digits for base /b/; for example, in base 2 the possible digits are 0 and 1, and in hexadecimal, the possible digits are 0 through F.
+/p/ is the precision, the number of base /b/ digits used to represent the significand. Its value will be limited by the number of bits set aside to store the significand.
+
+Understanding this representation is key to understanding the contents of =float.h= and =fenv.h=, so let's look at two examples illustrating how the floating-point representation works.
+
+First, suppose the number base /b/, or radix, is 10. And suppose the precision /p/ is 5. Then the value 24.51 could be written this way:
+
+(+1)10^{3}(2/10 + 4/100 + 5/1000 + 1/10000 + 0/100000)
+
+The computer, assuming it can store decimal digits, could store the sign, the exponent 3, and the five /f/_{k} values 2, 4, 5, 1, and 0. (Here /f/_{1} is 2, /f/_{2} is 4, etc.) Thus, the significand is 0.24510. Multiplying that by 10^{3} yields 24.51.
+
+Next, suppose, as is more common, that the radix /b/ is 2. Suppose /p/ is 7, the exponent is 5, and the significand is stored as 1011001, using 7 binary digits, as specified by /p/. And suppose the sign is positive. Then we can construct the number per the formula above:
+
+x = (+1)2^{5}(1/2 +0/4 + 1/8 + 1/16 + 0/32 + 0/64 + 1/128)
+= 32(1/2 +0/4 + 1/8 + 1/16 + 0/32 + 0/64 + 1/128)
+= 16 + 0 + 4 + 2 +0 + 0 + ¼ = 22.25
+
+Many of the =float.h= macros refer to this representation. For instance, =FLT_RADIX= is /b/, the number base used, and =FLT_MANT_DIG= is /p/, the number of digits (base /b/) in the signficand, for a =float= value.
+
+**** Normal and Subnormal Values
+
+
+The concept of a /normalized floating-point value/ plays an important role, so let's investigate it. For simplicity, let's suppose the system uses base 10 (/b/ = =FLT_RADIX= = 10) and that the significand uses 5 decimal digits for a float value (/p/ = =FLT_MANT_DIG= = 5). (The standard requires greater precision than this, but our simplicity disclaimer allows us to ignore this requirement.) Consider the following ways of representing the value 31.841:
+
+exponent = 3, significand = .31841 (.31841E3)
+exponent = 4, significand = .03184 (.03184E4)
+exponent = 5, significand = .00318 (.00318E5)
+
+Clearly, the first method is the most precise because it uses all five available digits in the significand. A normalized floating-point nonzero value is one for which the first digit in the significand is nonzero, and that's how floating-point values normally are stored.
+
+Now suppose the minimum exponent (=FLT_MIN_EXP=) is -10. Then the smallest normalized value is this:
+
+exponent = -10, significand = .10000 (.10000E-10)
+
+Normally, multiplying or dividing by 10 means raising or lowering the exponent, but, in this case, if you divide by 10, you can't lower the exponent further. However, you can change the significand to get this representation:
+
+exponent = -10, significand = 0.0100 (.01000E-10)
+
+This number would be termed /subnormal/ because it's not using the full precision of the significand. For instance, dividing 0.12343E-10 by 10 yields .01234E-10, and a digit of information has been lost.
+
+For this particular example, 0.1000E-10 is the smallest nonzero normal representation (=FLT_MIN=), and the smallest nonzero subnormal value is 0.00001E-10 (=FLT_TRUE_MIN=).
+
+The =float.h= macros =FLT_HAS_SUBNORM=, =DBL_HAS_SUBNORM=, and =LDBL_HAS_SUBNORM= characterize how an implementation handles subnormal values. Here are the possible values for these macros and their meanings:
+
+[[file:graphics/992tab01.jpg]]
+
+The =math.h= library provides means, including the =fpclassify()= and =isnormal()= macros, enabling one to identify when a program produces subnormal values, thus losing precision.
+
+**** Evaluation Schemes
+
+
+The =float.h= macro =FLT_EVAL_METHOD= indicates the scheme the implementation uses to evaluate floating-point expressions. The designated choices are these:
+
+[[file:graphics/992tab02.jpg]]
+
+An implementation is allowed to provide additional negative values to indicate other choices.
+
+Suppose, for example, your program multiplies two =float= values, assigning the result to a third =float=. Under option 1, which was what K&R C did, the two =float= values are expanded to =double=, the calculation is done using =double=, and the result is rounded to =float= when it is assigned.
+
+Under choice 0, which ANSI C made an option, the two =float= values would be multiplied as =float= and the result then assigned. This might be a faster operation than mode 1, but there might be a slight loss of precision.
+
+**** Rounding
+
+
+The =float.h= macro =FLT_ROUNDS= describes how the system handles rounding. The specified possibilities for rounding are these:
+
+[[file:graphics/993tab01.jpg]]
+
+A system with different options can define further values.
+
+Some systems provide control over the rounding scheme, and the =fenv.h= function =fesetround()= provides programming control in that case.
+
+The effects of different rounding methods probably aren't important if you are calculating how much flour you need to make 37 cakes, but they can affect, say, critical financial or scientific calculations. Clearly, the rounding method comes into play when you convert a higher precision floating-point value to a lower precision value, for example, assigning the result of a =double= calculation to a =float=. It also can come into play when you change number bases. A fraction with an exact representation in one number base might not have one in a different number base. Consider, for example, this code:
+
+float x = 0.8;
+
+The fraction 8/10, or 4/5, can be represented exactly base 10. But most computer systems will store the result in base 2, and, in that base, 4/5 is an infinitely repeating fraction:
+
+0.1100110011001100...
+
+Thus, =0.8= is rounded to an approximate value when stored in =x=, and the value can depend upon the rounding method.
+
+However, it could be that an implementation doesn't meet all the requirements of IEC 60559; for example, the underlying hardware may not be up to the task. Therefore, C99 defines two macros that can be used in preprocessor directives to check for compliance. First, the macro
+
+__STDC_IEC_559__
+
+is conditionally defined as the constant 1 if the implementation conforms to IEC 60559 floating-point specifications. Second, the macro
+
+__STDC_IEC_559_COMPLEX__
+
+is conditionally defined as the constant 1 if the implementation adheres to IEC 60559--compatible complex arithmetic.
+
+If an implementation doesn't define these macros, there is no guarantee of IEC 60559 compliance.
+
+*** The fenv.h Header File
+
+
+The =fenv.h= header file provides a means of interacting with the floating-point environment. That is, it allows you to set floating-point /control mode values/ that govern how floating-point calculations take place, and it allows you to determine the value of floating-point status flags, or /exceptions/, that report information about the effects of an arithmetic calculation. An example of a control mode setting is specifying the method used to round numbers. An example of a status flag is a flag that is set if an operation produces floating-point overflow. An operation that sets a status flag is described as /raising an exception/.
+
+The status flags and control modes are meaningful only if the hardware supports them. For example, you can't change the rounding method if the hardware doesn't have that option.
+
+You use a preprocessor directive to turn support on:
+
+#pragma STDC FENV_ACCESS ON
+
+Support stays on until the program reaches the end of the block containing the pragma, or, if the pragma is external, to the end of the file or translation unit. Alternatively, you can use the following directive to turn off support:
+
+#pragma STDC FENV_ACCESS OFF
+
+You also can issue the following pragma:
+
+
+
+#pragma STDC FENV_ACCESS DEFAULT
+
+This restores the default state for the compiler, which is implementation dependent.
+
+This facility is important for those involved in critical floating-point calculations, but of limited interest to the general user, so this appendix doesn't go into the details.
+
+*** The STDC FP_CONTRACT Pragma
+
+
+Some floating-point processors can contract a multiple-operator floating-expression into a single operation. For example, a processor might be able to evaluate the following expression in one step:
+
+x*y - z
+
+This increases the speed of the calculation, but it can decrease the predictability of the calculation. The =STDC FP_CONTRACT= pragma allows you to turn this feature on or off. The default state is implementation dependent.
+
+To turn the contraction feature off for a particular calculation, and then turn it back on again, you can do this:
+
+#pragma STDC FP_CONTRACT OFF
+val = x * y - z;
+#pragma STDC FP_CONTRACT ON
+
+*** Additions to the math.h Library
+
+
+The C90 math library, for the most part, declares functions with type =double= arguments and type =double= return values, such as the following
+
+double sin(double);
+double sqrt(double);
+
+The C99 and C11 libraries provide type =float= and type =long double= versions of all these functions. These functions use an =f= or an =l= suffix in the name, as follows:
+
+
+
+float sinf(float);              /* float version of sin()      */
+long double sinl(long double);  /* long double version of sin() */
+
+Having function families with different levels of precision allows you to choose the most efficient combination of types and functions needed for a particular purpose.
+
+C99 also added several functions commonly used in scientific, engineering, and mathematical computations. [[file:app02.html#app02tab14][Table RS.V.14]], which lists the type =double= versions of all the math functions, identifies the C99 additions. In many cases, the functions return values that could be calculated using existing functions, but the new functions do so faster or more accurately. For instance, =log1p(x)= represents the same value as =log(1 + x)=, but =log1p(x)= uses a different algorithm, one that is more accurate for small values of =x=. So you would use the =log()= function for calculations in general, but you would use =log1p()= for small values of =x= if high accuracy were critical.
+
+In addition to these functions, the math library defines several constants and functions related to classifying numbers and rounding them. For example, a value can be classified as being infinite, not a number (=NaN=), normal, subnormal, and true zero. (=NaN= is a special value indicating that a value is not a number; for example, =asin(2.0)= returns =NaN= because =asin()= is defined only for arguments in the range =-1= to =1=. A subnormal number is one whose magnitude is smaller than the smallest value that can be represented to full precision.) There are also specialized comparison functions that behave differently from the standard relational operators when one or more arguments are abnormal values.
+
+You can use C99's classification schemes to detect computational irregularities. For example, the =isnormal()= macro from =math.h= returns true if its argument is a normal number. Here is code using that function to terminate a loop when a number becomes subnormal:
+
+
+
+#include <math.h>  // for isnormal()
+...
+float num = 1.7e-19;
+float numprev = num;
+
+while (isnormal(num))  // while num has full float precision
+{
+    numprev = num;
+    num /= 13.7f;
+}
+
+In short, there is expanded support for detailed control of how floating-point calculations are handled.
+
+*** Support for Complex Numbers
+
+
+A /complex number/ is a number with a real part and an imaginary part. The real part is an ordinary real number, such as what's represented by the floating-point types. The imaginary part represents an imaginary number. An imaginary number, in turn, is a multiple of the square root of --1. In mathematics, complex numbers are often written in the form =4.2 + 2.0=i; i symbolically represents the square root of --1.
+
+C99 supports three complex types (under C11 this support is optional):
+
+[[file:graphics/squf.jpg]] =float _Complex=
+
+[[file:graphics/squf.jpg]] =double _Complex=
+
+[[file:graphics/squf.jpg]] =long double _Complex=
+
+A =float _Complex= value, for example, would be stored using the same memory layout as a two-element array of =float=, with the real value stored in the first element and the imaginary value in the second element.
+
+C99 and C11 implementations may also support three imaginary types:
+
+[[file:graphics/squf.jpg]] =float _Imaginary=
+
+[[file:graphics/squf.jpg]] =double _Imaginary=
+
+[[file:graphics/squf.jpg]] =long double _Imaginary=
+
+Including the =complex.h= header file lets you use =complex= for =_Complex= and =imaginary= for =_Imaginary=.
+
+Arithmetic operations are defined for complex types following the usual rules of mathematics. For example, the value of =(a+b*I)*(c+d*I)= is =(a*c-b*d)+(b*c+a*d)*I=.
+
+The =complex.h= header file defines some macros and several functions that accept complex numbers and return complex numbers. In particular, the macro =I= represents the square root of --1. It enables you do the following:
+
+
+
+double complex c1 = 4.2 + 2.0 * I;
+float imaginary c2= -3.0 * I;
+
+C11 provides a second means, the =CMPLX()= macro, to assign values to a complex number. For example, if =re= and =im= are type =double= values, you can do this:
+
+
+
+double complex c3 = CMPLX(re, im);
+
+The intent is that the macro can handle unusual cases, such as =im= being infinite or not-a-number, better than straight assignment.
+
+The =complex.h= header file prototypes several complex functions. Many are complex equivalents of =math.h= functions, using a =c= prefix. For example, =csin()= returns the complex sine of its complex argument. Others relate specifically to the features of complex numbers. For example, =creal()= returns the real part of a complex number, and =cimag()= returns the imaginary part as a real number. That is, given that =z= is type =double complex=, the following is true:
+
+z = creal(z) + cimag(z) * I;
+
+If you are familiar with complex numbers and need to use them, you'll want to peruse the contents of =complex.h=.
+
+Here's a short program illustrating some portions of complex number support.
+
+
+
+//  complex.c --  complex numbers
+#include <stdio.h>
+#include <complex.h>
+void show_cmlx(complex double cv);
+int main(void)
+{
+    complex double v1 = 4.0 + 3.0*I;
+    double re, im;
+    complex double v2;
+    complex double sum, prod, conjug;
+
+    printf("Enter the real part of a complex number: ");
+    scanf("%lf", &re);
+    printf("Enter the imaginary part of a complex number: ");
+    scanf("%lf", &im);
+//  CMPLX() a C11 feature
+//  v2 = CMPLX(re, im);
+    v2 = re + im * I;
+    printf("v1: ");
+    show_cmlx(v1);
+    putchar('n');
+    printf("v2: ");
+    show_cmlx(v2);
+    putchar('n');
+    sum = v1 + v2;
+    prod = v1 * v2;
+    conjug =conj(v1);
+    printf("sum: ");
+    show_cmlx(sum);
+    putchar('n');
+    printf("product: ");
+    show_cmlx(prod);
+    putchar('n');
+    printf("complex congjugate of v1: ");
+    show_cmlx(conjug);
+    putchar('n');
+
+    return 0;
+}
+
+void show_cmlx(complex double cv)
+{
+    printf("(%.2f, %.2fi)", creal(cv), cimag(cv));
+    return;
+}
+
+If you use C++, you should be aware that the C++ =complex= header file provides a different way, based on classes, of handling complex numbers than does the C =complex.h= header file.
+
+** Section IX: Differences Between C and C++
+
+
+For the most part, C++ is a superset of C, meaning that a valid C program is also a valid C++ program. The main differences between C++ and C are the many additional features that C++ supports. However, there are a few areas in which the C++ rules are slightly different from the C equivalents. These are the differences that might cause a C program to work a little differently, or perhaps, not at all, if you compile it as a C++ program. And these are the differences this appendix discusses. If you compile your C programs using a compiler that does just C++ and not C, you need to know about these differences. Although they affect very few of the examples in this book, the differences can cause some instances of valid C code to lead to error messages if the code is compiled as a C++ program.
+
+The release of the C99 standard complicated issues because in some places it brought C closer to C++. For example, it allows interspersing declarations throughout the body of the code and recognizes the =//= comment indicator. In other ways, C99 increases the separation from C++---for example, by adding variable arrays and the =restrict= keyword. C11 closes the gap somewhat, for example, introducing the =char16_t= type, adding the keyword =_Alignas= and creating a macro =alignas= to match the C++ keyword. With C11 still in its infancy and C99 not fully accepted by some vendors, we're faced with differences between C90, C99, and C11, and with differences between C++11 and each of those C standards. This section will face the future and discuss some of differences between C99, C11, and C++. Meanwhile, C++ is also evolving, so the exact correspondences and differences between C and C++ will continue to change.
+
+*** Function Prototypes
+
+
+In C++, function prototyping is mandatory, but it is optional in C. This difference shows up if you leave the parentheses empty when declaring a function. In C, empty parentheses mean you are foregoing prototyping, but in C++ they mean the function has no parameters. That is, in C++, the prototype
+
+int slice();
+
+means the same as the following:
+
+int slice(void);
+
+For example, the following sequence is acceptable, if old-fashioned, in C but an error in C++:
+
+int slice();
+int main()
+{
+...
+   slice(20, 50);
+...
+}
+int slice(int a, int b)
+{
+...
+}
+
+In C, the compiler assumes you used the older form for declaring functions. In C++, the compiler assumes that =slice()= is the same as =slice(void)= and that you failed to declare the =slice(int, int)= function.
+
+Also, C++ allows you to declare more than one function of the same name, provided they have different argument lists.
+
+*** char Constants
+
+
+C treats =char= constants as type =int=, and C++ treats them as type =char=. For instance, consider this statement:
+
+char ch = 'A';
+
+In C, the constant ='A'= is stored in an =int=-sized chunk of memory; more precisely, the character code is stored in the =int=. The same numeric value is also stored in the variable =ch=, but here it occupies just one byte of memory.
+
+C++, on the other hand, uses one byte for ='A'=, as well as for =ch=. This distinction doesn't affect any of the examples in this text. However, some C programs do make use of =char= constants being type =int= by using character notation to represent integer values. For instance, if a system has a 4-byte =int=, you can do this in C:
+
+
+
+int x = 'ABCD';  /* ok in C for 4-byte int but not for C++ */
+
+The meaning of ='ABCD'= is a 4-byte =int= in which the first byte stores the character code for the letter /A/, the second byte stores the character code of /B/, and so on. Note that ='ABCD'= is something quite different from ="ABCD"=. The former is just a funny way of writing an =int= value, but the latter is a string and corresponds to the address of a 5-byte chunk of memory.
+
+Consider the following code:
+
+
+
+int x = 'ABCD';
+char c = 'ABCD';
+printf("%d %d %c %cn", x, 'ABCD', c, 'ABCD');
+
+On our system, it produces this output:
+
+1094861636 1094861636 D D
+
+This example illustrates that if you treat ='ABCD'= as an =int=, it is a 4-byte integer value, but if you treat it as type =char=, the program looks only at the final byte. Attempting to print ='ABCD'= by using the =%s= specifier caused the program to crash on our system, because the numeric value of ='ABCD'= (=1094861636=) was an out-of-bounds address.
+
+The rationale for using values such as ='ABCD'= is that it provides a means to set each byte in the =int= independently, because each character corresponds exactly to one byte. However, a better approach, because it doesn't depend on particular character codes, is to use hexadecimal values for integer constants, using the fact that each two-digit hexadecimal group corresponds to one byte. [[file:ch15.html#ch15][Chapter 15]], “[[file:ch15.html#ch15][Bit Fiddling]],” discusses this technique. (Early versions of C didn't provide hexadecimal notation, which probably is why the multicharacter constant technique was developed in the first place.)
+
+*** The const Modifier
+
+
+In C, a global =const= has external linkage, but in C++, it has internal linkage. That is, the C++ declaration
+
+const double PI = 3.14159;
+
+is equivalent to the C declaration
+
+
+
+static const double PI = 3.14159;
+
+provided both declarations are outside of any function. The C++ rule has the goal of making it simpler to use =const= in header files. If the constant has internal linkage, each file that includes the header file gets its own copy of the constant. If a constant has external linkage, one file has to have a defining declaration and the other files have to have a reference declaration, one that uses the keyword =extern=.
+
+Incidentally, C++ can use the keyword =extern= to make a =const= value have external linkage, so both languages can create constants with internal linkage and external linkage. The difference is just in which kind of linkage is used by default.
+
+One additional property of the C++ =const= is that it can be used to declare the size of an ordinary array:
+
+
+
+const int ARSIZE = 100;
+double loons[ARSIZE];  /* in C++, same as double loons[100];  */
+
+You can make the same declarations in C99, but in C99, the declaration creates a variable array.
+
+In C++, but not in C, you can use =constvalues= to initialize other =const= values:
+
+
+
+const double RATE = 0.06;          // valid C++, C
+const double STEP = 24.5;          // valid C++, C
+const double LEVEL = RATE * STEP;  // valid C++, invalid C
+
+*** Structures and Unions
+
+
+After you declare a structure or union having a tag, you can use the tag as a type name in C++:
+
+
+
+struct duo
+{
+    int a;
+    int b;
+};
+struct duo m;  /* valid C, C++ */
+duo n;        /* invalid C, valid C++ */
+
+As a result, a structure name can conflict with a variable name. For example, the following program compiles as a C program, but it fails as a C++ program because C++ interprets =duo= in the =printf()= statement as a structure type rather than as the external variable:
+
+
+
+#include <stdio.h>
+float duo = 100.3;
+int main(void)
+{
+    struct duo { int a; int b;};
+    struct duo y = { 2, 4};
+    printf ("%fn", duo);   /* ok in C, not in C++ */
+    return 0;
+}
+
+In C and in C++, you can declare one structure inside another:
+
+
+
+struct box
+{
+    struct point {int x; int y; } upperleft;
+    struct point lowerright;
+};
+
+In C, you can use either structure later, but C++ requires a special notation for the nested structure:
+
+
+
+struct box ad;     /* valid C, C++         */
+struct point dot;  /* valid C, invalid C++ */
+box::point dot;  /* invalid C, valid C++ */
+
+*** Enumerations
+
+
+C++ is stricter about using enumerations than C is. In particular, about the only useful things you can do with an =enum= variable are assign an =enum= constant to it and compare it to other values. You can't assign =int=s to an =enum= without an explicit type cast, and you can't increment an =enum= variable. The following code illustrates these points:
+
+
+
+enum sample {sage, thyme, salt, pepper};
+enum sample season;
+season = sage;            /* ok in C, C++               */
+season = 2;               /* warning in C, error in C++ */
+season = (enum sample) 3; /* ok in C, C++               */
+season++;                 /* ok in C, error in C++      */
+
+Also, C++ lets you drop the keyword =enum= when declaring a variable:
+
+
+
+enum sample {sage, thyme, salt, pepper};
+sample season;    /* invalid C, valid C++ */
+
+As was the case with structures and unions, this can lead to conflicts if a variable and an =enum= type have the same name.
+
+*** Pointer-to-void
+
+
+In C++, as in C, you can assign a pointer of any type to a pointer-to-=void=, but, unlike in C, you cannot assign a pointer-to-=void= to another type unless you use an explicit type cast. The following code illustrates these points:
+
+
+
+int ar[5] = {4, 5, 6,7, 8};
+int * pi;
+void * pv;
+pv = ar;           /* ok in C, C++            */
+pi = pv;           /* ok in C, invalid in C++ */
+pi = (int * ) pv;  /* ok in C, C++            */
+
+Another difference in C++ is that you can assign the address of a derived-class object to a base-class pointer, but that relates to features that don't even exist in C.
+
+*** Boolean Types
+
+
+In C++, the Boolean type is =bool=, and =true= and =false= are keywords. In C, the Boolean type is =_Bool=, but including the header file =stdbool.h= makes =bool=, =true=, and =false= available.
+
+*** Alternative Spellings
+
+
+In C++, the alternative spellings of =or= for =||=, and so on, are keywords. In C99 and C11, they are defined as macros, and you need to include =iso646.h= to make them available.
+
+*** Wide-Character Support
+
+
+In C++, =wchar_t= is a built-in type, and =wchar_t= is a keyword. In C99 and C11, the =wchar_t= type is defined in several header files (=stddef.h=, =stdlib.h=, =wchar.h=, =wctype.h=). Similarly, =char16_t= and =char32_t= are C++11 keywords but are macros defined in =uchar.h= in C11.
+
+C++ provides wide-character I/O support (=wchar_t=, =char16_t=, and =char32_t=) through the =iostream= header file, whereas C99 provides a completely different package of I/O support through the =wchar.h= header file.
+
+*** Complex Types
+
+
+C++ supports complex types through a complex class provided by the =complex= header file. C has built-in complex types and supports them through the =complex.h= header file. The two approaches are quite different and are not compatible with one another. The C version reflects a greater concern with the needs and practices of the numerical computation community.
+
+*** Inline Functions
+
+
+C99 has added inline function support, a feature C++ already had. However, the C99 implementation is more flexible. In C++, an inline function has internal linkage by default. If a C++ inline function appears in more than one file, it has to have the same definition, using the same tokens. For example, one file can't have a definition using a type =int= parameter and another file have a definition using a type =int32_t= parameter, even if =int32_t= is a =typedef= for =int=. C, however, allows that arrangement. Also, C, as described in [[file:ch15.html#ch15][Chapter 15]], allows a mixture of inline and external definitions that C++ doesn't allow.
+
+*** C99/11 Features Not Found in C++11
+
+
+Although C traditionally is more or less a subset of C++, the C99 standard adds several features missing in C++. Here are some of the more prominent C99/C11-only features:
+
+[[file:graphics/squf.jpg]] Designated initializers
+
+[[file:graphics/squf.jpg]] Compound initializers
+
+[[file:graphics/squf.jpg]] Restricted pointers
+
+[[file:graphics/squf.jpg]] Variable-length arrays
+
+[[file:graphics/squf.jpg]] Flexible array members
+
+[[file:graphics/squf.jpg]] Macros with a variable number of arguments
+
+--------------
+
+Note
+
+This list is just a snapshot at one particular time, and the lists of shared and unshared features will continue to evolve. For example, C++14 adds a feature similar to the C99 variable-length array.
+
+--------------
+
+
+le unusual cases, such as =im= being infinite or not-a-number, better than straight assignment.
+
+The =complex.h= header file prototypes several complex functions. Many are complex equivalents of =math.h= functions, using a =c= prefix. For example, =csin()= returns the complex sine of its complex argument. Others relate specifically to the features of complex numbers. For example, =creal()= returns the real part of a complex number, and =cimag()= returns the imaginary part as a real number. That is, given that =z= is type =double complex=, the following is true:
+
+z = creal(z) + cimag(z) * I;
+
+If you are familiar with complex numbers and need to use them, you'll want to peruse the contents of =complex.h=.
+
+Here's a short program illustrating some portions of complex number support.
+
+[[file:app02_images.html#p997pro03][Click here to view code image]]
+
+//  complex.c --  complex numbers\\
+#include <stdio.h>\\
+#include <complex.h>\\
+void show\_cmlx(complex double cv);\\
+int main(void)\\
+{\\
+    complex double v1 = 4.0 + 3.0*I;\\
+    double re, im;\\
+    complex double v2;\\
+    complex double sum, prod, conjug;\\
+\\
+    printf("Enter the real part of a complex number: ");\\
+<<page_998>>    scanf("%lf", &re);\\
+    printf("Enter the imaginary part of a complex number: ");\\
+    scanf("%lf", &im);\\
+//  CMPLX() a C11 feature\\
+//  v2 = CMPLX(re, im);\\
+    v2 = re + im * I;\\
+    printf("v1: ");\\
+    show\_cmlx(v1);\\
+    putchar('\n');\\
+    printf("v2: ");\\
+    show\_cmlx(v2);\\
+    putchar('\n');\\
+    sum = v1 + v2;\\
+    prod = v1 * v2;\\
+    conjug =conj(v1);\\
+    printf("sum: ");\\
+    show\_cmlx(sum);\\
+    putchar('\n');\\
+    printf("product: ");\\
+    show\_cmlx(prod);\\
+    putchar('\n');\\
+    printf("complex congjugate of v1: ");\\
+    show\_cmlx(conjug);\\
+    putchar('\n');\\
+\\
+    return 0;\\
+}\\
+\\
+void show\_cmlx(complex double cv)\\
+{\\
+    printf("(%.2f, %.2fi)", creal(cv), cimag(cv));\\
+    return;\\
+}
+
+If you use C++, you should be aware that the C++ =complex= header file provides a different way, based on classes, of handling complex numbers than does the C =complex.h= header file.
+
+** Section IX: Differences Between C and C++
+    :PROPERTIES:
+    :CUSTOM_ID: app02lev1sec9
+    :END:
+
+For the most part, C++ is a superset of C, meaning that a valid C program is also a valid C++ program. The main differences between C++ and C are the many additional features that C++ supports. However, there are a few areas in which the C++ rules are slightly different from the C equivalents. These are the differences that might cause a C program to work a little differently, or perhaps, not at all, if you compile it as a C++ program. And these are the differences this appendix discusses. If you compile your C programs using a compiler that does just C++ <<page_999>>and not C, you need to know about these differences. Although they affect very few of the examples in this book, the differences can cause some instances of valid C code to lead to error messages if the code is compiled as a C++ program.
+
+The release of the C99 standard complicated issues because in some places it brought C closer to C++. For example, it allows interspersing declarations throughout the body of the code and recognizes the =//= comment indicator. In other ways, C99 increases the separation from C++---for example, by adding variable arrays and the =restrict= keyword. C11 closes the gap somewhat, for example, introducing the =char16_t= type, adding the keyword =_Alignas= and creating a macro =alignas= to match the C++ keyword. With C11 still in its infancy and C99 not fully accepted by some vendors, we're faced with differences between C90, C99, and C11, and with differences between C++11 and each of those C standards. This section will face the future and discuss some of differences between C99, C11, and C++. Meanwhile, C++ is also evolving, so the exact correspondences and differences between C and C++ will continue to change.
+
+*** Function Prototypes
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec72
+     :END:
+
+In C++, function prototyping is mandatory, but it is optional in C. This difference shows up if you leave the parentheses empty when declaring a function. In C, empty parentheses mean you are foregoing prototyping, but in C++ they mean the function has no parameters. That is, in C++, the prototype
+
+int slice();
+
+means the same as the following:
+
+int slice(void);
+
+For example, the following sequence is acceptable, if old-fashioned, in C but an error in C++:
+
+int slice();\\
+int main()\\
+{\\
+...\\
+   slice(20, 50);\\
+...\\
+}\\
+int slice(int a, int b)\\
+{\\
+...\\
+}
+
+In C, the compiler assumes you used the older form for declaring functions. In C++, the compiler assumes that =slice()= is the same as =slice(void)= and that you failed to declare the =slice(int, int)= function.
+
+Also, C++ allows you to declare more than one function of the same name, provided they have different argument lists.
+
+*** <<page_1000>>char Constants
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec73
+     :END:
+
+C treats =char= constants as type =int=, and C++ treats them as type =char=. For instance, consider this statement:
+
+char ch = 'A';
+
+In C, the constant ='A'= is stored in an =int=-sized chunk of memory; more precisely, the character code is stored in the =int=. The same numeric value is also stored in the variable =ch=, but here it occupies just one byte of memory.
+
+C++, on the other hand, uses one byte for ='A'=, as well as for =ch=. This distinction doesn't affect any of the examples in this text. However, some C programs do make use of =char= constants being type =int= by using character notation to represent integer values. For instance, if a system has a 4-byte =int=, you can do this in C:
+
+[[file:app02_images.html#p1000pro01][Click here to view code image]]
+
+int x = 'ABCD';  /* ok in C for 4-byte int but not for C++ */
+
+The meaning of ='ABCD'= is a 4-byte =int= in which the first byte stores the character code for the letter /A/, the second byte stores the character code of /B/, and so on. Note that ='ABCD'= is something quite different from ="ABCD"=. The former is just a funny way of writing an =int= value, but the latter is a string and corresponds to the address of a 5-byte chunk of memory.
+
+Consider the following code:
+
+[[file:app02_images.html#p1000pro02][Click here to view code image]]
+
+int x = 'ABCD';\\
+char c = 'ABCD';\\
+printf("%d %d %c %c\n", x, 'ABCD', c, 'ABCD');
+
+On our system, it produces this output:
+
+1094861636 1094861636 D D
+
+This example illustrates that if you treat ='ABCD'= as an =int=, it is a 4-byte integer value, but if you treat it as type =char=, the program looks only at the final byte. Attempting to print ='ABCD'= by using the =%s= specifier caused the program to crash on our system, because the numeric value of ='ABCD'= (=1094861636=) was an out-of-bounds address.
+
+The rationale for using values such as ='ABCD'= is that it provides a means to set each byte in the =int= independently, because each character corresponds exactly to one byte. However, a better approach, because it doesn't depend on particular character codes, is to use hexadecimal values for integer constants, using the fact that each two-digit hexadecimal group corresponds to one byte. [[file:ch15.html#ch15][Chapter 15]], “[[file:ch15.html#ch15][Bit Fiddling]],” discusses this technique. (Early versions of C didn't provide hexadecimal notation, which probably is why the multicharacter constant technique was developed in the first place.)
+
+*** The const Modifier
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec74
+     :END:
+
+In C, a global =const= has external linkage, but in C++, it has internal linkage. That is, the C++ declaration
+
+<<page_1001>>const double PI = 3.14159;
+
+is equivalent to the C declaration
+
+[[file:app02_images.html#p1001pro01][Click here to view code image]]
+
+static const double PI = 3.14159;
+
+provided both declarations are outside of any function. The C++ rule has the goal of making it simpler to use =const= in header files. If the constant has internal linkage, each file that includes the header file gets its own copy of the constant. If a constant has external linkage, one file has to have a defining declaration and the other files have to have a reference declaration, one that uses the keyword =extern=.
+
+Incidentally, C++ can use the keyword =extern= to make a =const= value have external linkage, so both languages can create constants with internal linkage and external linkage. The difference is just in which kind of linkage is used by default.
+
+One additional property of the C++ =const= is that it can be used to declare the size of an ordinary array:
+
+[[file:app02_images.html#p1001pro02][Click here to view code image]]
+
+const int ARSIZE = 100;\\
+double loons[ARSIZE];  /* in C++, same as double loons[100];  */
+
+You can make the same declarations in C99, but in C99, the declaration creates a variable array.
+
+In C++, but not in C, you can use =constvalues= to initialize other =const= values:
+
+[[file:app02_images.html#p1001pro03][Click here to view code image]]
+
+const double RATE = 0.06;          // valid C++, C\\
+const double STEP = 24.5;          // valid C++, C\\
+const double LEVEL = RATE * STEP;  // valid C++, invalid C
+
+*** Structures and Unions
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec75
+     :END:
+
+After you declare a structure or union having a tag, you can use the tag as a type name in C++:
+
+[[file:app02_images.html#p1001pro04][Click here to view code image]]
+
+struct duo\\
+{\\
+    int a;\\
+    int b;\\
+};\\
+struct duo m;  /* valid C, C++ */\\
+duo n;        /* invalid C, valid C++ */
+
+As a result, a structure name can conflict with a variable name. For example, the following program compiles as a C program, but it fails as a C++ program because C++ interprets =duo= in the =printf()= statement as a structure type rather than as the external variable:
+
+[[file:app02_images.html#p1001pro05][Click here to view code image]]
+
+#include <stdio.h>\\
+float duo = 100.3;\\
+int main(void)\\
+{\\
+    struct duo { int a; int b;};\\
+<<page_1002>>    struct duo y = { 2, 4};\\
+    printf ("%f\n", duo);   /* ok in C, not in C++ */\\
+    return 0;\\
+}
+
+In C and in C++, you can declare one structure inside another:
+
+[[file:app02_images.html#p1002pro01][Click here to view code image]]
+
+struct box\\
+{\\
+    struct point {int x; int y; } upperleft;\\
+    struct point lowerright;\\
+};
+
+In C, you can use either structure later, but C++ requires a special notation for the nested structure:
+
+[[file:app02_images.html#p1002pro02][Click here to view code image]]
+
+struct box ad;     /* valid C, C++         */\\
+struct point dot;  /* valid C, invalid C++ */\\
+box::point dot;  /* invalid C, valid C++ */
+
+*** Enumerations
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec76
+     :END:
+
+C++ is stricter about using enumerations than C is. In particular, about the only useful things you can do with an =enum= variable are assign an =enum= constant to it and compare it to other values. You can't assign =int=s to an =enum= without an explicit type cast, and you can't increment an =enum= variable. The following code illustrates these points:
+
+[[file:app02_images.html#p1002pro03][Click here to view code image]]
+
+enum sample {sage, thyme, salt, pepper};\\
+enum sample season;\\
+season = sage;            /* ok in C, C++               */\\
+season = 2;               /* warning in C, error in C++ */\\
+season = (enum sample) 3; /* ok in C, C++               */\\
+season++;                 /* ok in C, error in C++      */
+
+Also, C++ lets you drop the keyword =enum= when declaring a variable:
+
+[[file:app02_images.html#p1002pro04][Click here to view code image]]
+
+enum sample {sage, thyme, salt, pepper};\\
+sample season;    /* invalid C, valid C++ */
+
+As was the case with structures and unions, this can lead to conflicts if a variable and an =enum= type have the same name.
+
+*** Pointer-to-void
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec77
+     :END:
+
+In C++, as in C, you can assign a pointer of any type to a pointer-to-=void=, but, unlike in C, you cannot assign a pointer-to-=void= to another type unless you use an explicit type cast. The following code illustrates these points:
+
+[[file:app02_images.html#p1002pro05][Click here to view code image]]
+
+int ar[5] = {4, 5, 6,7, 8};\\
+<<page_1003>>int * pi;\\
+void * pv;\\
+pv = ar;           /* ok in C, C++            */\\
+pi = pv;           /* ok in C, invalid in C++ */\\
+pi = (int * ) pv;  /* ok in C, C++            */
+
+Another difference in C++ is that you can assign the address of a derived-class object to a base-class pointer, but that relates to features that don't even exist in C.
+
+*** Boolean Types
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec78
+     :END:
+
+In C++, the Boolean type is =bool=, and =true= and =false= are keywords. In C, the Boolean type is =_Bool=, but including the header file =stdbool.h= makes =bool=, =true=, and =false= available.
+
+*** Alternative Spellings
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec79
+     :END:
+
+In C++, the alternative spellings of =or= for =||=, and so on, are keywords. In C99 and C11, they are defined as macros, and you need to include =iso646.h= to make them available.
+
+*** Wide-Character Support
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec80
+     :END:
+
+In C++, =wchar_t= is a built-in type, and =wchar_t= is a keyword. In C99 and C11, the =wchar_t= type is defined in several header files (=stddef.h=, =stdlib.h=, =wchar.h=, =wctype.h=). Similarly, =char16_t= and =char32_t= are C++11 keywords but are macros defined in =uchar.h= in C11.
+
+C++ provides wide-character I/O support (=wchar_t=, =char16_t=, and =char32_t=) through the =iostream= header file, whereas C99 provides a completely different package of I/O support through the =wchar.h= header file.
+
+*** Complex Types
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec81
+     :END:
+
+C++ supports complex types through a complex class provided by the =complex= header file. C has built-in complex types and supports them through the =complex.h= header file. The two approaches are quite different and are not compatible with one another. The C version reflects a greater concern with the needs and practices of the numerical computation community.
+
+*** Inline Functions
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec82
+     :END:
+
+C99 has added inline function support, a feature C++ already had. However, the C99 implementation is more flexible. In C++, an inline function has internal linkage by default. If a C++ inline function appears in more than one file, it has to have the same definition, using the same tokens. For example, one file can't have a definition using a type =int= parameter and another file have a definition using a type =int32_t= parameter, even if =int32_t= is a =typedef= for =int=. C, however, allows that arrangement. Also, C, as described in [[file:ch15.html#ch15][Chapter 15]], allows a mixture of inline and external definitions that C++ doesn't allow.
+
+*** <<page_1004>>C99/11 Features Not Found in C++11
+     :PROPERTIES:
+     :CUSTOM_ID: app02lev2sec83
+     :END:
+
+Although C traditionally is more or less a subset of C++, the C99 standard adds several features missing in C++. Here are some of the more prominent C99/C11-only features:
+
+[[file:graphics/squf.jpg]] Designated initializers
+
+[[file:graphics/squf.jpg]] Compound initializers
+
+[[file:graphics/squf.jpg]] Restricted pointers
+
+[[file:graphics/squf.jpg]] Variable-length arrays
+
+[[file:graphics/squf.jpg]] Flexible array members
+
+[[file:graphics/squf.jpg]] Macros with a variable number of arguments
+
+--------------
+
+Note
+
+This list is just a snapshot at one particular time, and the lists of shared and unshared features will continue to evolve. For example, C++14 adds a feature similar to the C99 variable-length array.
+
+--------------
+
+
