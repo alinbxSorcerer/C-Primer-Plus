@@ -1,0 +1,51 @@
+**  Contents at a Glance
+
+[[file:pref06.html#pref06][Preface]]
+
+[[file:ch01.html#ch01][1 Getting Ready]]
+
+[[file:ch02.html#ch02][2 Introducing C]]
+
+[[file:ch03.html#ch03][3 Data and C]]
+
+[[file:ch04.html#ch04][4 Character Strings and Formatted Input/Output]]
+
+[[file:ch05.html#ch05][5 Operators, Expressions, and Statements]]
+
+[[file:ch06.html#ch06][6 C Control Statements: Looping]]
+
+[[file:ch07.html#ch07][7 C Control Statements: Branching and Jumps]]
+
+[[file:ch08.html#ch08][8 Character Input/Output and Input Validation]]
+
+[[file:ch09.html#ch09][9 Functions]]
+
+[[file:ch10.html#ch10][10 Arrays and Pointers]]
+
+[[file:ch11.html#ch11][11 Character Strings and String Functions]]
+
+[[file:ch12.html#ch12][12 Storage Classes, Linkage, and Memory Management]]
+
+[[file:ch13.html#ch13][13 File Input/Output]]
+
+[[file:ch14.html#ch14][14 Structures and Other Data Forms]]
+
+[[file:ch15.html#ch15][15 Bit Fiddling]]
+
+[[file:ch16.html#ch16][16 The C Preprocessor and the C Library]]
+
+[[file:ch17.html#ch17][17 Advanced Data Representation]]
+
+*[[file:part01.html#part01][Appendixes]]*
+
+[[file:app01.html#app01][*A* Answers to the Review Questions]]
+
+[[file:app02.html#app02][*B* Reference Section]]
+
+[[file:index.html#index][Index]]
+**  Publish
+#+begin_src ipython :session cprimer :results output
+! pandoc cover.html -o 00.readme.org
+#+end_src
+
+#+RESULTS:

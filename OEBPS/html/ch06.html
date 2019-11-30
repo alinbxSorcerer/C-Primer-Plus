@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>6. C Control Statements: Looping</title>
+<link rel="stylesheet" type="text/css" href="9780133432381.css"/>
+</head>
+<body>
+<h2 id="ch06"><a id="page_189"/><span class="pd_ash">6.</span> C Control Statements: Looping</h2>
+<p class="noindent">You will learn about the following in this chapter:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Keywords:</p>
+<p class="indenthangingBP"><code>for</code></p>
+<p class="indenthangingBP"><code>while</code></p>
+<p class="indenthangingBP"><code>do while</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Operators:</p>
+<p class="indenthangingBP"><code>&lt; &gt; &gt;=</code></p>
+<p class="indenthangingBP"><code>&lt;= != == +=</code></p>
+<p class="indenthangingBP"><code>*= -= /= %=</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Functions:</p>
+<p class="indenthangingBP"><code>fabs()</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> C&#8217;s three loop structures&#8212;<code>while</code>, <code>for</code>, and <code>do while</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Using relational operators to construct expressions to control these loops</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Several other operators</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Arrays, which are often used with loops</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Writing functions that have return values</p>
+<p class="noindent">Powerful, intelligent, versatile, and useful! Most of us wouldn&#8217;t mind being described that way. With C, there&#8217;s at least the chance of having our programs described that way. The trick is controlling the flow of a program. According to computer science (which is the science of computers and not science by computers...yet), a good language should provide these three forms of program flow:</p>
+<p class="indenthangingB"><a id="page_190"/><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Executing a sequence of statements</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Repeating a sequence of statements until some condition is met (looping)</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Using a test to decide between alternative sequences (branching)</p>
+<p class="noindent">The first form you know well; all the previous programs have consisted of a sequence of statements. The <code>while</code> loop is one example of the second form. This chapter takes a closer look at the <code>while</code> loop along with two other loop structures&#8212;<code>for</code> and <code>do while</code>. The final form, choosing between different possible courses of action, makes a program much more &#8220;intelligent&#8221; and increases the usefulness of a computer enormously. Sadly, you&#8217;ll have to wait a chapter before being entrusted with such power. This chapter also introduces arrays because they give you something to do with your new knowledge of loops. In addition, this chapter continues your education about functions. Let&#8217;s begin by reviewing the <code>while</code> loop.</p>
+<div class="heading">
+<h3 id="ch06lev1sec1">Revisiting the <span class="EmpStrong">while</span> Loop</h3>
+<p class="noindent">You are already somewhat familiar with the <code>while</code> loop, but let&#8217;s review it with a program that sums integers entered from the keyboard (see <a href="ch06.html#ch06lis01">Listing 6.1</a>). This example makes use of the return value of <code>scanf()</code> to terminate input.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis01"/><span class="pd_ash">Listing 6.1</span> The <span class="EmpStrong">summing.c</span> Program</p>
+<p class="codelink"><a id="p06lis01a" href="ch06_images.html#p06lis01">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* summing.c -- sums integers entered interactively */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;long num;<br/>&#160;&#160;&#160;&#160;long sum = 0L;&#160;&#160;&#160;&#160;&#160;&#160;/* initialize sum to zero&#160;&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;int status;<br/><br/>&#160;&#160;&#160;&#160;printf("Please enter an integer to be summed ");<br/>&#160;&#160;&#160;&#160;printf("(q to quit): ");<br/>&#160;&#160;&#160;&#160;status = scanf("%ld", &#38;num);<br/>&#160;&#160;&#160;&#160;while (status == 1) /* == means "is equal to"&#160;&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sum = sum + num;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Please enter next integer (q to quit): ");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;status = scanf("%ld", &#38;num);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("Those integers sum to %ld.\n", sum);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_191"/><a href="ch06.html#ch06lis01">Listing 6.1</a> uses type <code>long</code> to allow for larger numbers. For consistency, the program initializes <code>sum</code> to <code>0L</code> (type <code>long</code> zero) rather than to <code>0</code> (type <code>int</code> zero), even though C&#8217;s automatic conversions enable you to use a plain <code>0</code>.</p>
+<p class="noindent">Here is a sample run:</p>
+<p class="codelink"><a id="p191pro01a" href="ch06_images.html#p191pro01">Click here to view code image</a></p>
+<p class="pre">Please enter an integer to be summed (q to quit): <span class="EmpStrong">44</span><br/>Please enter next integer (q to quit): <span class="EmpStrong">33</span><br/>Please enter next integer (q to quit): <span class="EmpStrong">88</span><br/>Please enter next integer (q to quit): <span class="EmpStrong">121</span><br/>Please enter next integer (q to quit): <span class="EmpStrong">q</span><br/>Those integers sum to 286.</p>
+<div class="heading">
+<h4 id="ch06lev2sec1">Program Comments</h4>
+<p class="noindent">Let&#8217;s look at the <code>while</code> loop first. The test condition for this loop is the following expression:</p>
+</div>
+<p class="pre">status == 1</p>
+<p class="noindent">The <code>==</code> operator is C&#8217;s <em>equality operator</em>; that is, this expression tests whether <code>status</code> is equal to <code>1</code>. Don&#8217;t confuse it with <code>status = 1</code>, which assigns <code>1</code> to <code>status</code>. With the <code>status == 1</code> test condition, the loop repeats as long as <code>status</code> is <code>1</code>. For each cycle, the loop adds the current value of <code>num</code> to <code>sum</code>, so that <code>sum</code> maintains a running total. When <code>status</code> gets a value other than <code>1</code>, the loop terminates, and the program reports the final value of <code>sum</code>.</p>
+<p class="noindent">For the program to work properly, it should get a new value for <code>num</code> on each loop cycle, and it should reset <code>status</code> on each cycle. The program accomplishes this by using two distinct features of <code>scanf()</code>. First, it uses <code>scanf()</code> to attempt to read a new value for <code>num</code>. Second, it uses the <code>scanf()</code> return value to report on the success of that attempt. Recall from <a href="ch04.html#ch04">Chapter 4</a>, &#8220;<a href="ch04.html#ch04">Character Strings and Formatted Input/Output</a>,&#8221; that <code>scanf()</code> returns the number of items successfully read. If <code>scanf()</code> succeeds in reading an integer, it places the integer into <code>num</code> and returns the value <code>1</code>, which is assigned to <code>status</code>. (Note that the input value goes to <code>num</code>, not to <code>status</code>.) This updates both <code>num</code> and the value of <code>status</code>, and the <code>while</code> loop goes through another cycle. If you respond with nonnumeric input, such as <code>q</code>, <code>scanf()</code> fails to find an integer to read, so its return value and <code>status</code> will be <code>0</code>. That terminates the loop. The input character <code>q</code>, because it isn&#8217;t a number, is placed back into the input queue; it does not get read. (Actually, any nonnumeric input, not just <code>q</code>, terminates the loop, but asking the user to enter <code>q</code> is a simpler instruction than asking the user to enter nonnumeric input.)</p>
+<p class="noindent">If <code>scanf()</code> runs into a problem before attempting to convert the value (for example, by detecting the end of the file or by encountering a hardware problem), it returns the special value <code>EOF</code>, which typically is defined as <code>-1</code>. This value, too, will cause the loop to terminate.</p>
+<p class="noindent">This dual use of <code>scanf()</code> gets around a troublesome aspect of interactive input to a loop: How do you tell the loop when to stop? Suppose, for instance, that <code>scanf()</code> did not have a return value. Then, the only thing that would change on each loop is the value of <code>num</code>. You could use the value of <code>num</code> to terminate the loop, using, say, <code>num &gt; 0</code> (<code>num</code> greater than <code>0</code>) or <code>num != 0</code> (<code>num</code> not equal to <code>0</code>) as a test condition, but this prevents you from entering certain values, <a id="page_192"/>such as <code>&#8211;3</code> or <code>0</code>, as input. Instead, you could add new code to the loop, such as asking &#8220;Do you wish to continue? &lt;y/n&gt;&#8221; at each cycle, and then test to see whether the user entered <code>y</code>. This is a bit clunky and slows down input. Using the return value of <code>scanf()</code> avoids these problems.</p>
+<p class="noindent">Now let&#8217;s take a closer look at the program structure. We can summarize it as follows:</p>
+<p class="pre"><span class="EmpItalic">initialize sum to 0</span><br/><span class="EmpItalic">prompt user</span><br/><span class="EmpItalic">read input</span><br/><span class="EmpItalic">while the input is an integer,</span><br/><span class="EmpItalic">&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">add the input to sum,</span></span><br/><span class="EmpItalic">&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">prompt user,</span></span><br/><span class="EmpItalic">&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">then read next input</span></span><br/><span class="EmpItalic">after input completes, print sum</span></p>
+<p class="noindent">This, incidentally, is an example of <em>pseudocode</em>, which is the art of expressing a program in simple English that parallels the forms of a computer language. Pseudocode is useful for working out the logic of a program. After the logic seems right, you can translate the pseudocode to the actual programming code. One advantage of pseudocode is that it enables you to concentrate on the logic and organization of a program and spares you from simultaneously worrying about how to express the ideas in a computer language. Here, for example, you can use indentation to indicate a block of code and not worry about C syntax requiring braces. Another advantage is that pseudocode is not tied to a particular language, so the same pseudocode can be translated into different computer languages.</p>
+<p class="noindent">Anyway, because the <code>while</code> loop is an entry-condition loop, the program must get the input and check the value of <code>status</code> <em>before</em> it goes to the body of the loop. That is why the program has a <code>scanf()</code> before the <code>while</code>. For the loop to continue, you need a read statement inside the loop so that it can find out the status of the next input. That is why the program also has a <code>scanf()</code> statement at the end of the <code>while</code> loop; it readies the loop for its next iteration. You can think of the following as a standard format for a loop:</p>
+<p class="pre"><span class="EmpItalic">get first value to be tested</span><br/><span class="EmpItalic">while the test is successful</span><br/><span class="EmpItalic">&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">process value</span></span><br/><span class="EmpItalic">&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">get next value</span></span></p>
+<div class="heading">
+<h4 id="ch06lev2sec2">C-Style Reading Loop</h4>
+<p class="noindent"><a href="ch06.html#ch06lis01">Listing 6.1</a> could be written in Pascal, BASIC, or FORTRAN along the same design displayed in the pseudocode. C, however, offers a shortcut. The construction</p>
+</div>
+<p class="codelink"><a id="p192pro01a" href="ch06_images.html#p192pro01">Click here to view code image</a></p>
+<p class="pre">status = scanf("%ld", &#38;num);<br/>while (status == 1)<br/>{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* loop actions */<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;status = scanf("%ld", &#38;num);<br/>}</p>
+<p class="noindent"><a id="page_193"/>can be replaced by the following:</p>
+<p class="codelink"><a id="p193pro01a" href="ch06_images.html#p193pro01">Click here to view code image</a></p>
+<p class="pre">while (scanf("%ld", &#38;num) == 1)<br/>{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* loop actions */<br/>}</p>
+<p class="noindent">The second form uses <code>scanf()</code> in two different ways simultaneously. First, the function call, if successful, places a value in <code>num</code>. Second, the function&#8217;s return value (which is <code>1</code> or <code>0</code> and not the value of <code>num</code>) controls the loop. Because the loop condition is tested at each iteration, <code>scanf()</code> is called at each iteration, providing a new <code>num</code> and a new test. In other words, C&#8217;s syntax features let you replace the standard loop format with the following condensed version:</p>
+<p class="codelink"><a id="p193pro02a" href="ch06_images.html#p193pro02">Click here to view code image</a></p>
+<p class="pre">while getting and testing the value succeeds<br/>&#160;&#160;&#160;&#160;process the value</p>
+<p class="noindent">Now let&#8217;s take a more formal look at the <code>while</code> statement.</p>
+<div class="heading">
+<h3 id="ch06lev1sec2">The <span class="EmpStrong">while</span> Statement</h3>
+<p class="noindent">This is the general form of the <code>while</code> loop:</p>
+</div>
+<p class="pre">while (<span class="EmpItalic">expression</span>)<br/>&#160;&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">statement</span></p>
+<p class="noindent">The <span class="EmpItalic">statement</span> part can be a simple statement with a terminating semicolon, or it can be a compound statement enclosed in braces.</p>
+<p class="noindent">So far, the examples have used relational expressions for the expression part; that is, <span class="EmpItalic">expression</span> has been a comparison of values. More generally, you can use any expression. If <span class="EmpItalic">expression</span> is true (or, more generally, nonzero), the statement is executed once and then the expression is tested again. This cycle of test and execution is repeated until <span class="EmpItalic">expression</span> becomes false (zero). Each cycle is called an <em>iteration</em> (see <a href="ch06.html#ch06fig01">Figure 6.1</a>).</p>
+<div class="image"><a id="ch06fig01"/><img src="graphics/06fig01.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 6.1</span> Structure of the <code>while</code> loop.</p></div>
+<div class="heading">
+<h4 id="ch06lev2sec3"><a id="page_194"/>Terminating a <span class="EmpStrong">while</span> Loop</h4>
+<p class="noindent">Here is a <em>crucial</em> point about <code>while</code> loops: When you construct a <code>while</code> loop, it must include something that changes the value of the test expression so that the expression eventually becomes false. Otherwise, the loop never terminates. (Actually, you can use <code>break</code> and an <code>if</code> statement to terminate a loop, but you haven&#8217;t learned about them yet.) Consider this example:</p>
+</div>
+<p class="codelink"><a id="p194pro01a" href="ch06_images.html#p194pro01">Click here to view code image</a></p>
+<p class="pre">index = 1;<br/>while (index &lt; 5)<br/>&#160;&#160;&#160;printf("Good morning!\n");</p>
+<p class="noindent">The preceding fragment prints its cheerful message indefinitely. Why? Because nothing within the loop changes the value of <code>index</code> from its initial value of <code>1</code>. Now consider this:</p>
+<p class="codelink"><a id="p194pro02a" href="ch06_images.html#p194pro02">Click here to view code image</a></p>
+<p class="pre">index = 1;<br/>while (--index &lt; 5)<br/>&#160;&#160;&#160;printf("Good morning!\n");</p>
+<p class="noindent">This last fragment isn&#8217;t much better. It changes the value of <code>index</code>, but in the wrong direction! At least this version will terminate eventually when <code>index</code> drops below the most negative number that the system can handle and becomes the largest possible positive value. (The <code>toobig.c</code> program in <a href="ch03.html#ch03">Chapter 3</a>, &#8220;<a href="ch03.html#ch03">Data and C</a>,&#8221; illustrates how adding 1 to the largest positive number typically produces a negative number; similarly, subtracting 1 from the most negative number typically yields a positive value.)</p>
+<div class="heading">
+<h4 id="ch06lev2sec4">When a Loop Terminates</h4>
+<p class="noindent">It is important to realize that the decision to terminate the loop or to continue takes place only when the test condition is evaluated. For example, consider the program shown in <a href="ch06.html#ch06lis02">Listing 6.2</a>.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis02"/><span class="pd_ash">Listing 6.2</span> The <span class="EmpStrong">when.c</span> Program</p>
+<p class="codelink"><a id="p06lis02a" href="ch06_images.html#p06lis02">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// when.c -- when a loop quits<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int n = 5;<br/><br/>&#160;&#160;&#160;&#160;while (n &lt; 7)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// line 7<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("n = %d\n", n);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;n++;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// line 10<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Now n = %d\n", n);&#160;&#160;&#160;// line 11<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("The loop has finished.\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_195"/>Running <a href="ch06.html#ch06lis02">Listing 6.2</a> produces the following output:</p>
+<p class="pre">n = 5<br/>Now n = 6<br/>n = 6<br/>Now n = 7<br/>The loop has finished.</p>
+<p class="noindent">The variable <code>n</code> first acquires the value <code>7</code> on line 10 during the second cycle of the loop. However, the program doesn&#8217;t quit then. Instead, it completes the loop (line 11) and quits the loop only when the test condition on line 7 is evaluated for the third time. (The variable <code>n</code> was <code>5</code> for the first test and <code>6</code> for the second test.)</p>
+<div class="heading">
+<h4 id="ch06lev2sec5"><span class="EmpStrong">while</span>: An Entry-Condition Loop</h4>
+<p class="noindent">The <code>while</code> loop is a <em>conditional</em> loop using an entry condition. It is called &#8220;conditional&#8221; because the execution of the statement portion depends on the condition described by the test expression, such as <code>(index &lt; 5)</code>. The expression is an <em>entry condition</em> because the condition must be met before the body of the loop is entered. In a situation such as the following, the body of the loop is never entered because the condition is false to begin with:</p>
+</div>
+<p class="codelink"><a id="p195pro01a" href="ch06_images.html#p195pro01">Click here to view code image</a></p>
+<p class="pre">index = 10;<br/>while (index++ &lt; 5)<br/>&#160;&#160;&#160;&#160;printf("Have a fair day or better.\n");</p>
+<p class="noindent">Change the first line to</p>
+<p class="pre">index = 3;</p>
+<p class="noindent">and the loop will execute.</p>
+<div class="heading">
+<h4 id="ch06lev2sec6">Syntax Points</h4>
+<p class="noindent">When using <code>while</code>, keep in mind that only the single statement, simple or compound, following the test condition is part of the loop. Indentation is an aid to the reader, not the computer. <a href="ch06.html#ch06lis03">Listing 6.3</a> shows what can happen if you forget this.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis03"/><span class="pd_ash">Listing 6.3</span> The <span class="EmpStrong">while1.c</span> Program</p>
+<p class="codelink"><a id="p06lis03a" href="ch06_images.html#p06lis03">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* while1.c -- watch your braces&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* bad coding creates an infinite loop */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int n = 0;<br/><br/>&#160;&#160;&#160;&#160;while (n &lt; 3)<br/><a id="page_196"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("n is %d\n", n);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;n++;<br/>&#160;&#160;&#160;&#160;printf("That's all this program does\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a href="ch06.html#ch06lis03">Listing 6.3</a> produces the following output:</p>
+<p class="pre">n is 0<br/>n is 0<br/>n is 0<br/>n is 0<br/>n is 0</p>
+<p class="noindent">...and so on, until you kill the program.</p>
+<p class="noindent">Although this example indents the <code>n++;</code> statement, it doesn&#8217;t enclose it and the preceding statement within braces. Therefore, only the single print statement immediately following the test condition is part of the loop. The variable <code>n</code> is never updated, the condition <code>n &lt; 3</code> remains eternally true, and you get a loop that goes on printing <code>n is 0</code> until you kill the program. This is an example of an <em>infinite loop</em>, one that does not quit without outside intervention.</p>
+<p class="noindent">Always remember that the <code>while</code> statement itself, even if it uses compound statements, counts syntactically as a single statement. The statement runs from the <code>while</code> to the first semicolon or, in the case of using a compound statement, to the terminating brace.</p>
+<p class="noindent">Be careful where you place your semicolons. For instance, consider the program in <a href="ch06.html#ch06lis04">Listing 6.4</a>.</p>
+<p class="ex-caption"><a id="ch06lis04"/><span class="pd_ash">Listing 6.4</span> The <span class="EmpStrong">while2.c</span> Program</p>
+<p class="codelink"><a id="p06lis04a" href="ch06_images.html#p06lis04">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* while2.c -- watch your semicolons */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int n = 0;<br/><br/>&#160;&#160;&#160;&#160;while (n++ &lt; 3);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 7 */<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("n is %d\n", n);&#160;&#160;/* line 8 */<br/>&#160;&#160;&#160;&#160;printf("That's all this program does.\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a href="ch06.html#ch06lis04">Listing 6.4</a> produces the following output:</p>
+<p class="pre">n is 4<br/>That's all this program does.</p>
+<p class="noindent"><a id="page_197"/>As we said earlier, the loop ends with the first statement, simple or compound, following the test condition. Because there is a semicolon immediately after the test condition on line 7, the loop ends there, because a lone semicolon counts as a statement. The print statement on line 8 is not part of the loop, so <code>n</code> is incremented on each loop, but it is printed only after the loop is exited.</p>
+<p class="noindent">In this example, the test condition is followed with the <em>null statement</em>, one that does nothing. In C, the lone semicolon represents the null statement. Occasionally, programmers intentionally use the <code>while</code> statement with a null statement because all the work gets done in the test. For example, suppose you want to skip over input to the first character that isn&#8217;t whitespace or a digit. You can use a loop like this:</p>
+<p class="codelink"><a id="p197pro01a" href="ch06_images.html#p197pro01">Click here to view code image</a></p>
+<p class="pre">while (scanf("%d", &#38;num) == 1)<br/>&#160;&#160;;&#160;&#160;&#160;&#160;/* skip integer input */</p>
+<p class="noindent">As long as <code>scanf()</code> reads an integer, it returns <code>1</code>, and the loop continues. Note that, for clarity, you should put the semicolon (the null statement) on the line below instead of on the same line. This makes it easier to see the null statement when you read a program and also reminds you that the null statement is there deliberately. Even better, use the <code>continue</code> statement discussed in the next chapter.</p>
+<div class="heading">
+<h3 id="ch06lev1sec3">Which Is Bigger: Using Relational Operators and Expressions</h3>
+<p class="noindent"><code>While</code> loops often rely on test expressions that make comparisons, comparison expressions merit a closer look. Such expressions are termed <em>relational expressions</em>, and the operators that appear in them are called <em>relational operators</em>. You have used several already, and <a href="ch06.html#ch06tab01">Table 6.1</a> gives a complete list of C relational operators. This table pretty much covers all the possibilities for numerical relationships. (Numbers, even complex ones, are less complex than humans.)</p>
+</div>
+<div class="image"><a id="ch06tab01"/><img src="graphics/06tab01.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 6.1</span> Relational Operators</p></div>
+<p class="noindent"><a id="page_198"/>The relational operators are used to form the relational expressions used in <code>while</code> statements and in other C statements that we&#8217;ll discuss later. These statements check to see whether the expression is true or false. Here are three unrelated statements containing examples of relational expressions. The meaning, we hope, is clear.</p>
+<p class="codelink"><a id="p198pro01a" href="ch06_images.html#p198pro01">Click here to view code image</a></p>
+<p class="pre">while (number &lt; 6)<br/>{<br/>&#160;&#160;&#160;&#160;printf("Your number is too small.\n");<br/>&#160;&#160;&#160;&#160;scanf("%d", &#38;number);<br/>}<br/><br/>while (ch != '$')<br/>{<br/>&#160;&#160;&#160;&#160;&#160;count++;<br/>&#160;&#160;&#160;&#160;&#160;scanf("%c", &#38;ch);<br/>}<br/><br/>while (scanf("%f", &#38;num) == 1)<br/>&#160;&#160;&#160;&#160;sum = sum + num;</p>
+<p class="noindent">Note in the second example that the relational expressions can be used with characters, too. The machine character code (which we have been assuming is ASCII) is used for the comparison. However, you can&#8217;t use the relational operators to compare strings. <a href="ch11.html#ch11">Chapter 11</a>, &#8220;<a href="ch11.html#ch11">Character Strings and String Functions</a>,&#8221; will show you what to use for strings.</p>
+<p class="noindent">The relational operators can be used with floating-point numbers, too. Beware, though: You should limit yourself to using only <code>&lt;</code> and <code>&gt;</code> in floating-point comparisons. The reason is that round-off errors can prevent two numbers from being equal, even though logically they should be. For example, certainly the product of 3 and 1/3 is 1.0. If you express 1/3 as a six-place decimal fraction, however, the product is .999999, which is not quite equal to 1. The <code>fabs()</code> function, declared in the <code>math.h</code> header file, can be handy for floating-point tests. This function returns the absolute value of a floating-point value&#8212;that is, the value without the algebraic sign. For example, you could test whether a number is close to a desired result with something like <a href="ch06.html#ch06lis05">Listing 6.5</a>.</p>
+<p class="ex-caption"><a id="ch06lis05"/><span class="pd_ash">Listing 6.5</span> The <span class="EmpStrong">cmpflt.c</span> Program</p>
+<p class="codelink"><a id="p06lis05a" href="ch06_images.html#p06lis05">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// cmpflt.c -- floating-point comparisons<br/>#include &lt;math.h&gt;<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const double ANSWER = 3.14159;<br/>&#160;&#160;&#160;&#160;double response;<br/><br/>&#160;&#160;&#160;&#160;printf("What is the value of pi?\n");<br/>&#160;&#160;&#160;&#160;scanf("%lf", &#38;response);<br/><a id="page_199"/>&#160;&#160;&#160;&#160;while (fabs(response - ANSWER) &gt; 0.0001)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Try again!\n");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%lf", &#38;response);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("Close enough!\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">This loop continues to elicit a response until the user gets within 0.0001 of the correct value:</p>
+<p class="pre">What is the value of pi?<br/><span class="EmpStrong">3.14</span><br/>Try again!<br/><span class="EmpStrong">3.1416</span><br/>Close enough!</p>
+<p class="noindent">Each relational expression is judged to be true or false (but never maybe). This raises an interesting question.</p>
+<div class="heading">
+<h4 id="ch06lev2sec7">What Is Truth?</h4>
+<p class="noindent">You can answer this age-old question, at least as far as C is concerned. Recall that an expression in C always has a value. This is true even for relational expressions, as the example in <a href="ch06.html#ch06lis06">Listing 6.6</a> shows. That example prints the values of two relational expressions&#8212;one true and one false.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis06"/><span class="pd_ash">Listing 6.6</span> The <span class="EmpStrong">t_and_f.c</span> Program</p>
+<p class="codelink"><a id="p06lis06a" href="ch06_images.html#p06lis06">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* t_and_f.c -- true and false values in C */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int true_val, false_val;<br/><br/>&#160;&#160;&#160;&#160;true_val = (10 &gt; 2);&#160;&#160;&#160;&#160;// value of a true relationship<br/>&#160;&#160;&#160;&#160;false_val = (10 == 2);&#160;&#160;// value of a false relationship<br/>&#160;&#160;&#160;&#160;printf("true = %d; false = %d \n", true_val, false_val);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_200"/><a href="ch06.html#ch06lis06">Listing 6.6</a> assigns the values of two relational expressions to two variables. Being straightforward, it assigns <code>true_val</code> the value of a true expression, and <code>false_val</code> the value of a false expression. Running the program produces the following simple output:</p>
+<p class="pre">true = 1; false = 0</p>
+<p class="noindent">Aha! For C, a true expression has the value <code>1</code>, and a false expression has the value <code>0</code>. Indeed, some C programs use the following construction for loops that are meant to run forever because <code>1</code> always is true:</p>
+<p class="pre">while (1)<br/>{<br/>&#160;&#160;...<br/>}</p>
+<div class="heading">
+<h4 id="ch06lev2sec8">What Else Is True?</h4>
+<p class="noindent">If you can use a <code>1</code> or a <code>0</code> as a <code>while</code> statement test expression, can you use other numbers? If so, what happens? Let&#8217;s experiment by trying the program in <a href="ch06.html#ch06lis07">Listing 6.7</a>.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis07"/><span class="pd_ash">Listing 6.7</span> The <span class="EmpStrong">truth.c</span> Program</p>
+<p class="codelink"><a id="p06lis07a" href="ch06_images.html#p06lis07">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// truth.c -- what values are true?<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int n = 3;<br/><br/>&#160;&#160;&#160;&#160;while (n)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%2d is true\n", n--);<br/>&#160;&#160;&#160;&#160;printf("%2d is false\n", n);<br/><br/>&#160;&#160;&#160;&#160;n = -3;<br/>&#160;&#160;&#160;&#160;while (n)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%2d is true\n", n++);<br/>&#160;&#160;&#160;&#160;printf("%2d is false\n", n);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here are the results:</p>
+<p class="pre">&#160;3 is true<br/>&#160;2 is true<br/>&#160;1 is true<br/>&#160;0 is false<br/>-3 is true<br/><a id="page_201"/>-2 is true<br/>-1 is true<br/>&#160;0 is false</p>
+<p class="noindent">The first loop executes when <code>n</code> is <code>3</code>, <code>2</code>, and <code>1</code>, but terminates when <code>n</code> is <code>0</code>. Similarly, the second loop executes when <code>n</code> is <code>-3</code>, <code>-2</code>, and <code>-1</code>, but terminates when <code>n</code> is <code>0</code>. More generally, <em>all</em> nonzero values are regarded as true, and only <code>0</code> is recognized as false. C has a very tolerant notion of truth!</p>
+<p class="noindent">Alternatively, you can say that a <code>while</code> loop executes as long as its test condition evaluates to nonzero. This puts test conditions on a numeric basis instead of a true/false basis. Keep in mind that relational expressions evaluate to <code>1</code> if true and to <code>0</code> if false, so such expressions really are numeric.</p>
+<p class="noindent">Many C programmers make use of this property of test conditions. For example, the phrase <code>while (goats != 0)</code> can be replaced by <code>while (goats)</code> because the expression <code>(goats != 0)</code> and the expression <code>(goats)</code> both become <code>0</code>, or false, only when <code>goats</code> has the value <code>0</code>. The first form probably is clearer to those just learning the language, but the second form is the idiom most often used by C programmers. You should try to become sufficiently familiar with the <code>while (goats)</code> form so that it seems natural to you.</p>
+<div class="heading">
+<h4 id="ch06lev2sec9">Troubles with Truth</h4>
+<p class="noindent">C&#8217;s tolerant notion of truth can lead to trouble. For example, let&#8217;s make one subtle change to the program from <a href="ch06.html#ch06lis01">Listing 6.1</a>, producing the program shown in <a href="ch06.html#ch06lis08">Listing 6.8</a>.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis08"/><span class="pd_ash">Listing 6.8</span> The <span class="EmpStrong">trouble.c</span> Program</p>
+<p class="codelink"><a id="p06lis08a" href="ch06_images.html#p06lis08">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// trouble.c -- misuse of =<br/>// will cause infinite loop<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;long num;<br/>&#160;&#160;&#160;&#160;long sum = 0L;<br/>&#160;&#160;&#160;&#160;int status;<br/><br/>&#160;&#160;&#160;&#160;printf("Please enter an integer to be summed ");<br/>&#160;&#160;&#160;&#160;printf("(q to quit): ");<br/>&#160;&#160;&#160;&#160;status = scanf("%ld", &#38;num);<br/>&#160;&#160;&#160;&#160;while (status = 1)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sum = sum + num;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Please enter next integer (q to quit): ");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;status = scanf("%ld", &#38;num);<br/>&#160;&#160;&#160;&#160;}<br/><a id="page_202"/>&#160;&#160;&#160;&#160;printf("Those integers sum to %ld.\n", sum);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a href="ch06.html#ch06lis08">Listing 6.8</a> produces output like the following:</p>
+<p class="codelink"><a id="p202pro01a" href="ch06_images.html#p202pro01">Click here to view code image</a></p>
+<p class="pre">Please enter an integer to be summed (q to quit): <span class="EmpStrong">20</span><br/>Please enter next integer (q to quit): <span class="EmpStrong">5</span><br/>Please enter next integer (q to quit): <span class="EmpStrong">30</span><br/>Please enter next integer (q to quit): <span class="EmpStrong">q</span><br/>Please enter next integer (q to quit):<br/>Please enter next integer (q to quit):<br/>Please enter next integer (q to quit):<br/>Please enter next integer (q to quit):</p>
+<p class="noindent">...and so on until you kill the program&#8212;so perhaps you shouldn&#8217;t actually try running this example.</p>
+<p class="noindent">This troublesome example made a change in the <code>while</code> test condition, replacing <code>status == 1</code> with <code>status = 1</code>. The second statement is an assignment statement, so it gives <code>status</code> the value <code>1</code>. Furthermore, the value of an assignment statement is the value of the left side, so <code>status = 1</code> has the same numerical value of <code>1</code>. So for all practical purposes, the <code>while</code> loop is the same as using <code>while (1)</code>; that is, it is a loop that never quits. You enter <code>q</code>, and <code>status</code> is set to <code>0</code>, but the loop test resets <code>status</code> to <code>1</code> and starts another cycle.</p>
+<p class="noindent">You might wonder why, because the program keeps looping, the user doesn&#8217;t get a chance to type in any more input after entering <code>q</code>. When <code>scanf()</code> fails to read the specified form of input, it leaves the nonconforming input in place to be read the next time. When <code>scanf()</code> tries to read the <code>q</code> as an integer and fails, it leaves the <code>q</code> there. During the next loop cycle, <code>scanf()</code> attempts to read where it left off the last time&#8212;at the <code>q</code>. Once again, <code>scanf()</code> fails to read the <code>q</code> as an integer, so not only does this example set up an infinite loop, it also creates a loop of infinite failure, a daunting concept. It is fortunate that computers, as yet, lack feelings. Following stupid instructions eternally is no better or worse to a computer than successfully predicting the stock market for the next 10 years.</p>
+<p class="noindent">Don&#8217;t use <code>=</code> for <code>==</code>. Some computer languages (BASIC, for example) do use the same symbol for both the assignment operator and the relational equality operator, but the two operations are quite different (see <a href="ch06.html#ch06fig02">Figure 6.2</a>). The assignment operator assigns a value to the left variable. The relational equality operator, however, checks to see whether the left and right sides are already equal. It doesn&#8217;t change the value of the left-hand variable, if one is present. Here&#8217;s an example:</p>
+<div class="image"><img src="graphics/202tab01.jpg" alt="Image"/></div>
+<div class="image"><a id="ch06fig02"/><img src="graphics/06fig02.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 6.2</span> The relational operator <code>==</code> and the assignment operator <code>=</code>.</p></div>
+<p class="noindent"><a id="page_203"/>Be careful about using the correct operator. A compiler will let you use the wrong form, yielding results other than what you expect. (However, so many people have misused <code>=</code> so often that most compilers today will issue a warning to the effect that perhaps you didn&#8217;t mean to use this.) If one of the values being compared is a constant, you can put it on the left side of the comparison to help catch errors:</p>
+<div class="image"><img src="graphics/203tab01.jpg" alt="Image"/></div>
+<p class="noindent">The point is that it is illegal to assign to a constant, so the compiler will tag the use of the assignment operator as a syntax error. Many practitioners put the constant first when constructing expressions that test for equality.</p>
+<p class="noindent">To sum up, the relational operators are used to form relational expressions. Relational expressions have the value 1 if true and 0 if false. Statements (such as <code>while</code> and <code>if</code>) that normally use relational expressions as tests can use any expression as a test, with nonzero values recognized as &#8220;true&#8221; and zero values as &#8220;false.&#8221;</p>
+<div class="heading">
+<h4 id="ch06lev2sec10">The New <span class="EmpStrong">_Bool</span> Type</h4>
+<p class="noindent">Variables intended to represent true/false values traditionally have been represented by type <code>int</code> in C. C99 adds the <code>_Bool</code> type specifically for variables of this sort. The type is named after George Boole, the English mathematician who developed a system of algebra to represent and solve problems in logic. In programming, variables representing true or false have come to be known as <em>Boolean variables</em>, so <code>_Bool</code> is the C type name for a Boolean variable. A <code>_Bool</code> variable can only have a value of 1 (true) or 0 (false). If you try to assign a nonzero numeric value to a <code>_Bool</code> variable, the variable is set to 1, reflecting that C considers any nonzero value to be true.</p>
+</div>
+<p class="noindent"><a id="page_204"/><a href="ch06.html#ch06lis09">Listing 6.9</a> fixes the test condition in <a href="ch06.html#ch06lis08">Listing 6.8</a> and replaces the <code>int</code> variable <code>status</code> with the <code>_Bool</code> variable <code>input_is_good</code>. It&#8217;s a common practice to give Boolean variables names that suggest true or false values.</p>
+<p class="ex-caption"><a id="ch06lis09"/><span class="pd_ash">Listing 6.9</span> The <span class="EmpStrong">boolean.c</span> Program</p>
+<p class="codelink"><a id="p06lis09a" href="ch06_images.html#p06lis09">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// boolean.c -- using a _Bool variable<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;long num;<br/>&#160;&#160;&#160;&#160;long sum = 0L;<br/>&#160;&#160;&#160;&#160;_Bool input_is_good;<br/><br/>&#160;&#160;&#160;&#160;printf("Please enter an integer to be summed ");<br/>&#160;&#160;&#160;&#160;printf("(q to quit): ");<br/>&#160;&#160;&#160;&#160;input_is_good = (scanf("%ld", &#38;num) == 1);<br/>&#160;&#160;&#160;&#160;while (input_is_good)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sum = sum + num;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Please enter next integer (q to quit): ");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;input_is_good = (scanf("%ld", &#38;num) == 1);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("Those integers sum to %ld.\n", sum);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Note how the code assigns the result of a comparison to the variable:</p>
+<p class="codelink"><a id="p204pro01a" href="ch06_images.html#p204pro01">Click here to view code image</a></p>
+<p class="pre">input_is_good = (scanf("%ld", &#38;num) == 1);</p>
+<p class="noindent">This makes sense, because the <code>==</code> operator returns either a value of 1 or 0. Incidentally, the parentheses enclosing the <code>==</code> expression are not needed because the <code>==</code> operator has higher precedence than <code>=</code>; however, they may make the code easier to read. Also note how the choice of name for the variable makes the <code>while</code> loop test easy to understand:</p>
+<p class="pre">while (input_is_good)</p>
+<p class="noindent">C99 also provides for a <code>stdbool.h</code> header file. This header file makes <code>bool</code> an alias for <code>_Bool</code> and defines <code>true</code> and <code>false</code> as symbolic constants for the values 1 and 0. Including this header file allows you to write code that is compatible with C++, which defines <code>bool</code>, <code>true</code>, and <code>false</code> as keywords.</p>
+<p class="noindent">If your system does not yet support the <code>_Bool</code> type, you can replace <code>_Bool</code> with <code>int</code>, and the example will work the same.</p>
+<div class="heading">
+<h4 id="ch06lev2sec11"><a id="page_205"/>Precedence of Relational Operators</h4>
+<p class="noindent">The precedence of the relational operators is less than that of the arithmetic operators, including <code>+</code> and <code>-</code>, and greater than that of assignment operators. This means, for example, that</p>
+</div>
+<p class="pre">x &gt; y + 2</p>
+<p class="noindent">means the same as</p>
+<p class="pre">x &gt; (y + 2)</p>
+<p class="noindent">It also means that</p>
+<p class="pre">x = y &gt; 2</p>
+<p class="noindent">means</p>
+<p class="pre">x = (y &gt; 2)</p>
+<p class="noindent">In other words, <code>x</code> is assigned <code>1</code> if <code>y</code> is greater than <code>2</code> and is <code>0</code> otherwise; <code>x</code> is not assigned the value of <code>y</code>.</p>
+<p class="noindent">The relational operators have a greater precedence than the assignment operator. Therefore,</p>
+<p class="pre">x_bigger = x &gt; y;</p>
+<p class="noindent">means</p>
+<p class="pre">x_bigger = (x &gt; y);</p>
+<p class="noindent">The relational operators are themselves organized into two different precedences.</p>
+<div class="image2"><img src="graphics/205tab01.jpg" alt="Image"/></div>
+<p class="noindent">Like most other operators, the relational operators associate from left to right. Therefore,</p>
+<p class="pre">ex != wye == zee</p>
+<p class="noindent">is the same as</p>
+<p class="pre">(ex != wye) == zee</p>
+<p class="noindent">First, C checks to see whether <code>ex</code> and <code>wye</code> are unequal. Then, the resulting value of <code>1</code> or <code>0</code> (true or false) is compared to the value of <code>zee</code>. We don&#8217;t anticipate using this sort of construction, but we feel it is our duty to point out such sidelights.</p>
+<p class="noindent"><a href="ch06.html#ch06tab02">Table 6.2</a> shows the priorities of the operators introduced so far, and <a href="app02.html#app02lev1sec2">Reference Section II</a>, &#8220;<a href="app02.html#app02lev1sec2">C Operators</a>,&#8221; in <a href="app02.html#app02">Appendix B</a> has a complete precedence ranking of all operators.</p>
+<div class="image"><a id="page_206"/><a id="ch06tab02"/><img src="graphics/06tab02.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 6.2</span> Operator Precedence</p></div>
+<div class="sidebar"><hr/>
+<p class="title"><span class="pd_ash">Summary: The <span class="EmpItalic">while</span> Statement</span></p>
+<p class="sidebarpara"><strong>Keyword:</strong></p>
+<p class="pre1">while</p>
+<p class="sidebarpara"><strong>General Comments:</strong></p>
+<p class="sidebarpara">The <code>while</code> statement creates a loop that repeats until the test expression becomes false, or zero. The <code>while</code> statement is an entry-condition loop&#8212;that is, the decision to go through one more pass of the loop is made before the loop is traversed. Therefore, it is possible that the loop is never traversed. The statement part of the form can be a simple statement or a compound statement.</p>
+<p class="sidebarpara"><strong>Form:</strong></p>
+<p class="pre1">while (<span class="EmpItalic">expression</span>)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">statement</span></p>
+<p class="sidebarpara">The <span class="EmpItalic">statement</span> portion is repeated until the <span class="EmpItalic">expression</span> becomes false or 0.</p>
+<p class="sidebarpara"><strong>Examples:</strong></p>
+<p class="codelink"><a id="p206pro01a" href="ch06_images.html#p206pro01">Click here to view code image</a></p>
+<p class="pre1">while (n++ &lt; 100)<br/>&#160;&#160;&#160;printf(" %d %d\n",n, 2 * n + 1); // single statement<br/><br/>while (fargo &lt; 1000)<br/>{&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// compound statement<br/>&#160;&#160;&#160;fargo = fargo + step;<br/>&#160;&#160;&#160;step = 2 * step;<br/>}</p>
+<hr/></div>
+<div class="sidebar"><hr/>
+<p class="title"><span class="pd_ash">Summary: Relational Operators and Expressions</span></p>
+<p class="sidebarpara"><a id="page_207"/><strong>Relational Operators:</strong></p>
+<p class="sidebarpara">Each relational operator compares the value at its left to the value at its right.</p>
+<div class="image2"><img src="graphics/207tab01.jpg" alt="Image"/></div>
+<p class="sidebarpara"><strong>Relational Expressions:</strong></p>
+<p class="sidebarpara">A simple relational expression consists of a relational operator with an operand on each side. If the relation is true, the relational expression has the value <code>1</code>. If the relation is false, the relational expression has the value <code>0</code>.</p>
+<p class="sidebarpara"><strong>Examples:</strong></p>
+<p class="sidebarpara"><code>5 &gt; 2</code> is true and has the value <code>1</code>.</p>
+<p class="sidebarpara"><code>(2 + a) == a</code> is false and has the value <code>0</code>.</p>
+<hr/></div>
+<div class="heading">
+<h3 id="ch06lev1sec4">Indefinite Loops and Counting Loops</h3>
+<p class="noindent">Some of the <code>while</code> loop examples have been <em>indefinite</em> loops. That means we don&#8217;t know in advance how many times the loop will be executed before the expression becomes false. For example, when <a href="ch06.html#ch06lis01">Listing 6.1</a> used an interactive loop to sum integers, we didn&#8217;t know beforehand how many integers would be entered. Other examples, however, have been <em>counting</em> loops. They execute a predetermined number of repetitions. <a href="ch06.html#ch06lis10">Listing 6.10</a> is a short example of a <code>while</code> counting loop.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis10"/><span class="pd_ash">Listing 6.10</span> The <span class="EmpStrong">sweetie1.c</span> Program</p>
+<p class="codelink"><a id="p06lis10a" href="ch06_images.html#p06lis10">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// sweetie1.c -- a counting loop<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const int NUMBER = 22;<br/>&#160;&#160;&#160;&#160;int count = 1;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// initialization<br/><br/>&#160;&#160;&#160;&#160;while (count &lt;= NUMBER)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// test<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Be my Valentine!\n");&#160;&#160;// action<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;count++;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// update count<br/>&#160;&#160;&#160;&#160;}<br/><br/><a id="page_208"/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Although the form used in <a href="ch06.html#ch06lis10">Listing 6.10</a> works fine, it is not the best choice for this situation because the actions defining the loop are not all gathered together. Let&#8217;s elaborate on that point.</p>
+<p class="noindent">Three actions are involved in setting up a loop that is to be repeated a fixed number of times:</p>
+<p class="indenthangingN"><strong>1.</strong> A counter must be initialized.</p>
+<p class="indenthangingN"><strong>2.</strong> The counter is compared with some limiting value.</p>
+<p class="indenthangingN"><strong>3.</strong> The counter is incremented each time the loop is traversed.</p>
+<p class="noindent">The <code>while</code> loop condition takes care of the comparison. The increment operator takes care of the incrementing. In <a href="ch06.html#ch06lis10">Listing 6.10</a>, the incrementing is done at the end of the loop. This choice makes it possible to omit the incrementing accidentally. So it would be better to combine the test and update actions into one expression by using <code>count++ &lt;= NUMBER</code>, but the initialization of the counter is still done outside the loop, making it possible to forget to initialize a counter. Experience teaches us that what might happen <em>will</em> happen eventually, so let&#8217;s look at a control statement that avoids these problems.</p>
+<div class="heading">
+<h3 id="ch06lev1sec5">The <span class="EmpStrong">for</span> Loop</h3>
+<p class="noindent">The <code>for</code> loop gathers all three actions (initializing, testing, and updating) into one place. By using a <code>for</code> loop, you can replace the preceding program with the one shown in <a href="ch06.html#ch06lis11">Listing 6.11</a>.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis11"/><span class="pd_ash">Listing 6.11</span> The <span class="EmpStrong">sweetie2.c</span> Program</p>
+<p class="codelink"><a id="p06lis11a" href="ch06_images.html#p06lis11">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// sweetie2.c -- a counting loop using for<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const int NUMBER = 22;<br/>&#160;&#160;&#160;&#160;int count;<br/><br/>&#160;&#160;&#160;&#160;for (count = 1; count &lt;= NUMBER; count++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Be my Valentine!\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The parentheses following the keyword <code>for</code> contain three expressions separated by two semicolons. The first expression is the initialization. It is done just once, when the <code>for</code> loop first <a id="page_209"/>starts. The second expression is the test condition; it is evaluated before each potential execution of a loop. When the expression is false (when <code>count</code> is greater than <code>NUMBER</code>), the loop is terminated. The third expression, the change or update, is evaluated at the end of each loop. <a href="ch06.html#ch06lis10">Listing 6.10</a> uses it to increment the value of <code>count</code>, but it needn&#8217;t be restricted to that use. The <code>for</code> statement is completed by following it with a single simple or compound statement. Each of the three control expressions is a full expression, so any side effects in a control expression, such as incrementing a variable, take place before the program evaluates another expression. <a href="ch06.html#ch06fig03">Figure 6.3</a> summarizes the structure of a <code>for</code> loop.</p>
+<div class="image"><a id="ch06fig03"/><img src="graphics/06fig03.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 6.3</span> Structure of a <code>for</code> loop.</p></div>
+<p class="noindent">To show another example, <a href="ch06.html#ch06lis12">Listing 6.12</a> uses the <code>for</code> loop in a program that prints a table of cubes.</p>
+<p class="ex-caption"><a id="ch06lis12"/><span class="pd_ash">Listing 6.12</span> The <span class="EmpStrong">for_cube.c</span> Program</p>
+<p class="codelink"><a id="p06lis12a" href="ch06_images.html#p06lis12">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* for_cube.c -- using a for loop to make a table of cubes */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int num;<br/><br/>&#160;&#160;&#160;&#160;printf("&#160;&#160;&#160;&#160;n&#160;&#160;&#160;n cubed\n");<br/>&#160;&#160;&#160;&#160;for (num = 1; num &lt;= 6; num++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%5d %5d\n", num, num*num*num);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_210"/><a href="ch06.html#ch06lis12">Listing 6.12</a> prints the integers 1 through 6 and their cubes.</p>
+<p class="pre">n&#160;&#160;&#160;n cubed<br/>1&#160;&#160;&#160;&#160;&#160;1<br/>2&#160;&#160;&#160;&#160;&#160;8<br/>3&#160;&#160;&#160;&#160;27<br/>4&#160;&#160;&#160;&#160;64<br/>5&#160;&#160;&#160;125<br/>6&#160;&#160;&#160;216</p>
+<p class="noindent">The first line of the <code>for</code> loop tells us immediately all the information about the loop parameters: the starting value of <code>num</code>, the final value of <code>num</code>, and the amount that <code>num</code> increases on each looping.</p>
+<div class="heading">
+<h4 id="ch06lev2sec12">Using <span class="EmpStrong">for</span> for Flexibility</h4>
+<p class="noindent">Although the <code>for</code> loop looks similar to the FORTRAN <code>DO</code> loop, the Pascal <code>FOR</code> loop, and the BASIC <code>FOR...NEXT</code> loop, it is much more flexible than any of them. This flexibility stems from how the three expressions in a <code>for</code> specification can be used. The examples so far have used the first expression to initialize a counter, the second expression to express the limit for the counter, and the third expression to increase the value of the counter by 1. When used this way, the C <code>for</code> statement is very much like the others we have mentioned. However, there are many more possibilities; here are nine variations:</p>
+</div>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You can use the decrement operator to count down instead of up:</p>
+<p class="codelink"><a id="p210pro01a" href="ch06_images.html#p210pro01">Click here to view code image</a></p>
+<p class="pre1">/* for_down.c */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int secs;<br/><br/>&#160;&#160;&#160;&#160;for (secs = 5; secs &gt; 0; secs--)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d seconds!\n", secs);<br/>&#160;&#160;&#160;&#160;printf("We have ignition!\n");<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingBP">Here is the output:</p>
+<p class="pre1">5 seconds!<br/>4 seconds!<br/>3 seconds!<br/>2 seconds!<br/>1 seconds!<br/>We have ignition!</p>
+<p class="indenthangingB"><a id="page_211"/><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You can count by twos, tens, and so on, if you want:</p>
+<p class="codelink"><a id="p211pro01a" href="ch06_images.html#p211pro01">Click here to view code image</a></p>
+<p class="pre1">/* for_13s.c */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int n;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// count by 13s from 2<br/><br/>&#160;&#160;&#160;&#160;for (n = 2;&#160;&#160;n &lt; 60; n = n + 13)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d \n", n);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingBP">This would increase <code>n</code> by 13 during each cycle, printing the following:</p>
+<p class="pre1">&#160;2<br/>15<br/>28<br/>41<br/>54</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You can count by characters instead of by numbers:</p>
+<p class="codelink"><a id="p211pro02a" href="ch06_images.html#p211pro02">Click here to view code image</a></p>
+<p class="pre1">/* for_char.c */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;for (ch = 'a'; ch &lt;= 'z'; ch++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("The ASCII value for %c is %d.\n", ch, ch);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingBP">The program assumes the system uses ASCII code for characters. Here&#8217;s the abridged output:</p>
+<p class="pre1">The ASCII value for a is 97.<br/>The ASCII value for b is 98.<br/>...<br/>The ASCII value for x is 120.<br/>The ASCII value for y is 121.<br/>The ASCII value for z is 122.</p>
+<p class="indenthangingBP">The program works because characters are stored as integers, so this loop really counts by integers anyway.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You can test some condition other than the number of iterations. In the <code>for_cube</code> program, you can replace</p>
+<p class="pre1">for (num = 1; num &lt;= 6; num++)</p>
+<p class="indenthangingBP"><a id="page_212"/>with</p>
+<p class="codelink"><a id="p212pro01a" href="ch06_images.html#p212pro01">Click here to view code image</a></p>
+<p class="pre1">for (num = 1; num*num*num &lt;= 216; num++)</p>
+<p class="indenthangingBP">You would use this test condition if you were more concerned with limiting the size of the cube than with limiting the number of iterations.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You can let a quantity increase geometrically instead of arithmetically; that is, instead of adding a fixed amount each time, you can multiply by a fixed amount:</p>
+<p class="codelink"><a id="p212pro02a" href="ch06_images.html#p212pro02">Click here to view code image</a></p>
+<p class="pre1">/* for_geo.c */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;double debt;<br/><br/>&#160;&#160;&#160;&#160;for (debt = 100.0; debt &lt; 150.0; debt = debt * 1.1)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Your debt is now $%.2f.\n", debt);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingBP">This program fragment multiplies <code>debt</code> by 1.1 for each cycle, increasing it by 10% each time. The output looks like this:</p>
+<p class="pre1">Your debt is now $100.00.<br/>Your debt is now $110.00.<br/>Your debt is now $121.00.<br/>Your debt is now $133.10.<br/>Your debt is now $146.41.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You can use any legal expression you want for the third expression. Whatever you put in will be updated for each iteration.</p>
+<p class="codelink"><a id="p212pro03a" href="ch06_images.html#p212pro03">Click here to view code image</a></p>
+<p class="pre1">/* for_wild.c */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int x;<br/>&#160;&#160;&#160;&#160;int y = 55;<br/><br/>&#160;&#160;&#160;&#160;for (x = 1; y &lt;= 75; y = (++x * 5) + 50)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%10d %10d\n", x, y);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingBP">This loop prints the values of <code>x</code> and of the algebraic expression <code>++x * 5 + 50</code>. The output looks like this:</p>
+<p class="pre1">1&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;55<br/>2&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;60<br/>3&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;65<br/><a id="page_213"/>4&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;70<br/>5&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;75</p>
+<p class="indenthangingBP">Notice that the test involves <code>y</code>, not <code>x</code>. Each of the three expressions in the <code>for</code> loop control can use different variables. (Note that although this example is valid, it does not show good style. The program would have been clearer if we hadn&#8217;t mixed the updating process with an algebraic calculation.)</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You can even leave one or more expressions blank (but don&#8217;t omit the semicolons). Just be sure to include within the loop itself some statement that eventually causes the loop to terminate.</p>
+<p class="codelink"><a id="p213pro01a" href="ch06_images.html#p213pro01">Click here to view code image</a></p>
+<p class="pre1">/* for_none.c */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int ans, n;<br/><br/>&#160;&#160;&#160;&#160;ans = 2;<br/>&#160;&#160;&#160;&#160;for (n = 3; ans &lt;= 25; )<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ans = ans * n;<br/>&#160;&#160;&#160;&#160;printf("n = %d; ans = %d.\n", n, ans);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingBP">Here is the output:</p>
+<p class="pre1">n = 3; ans = 54.</p>
+<p class="indenthangingBP">The loop keeps the value of <code>n</code> at 3. The variable <code>ans</code> starts with the value 2, and then increases to 6 and 18 and obtains a final value of 54. (The value 18 is less than 25, so the <code>for</code> loop goes through one more iteration, multiplying 18 by 3 to get 54.) Incidentally, an empty middle control expression is considered to be true, so the following loop goes on forever:</p>
+<p class="codelink"><a id="p213pro02a" href="ch06_images.html#p213pro02">Click here to view code image</a></p>
+<p class="pre1">for (; ; )<br/>&#160;&#160;&#160;&#160;&#160;printf("I want some action\n");</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> The first expression need not initialize a variable. It could, instead, be a <code>printf()</code> statement of some sort. Just remember that the first expression is evaluated or executed only once, before any other parts of the loop are executed.</p>
+<p class="codelink"><a id="p213pro03a" href="ch06_images.html#p213pro03">Click here to view code image</a></p>
+<p class="pre1">/* for_show.c */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int num = 0;<br/><br/>&#160;&#160;&#160;&#160;for (printf("Keep entering numbers!\n"); num != 6;&#160;&#160;)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%d", &#38;num);<br/><a id="page_214"/>&#160;&#160;&#160;&#160;printf("That's the one I want!\n");<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingBP">This fragment prints the first message once and then keeps accepting numbers until you enter 6:</p>
+<p class="pre1">Keep entering numbers!<br/><span class="EmpStrong">3</span><br/><span class="EmpStrong">5</span><br/><span class="EmpStrong">8</span><br/><span class="EmpStrong">6</span><br/>That's the one I want!</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> The parameters of the loop expressions can be altered by actions within the loop. For example, suppose you have the loop set up like this:</p>
+<p class="codelink"><a id="p214pro01a" href="ch06_images.html#p214pro01">Click here to view code image</a></p>
+<p class="pre1">for (n = 1; n &lt; 10000; n = n + delta)</p>
+<p class="indenthangingBP">If after a few iterations your program decides that <code>delta</code> is too small or too large, an <code>if</code> statement (see <a href="ch07.html#ch07">Chapter 7</a>, &#8220;<a href="ch07.html#ch07">C Control Statements: Branching and Jumps</a>&#8221;) inside the loop can change the size of <code>delta</code>. In an interactive program, <code>delta</code> can be changed by the user as the loop runs. This sort of adjustment is a bit on the dangerous side; for example, setting <code>delta</code> to <code>0</code> gets you (and the loop) nowhere.</p>
+<p class="noindent">In short, the freedom you have in selecting the expressions that control a <code>for</code> loop makes this loop able to do much more than just perform a fixed number of iterations. The usefulness of the <code>for</code> loop is enhanced further by the operators we will discuss shortly.</p>
+<div class="sidebar"><hr/>
+<p class="title"><span class="pd_ash">Summary: The <span class="EmpItalic">for</span> Statement</span></p>
+<p class="sidebarpara"><strong>Keyword:</strong> <code>for</code></p>
+<p class="sidebarpara"><strong>General Comments:</strong></p>
+<p class="sidebarpara">The <code>for</code> statement uses three control expressions, separated by semicolons, to control a looping process. The <code>initialize</code> expression is executed once, before any of the loop statements are executed. Then the <code>test</code> expression is evaluated and, if it is true (or nonzero), the loop is cycled through once. Then the <code>update</code> expression is evaluated, and it is time to check the <code>test</code> expression again. The <code>for</code> statement is an entry-condition loop&#8212;the decision to go through one more pass of the loop is made before the loop is traversed. Therefore, it is possible that the loop is never traversed. The <code>statement</code> part of the form can be a simple statement or a compound statement.</p>
+<p class="sidebarpara"><strong>Form:</strong></p>
+<p class="pre1">for <span class="EmpItalic">(initialize</span> ; <span class="EmpItalic">test</span> ; <span class="EmpItalic">update</span>)<br/>&#160;&#160;&#160;&#160;&#160;<span class="EmpItalic">statement</span></p>
+<p class="sidebarpara">The loop is repeated until <code>test</code> becomes false or zero.</p>
+<p class="sidebarpara"><a id="page_215"/><strong>Example:</strong></p>
+<p class="codelink"><a id="p215pro01a" href="ch06_images.html#p215pro01">Click here to view code image</a></p>
+<p class="pre1">for (n = 0;&#160;&#160;n &lt; 10 ; n++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;printf(" %d %d\n", n, 2 * n + 1);</p>
+<hr/></div>
+<div class="heading">
+<h3 id="ch06lev1sec6">More Assignment Operators: <span class="EmpStrong">+=</span>, <span class="EmpStrong">-=</span>, <span class="EmpStrong">*=</span>, <span class="EmpStrong">/=</span>, <span class="EmpStrong">%=</span></h3>
+<p class="noindent">C has several assignment operators. The most basic one, of course, is <code>=</code>, which simply assigns the value of the expression at its right to the variable at its left. The other assignment operators update variables. Each is used with a variable name to its left and an expression to its right. The variable is assigned a new value equal to its old value adjusted by the value of the expression at the right. The exact adjustment depends on the operator. For example,</p>
+</div>
+<p class="uln-indent"><code>scores += 20</code> is the same as <code>scores = scores + 20</code>.</p>
+<p class="uln-indent"><code>dimes -= 2</code> is the same as <code>dimes = dimes - 2</code>.</p>
+<p class="uln-indent"><code>bunnies *= 2</code> is the same as <code>bunnies = bunnies * 2</code>.</p>
+<p class="uln-indent"><code>time /= 2.73</code> is the same as <code>time = time / 2.73</code>.</p>
+<p class="uln-indent"><code>reduce %= 3</code> is the same as <code>reduce = reduce % 3</code>.</p>
+<p class="noindent">The preceding list uses simple numbers on the right, but these operators also work with more elaborate expressions, such as the following:</p>
+<p class="uln-indent"><code>x *= 3 * y + 12</code> is the same as <code>x = x * (3 * y + 12)</code>.</p>
+<p class="noindent">The assignment operators we&#8217;ve just discussed have the same low priority that <code>=</code> does&#8212;that is, less than that of <code>+</code> or <code>*</code>. This low priority is reflected in the last example in which <code>12</code> is added to <code>3 * y</code> before the result is multiplied by <code>x</code>.</p>
+<p class="noindent">You are not required to use these forms. They are, however, more compact, and they may produce more efficient machine code than the longer form. The combination assignment operators are particularly useful when you are trying to squeeze something complex into a <code>for</code> loop specification.</p>
+<div class="heading">
+<h3 id="ch06lev1sec7">The Comma Operator</h3>
+<p class="noindent">The comma operator extends the flexibility of the <code>for</code> loop by enabling you to include more than one initialization or update expression in a single <code>for</code> loop specification. For example, <a href="ch06.html#ch06lis13">Listing 6.13</a> shows a program that prints first-class postage rates. (At the time of this writing, the rate is 46 cents for the first ounce and 20 cents for each additional ounce. You can check the Internet for the current rates.)</p>
+</div>
+<p class="ex-caption"><a id="page_216"/><a id="ch06lis13"/><span class="pd_ash">Listing 6.13</span> The <span class="EmpStrong">postage.c</span> Program</p>
+<p class="codelink"><a id="p06lis13a" href="ch06_images.html#p06lis13">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// postage.c -- first-class postage rates<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const int FIRST_OZ = 46; // 2013 rate<br/>&#160;&#160;&#160;&#160;const int NEXT_OZ = 20;&#160;&#160;// 2013 rate<br/>&#160;&#160;&#160;&#160;int ounces, cost;<br/><br/>&#160;&#160;&#160;&#160;printf(" ounces&#160;&#160;cost\n");<br/>&#160;&#160;&#160;&#160;for (ounces=1, cost=FIRST_OZ; ounces &lt;= 16; ounces++,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;cost += NEXT_OZ)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%5d&#160;&#160;&#160;$%4.2f\n", ounces, cost/100.0);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The first five lines of the output look like this:</p>
+<p class="pre">ounces&#160;&#160;cost<br/>&#160;&#160;&#160;&#160;1&#160;&#160;&#160;$0.46<br/>&#160;&#160;&#160;&#160;2&#160;&#160;&#160;$0.66<br/>&#160;&#160;&#160;&#160;3&#160;&#160;&#160;$0.86<br/>&#160;&#160;&#160;&#160;4&#160;&#160;&#160;$1.06</p>
+<p class="noindent">The program uses the comma operator in the initialize and the update expressions. Its presence in the first expression causes <code>ounces</code> and <code>cost</code> to be initialized. Its second occurrence causes <code>ounces</code> to be increased by 1 and <code>cost</code> to be increased by 20 (the value of <code>NEXT_OZ</code>) for each iteration. All the calculations are done in the <code>for</code> loop specifications (see <a href="ch06.html#ch06fig04">Figure 6.4</a>).</p>
+<div class="image"><a id="ch06fig04"/><img src="graphics/06fig04.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 6.4</span> The comma operator and the <code>for</code> loop.</p></div>
+<p class="noindent"><a id="page_217"/>The comma operator is not restricted to <code>for</code> loops, but that&#8217;s where it is most often used. The operator has two further properties. First, it guarantees that the expressions it separates are evaluated in a left-to-right order. (In other words, the comma is a sequence point, so all side effects to the left of the comma take place before the program moves to the right of the comma.) Therefore, <code>ounces</code> is initialized before <code>cost</code>. The order is not important for this example, but it would be important if the expression for <code>cost</code> contained <code>ounces</code>. Suppose, for instance, that you had this expression:</p>
+<p class="codelink"><a id="p217pro01a" href="ch06_images.html#p217pro01">Click here to view code image</a></p>
+<p class="pre">ounces++, cost = ounces * FIRST_OZ</p>
+<p class="noindent">This would increment <code>ounces</code> and then use the new value for <code>ounces</code> in the second subexpression. The comma being a sequence point guarantees that the side effects of the left subexpression occur before the right subexpression is evaluated.</p>
+<p class="noindent">Second, the value of the whole comma expression is the value of the right-hand member. The effect of the statement</p>
+<p class="codelink"><a id="p217pro02a" href="ch06_images.html#p217pro02">Click here to view code image</a></p>
+<p class="pre">x = (y = 3, (z = ++y + 2) + 5);</p>
+<p class="noindent">is to first assign <code>3</code> to <code>y</code>, increment <code>y</code> to <code>4</code>, and then add <code>2</code> to <code>4</code> and assign the resulting value of <code>6</code> to <code>z</code>, next add <code>5</code> to <code>z</code>, and finally assign the resulting value of <code>11</code> to <code>x</code>. Why anyone would do this is beyond the scope of this book. On the other hand, suppose you get careless and use comma notation in writing a number:</p>
+<p class="pre">houseprice = 249,500;</p>
+<p class="noindent">This is not a syntax error. Instead, C interprets this as a comma expression, with <code>houseprice = 249</code> being the left subexpression and <code>500</code> the right subexpression. Therefore, the value of the whole comma expression is the value of the right-hand expression, and the left substatement assigns the value <code>249</code> to the <code>houseprice</code> variable. Therefore, the effect is the same as the following code:</p>
+<p class="pre">houseprice = 249;<br/>500;</p>
+<p class="noindent">Remember that any expression becomes a statement with the addition of a semicolon, so <code>500;</code> is a statement that does nothing.</p>
+<p class="noindent">On the other hand, the statement</p>
+<p class="pre">houseprice = (249,500);</p>
+<p class="noindent">assigns 500, the value of the right subexpression, to <code>houseprice</code>.</p>
+<p class="noindent">The comma also is used as a separator, so the commas in</p>
+<p class="pre">char ch, date;</p>
+<p class="noindent">and</p>
+<p class="codelink"><a id="p217pro03a" href="ch06_images.html#p217pro03">Click here to view code image</a></p>
+<p class="pre">printf("%d %d\n", chimps, chumps);</p>
+<p class="noindent"><a id="page_218"/>are separators, not comma operators.</p>
+<div class="sidebar"><hr/>
+<p class="title"><span class="pd_ash">Summary: The New Operators</span></p>
+<p class="sidebarpara"><strong>Assignment Operators:</strong></p>
+<p class="sidebarpara">Each of these operators updates the variable at its left by the value at its right, using the indicated operation:</p>
+<div class="image2"><img src="graphics/218tab01.jpg" alt="Image"/></div>
+<p class="sidebarpara"><strong>Example:</strong></p>
+<p class="pre1">rabbits *= 1.6;</p>
+<p class="sidebarpara">is the same as</p>
+<p class="pre1">rabbits = rabbits * 1.6;</p>
+<p class="sidebarpara">These combination assignment operators have the same low precedence as the regular assignment operator, lower than arithmetic operators. Therefore, a statement such as</p>
+<p class="codelink"><a id="p218pro01a" href="ch06_images.html#p218pro01">Click here to view code image</a></p>
+<p class="pre1">contents *= old_rate + 1.2;</p>
+<p class="sidebarpara">has the same final effect as this:</p>
+<p class="codelink"><a id="p218pro02a" href="ch06_images.html#p218pro02">Click here to view code image</a></p>
+<p class="pre1">contents = contents * (old_rate + 1.2);</p>
+<p class="sidebarpara"><strong>The Comma Operator:</strong></p>
+<p class="sidebarpara">The comma operator links two expressions into one and guarantees that the leftmost expression is evaluated first. It is typically used to include more information in a <code>for</code> loop control expression. The value of the whole expression is the value of the right-hand expression.</p>
+<p class="sidebarpara"><strong>Example:</strong></p>
+<p class="codelink"><a id="p218pro03a" href="ch06_images.html#p218pro03">Click here to view code image</a></p>
+<p class="pre1">for (step = 2, fargo = 0; fargo &lt; 1000; step *= 2)<br/>&#160;&#160;&#160;&#160;&#160;fargo += step;</p>
+<hr/></div>
+<div class="heading">
+<h4 id="ch06lev2sec13">Zeno Meets the <span class="EmpStrong">for</span> Loop</h4>
+<p class="noindent">Let&#8217;s see how the <code>for</code> loop and the comma operator can help solve an old paradox. The Greek philosopher Zeno once argued that an arrow will never reach its target. First, he said, the arrow covers half the distance to the target. Then it has to cover half of the remaining distance. Then it still has half of what&#8217;s left to cover, ad infinitum. Because the journey has an infinite number of parts, Zeno argued, it would take the arrow an infinite amount of time to reach its journey&#8217;s <a id="page_219"/>end. We doubt, however, that Zeno would have volunteered to be a target on the strength of this argument.</p>
+</div>
+<p class="noindent">Let&#8217;s take a quantitative approach and suppose that it takes the arrow 1 second to travel the first half. Then it would take 1/2 second to travel half of what was left, 1/4 second to travel half of what was left next, and so on. You can represent the total time by the following infinite series:</p>
+<p class="codelink"><a id="p219pro01a" href="ch06_images.html#p219pro01">Click here to view code image</a></p>
+<p class="pre">1 + 1/2 + 1/4 + 1/8 + 1/16 +....</p>
+<p class="noindent">The short program in <a href="ch06.html#ch06lis14">Listing 6.14</a> finds the sum of the first few terms. The variable <code>power_of_two</code> takes on the values <code>1.0</code>, <code>2.0</code>, <code>4.0</code>, <code>8.0</code>, and so on.</p>
+<p class="ex-caption"><a id="ch06lis14"/><span class="pd_ash">Listing 6.14</span> The <span class="EmpStrong">zeno.c</span> Program</p>
+<p class="codelink"><a id="p06lis14a" href="ch06_images.html#p06lis14">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* zeno.c -- series sum */<br/>#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int t_ct;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// term count<br/>&#160;&#160;&#160;&#160;double time, power_of_2;<br/>&#160;&#160;&#160;&#160;int limit;<br/><br/>&#160;&#160;&#160;&#160;printf("Enter the number of terms you want: ");<br/>&#160;&#160;&#160;&#160;scanf("%d", &#38;limit);<br/>&#160;&#160;&#160;&#160;for (time=0, power_of_2=1, t_ct=1; t_ct &lt;= limit;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;t_ct++, power_of_2 *= 2.0)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;time += 1.0/power_of_2;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("time = %f when terms = %d.\n", time, t_ct);<br/>&#160;&#160;&#160;&#160;}<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is the output for 15 terms:</p>
+<p class="codelink"><a id="p219pro02a" href="ch06_images.html#p219pro02">Click here to view code image</a></p>
+<p class="pre">Enter the number of terms you want: <span class="EmpStrong">15</span><br/>time = 1.000000 when terms = 1.<br/>time = 1.500000 when terms = 2.<br/>time = 1.750000 when terms = 3.<br/>time = 1.875000 when terms = 4.<br/>time = 1.937500 when terms = 5.<br/>time = 1.968750 when terms = 6.<br/>time = 1.984375 when terms = 7.<br/>time = 1.992188 when terms = 8.<br/>time = 1.996094 when terms = 9.<br/><a id="page_220"/>time = 1.998047 when terms = 10.<br/>time = 1.999023 when terms = 11.<br/>time = 1.999512 when terms = 12.<br/>time = 1.999756 when terms = 13.<br/>time = 1.999878 when terms = 14.<br/>time = 1.999939 when terms = 15.</p>
+<p class="noindent">You can see that although you keep adding more terms, the total seems to level out. Indeed, mathematicians have proven that the total approaches 2.0 as the number of terms approaches infinity, just as this program suggests. Here&#8217;s one demonstration. Suppose you let <code>S</code> represent the sum:</p>
+<p class="pre">S = 1 + 1/2 + 1/4 + 1/8 + ...</p>
+<p class="noindent">Here the ellipsis mean &#8220;and so on.&#8221; Then dividing by 2 gives</p>
+<p class="codelink"><a id="p220pro01a" href="ch06_images.html#p220pro01">Click here to view code image</a></p>
+<p class="pre">S/2 = 1/2 + 1/4 + 1/8 + 1/16 + ...</p>
+<p class="noindent">Subtracting the second expression from the first gives</p>
+<p class="codelink"><a id="p220pro02a" href="ch06_images.html#p220pro02">Click here to view code image</a></p>
+<p class="pre">S - S/2 = 1 +1/2 -1/2 + 1/4 -1/4 +...</p>
+<p class="noindent">Except for the initial value of <code>1</code>, each other value occurs in pairs, one positive and one negative, so those terms cancel each other, leaving</p>
+<p class="pre">S/2 = 1.</p>
+<p class="noindent">Then, multiplying both sides by 2 gives</p>
+<p class="pre">S = 2.</p>
+<p class="noindent">One possible moral to draw from this is that before doing an involved calculation, check to see whether mathematicians have an easier way to do it.</p>
+<p class="noindent">What about the program itself? It shows that you can use more than one comma operator in an expression. You initialized <code>time</code>, <code>power_of_2</code>, and <code>count</code>. After you set up the conditions for the loop, the program itself is extremely brief.</p>
+<div class="heading">
+<h3 id="ch06lev1sec8">An Exit-Condition Loop: <span class="EmpStrong">do while</span></h3>
+<p class="noindent">The <code>while</code> loop and the <code>for</code> loop are both entry-condition loops. The test condition is checked <em>before</em> each iteration of the loop, so it is possible for the statements in the loop to never execute. C also has an <em>exit-condition</em> loop, in which the condition is checked after each iteration of the loop, guaranteeing that statements are executed at least once. This variety is called a <code>do while</code> loop. <a href="ch06.html#ch06lis15">Listing 6.15</a> shows an example.</p>
+</div>
+<p class="ex-caption"><a id="page_221"/><a id="ch06lis15"/><span class="pd_ash">Listing 6.15</span> The <span class="EmpStrong">do_while.c</span> Program</p>
+<p class="codelink"><a id="p06lis15a" href="ch06_images.html#p06lis15">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* do_while.c -- exit condition loop */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const int secret_code = 13;<br/>&#160;&#160;&#160;&#160;int code_entered;<br/><br/>&#160;&#160;&#160;&#160;do<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("To enter the triskaidekaphobia therapy club,\n");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("please enter the secret code number: ");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%d", &#38;code_entered);<br/>&#160;&#160;&#160;&#160;} while (code_entered != secret_code);<br/>&#160;&#160;&#160;&#160;printf("Congratulations! You are cured!\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The program in <a href="ch06.html#ch06lis15">Listing 6.15</a> reads input values until the user enters <code>13</code>. The following is a sample run:</p>
+<p class="codelink"><a id="p221pro01a" href="ch06_images.html#p221pro01">Click here to view code image</a></p>
+<p class="pre">To enter the triskaidekaphobia therapy club,<br/>please enter the secret code number: <span class="EmpStrong">12</span><br/>To enter the triskaidekaphobia therapy club,<br/>please enter the secret code number: <span class="EmpStrong">14</span><br/>To enter the triskaidekaphobia therapy club,<br/>please enter the secret code number: <span class="EmpStrong">13</span><br/>Congratulations! You are cured!</p>
+<p class="noindent">An equivalent program using a <code>while</code> loop would be a little longer, as shown in <a href="ch06.html#ch06lis16">Listing 6.16</a>.</p>
+<p class="ex-caption"><a id="ch06lis16"/><span class="pd_ash">Listing 6.16</span> The <span class="EmpStrong">entry.c</span> Program</p>
+<p class="codelink"><a id="p06lis16a" href="ch06_images.html#p06lis16">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* entry.c -- entry condition loop */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const int secret_code = 13;<br/>&#160;&#160;&#160;&#160;int code_entered;<br/><br/>&#160;&#160;&#160;&#160;printf("To enter the triskaidekaphobia therapy club,\n");<br/>&#160;&#160;&#160;&#160;printf("please enter the secret code number: ");<br/>&#160;&#160;&#160;&#160;scanf("%d", &#38;code_entered);<br/>&#160;&#160;&#160;&#160;while (code_entered != secret_code)<br/>&#160;&#160;&#160;&#160;{<br/><a id="page_222"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("To enter the triskaidekaphobia therapy club,\n");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("please enter the secret code number: ");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%d", &#38;code_entered);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("Congratulations! You are cured!\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is the general form of the <code>do while</code> loop:</p>
+<p class="pre">do<br/>&#160;&#160;&#160;&#160;<span class="EmpItalic">statement</span><br/>while ( <span class="EmpItalic">expression</span> );</p>
+<p class="noindent">The statement can be simple or compound. Note that the <code>do while</code> loop itself counts as a statement and, therefore, requires a terminating semicolon. Also, see <a href="ch06.html#ch06fig05">Figure 6.5</a>.</p>
+<div class="image"><a id="ch06fig05"/><img src="graphics/06fig05.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 6.5</span> Structure of a <code>do while</code> loop.</p></div>
+<p class="noindent">A <code>do while</code> loop is always executed at least once because the test is made after the body of the loop has been executed. A <code>for</code> loop or a <code>while</code> loop, on the other hand, can be executed zero times because the test is made before execution. You should restrict the use of <code>do while</code> loops to cases that require at least one iteration. For example, a password program could include a loop along these pseudocode lines:</p>
+<p class="codelink"><a id="p222pro01a" href="ch06_images.html#p222pro01">Click here to view code image</a></p>
+<p class="pre"><span class="EmpItalic">do</span><br/><span class="EmpItalic">{</span><br/>&#160;&#160;&#160;&#160;<span class="EmpItalic">prompt for password</span><br/>&#160;&#160;&#160;&#160;<span class="EmpItalic">read user input</span><br/><span class="EmpItalic">} while (input not equal to password);</span></p>
+<p class="noindent"><a id="page_223"/>Avoid a <code>do while</code> structure of the type shown in the following pseudocode:</p>
+<p class="codelink"><a id="p223pro01a" href="ch06_images.html#p223pro01">Click here to view code image</a></p>
+<p class="pre"><span class="EmpItalic">do</span><br/><span class="EmpItalic">{</span><br/>&#160;&#160;&#160;<span class="EmpItalic">ask user if he or she wants to continue</span><br/>&#160;&#160;&#160;<span class="EmpItalic">some clever stuff</span><br/><span class="EmpItalic">} while (answer is yes);</span></p>
+<p class="noindent">Here, after the user answers &#8220;no,&#8221; some clever stuff gets done anyway because the test comes too late.</p>
+<div class="sidebar"><hr/>
+<p class="title"><span class="pd_ash">Summary: The <span class="EmpItalic">do while</span> Statement</span></p>
+<p class="sidebarpara"><strong>Keywords:</strong></p>
+<p class="pre1">do while</p>
+<p class="sidebarpara"><strong>General Comments:</strong></p>
+<p class="sidebarpara">The <code>do while</code> statement creates a loop that repeats until the test <span class="EmpItalic">expression</span> becomes false or zero. The <code>do while</code> statement is an exit-condition loop&#8212;the decision to go through one more pass of the loop is made after the loop has been traversed. Therefore, the loop must be executed at least once. The <span class="EmpItalic">statement</span> part of the form can be a simple statement or a compound statement.</p>
+<p class="sidebarpara"><strong>Form:</strong></p>
+<p class="pre1">do<br/>&#160;&#160;&#160;&#160;<span class="EmpItalic">statement</span><br/>while (<span class="EmpItalic">expression</span>);</p>
+<p class="sidebarpara">The <span class="EmpItalic">statement</span> portion is repeated until the <span class="EmpItalic">expression</span> becomes false or zero.</p>
+<p class="sidebarpara"><strong>Example:</strong></p>
+<p class="pre1">do<br/>&#160;&#160;&#160;&#160;scanf("%d", &#38;number);<br/>while (number != 20);</p>
+<hr/></div>
+<div class="heading">
+<h3 id="ch06lev1sec9">Which Loop?</h3>
+<p class="noindent">When you decide you need a loop, which one should you use? First, decide whether you need an entry-condition loop or an exit-condition loop. Your answer should usually be an entry-condition loop. There are several reasons computer scientists consider an entry-condition loop to be superior. One is the general principle that it is better to look before you leap (or loop) than after. A second is that a program is easier to read if the loop test is found at the beginning of the loop. Finally, in many uses, it is important that the loop be skipped entirely if the test is not initially met.</p>
+</div>
+<p class="noindent"><a id="page_224"/>Assume that you need an entry-condition loop. Should it be a <code>for</code> or a <code>while</code>? This is partly a matter of taste, because what you can do with one, you can do with the other. To make a <code>for</code> loop like a <code>while</code>, you can omit the first and third expressions. For example,</p>
+<p class="pre">for ( ;<span class="EmpItalic">test</span>; )</p>
+<p class="noindent">is the same as</p>
+<p class="pre">while (<span class="EmpItalic">test</span>)</p>
+<p class="noindent">To make a <code>while</code> like a <code>for</code>, preface it with an initialization and include update statements. For example,</p>
+<p class="pre"><span class="EmpItalic">initialize;</span><br/>while (<span class="EmpItalic">test</span>)<br/>{<br/>&#160;&#160;<span class="EmpItalic">body</span>;<br/>&#160;&#160;<span class="EmpItalic">update</span>;<br/>}</p>
+<p class="noindent">is the same as</p>
+<p class="codelink"><a id="p224pro01a" href="ch06_images.html#p224pro01">Click here to view code image</a></p>
+<p class="pre">for (<span class="EmpItalic">initialize</span>; <span class="EmpItalic">test</span>; <span class="EmpItalic">update</span>)<br/>&#160;&#160;&#160;<span class="EmpItalic">body</span>;</p>
+<p class="noindent">In terms of prevailing style, a <code>for</code> loop is appropriate when the loop involves initializing and updating a variable, and a <code>while</code> loop is better when the conditions are otherwise. A <code>while</code> loop is natural for the following condition:</p>
+<p class="codelink"><a id="p224pro02a" href="ch06_images.html#p224pro02">Click here to view code image</a></p>
+<p class="pre">while (scanf("%ld", &#38;num) == 1)</p>
+<p class="noindent">The <code>for</code> loop is a more natural choice for loops involving counting with an index:</p>
+<p class="codelink"><a id="p224pro03a" href="ch06_images.html#p224pro03">Click here to view code image</a></p>
+<p class="pre">for (count = 1; count &lt;= 100; count++)</p>
+<div class="heading">
+<h3 id="ch06lev1sec10">Nested Loops</h3>
+<p class="noindent">A <em>nested loop</em> is one loop inside another loop. A common use for nested loops is to display data in rows and columns. One loop can handle, say, all the columns in a row, and the second loop handles the rows. <a href="ch06.html#ch06lis17">Listing 6.17</a> shows a simple example.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis17"/><span class="pd_ash">Listing 6.17</span> The <span class="EmpStrong">rows1.c</span> Program</p>
+<p class="codelink"><a id="p06lis17a" href="ch06_images.html#p06lis17">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* rows1.c -- uses nested loops */<br/>#include &lt;stdio.h&gt;<br/>#define ROWS&#160;&#160;6<br/>#define CHARS 10<br/>int main(void)<br/>{<br/><a id="page_225"/>&#160;&#160;&#160;&#160;int row;<br/>&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;for (row = 0; row &lt; ROWS; row++)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 10 */<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for (ch = 'A'; ch &lt; ('A' + CHARS); ch++)&#160;&#160;/* line 12 */<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%c", ch);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("\n");<br/>&#160;&#160;&#160;&#160;}<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Running the program produces this output:</p>
+<p class="pre">ABCDEFGHIJ<br/>ABCDEFGHIJ<br/>ABCDEFGHIJ<br/>ABCDEFGHIJ<br/>ABCDEFGHIJ<br/>ABCDEFGHIJ</p>
+<div class="heading">
+<h4 id="ch06lev2sec14">Program Discussion</h4>
+<p class="noindent">The <code>for</code> loop beginning on line 10 is called an <em>outer</em> loop, and the loop beginning on line 12 is called an <em>inner</em> loop because it is inside the other loop. The outer loop starts with <code>row</code> having a value of <code>0</code> and terminates when <code>row</code> reaches <code>6</code>. Therefore, the outer loop goes through six cycles, with <code>row</code> having the values <code>0</code> through <code>5</code>. The first statement in each cycle is the inner <code>for</code> loop. This loop goes through 10 cycles, printing the characters <code>A</code> through <code>J</code> on the same line. The second statement of the outer loop is <code>printf("\n");</code>. This statement starts a new line so that the next time the inner loop is run, the output is on a new line.</p>
+</div>
+<p class="noindent">Note that, with a nested loop, the inner loop runs through its full range of iterations for each single iteration of the outer loop. In the last example, the inner loop prints 10 characters to a row, and the outer loop creates six rows.</p>
+<div class="heading">
+<h4 id="ch06lev2sec15">A Nested Variation</h4>
+<p class="noindent">In the preceding example, the inner loop did the same thing for each cycle of the outer loop. You can make the inner loop behave differently each cycle by making part of the inner loop depend on the outer loop. <a href="ch06.html#ch06lis18">Listing 6.18</a>, for example, alters the last program slightly by making the starting character of the inner loop depend on the cycle number of the outer loop. It also uses the newer comment style and <code>const</code> instead of <code>#define</code> to help you get comfortable with both approaches.</p>
+</div>
+<p class="ex-caption"><a id="page_226"/><a id="ch06lis18"/><span class="pd_ash">Listing 6.18</span> The <span class="EmpStrong">rows2.c</span> Program</p>
+<p class="codelink"><a id="p06lis18a" href="ch06_images.html#p06lis18">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// rows2.c -- using dependent nested loops<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const int ROWS = 6;<br/>&#160;&#160;&#160;&#160;const int CHARS = 6;<br/>&#160;&#160;&#160;&#160;int row;<br/>&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;for (row = 0; row &lt; ROWS; row++)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for (ch = ('A' + row);&#160;&#160;ch &lt; ('A' + CHARS); ch++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%c", ch);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("\n");<br/>&#160;&#160;&#160;&#160;}<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here&#8217;s the output this time:</p>
+<p class="pre">ABCDEF<br/>BCDEF<br/>CDEF<br/>DEF<br/>EF<br/>F</p>
+<p class="noindent">Because <code>row</code> is added to <code>'A'</code> during each cycle of the outer loop, <code>ch</code> is initialized in each row to one character later in the alphabet. The test condition, however, is unaltered, so each row still ends on <code>F</code>. This results in one fewer character being printed in each row.</p>
+<div class="heading">
+<h3 id="ch06lev1sec11">Introducing Arrays</h3>
+<p class="noindent">Arrays are important features in many programs. They enable you to store several items of related information in a convenient fashion. We will devote all of <a href="ch10.html#ch10">Chapter 10</a>, &#8220;<a href="ch10.html#ch10">Arrays and Pointers</a>,&#8221; to arrays, but because arrays are often used with loops, we want to introduce them now.</p>
+</div>
+<p class="noindent">An <em>array</em> is a series of values of the same type, such as 10 <code>char</code>s or 15 <code>int</code>s, stored sequentially. The whole array bears a single name, and the individual items, or <em>elements</em>, are accessed by using an integer index. For example, the declaration</p>
+<p class="pre">float debts[20];</p>
+<p class="noindent"><a id="page_227"/>announces that <code>debts</code> is an array with 20 elements, each of which can hold a type <code>float</code> value. The first element of the array is called <code>debts[0]</code>, the second element is called <code>debts[1]</code>, and so on, up to <code>debts[19]</code>. Note that the numbering of array elements starts with 0, not 1. Each element can be assigned a <code>float</code> value. For example, you can have the following:</p>
+<p class="pre">debts[5] = 32.54;<br/>debts[6] = 1.2e+21;</p>
+<p class="noindent">In fact, you can use an array element the same way you would use a variable of the same type. For example, you can read a value into a particular element:</p>
+<p class="codelink"><a id="p227pro01a" href="ch06_images.html#p227pro01">Click here to view code image</a></p>
+<p class="pre">scanf("%f", &#38;debts[4]);&#160;&#160;// read a value into the 5th element</p>
+<p class="noindent">One potential pitfall is that, in the interest of speed of execution, C doesn&#8217;t check to see whether you use a correct subscript. Each of the following, for example, is bad code:</p>
+<p class="codelink"><a id="p227pro02a" href="ch06_images.html#p227pro02">Click here to view code image</a></p>
+<p class="pre">debts[20] = 88.32;&#160;&#160;&#160;// no such array element<br/>debts[33] = 828.12;&#160;&#160;// no such array element</p>
+<p class="noindent">However, the compiler doesn&#8217;t look for such errors. When the program runs, these statements would place data in locations possibly used for other data, potentially corrupting the output of the program or even causing it to abort.</p>
+<p class="noindent">An array can be of any data type.</p>
+<p class="codelink"><a id="p227pro03a" href="ch06_images.html#p227pro03">Click here to view code image</a></p>
+<p class="pre">int nannies[22];&#160;&#160;&#160;/* an array to hold 22 integers&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>char actors[26];&#160;&#160;&#160;/* an array to hold 26 characters&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>long big[500];&#160;&#160;&#160;&#160;&#160;/* an array to hold 500 long integers&#160;&#160;*/</p>
+<p class="noindent">Earlier, for example, we talked about strings, which are a special case of what can be stored in a <code>char</code> array. (A <code>char</code> array, in general, is one whose elements are assigned <code>char</code> values.) The contents of a <code>char</code> array form a string if the array contains the null character, <code>\0</code>, which marks the end of the string (see <a href="ch06.html#ch06fig06">Figure 6.6</a>).</p>
+<div class="image"><a id="ch06fig06"/><img src="graphics/06fig06.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 6.6</span> Character arrays and strings.</p></div>
+<p class="noindent"><a id="page_228"/>The numbers used to identify the array elements are called <em>subscripts</em>, <em>indices</em>, or <em>offsets</em>. The subscripts must be integers, and, as mentioned, the subscripting begins with 0. The array elements are stored next to each other in memory, as shown in <a href="ch06.html#ch06fig07">Figure 6.7</a>.</p>
+<div class="image"><a id="ch06fig07"/><img src="graphics/06fig07.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 6.7</span> The <code>char</code> and <code>int</code> arrays in memory.</p></div>
+<div class="heading">
+<h4 id="ch06lev2sec16">Using a <span class="EmpStrong">for</span> Loop with an Array</h4>
+<p class="noindent">There are many, many uses for arrays. <a href="ch06.html#ch06lis19">Listing 6.19</a> is a relatively simple one. It&#8217;s a program that reads in 10 golf scores that will be processed later. By using an array, you avoid the need to invent 10 different variable names, one for each score. Also, you can use a <code>for</code> loop to do the reading. The program goes on to report the sum of the scores and their average and a handicap, which is the difference between the average and a standard score, or par.</p>
+</div>
+<p class="ex-caption"><a id="ch06lis19"/><span class="pd_ash">Listing 6.19</span> The <span class="EmpStrong">scores_in.c</span> Program</p>
+<p class="codelink"><a id="p06lis19a" href="ch06_images.html#p06lis19">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// scores_in.c -- uses loops for array processing<br/>#include &lt;stdio.h&gt;<br/>#define SIZE 10<br/>#define PAR 72<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int index, score[SIZE];<br/>&#160;&#160;&#160;&#160;int sum = 0;<br/>&#160;&#160;&#160;&#160;float average;<br/><br/>&#160;&#160;&#160;&#160;printf("Enter %d golf scores:\n", SIZE);<br/>&#160;&#160;&#160;&#160;for (index = 0; index &lt; SIZE; index++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%d", &#38;score[index]);&#160;&#160;// read in the ten scores<br/>&#160;&#160;&#160;&#160;printf("The scores read in are as follows:\n");<br/>&#160;&#160;&#160;&#160;for (index = 0; index &lt; SIZE; index++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%5d", score[index]); // verify input<br/>&#160;&#160;&#160;&#160;printf("\n");<br/><a id="page_229"/>&#160;&#160;&#160;&#160;for (index = 0; index &lt; SIZE; index++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sum += score[index];&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// add them up<br/>&#160;&#160;&#160;&#160;average = (float) sum / SIZE;&#160;&#160;&#160;&#160;// time-honored method<br/>&#160;&#160;&#160;&#160;printf("Sum of scores = %d, average = %.2f\n", sum, average);<br/>&#160;&#160;&#160;&#160;printf("That's a handicap of %.0f.\n", average - PAR);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Let&#8217;s see if <a href="ch06.html#ch06lis19">Listing 6.19</a> works; then we can make a few comments. Here is the output:</p>
+<p class="codelink"><a id="p229pro01a" href="ch06_images.html#p229pro01">Click here to view code image</a></p>
+<p class="pre">Enter 10 golf scores:<br/><span class="EmpStrong">99 95 109 105 100</span><br/><span class="EmpStrong">96 98 93 99 97 98</span><br/>The scores read in are as follows:<br/>&#160;&#160;&#160;99&#160;&#160;&#160;95&#160;&#160;109&#160;&#160;105&#160;&#160;100&#160;&#160;&#160;96&#160;&#160;&#160;98&#160;&#160;&#160;93&#160;&#160;&#160;99&#160;&#160;&#160;97<br/>Sum of scores = 991, average = 99.10<br/>That's a handicap of 27.</p>
+<p class="noindent">It works, so let&#8217;s check out some of the details. First, note that although the example shows 11 numbers typed, only 10 were read because the reading loop reads just 10 values. Because <code>scanf()</code> skips over whitespace, you can type all 10 numbers on one line, place each number on its own line, or, as in this case, use a mixture of newlines and spaces to separate the input. (Because input is buffered, the numbers are sent to the program only when you press the Enter key.)</p>
+<p class="noindent">Next, using arrays and loops is much more convenient than using 10 separate <code>scanf()</code> statements and 10 separate <code>printf()</code> statements to read in and verify the 10 scores. The <code>for</code> loop offers a simple and direct way to use the array subscripts. Notice that an element of an <code>int</code> array is handled like an <code>int</code> variable. To read the <code>int</code> variable <code>fue</code>, you would use <code>scanf("%d", &#38;fue)</code>. <a href="ch06.html#ch06lis19">Listing 6.19</a> is reading the <code>int</code> element <code>score[index]</code>, so it uses <code>scanf("%d", &#38;score[index])</code>.</p>
+<p class="noindent">This example illustrates several style points. First, it&#8217;s a good idea to use a <code>#define</code> directive to create a manifest constant (<code>SIZE</code>) to specify the size of the array. You use this constant in defining the array and in setting the loop limits. If you later need to expand the program to handle 20 scores, simply redefine <code>SIZE</code> to be 20. You don&#8217;t have to change every part of the program that uses the array size. Second, the idiom</p>
+<p class="codelink"><a id="p229pro02a" href="ch06_images.html#p229pro02">Click here to view code image</a></p>
+<p class="pre">for (index = 0; index &lt; SIZE; index++)</p>
+<p class="noindent">is a handy one for processing an array of size <code>SIZE</code>. It&#8217;s important to get the right array limits. The first element has index <code>0</code>, and the loop starts by setting <code>index</code> to <code>0</code>. Because the numbering starts with <code>0</code>, the element index for the last element is <code>SIZE - 1</code>. That is, the tenth element is <code>score[9]</code>. Using the test condition <code>index &lt; SIZE</code> accomplishes this, making the last value of <code>index</code> used in the loop <code>SIZE - 1</code>.</p>
+<p class="noindent"><a id="page_230"/>Third, a good practice is to have a program repeat or &#8220;echo&#8221; the values it has just read in. This helps ensure that the program is processing the data you think it is.</p>
+<p class="noindent">Finally, note that <a href="ch06.html#ch06lis19">Listing 6.19</a> uses three separate <code>for</code> loops. You might wonder if this is really necessary. Could you have combined some of the operations in one loop? The answer is yes, you could have done so. That would have made the program more compact. However, you should be swayed by the principle of <em>modularity</em>. The idea behind this term is that a program should be broken into separate units, with each unit having one task to perform. This makes a program easier to read. Perhaps even more important, modularity makes it much easier to update or modify a program if different parts of the program are not intermingled. When you know enough about functions, you could make each unit into a function, enhancing the modularity of the program.</p>
+<div class="heading">
+<h3 id="ch06lev1sec12">A Loop Example Using a Function Return Value</h3>
+<p class="noindent">The last example in this chapter uses a function that calculates the result of raising a number to an integer power. (For the serious number-cruncher, the <code>math.h</code> library provides a more powerful power function called <code>pow()</code> that allows floating-point exponents.) The three main tasks in this exercise are devising the algorithm for calculating the answer, expressing the algorithm in a function that returns the answer, and providing a convenient way of testing the function.</p>
+</div>
+<p class="noindent">First, let&#8217;s look at an algorithm. We&#8217;ll keep the function simple by restricting it to positive integer powers. Then, to raise <code>n</code> to the <code>p</code> power, just multiply <code>n</code> times itself <code>p</code> times. This is a natural task for a loop. You can set the variable <code>pow</code> to <code>1</code> and then repeatedly multiply it by <code>n</code>:</p>
+<p class="pre">for(i = 1; i &lt;= p; i++)<br/>&#160;&#160;&#160;&#160;&#160;pow *= n;</p>
+<p class="noindent">Recall that the <code>*=</code> operator multiplies the left side by the right side. After the first loop cycle, <code>pow</code> is <code>1</code> times <code>n</code>, or <code>n</code>. After the second cycle, <code>pow</code> is its previous value (<code>n</code>) times <code>n</code>, or <code>n</code> squared, and so on. The <code>for</code> loop is natural in this context because the loop is executed a predetermined (after <code>p</code> is known) number of times.</p>
+<p class="noindent">Now that we have an algorithm, we can decide which data types to use. The exponent <code>p</code>, being an integer, should be type <code>int</code>. To allow ample range in values for <code>n</code> and its power, make <code>n</code> and <code>pow</code> type <code>double</code>.</p>
+<p class="noindent">Next, let&#8217;s consider how to put the function together. We need to give the function two values, and the function should give back one. To get information to the function, we can use two arguments, one <code>double</code> and one <code>int</code>, specifying which number to raise to what power. How do we arrange for the function to return a value to the calling program? To write a function with a return value, do the following:</p>
+<p class="indenthangingN"><strong>1.</strong> When you define a function, state the type of value it returns.</p>
+<p class="indenthangingN"><strong>2.</strong> Use the keyword <code>return</code> to indicate the value to be returned.</p>
+<p class="noindent"><a id="page_231"/>For example, we can do this:</p>
+<p class="codelink"><a id="p231pro01a" href="ch06_images.html#p231pro01">Click here to view code image</a></p>
+<p class="pre">double power(double n, int p)&#160;&#160;// returns a double<br/>{<br/>&#160;&#160;&#160;&#160;double pow = 1;<br/>&#160;&#160;&#160;&#160;int i;<br/><br/>&#160;&#160;&#160;&#160;for (i = 1; i &lt;= p; i++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pow *= n;<br/><br/>&#160;&#160;&#160;&#160;return pow;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// return the value of pow<br/>}</p>
+<p class="noindent">To declare the function type, preface the function name with the type, just as you do when declaring a variable. The keyword <code>return</code> causes the function to return the following value to the calling function. Here the function returns the value of a variable, but it can return the value of expressions, too. For instance, the following is a valid statement:</p>
+<p class="pre">return 2 * x + b;</p>
+<p class="noindent">The function would compute the value of the expression and return it. In the calling function, the return value can be assigned to another variable, can be used as a value in an expression, can be used as an argument to another function&#8212;as in <code>printf("%f", power(6.28, 3))</code>&#8212;or can be ignored.</p>
+<p class="noindent">Now let&#8217;s use the function in a program. To test the function, it would be convenient to be able to feed several values to the function to see how it reacts. This suggests setting up an input loop. The natural choice is the <code>while</code> loop. You can use <code>scanf()</code> to read in two values at a time. If successful in reading two values, <code>scanf()</code> returns the value <code>2</code>, so you can control the loop by comparing the <code>scanf()</code> return value to 2. One more point: To use the <code>power()</code> function in your program, you need to declare it, just as you declare variables that the program uses. <a href="ch06.html#ch06lis20">Listing 6.20</a> shows the program.</p>
+<p class="ex-caption"><a id="ch06lis20"/><span class="pd_ash">Listing 6.20</span> The <span class="EmpStrong">power.c</span> Program</p>
+<p class="codelink"><a id="p06lis20a" href="ch06_images.html#p06lis20">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// power.c -- raises numbers to integer powers<br/>#include &lt;stdio.h&gt;<br/>double power(double n, int p); // ANSI prototype<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;double x, xpow;<br/>&#160;&#160;&#160;&#160;int exp;<br/><br/>&#160;&#160;&#160;&#160;printf("Enter a number and the positive integer power");<br/>&#160;&#160;&#160;&#160;printf(" to which\nthe number will be raised. Enter q");<br/>&#160;&#160;&#160;&#160;printf(" to quit.\n");<br/>&#160;&#160;&#160;&#160;while (scanf("%lf%d", &#38;x, &#38;exp) == 2)<br/>&#160;&#160;&#160;&#160;{<br/><a id="page_232"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;xpow = power(x,exp);&#160;&#160;&#160;// function call<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%.3g to the power %d is %.5g\n", x, exp, xpow);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Enter next pair of numbers or q to quit.\n");<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("Hope you enjoyed this power trip -- bye!\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/>double power(double n, int p)&#160;&#160;// function definition<br/>{<br/>&#160;&#160;&#160;&#160;double pow = 1;<br/>&#160;&#160;&#160;&#160;int i;<br/><br/>&#160;&#160;&#160;&#160;for (i = 1; i &lt;= p; i++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pow *= n;<br/><br/>&#160;&#160;&#160;&#160;return pow;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// return the value of pow<br/>}</p>
+<p class="noindent">Here is a sample run:</p>
+<p class="pre">Enter a number and the positive integer power to which<br/>the number will be raised. Enter q to quit.<br/><span class="EmpStrong">1.2 12</span><br/>1.2 to the power 12 is 8.9161<br/>Enter next pair of numbers or q to quit.<br/><span class="EmpStrong">2</span><br/><span class="EmpStrong">16</span><br/>2 to the power 16 is 65536<br/>Enter next pair of numbers or q to quit.<br/><span class="EmpStrong">q</span><br/>Hope you enjoyed this power trip -- bye!</p>
+<hr/>
+<div class="heading">
+<h4 id="ch06lev2sec17">Program Discussion</h4>
+<p class="noindent">The <code>main()</code> program is an example of a <em>driver</em>, a short program designed to test a function.</p>
+</div>
+<p class="noindent">The <code>while</code> loop is a generalization of a form we&#8217;ve used before. Entering <code>1.2 12</code> causes <code>scanf()</code> to read two values successfully and to return <code>2</code>, and the loop continues. Because <code>scanf()</code> skips over whitespace, input can be spread over more than one line, as the sample output shows, but entering <code>q</code> produces a return value of <code>0</code> because <code>q</code> can&#8217;t be read using the <code>%lf</code> specifier. This causes <code>scanf()</code> to return <code>0</code>, thus terminating the loop. Similarly, entering <code>2.8 q</code> would produce a <code>scanf()</code> return value of <code>1</code>; that, too, would terminate the loop.</p>
+<p class="noindent"><a id="page_233"/>Now let&#8217;s look at the function-related matters. The <code>power()</code> function appears three times in this program. The first appearance is this:</p>
+<p class="codelink"><a id="p233pro01a" href="ch06_images.html#p233pro01">Click here to view code image</a></p>
+<p class="pre">double power(double n, int p); // ANSI prototype</p>
+<p class="noindent">This statement announces, or <em>declares</em>, that the program will be using a function called <code>power()</code>. The initial keyword <code>double</code> indicates that the <code>power()</code> function returns a type <code>double</code> value. The compiler needs to know what kind of value <code>power()</code> returns so that it will know how many bytes of data to expect and how to interpret them; this is why you have to declare the function. The <code>double n, int p</code> within the parentheses means that <code>power()</code> takes two arguments. The first should be a type <code>double</code> value, and the second should be type <code>int</code>.</p>
+<p class="noindent">The second appearance is this:</p>
+<p class="codelink"><a id="p233pro02a" href="ch06_images.html#p233pro02">Click here to view code image</a></p>
+<p class="pre">xpow = power(x,exp);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// function call</p>
+<p class="noindent">Here the program calls the function, passing it two values. The function calculates <code>x</code> to the <code>exp</code> power and returns the result to the calling program, where the return value is assigned to the variable <code>xpow</code>.</p>
+<p class="noindent">The third appearance is in the head of the function definition:</p>
+<p class="codelink"><a id="p233pro03a" href="ch06_images.html#p233pro03">Click here to view code image</a></p>
+<p class="pre">double power(double n, int p)&#160;&#160;// function definition</p>
+<p class="noindent">Here <code>power()</code> takes two parameters, a <code>double</code> and an <code>int</code>, represented by the variables <code>n</code> and <code>p</code>. Note that <code>power()</code> is not followed by a semicolon when it appears in a function definition, but is followed by a semicolon when in a function declaration. After the function heading comes the code that specifies what <code>power()</code> does.</p>
+<p class="noindent">Recall that the function uses a <code>for</code> loop to calculate the value of <code>n</code> to the <code>p</code> power and assign it to <code>pow</code>. The following line makes the value of <code>pow</code> the function return value:</p>
+<p class="codelink"><a id="p233pro04a" href="ch06_images.html#p233pro04">Click here to view code image</a></p>
+<p class="pre">return pow;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// return the value of pow</p>
+<div class="heading">
+<h4 id="ch06lev2sec18">Using Functions with Return Values</h4>
+<p class="noindent">Declaring the function, calling the function, defining the function, using the <code>return</code> keyword&#8212;these are the basic elements in defining and using a function with a return value.</p>
+</div>
+<p class="noindent">At this point, you might have some questions. For example, if you are supposed to declare functions before you use their return values, how come you used the return value of <code>scanf()</code> without declaring <code>scanf()</code>? Why do you have to declare <code>power()</code> separately when your definition of it says it is type <code>double</code>?</p>
+<p class="noindent">Let&#8217;s take the second question first. The compiler needs to know what type <code>power()</code> is when it first encounters <code>power()</code> in the program. At this point, the compiler has not yet encountered the definition of <code>power()</code>, so it doesn&#8217;t know that the definition says the return type is <code>double</code>. To help out the compiler, you preview what is to come by using a <em>forward declaration</em>. This declaration informs the compiler that <code>power()</code> is defined elsewhere and that it will return type <code>double</code>. If you place the <code>power()</code> function definition ahead of <code>main()</code> in the file, you can <a id="page_234"/>omit the forward declaration because the compiler will know all about <code>power()</code> before reaching <code>main()</code>. However, that is not standard C style. Because <code>main()</code> usually provides the overall framework for a program, it&#8217;s best to show <code>main()</code> first. Also, functions often are kept in separate files, so a forward declaration is essential.</p>
+<p class="noindent">Next, why didn&#8217;t you declare <code>scanf()</code>? Well, you did. The <code>stdio.h</code> header file has function declarations for <code>scanf()</code>, <code>printf()</code>, and several other I/O functions. The <code>scanf()</code> declaration states that it returns type <code>int</code>.</p>
+<div class="heading">
+<h3 id="ch06lev1sec13">Key Concepts</h3>
+<p class="noindent">The loop is a powerful programming tool. You should pay particular attention to three aspects when setting up a loop:</p>
+</div>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Clearly defining the condition that causes the loop to terminate</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Making sure the values used in the loop test are initialized before the first use</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Making sure the loop does something to update the test each cycle</p>
+<p class="noindent">C handles test conditions by evaluating them numerically. A result of <code>0</code> is false, and any other value is true. Expressions using the relational operators often are used as tests, and they are a bit more specific. Relational expressions evaluate to <code>1</code> if true and to <code>0</code> if false, which is consistent with the values allowed for the new <code>_Bool</code> type.</p>
+<p class="noindent">Arrays consist of adjacent memory locations all of the same type. You need to keep in mind that array element numbering starts with 0 so that the subscript of the last element is always one less than the number of elements. C doesn&#8217;t check to see if you use valid subscript values, so the responsibility is yours.</p>
+<p class="noindent">Employing a function involves three separate steps:</p>
+<p class="indenthangingN"><strong>1.</strong> Declare the function with a function prototype.</p>
+<p class="indenthangingN"><strong>2.</strong> Use the function from within a program with a function call.</p>
+<p class="indenthangingN"><strong>3.</strong> Define the function.</p>
+<p class="noindent">The prototype allows the compiler to see whether you&#8217;ve used the function correctly, and the definition sets down how the function works. The prototype and definition are examples of the contemporary programming practice of separating a program element into an interface and an implementation. The interface describes how a feature is used, which is what a prototype does, and the implementation sets forth the particular actions taken, which is what the definition does.</p>
+<div class="heading">
+<h3 id="ch06lev1sec14"><a id="page_235"/>Summary</h3>
+<p class="noindent">The main topic of this chapter has been program control. C offers you many aids for structuring your programs. The <code>while</code> and the <code>for</code> statements provide entry-condition loops. The <code>for</code> statements are particularly suited for loops that involve initialization and updating. The comma operator enables you to initialize and update more than one variable in a <code>for</code> loop. For the less common occasion when an exit-condition loop is needed, C has the <code>do while</code> statement.</p>
+</div>
+<p class="noindent">A typical <code>while</code> loop design looks like this:</p>
+<p class="pre">get first value<br/>while (value meets test)<br/>{<br/>&#160;&#160;&#160;&#160;process the value<br/>&#160;&#160;&#160;&#160;get next value<br/>}</p>
+<p class="noindent">A <code>for</code> loop doing the same thing would look like this:</p>
+<p class="codelink"><a id="p235pro01a" href="ch06_images.html#p235pro01">Click here to view code image</a></p>
+<p class="pre">for (get first value; value meets test; get next value)<br/>&#160;&#160;&#160;&#160;process the value</p>
+<p class="noindent">All these loops use a test condition to determine whether another loop cycle is to be executed. In general, the loop continues if the test expression evaluates to a nonzero value; otherwise, it terminates. Often, the test condition is a relational expression, which is an expression formed by using a relational operator. Such an expression has a value of <code>1</code> if the relation is true and a value of <code>0</code> otherwise. Variables of the <code>_Bool</code> type, introduced by C99, can only hold the value <code>1</code> or <code>0</code>, signifying true or false.</p>
+<p class="noindent">In addition to relational operators, this chapter looked at several of C&#8217;s arithmetic assignment operators, such as <code>+=</code> and <code>*=</code>. These operators modify the value of the left-hand operand by performing an arithmetic operation on it.</p>
+<p class="noindent">Arrays were the next subject. Arrays are declared using brackets to indicate the number of elements. The first element of an array is numbered 0; the second is numbered 1, and so forth. For example, the declaration</p>
+<p class="pre">double hippos[20];</p>
+<p class="noindent">creates an array of 20 elements, and the individual elements range from <code>hippos[0</code>] through <code>hippos[19]</code>. The subscripts used to number arrays can be manipulated conveniently by using loops.</p>
+<p class="noindent">Finally, the chapter showed how to write and use a function with a return value.</p>
+<div class="heading">
+<h3 id="ch06lev1sec15"><a id="page_236"/>Review Questions</h3>
+<p class="noindent">You&#8217;ll find answers to the review questions in <a href="app01.html#app01">Appendix A</a>, &#8220;<a href="app01.html#app01">Answers to the Review Questions</a>.&#8221;</p>
+</div>
+<p class="question"><strong><a id="ch06que01" href="app01.html#ch06ans01">1</a>.</strong> Find the value of <code>quack</code> after each line; each of the final five statements uses the value of <code>quack</code> produced by the preceding statement.</p>
+<p class="pre1">int quack = 2;<br/>quack += 5;<br/>quack *= 10;<br/>quack -= 6;<br/>quack /= 8;<br/>quack %= 3;</p>
+<p class="question"><strong><a id="ch06que02" href="app01.html#ch06ans02">2</a>.</strong> Given that <code>value</code> is an <code>int</code>, what output would the following loop produce?</p>
+<p class="codelink"><a id="p236pro01a" href="ch06_images.html#p236pro01">Click here to view code image</a></p>
+<p class="pre1">for ( value = 36; value &gt; 0; value /= 2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;printf("%3d", value);</p>
+<p class="questionp">What problems would there be if <code>value</code> were <code>double</code> instead of <code>int</code>?</p>
+<p class="question"><strong><a id="ch06que03" href="app01.html#ch06ans03">3</a>.</strong> Represent each of the following test conditions:</p>
+<p class="questiona"><strong>a.</strong> <code>x</code> is greater than <code>5</code>.</p>
+<p class="questiona"><strong>b.</strong> <code>scanf()</code> attempts to read a single <code>double</code> (called <code>x</code>) and fails.</p>
+<p class="questiona"><strong>c.</strong> <code>x</code> has the value <code>5</code>.</p>
+<p class="question"><strong><a id="ch06que04" href="app01.html#ch06ans04">4</a>.</strong> Represent each of the following test conditions:</p>
+<p class="questiona"><strong>a.</strong> <code>scanf()</code> succeeds in reading a single integer.</p>
+<p class="questiona"><strong>b.</strong> <code>x</code> is not <code>5</code>.</p>
+<p class="questiona"><strong>c.</strong> <code>x</code> is <code>20</code> or greater.</p>
+<p class="question"><strong><a id="ch06que05" href="app01.html#ch06ans05">5</a>.</strong> You suspect that the following program is not perfect. What errors can you find?</p>
+<p class="codelink"><a id="p236pro02a" href="ch06_images.html#p236pro02">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 3&#160;&#160;*/<br/>&#160;&#160;int i, j, list(10);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 4&#160;&#160;*/<br/><br/>&#160;&#160;for (i = 1, i &lt;= 10,&#160;&#160;i++)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 6&#160;&#160;*/<br/>&#160;&#160;{&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 7&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;&#160;&#160;list[i] = 2*i + 3;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 8&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;&#160;&#160;for (j = 1, j &gt; = i, j++)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 9&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf(" %d", list[j]);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 10 */<br/><a id="page_237"/>&#160;&#160;&#160;&#160;&#160;&#160;printf("\n");&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 11 */<br/>}&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 12 */</p>
+<p class="question"><strong><a id="ch06que06" href="app01.html#ch06ans06">6</a>.</strong> Use nested loops to write a program that produces this pattern:</p>
+<p class="pre1">$$$$$$$$<br/>$$$$$$$$<br/>$$$$$$$$<br/>$$$$$$$$</p>
+<p class="question"><strong><a id="ch06que07" href="app01.html#ch06ans07">7</a>.</strong> What will each of the following programs print?</p>
+<p class="questiona"><strong>a.</strong></p>
+<p class="pre2">#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int i = 0;<br/><br/>&#160;&#160;&#160;&#160;while (++i &lt; 4)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Hi! ");<br/>&#160;&#160;&#160;&#160;do<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Bye! ");<br/>&#160;&#160;&#160;&#160;while (i++ &lt; 8);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="questiona"><strong>b.</strong></p>
+<p class="codelink"><a id="p237pro01a" href="ch06_images.html#p237pro01">Click here to view code image</a></p>
+<p class="pre2">#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;&#160;int i;<br/>&#160;&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;&#160;for (i = 0, ch = 'A'; i &lt; 4; i++, ch += 2 * i)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%c", ch);<br/>&#160;&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question"><strong><a id="ch06que08" href="app01.html#ch06ans08">8</a>.</strong> Given the input <code>Go west, young man!</code>, what would each of the following programs produce for output? (The <code>!</code> follows the space character in the ASCII sequence.)</p>
+<p class="questiona"><strong>a.</strong></p>
+<p class="pre2">#include &lt;stdio.h&gt;<br/><a id="page_238"/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;scanf("%c", &#38;ch);<br/>&#160;&#160;&#160;&#160;while ( ch != 'g' )<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%c", ch);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%c", &#38;ch);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="questiona"><strong>b.</strong></p>
+<p class="pre2">#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;scanf("%c", &#38;ch);<br/>&#160;&#160;&#160;&#160;while ( ch != 'g' )<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%c", ++ch);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%c", &#38;ch);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="questiona"><strong>c.</strong></p>
+<p class="pre2">#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;do {<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%c", &#38;ch);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%c", ch);<br/>&#160;&#160;&#160;&#160;} while ( ch != 'g' );<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="questiona"><strong>d.</strong></p>
+<p class="codelink"><a id="p238pro01a" href="ch06_images.html#p238pro01">Click here to view code image</a></p>
+<p class="pre2">#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/><a id="page_239"/>{<br/>&#160;&#160;&#160;&#160;char ch;<br/><br/>&#160;&#160;&#160;&#160;scanf("%c", &#38;ch);<br/>&#160;&#160;&#160;&#160;for ( ch = '$'; ch != 'g'; scanf("%c", &#38;ch) )<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%c", ch);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question"><strong><a id="ch06que09" href="app01.html#ch06ans09">9</a>.</strong> What will the following program print?</p>
+<p class="codelink"><a id="p239pro01a" href="ch06_images.html#p239pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;&#160;int n, m;<br/><br/>&#160;&#160;&#160;&#160;&#160;n = 30;<br/>&#160;&#160;&#160;&#160;&#160;while (++n &lt;= 33)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d|",n);<br/><br/>&#160;&#160;&#160;&#160;&#160;n = 30;<br/>&#160;&#160;&#160;&#160;&#160;do<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d|",n);<br/>&#160;&#160;&#160;&#160;&#160;while (++n &lt;= 33);<br/><br/>&#160;&#160;&#160;&#160;&#160;printf("\n***\n");<br/><br/>&#160;&#160;&#160;&#160;&#160;for (n = 1; n*n &lt; 200; n += 4)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d\n", n);<br/><br/>&#160;&#160;&#160;&#160;&#160;printf("\n***\n");<br/><br/>&#160;&#160;&#160;&#160;&#160;for (n = 2, m = 6; n &lt; m; n *= 2, m+= 2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d %d\n", n, m);<br/><br/>&#160;&#160;&#160;&#160;&#160;printf("\n***\n");<br/><br/>&#160;&#160;&#160;&#160;&#160;for (n = 5; n &gt; 0; n--)<br/>&#160;&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for (m = 0; m &lt;= n; m++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("=");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("\n");<br/>&#160;&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><a id="page_240"/><strong><a id="ch06que10" href="app01.html#ch06ans10">10</a>.</strong> Consider the following declaration:</p>
+<p class="pre1">double mint[10];</p>
+<p class="questiona"><strong>a.</strong> What is the array name?</p>
+<p class="questiona"><strong>b.</strong> How many elements does the array have?</p>
+<p class="questiona"><strong>c.</strong> What kind of value can be stored in each element?</p>
+<p class="questiona"><strong>d.</strong> Which of the following is a correct usage of <code>scanf()</code> with this array?</p>
+<p class="questionai"><strong>&#160;&#160;&#160;i.</strong> <code>scanf("%lf", mint[2])</code></p>
+<p class="questionai"><strong>&#160;&#160;ii.</strong> <code>scanf("%lf", &#38;mint[2])</code></p>
+<p class="questionai"><strong>&#160;iii.</strong> <code>scanf("%lf", &#38;mint)</code></p>
+<p class="question1"><strong><a id="ch06que11" href="app01.html#ch06ans11">11</a>.</strong> Mr. Noah likes counting by twos, so he&#8217;s written the following program to create an array and to fill it with the integers 2, 4, 6, 8, and so on. What, if anything, is wrong with this program?</p>
+<p class="codelink"><a id="p240pro01a" href="ch06_images.html#p240pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>#define SIZE 8<br/>int main(void)<br/>{<br/>&#160;&#160;int by_twos[SIZE];<br/>&#160;&#160;int index;<br/><br/>&#160;&#160;for (index = 1; index &lt;= SIZE; index++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;by_twos[index] = 2 * index;<br/>&#160;&#160;for (index = 1; index &lt;= SIZE; index++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d ", by_twos);<br/>&#160;&#160;printf("\n");<br/>&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch06que12" href="app01.html#ch06ans12">12</a>.</strong> You want to write a function that returns a <code>long</code> value. What should your definition of the function include?</p>
+<p class="question1"><strong><a id="ch06que13" href="app01.html#ch06ans13">13</a>.</strong> Define a function that takes an <code>int</code> argument and that returns, as a <code>long</code>, the square of that value.</p>
+<p class="question1"><strong><a id="ch06que14" href="app01.html#ch06ans14">14</a>.</strong> What will the following program print?</p>
+<p class="codelink"><a id="p240pro02a" href="ch06_images.html#p240pro02">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;int k;<br/><br/><a id="page_241"/>&#160;&#160;&#160;for(k = 1, printf("%d: Hi!\n", k); printf("k = %d\n",k),<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;k*k &lt; 26; k+=2, printf("Now k is %d\n", k) )<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("k is %d in the loop\n",k);<br/>&#160;&#160;&#160;return 0;<br/>}</p>
+<div class="heading">
+<h3 id="ch06lev1sec16">Programming Exercises</h3>
+<p class="indenthangingN"><strong>1.</strong> Write a program that creates an array with 26 elements and stores the 26 lowercase letters in it. Also have it show the array contents.</p>
+</div>
+<p class="indenthangingN"><strong>2.</strong> Use nested loops to produce the following pattern:</p>
+<p class="pre1">$<br/>$$<br/>$$$<br/>$$$$<br/>$$$$$</p>
+<p class="indenthangingN"><strong>3.</strong> Use nested loops to produce the following pattern:</p>
+<p class="pre1">F<br/>FE<br/>FED<br/>FEDC<br/>FEDCB<br/>FEDCBA</p>
+<p class="indenthangingNP">Note: If your system doesn&#8217;t use ASCII or some other code that encodes letters in numeric order, you can use the following to initialize a character array to the letters of the alphabet:</p>
+<p class="codelink"><a id="p241pro01" href="ch06_images.html#p241pro01a">Click here to view code image</a></p>
+<p class="pre1">char lets[27] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";</p>
+<p class="indenthangingNP">Then you can use the array index to select individual letters; for example, <code>lets[0]</code> is <code>'A'</code>, and so on.</p>
+<p class="indenthangingN"><strong>4.</strong> Use nested loops to produce the following pattern:</p>
+<p class="pre1">A<br/>BC<br/>DEF<br/>GHIJ<br/>KLMNO<br/>PQRSTU</p>
+<p class="indenthangingNP"><a id="page_242"/>If your system doesn&#8217;t encode letters in numeric order, see the suggestion in programming exercise 3.</p>
+<p class="indenthangingN"><strong>5.</strong> Have a program request the user to enter an uppercase letter. Use nested loops to produce a pyramid pattern like this:</p>
+<p class="pre1">&#160;&#160;&#160;&#160;A<br/>&#160;&#160;&#160;ABA<br/>&#160;&#160;ABCBA<br/>&#160;ABCDCBA<br/>ABCDEDCBA</p>
+<p class="indenthangingNP">The pattern should extend to the character entered. For example, the preceding pattern would result from an input value of <code>E</code>. Hint: Use an outer loop to handle the rows. Use three inner loops in a row, one to handle the spaces, one for printing letters in ascending order, and one for printing letters in descending order. If your system doesn&#8217;t use ASCII or a similar system that represents letters in strict number order, see the suggestion in programming exercise 3.</p>
+<p class="indenthangingN"><strong>6.</strong> Write a program that prints a table with each line giving an integer, its square, and its cube. Ask the user to input the lower and upper limits for the table. Use a <code>for</code> loop.</p>
+<p class="indenthangingN"><strong>7.</strong> Write a program that reads a single word into a character array and then prints the word backward. Hint: Use <code>strlen()</code> (<a href="ch04.html#ch04">Chapter 4</a>) to compute the index of the last character in the array.</p>
+<p class="indenthangingN"><strong>8.</strong> Write a program that requests two floating-point numbers and prints the value of their difference divided by their product. Have the program loop through pairs of input values until the user enters nonnumeric input.</p>
+<p class="indenthangingN"><strong>9.</strong> Modify exercise 8 so that it uses a function to return the value of the calculation.</p>
+<p class="indenthangingN1"><strong>10.</strong> Write a program that requests lower and upper integer limits, calculates the sum of all the integer squares from the square of the lower limit to the square of the upper limit, and displays the answer. The program should then continue to prompt for limits and display answers until the user enters an upper limit that is equal to or less than the lower limit. A sample run should look something like this:</p>
+<p class="codelink"><a id="p242pro01a" href="ch06_images.html#p242pro01">Click here to view code image</a></p>
+<p class="pre1">Enter lower and upper integer limits: <span class="EmpStrong">5 9</span><br/>The sums of the squares from 25 to 81 is 255<br/>Enter next set of limits: <span class="EmpStrong">3 25</span><br/>The sums of the squares from 9 to 625 is 5520<br/>Enter next set of limits: <span class="EmpStrong">5 5</span><br/>Done</p>
+<p class="indenthangingN1"><a id="page_243"/><strong>11.</strong> Write a program that reads eight integers into an array and then prints them in reverse order.</p>
+<p class="indenthangingN1"><strong>12.</strong> Consider these two infinite series:</p>
+<p class="codelink"><a id="p243pro01a" href="ch06_images.html#p243pro01">Click here to view code image</a></p>
+<p class="pre1">1.0 + 1.0/2.0 + 1.0/3.0 + 1.0/4.0 + ...<br/>1.0 - 1.0/2.0 + 1.0/3.0 - 1.0/4.0 + ...</p>
+<p class="indenthangingNP">Write a program that evaluates running totals of these two series up to some limit of number of terms. Hint: &#8211;1 times itself an odd number of times is &#8211;1, and &#8211;1 times itself an even number of times is 1. Have the user enter the limit interactively; let a zero or negative value terminate input. Look at the running totals after 100 terms, 1000 terms, 10,000 terms. Does either series appear to be converging to some value?</p>
+<p class="indenthangingN1"><strong>13.</strong> Write a program that creates an eight-element array of <code>int</code>s and sets the elements to the first eight powers of 2 and then prints the values. Use a <code>for</code> loop to set the values, and, for variety, use a <code>do while</code> loop to display the values.</p>
+<p class="indenthangingN1"><strong>14.</strong> Write a program that creates two eight-element arrays of <code>double</code>s and uses a loop to let the user enter values for the eight elements of the first array. Have the program set the elements of the second array to the cumulative totals of the elements of the first array. For example, the fourth element of the second array should equal the sum of the first four elements of the first array, and the fifth element of the second array should equal the sum of the first five elements of the first array. (It&#8217;s possible to do this with nested loops, but by using the fact that the fifth element of the second array equals the fourth element of the second array plus the fifth element of the first array, you can avoid nesting and just use a single loop for this task.) Finally, use loops to display the contents of the two arrays, with the first array displayed on one line and with each element of the second array displayed below the corresponding element of the first array.</p>
+<p class="indenthangingN1"><strong>15.</strong> Write a program that reads in a line of input and then prints the line in reverse order. You can store the input in an array of <code>char</code>; assume that the line is no longer than 255 characters. Recall that you can use <code>scanf()</code> with the <code>%c</code> specifier to read a character at a time from input and that the newline character (<code>\n</code>) is generated when you press the Enter key.</p>
+<p class="indenthangingN1"><strong>16.</strong> Daphne invests $100 at 10% simple interest. (That is, every year, the investment earns an interest equal to 10% of the original investment.) Deirdre invests $100 at 5% interest compounded annually. (That is, interest is 5% of the current balance, including previous addition of interest.) Write a program that finds how many years it takes for the value of Deirdre&#8217;s investment to exceed the value of Daphne&#8217;s investment. Also show the two values at that time.</p>
+<p class="indenthangingN1"><a id="page_244"/><strong>17.</strong> Chuckie Lucky won a million dollars (after taxes), which he places in an account that earns 8% a year. On the last day of each year, Chuckie withdraws $100,000. Write a program that finds out how many years it takes for Chuckie to empty his account.</p>
+<p class="indenthangingN1"><strong>18.</strong> Professor Rabnud joined a social media group. Initially he had five friends. He noticed that his friend count grew in the following fashion. The first week one friend dropped out and the remaining number of friends doubled. The second week two friends dropped out and the remaining number of friends doubled. In general, in the Nth week, N friends dropped out and the remaining number doubled. Write a program that computes and displays the number of friends each week. The program should continue until the count exceeds Dunbar&#8217;s number. Dunbar&#8217;s number is a rough estimate of the maximum size of a cohesive social group in which each member knows every other member and how they relate to one another. Its approximate value is 150.</p>
+</body>
+</html>

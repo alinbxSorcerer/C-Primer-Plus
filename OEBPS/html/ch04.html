@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>4. Character Strings and Formatted Input/Output</title>
+<link rel="stylesheet" type="text/css" href="9780133432381.css"/>
+</head>
+<body>
+<h2 id="ch04"><a id="page_99"/><span class="pd_ash">4.</span> Character Strings and Formatted Input/Output</h2>
+<p class="noindent">You will learn about the following in this chapter:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Function:</p>
+<p class="indenthangingBP"><code>strlen()</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Keywords:</p>
+<p class="indenthangingBP"><code>const</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> <a href="ch04.html#ch04lev1sec2">Character strings</a></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> How character strings are created and stored</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> How you can use <code>scanf()</code> and <code>printf()</code> to read and display character strings</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> How to use the <code>strlen()</code> function to measure string lengths</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> The C preprocessor&#8217;s <code>#define</code> directive and ANSI C&#8217;s <code>const</code> modifier for creating symbolic constants</p>
+<p class="noindent">This chapter concentrates on input and output. You&#8217;ll add personality to your programs by making them interactive and using character strings. You will also take a more detailed look at those two handy C input/output functions, <code>printf()</code> and <code>scanf()</code>. With these two functions, you have the program tools you need to communicate with users and to format output to meet your needs and tastes. Finally, you&#8217;ll take a quick look at an important C facility, the C preprocessor, and learn how to define and use symbolic constants.</p>
+<div class="heading">
+<h3 id="ch04lev1sec1">Introductory Program</h3>
+<p class="noindent">By now, you probably expect a sample program at the beginning of each chapter, so <a href="ch04.html#ch04lis01">Listing 4.1</a> is a program that engages in a dialog with the user. To add a little variety, the code uses the newer comment style.</p>
+</div>
+<p class="ex-caption"><a id="page_100"/><a id="ch04lis01"/><span class="pd_ash">Listing 4.1</span> The <span class="EmpStrong">talkback.c</span> Program</p>
+<p class="codelink"><a id="p04lis01a" href="ch04_images.html#p04lis01">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// talkback.c -- nosy, informative program<br/>#include &lt;stdio.h&gt;<br/>#include &lt;string.h&gt;&#160;&#160;&#160;&#160;&#160;&#160;// for strlen() prototype<br/>#define DENSITY 62.4&#160;&#160;&#160;&#160;&#160;// human density in lbs per cu ft<br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;float weight, volume;<br/>&#160;&#160;&#160;&#160;int size, letters;<br/>&#160;&#160;&#160;&#160;char name[40];&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// name is an array of 40 chars<br/><br/>&#160;&#160;&#160;&#160;printf("Hi! What's your first name?\n");<br/>&#160;&#160;&#160;&#160;scanf("%s", name);<br/>&#160;&#160;&#160;&#160;printf("%s, what's your weight in pounds?\n", name);<br/>&#160;&#160;&#160;&#160;scanf("%f", &#38;weight);<br/>&#160;&#160;&#160;&#160;size = sizeof name;<br/>&#160;&#160;&#160;&#160;letters = strlen(name);<br/>&#160;&#160;&#160;&#160;volume = weight / DENSITY;<br/>&#160;&#160;&#160;&#160;printf("Well, %s, your volume is %2.2f cubic feet.\n",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;name, volume);<br/>&#160;&#160;&#160;&#160;printf("Also, your first name has %d letters,\n",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;letters);<br/>&#160;&#160;&#160;&#160;printf("and we have %d bytes to store it.\n", size);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Running <code>talkback.c</code> produces results such as the following:</p>
+<p class="codelink"><a id="p100pro01a" href="ch04_images.html#p100pro01">Click here to view code image</a></p>
+<p class="pre">Hi! What's your first name?<br/><span class="EmpStrong">Christine</span><br/>Christine, what's your weight in pounds?<br/><span class="EmpStrong">154</span><br/>Well, Christine, your volume is 2.47 cubic feet.<br/>Also, your first name has 9 letters,<br/>and we have 40 bytes to store it.</p>
+<p class="noindent">Here are the main new features of this program:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> It uses an <em>array</em> to hold a <em>character string</em>. Here, someone&#8217;s name is read into the array, which, in this case, is a series of 40 consecutive bytes in memory, each able to hold a single character value.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> It uses the <code>%s</code> <em>conversion specification</em> to handle the input and output of the string. Note that <code>name</code>, unlike <code>weight</code>, does not use the <code>&#38;</code> prefix when used with <code>scanf()</code>. (As you&#8217;ll see later, both <code>&#38;weight</code> and <code>name</code> are addresses.)</p>
+<p class="indenthangingB"><a id="page_101"/><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> It uses the C preprocessor to define the symbolic constant <code>DENSITY</code> to represent the value <code>62.4</code>.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> It uses the C function <code>strlen()</code> to find the length of a string.</p>
+<p class="noindent">The C approach might seem a little complex compared with the input/output of, say, BASIC. However, this complexity buys a finer control of I/O and greater program efficiency, and it&#8217;s surprisingly easy once you get used to it.</p>
+<p class="noindent">Let&#8217;s investigate these new ideas.</p>
+<div class="heading">
+<h3 id="ch04lev1sec2">Character Strings: An Introduction</h3>
+<p class="noindent">A <em>character string</em> is a series of one or more characters. Here is an example of a string:</p>
+</div>
+<p class="codelink"><a id="p101pro01a" href="ch04_images.html#p101pro01">Click here to view code image</a></p>
+<p class="pre">"Zing went the strings of my heart!"</p>
+<p class="noindent">The double quotation marks are not part of the string. They inform the compiler that they enclose a string, just as single quotation marks identify a character.</p>
+<div class="heading">
+<h4 id="ch04lev2sec1">Type <span class="EmpStrong">char</span> Arrays and the Null Character</h4>
+<p class="noindent">C has no special variable type for strings. Instead, strings are stored in an array of type <code>char</code>. Characters in a string are stored in adjacent memory cells, one character per cell, and an array consists of adjacent memory locations, so placing a string in an array is quite natural (see <a href="ch04.html#ch04fig01">Figure 4.1</a>).</p>
+</div>
+<div class="image"><a id="ch04fig01"/><img src="graphics/04fig01.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.1</span> A string in an array.</p></div>
+<p class="noindent">Note that <a href="ch04.html#ch04fig01">Figure 4.1</a> shows the character <code>\0</code> in the last array position. This is the <em>null character</em>, and C uses it to mark the end of a string. The null character is not the digit zero; it is the nonprinting character whose ASCII code value (or equivalent) is <code>0</code>. Strings in C are always stored with this terminating null character. The presence of the null character means that the array must have at least one more cell than the number of characters to be stored. So when the preceding program said it had 40 bytes to store the string, that meant it could hold up to 39 characters in addition to the null character.</p>
+<p class="noindent">Now just what is an array? You can think of an array as several memory cells in a row. If you prefer more formal language, an array is an ordered sequence of data elements of one type. This example creates an array of 40 memory cells, or <em>elements</em>, each of which can store one <code>char</code>-type value by using this declaration:</p>
+<p class="pre">char name[40];</p>
+<p class="noindent"><a id="page_102"/>The brackets after <code>name</code> identify it as an array. The <code>40</code> within the brackets indicates the number of elements in the array. The <code>char</code> identifies the type of each element (see <a href="ch04.html#ch04fig02">Figure 4.2</a>).</p>
+<div class="image"><a id="ch04fig02"/><img src="graphics/04fig02.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.2</span> Declaring a variable versus declaring an array.</p></div>
+<p class="noindent">Using a character string is beginning to sound complicated! You have to create an array, place the characters of a string into an array, one by one, and remember to add <code>\0</code> at the end. Fortunately, the computer can take care of most of the details itself.</p>
+<div class="heading">
+<h4 id="ch04lev2sec2">Using Strings</h4>
+<p class="noindent">Try the program in <a href="ch04.html#ch04lis02">Listing 4.2</a> to see how easy it really is to use strings.</p>
+</div>
+<p class="ex-caption"><a id="ch04lis02"/><span class="pd_ash">Listing 4.2</span> The <span class="EmpStrong">praise1.c</span> Program</p>
+<p class="codelink"><a id="p04lis02a" href="ch04_images.html#p04lis02">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* praise1.c -- uses an assortment of strings */<br/>#include &lt;stdio.h&gt;<br/>#define PRAISE "You are an extraordinary being."<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;char name[40];<br/><br/>&#160;&#160;&#160;&#160;printf("What's your name? ");<br/>&#160;&#160;&#160;&#160;scanf("%s", name);<br/>&#160;&#160;&#160;&#160;printf("Hello, %s. %s\n", name, PRAISE);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_103"/>The <code>%s</code> tells <code>printf()</code> to print a string. The <code>%s</code> appears twice because the program prints two strings: the one stored in the <code>name</code> array and the one represented by <code>PRAISE</code>. Running <code>praise1.c</code> should produce an output similar to this:</p>
+<p class="codelink"><a id="p103pro01a" href="ch04_images.html#p103pro01">Click here to view code image</a></p>
+<p class="pre">What's your name? <span class="EmpStrong">Angela Plains</span><br/>Hello, Angela. You are an extraordinary being.</p>
+<p class="noindent">You do not have to put the null character into the <code>name</code> array yourself. That task is done for you by <code>scanf()</code> when it reads the input. Nor do you include a null character in the <em>character string constant</em> <code>PRAISE</code>. We&#8217;ll explain the <code>#define</code> statement soon; for now, simply note that the double quotation marks that enclose the text following <code>PRAISE</code> identify the text as a string. The compiler takes care of putting in the null character.</p>
+<p class="noindent">Note (and this is important) that <code>scanf()</code> just reads Angela Plains&#8217;s first name. After <code>scanf()</code> starts to read input, it stops reading at the first <em>whitespace</em> (blank, tab, or newline) it encounters. Therefore, it stops scanning for <code>name</code> when it reaches the blank between <code>Angela</code> and <code>Plains</code>. In general, <code>scanf()</code> is used with <code>%s</code> to read only a single word, not a whole phrase, as a string. C has other input-reading functions, such as <code>fgets()</code>, for handling general strings. Later chapters will explore string functions more fully.</p>
+<div class="heading">
+<h5 id="ch04lev3sec1">Strings Versus Characters</h5>
+<p class="noindent">The string constant <code>"x"</code> is not the same as the character constant <code>'x'</code>. One difference is that <code>'x'</code> is a basic type (<code>char</code>), but <code>"x"</code> is a derived type, an array of <code>char</code>. A second difference is that <code>"x"</code> really consists of two characters, <code>'x'</code> and <code>'\0'</code>, the null character (see <a href="ch04.html#ch04fig03">Figure 4.3</a>).</p>
+</div>
+<div class="image"><a id="ch04fig03"/><img src="graphics/04fig03.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.3</span> The character <code>'x'</code> and the string <code>"x".</code></p></div>
+<div class="heading">
+<h4 id="ch04lev2sec3">The <span class="EmpStrong">strlen()</span> Function</h4>
+<p class="noindent">The previous chapter unleashed the <code>sizeof</code> operator, which gives the size of things in bytes. The <code>strlen()</code> function gives the length of a string in characters. Because it takes one byte to hold one character, you might suppose that both would give the same result when applied to a string, but they don&#8217;t. Add a few lines to the example, as shown in <a href="ch04.html#ch04lis03">Listing 4.3</a>, and see why.</p>
+</div>
+<p class="ex-caption"><a id="page_104"/><a id="ch04lis03"/><span class="pd_ash">Listing 4.3</span> The <span class="EmpStrong">praise2.c</span> Program</p>
+<p class="codelink"><a id="p04lis03a" href="ch04_images.html#p04lis03">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* praise2.c */<br/>// try the %u or %lu specifiers if your implementation<br/>// does not recognize the %zd specifier<br/>#include &lt;stdio.h&gt;<br/>#include &lt;string.h&gt;&#160;&#160;&#160;&#160;&#160;&#160;/* provides strlen() prototype */<br/>#define PRAISE "You are an extraordinary being."<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;char name[40];<br/><br/>&#160;&#160;&#160;&#160;printf("What's your name? ");<br/>&#160;&#160;&#160;&#160;scanf("%s", name);<br/>&#160;&#160;&#160;&#160;printf("Hello, %s. %s\n", name, PRAISE);<br/>&#160;&#160;&#160;&#160;printf("Your name of %zd letters occupies %zd memory cells.\n",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;strlen(name), sizeof name);<br/>&#160;&#160;&#160;&#160;printf("The phrase of praise has %zd letters ",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;strlen(PRAISE));<br/>&#160;&#160;&#160;&#160;printf("and occupies %zd memory cells.\n", sizeof PRAISE);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">If you are using a pre-ANSI C compiler, you might have to remove the following line:</p>
+<p class="pre">#include &lt;string.h&gt;</p>
+<p class="noindent">The <code>string.h</code> file contains function prototypes for several string-related functions, including <code>strlen()</code>. <a href="ch11.html#ch11">Chapter 11</a>, &#8220;<a href="ch11.html#ch11">Character Strings and String Functions</a>,&#8221; discusses this header file more fully. (By the way, some pre-ANSI Unix systems use <code>strings.h</code> instead of <code>string.h</code> to contain declarations for string functions.)</p>
+<p class="noindent">More generally, C divides the C function library into families of related functions and provides a header file for each family. For example, <code>printf()</code> and <code>scanf()</code> belong to a family of standard input and output functions and use the <code>stdio.h</code> header file. The <code>strlen()</code> function joins several other string-related functions, such as functions to copy strings and to search through strings, in a family served by the <code>string.h</code> header.</p>
+<p class="noindent">Notice that <a href="ch04.html#ch04lis03">Listing 4.3</a> uses two methods to handle long <code>printf()</code> statements. The first method spreads one <code>printf()</code> statement over two lines. (You can break a line between arguments to <code>printf(</code>) but not in the middle of a string&#8212;that is, not between the quotation marks.) The second method uses two <code>printf()</code> statements to print just one line. The newline character (<code>\n</code>) appears only in the second statement. Running the program could produce the following interchange:</p>
+<p class="codelink"><a id="p104pro01a" href="ch04_images.html#p104pro01">Click here to view code image</a></p>
+<p class="pre">What's your name? <span class="EmpStrong">Serendipity Chance</span><br/>Hello, Serendipity. You are an extraordinary being.<br/><a id="page_105"/>Your name of 11 letters occupies 40 memory cells.<br/>The phrase of praise has 31 letters and occupies 32 memory cells.</p>
+<p class="noindent">See what happens. The array name has 40 memory cells, and that is what the <code>sizeof</code> operator reports. Only the first 11 cells are needed to hold Serendipity, however, and that is what <code>strlen()</code> reports. The twelfth cell in the array name contains the null character, and its presence tells <code>strlen()</code> when to stop counting. <a href="ch04.html#ch04fig04">Figure 4.4</a> illustrates this concept with a shorter string.</p>
+<div class="image"><a id="ch04fig04"/><img src="graphics/04fig04.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.4</span> The <code>strlen()</code> function knows when to stop.</p></div>
+<p class="noindent">When you get to <code>PRAISE</code>, you find that <code>strlen()</code> again gives you the exact number of characters (including spaces and punctuation) in the string. The <code>sizeof</code> operator gives you a number one larger because it also counts the invisible null character used to end the string. The program didn&#8217;t tell the computer how much memory to set aside to store the phrase. It had to count the number of characters between the double quotes itself.</p>
+<p class="noindent">As mentioned in <a href="ch03.html#ch03">Chapter 3</a>, &#8220;<a href="ch03.html#ch03">Data and C</a>,&#8221; the C99 and C11 standards use a <code>%zd</code> specifier for the type used by the <code>sizeof</code> operator. This also applies for type returned by <code>strlen()</code>. For earlier versions of C you need to know the actual type returned by <code>sizeof</code> and <code>strlen()</code>; typically that would be <code>unsigned</code> or <code>unsigned long</code>.</p>
+<p class="noindent">One other point: The preceding chapter used <code>sizeof</code> with parentheses, but this example doesn&#8217;t. Whether you use parentheses depends on whether you want the size of a type or the size of a particular quantity. Parentheses are required for types but are optional for particular quantities. That is, you would use <code>sizeof(char)</code> or <code>sizeof(float)</code> but can use <code>sizeof name</code> or <code>sizeof 6.28</code>. However, it is all right to use parentheses in these cases, too, as in <code>sizeof (6.28)</code>.</p>
+<p class="noindent">The last example used <code>strlen()</code> and <code>sizeof</code> for the rather trivial purpose of satisfying a user&#8217;s potential curiosity. Actually, however, <code>strlen()</code> and <code>sizeof</code> are important programming tools. For example, <code>strlen()</code> is useful in all sorts of character-string programs, as you&#8217;ll see in <a href="ch11.html#ch11">Chapter 11</a>.</p>
+<p class="noindent">Let&#8217;s move on to the <code>#define</code> statement.</p>
+<div class="heading">
+<h3 id="ch04lev1sec3"><a id="page_106"/>Constants and the C Preprocessor</h3>
+<p class="noindent">Sometimes you need to use a constant in a program. For example, you could give the circumference of a circle as follows:</p>
+</div>
+<p class="codelink"><a id="p106pro01a" href="ch04_images.html#p106pro01">Click here to view code image</a></p>
+<p class="pre">circumference = 3.14159 * diameter;</p>
+<p class="noindent">Here, the constant 3.14159 represents the world-famous constant pi (&#960;). To use a constant, just type in the actual value, as in the example. However, there are good reasons to use a <em>symbolic constant</em> instead. That is, you could use a statement such as the following and have the computer substitute in the actual value later:</p>
+<p class="codelink"><a id="p106pro02a" href="ch04_images.html#p106pro02">Click here to view code image</a></p>
+<p class="pre">circumference = pi * diameter;</p>
+<p class="noindent">Why is it better to use a symbolic constant? First, a name tells you more than a number does. Compare the following two statements:</p>
+<p class="codelink"><a id="p106pro03a" href="ch04_images.html#p106pro03">Click here to view code image</a></p>
+<p class="pre">owed = 0.015 * housevalue;<br/>owed = taxrate * housevalue;</p>
+<p class="noindent">If you read through a long program, the meaning of the second version is plainer.</p>
+<p class="noindent">Also, suppose you have used a constant in several places, and it becomes necessary to change its value. After all, tax rates do change. Then you only need to alter the definition of the symbolic constant, rather than find and change every occurrence of the constant in the program.</p>
+<p class="noindent">Okay, how do you set up a symbolic constant? One way is to declare a variable and set it equal to the desired constant. You could write this:</p>
+<p class="pre">float taxrate;<br/>taxrate = 0.015;</p>
+<p class="noindent">This provides a symbolic name, but <code>taxrate</code> is a variable, so your program might change its value accidentally. Fortunately, C has a couple better ideas.</p>
+<p class="noindent">The original better idea is the C preprocessor. In <a href="ch02.html#ch02">Chapter 2</a>, &#8220;<a href="ch02.html#ch02">Introducing C</a>,&#8221; you saw how the preprocessor uses <code>#include</code> to incorporate information from another file. The preprocessor also lets you define constants. Just add a line like the following at the top of the file containing your program:</p>
+<p class="pre">#define TAXRATE 0.015</p>
+<p class="noindent">When your program is compiled, the value <code>0.015</code> will be substituted everywhere you have used <code>TAXRATE</code>. This is called a <em>compile-time substitution</em>. By the time you run the program, all the substitutions have already been made (see <a href="ch04.html#ch04fig05">Figure 4.5</a>). Such defined constants are often termed <em>manifest constants</em>.</p>
+<div class="image"><a id="page_107"/><a id="ch04fig05"/><img src="graphics/04fig05.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.5</span> What you type versus what is compiled.</p></div>
+<p class="noindent"><a id="page_108"/>Note the format. First comes <code>#define</code>. Next comes the symbolic name (<code>TAXRATE</code>) for the constant and then the value (<code>0.015</code>) for the constant. (Note that this construction does not use the <code>=</code> sign.) So the general form is as follows:</p>
+<p class="pre">#define NAME value</p>
+<p class="noindent">You would substitute the symbolic name of your choice for <span class="EmpItalic">NAME</span> and the appropriate value for <span class="EmpItalic">value</span>. No semicolon is used because this is a substitution mechanism handled by the preprocessor, not a C statement. Why is <code>TAXRATE</code> capitalized? It is a sensible C tradition to type constants in uppercase. Then, when you encounter one in the depths of a program, you know immediately that it is a constant, not a variable. Capitalizing constants is just another technique to make programs more readable. Your programs will still work if you don&#8217;t capitalize the constants, but capitalizing them is a reasonable habit to cultivate.</p>
+<p class="noindent">Other, less common, naming conventions include prefixing a name with a <code>c_</code> or <code>k_</code> to indicate a constant, producing names such as <code>c_level</code> or <code>k_line</code>.</p>
+<p class="noindent">The names you use for symbolic constants must satisfy the same rules that the names of variables do. You can use uppercase and lowercase letters, digits, and the underscore character. The first character cannot be a digit. <a href="ch04.html#ch04lis04">Listing 4.4</a> shows a simple example.</p>
+<p class="ex-caption"><a id="ch04lis04"/><span class="pd_ash">Listing 4.4</span> The <span class="EmpStrong">pizza.c</span> Program</p>
+<p class="codelink"><a id="p04lis04a" href="ch04_images.html#p04lis04">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* pizza.c -- uses defined constants in a pizza context */<br/>#include &lt;stdio.h&gt;<br/>#define PI 3.14159<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;float area, circum, radius;<br/><br/>&#160;&#160;&#160;&#160;printf("What is the radius of your pizza?\n");<br/>&#160;&#160;&#160;&#160;scanf("%f", &#38;radius);<br/>&#160;&#160;&#160;&#160;area = PI * radius * radius;<br/>&#160;&#160;&#160;&#160;circum = 2.0 * PI *radius;<br/>&#160;&#160;&#160;&#160;printf("Your basic pizza parameters are as follows:\n");<br/>&#160;&#160;&#160;&#160;printf("circumference = %1.2f, area = %1.2f\n", circum,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;area);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The <code>%1.2f</code> in the <code>printf()</code> statement causes the printout to be rounded to two decimal places. Of course, this program may not reflect your major pizza concerns, but it does fill a small niche in the world of pizza programs. Here is a sample run:</p>
+<p class="codelink"><a id="p108pro01a" href="ch04_images.html#p108pro01">Click here to view code image</a></p>
+<p class="pre">What is the radius of your pizza?<br/><span class="EmpStrong">6.0</span><br/>Your basic pizza parameters are as follows:<br/>circumference = 37.70, area = 113.10</p>
+<p class="noindent"><a id="page_109"/>The <code>#define</code> statement can be used for character and string constants, too. Just use single quotes for the former and double quotes for the latter. The following examples are valid:</p>
+<p class="codelink"><a id="p109pro01a" href="ch04_images.html#p109pro01">Click here to view code image</a></p>
+<p class="pre">#define BEEP '\a'<br/>#define TEE 'T'<br/>#define ESC '\033'<br/>#define OOPS "Now you have done it!"</p>
+<p class="noindent">Remember that everything following the symbolic name is substituted for it. Don&#8217;t make this common error:</p>
+<p class="pre">/* the following is wrong */<br/>#define TOES = 20</p>
+<p class="noindent">If you do this, <code>TOES</code> is replaced by <code>= 20</code>, not just <code>20</code>. In that case, a statement such as</p>
+<p class="pre">digits = fingers + TOES;</p>
+<p class="noindent">is converted to the following misrepresentation:</p>
+<p class="pre">digits = fingers + = 20;</p>
+<div class="heading">
+<h4 id="ch04lev2sec4">The <span class="EmpStrong">const</span> Modifier</h4>
+<p class="noindent">C90 added a second way to create symbolic constants&#8212;using the <code>const</code> keyword to convert a declaration for a variable into a declaration for a constant:</p>
+</div>
+<p class="codelink"><a id="p109pro02a" href="ch04_images.html#p109pro02">Click here to view code image</a></p>
+<p class="pre">const int MONTHS = 12;&#160;&#160;&#160;&#160;// MONTHS a symbolic constant for 12</p>
+<p class="noindent">This makes <code>MONTHS</code> into a read-only value. That is, you can display <code>MONTHS</code> and use it in calculations, but you cannot alter the value of <code>MONTHS</code>. This newer approach is more flexible than using <code>#define</code>; it lets you declare a type, and it allows better control over which parts of a program can use the constant. <a href="ch12.html#ch12">Chapter 12</a>, &#8220;<a href="ch12.html#ch12">Storage Classes, Linkage, and Memory Management</a>,&#8221; discusses this and other uses of <code>const</code>.</p>
+<p class="noindent">Actually, C has yet a third way to create symbolic constants, and that is the <code>enum</code> facility discussed in <a href="ch14.html#ch14">Chapter 14</a>, &#8220;<a href="ch14.html#ch14">Structures and Other Data Forms</a>.&#8221;</p>
+<div class="heading">
+<h4 id="ch04lev2sec5">Manifest Constants on the Job</h4>
+<p class="noindent">The C header files <code>limits.h</code> and <code>float.h</code> supply detailed information about the size limits of integer types and floating types, respectively. Each file defines a series of manifest constants that apply to your implementation. For instance, the <code>limits.h</code> file contains lines similar to the following:</p>
+</div>
+<p class="pre">#define INT_MAX&#160;&#160;&#160;&#160;+32767<br/>#define INT_MIN&#160;&#160;&#160;&#160;-32768</p>
+<p class="noindent"><a id="page_110"/>These constants represent the largest and smallest possible values for the <code>int</code> type. If your system uses a 32-bit <code>int</code>, the file would provide different values for these symbolic constants. The file defines minimum and maximum values for all the integer types. If you include the <code>limits.h</code> file, you can use code such as the following:</p>
+<p class="codelink"><a id="p110pro01a" href="ch04_images.html#p110pro01">Click here to view code image</a></p>
+<p class="pre">printf("Maximum int value on this system = %d\n", INT_MAX);</p>
+<p class="noindent">If your system uses a 4-byte <code>int</code>, the <code>limits.h</code> file that comes with that system would provide definitions for <code>INT_MAX</code> and <code>INT_MIN</code> that match the limits of a 4-byte <code>int</code>. <a href="ch04.html#ch04tab01">Table 4.1</a> lists some of the constants found in <code>limits.h</code>.</p>
+<div class="image"><a id="ch04tab01"/><img src="graphics/04tab01.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 4.1</span> Some Symbolic Constants from <code>limits.h</code></p></div>
+<p class="noindent">Similarly, the <code>float.h</code> file defines constants such as <code>FLT_DIG</code> and <code>DBL_DIG</code>, which represent the number of significant figures supported by the <code>float</code> type and the <code>double</code> type. <a href="ch04.html#ch04tab02">Table 4.2</a> lists some of the constants found in <code>float.h</code>. (You can use a text editor to open and inspect <a id="page_111"/>the <code>float.h</code> header file your system uses.) This example relates to the <code>float</code> type. Equivalent constants are defined for types <code>double</code> and <code>long double</code>, with <code>DBL</code> and <code>LDBL</code> substituted for <code>FLT</code> in the name. (The table assumes the system represents floating-point numbers in terms of powers of 2.)</p>
+<div class="image"><a id="ch04tab02"/><img src="graphics/04tab02.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 4.2</span> Some Symbolic Constants from <code>float.h</code></p></div>
+<p class="noindent"><a href="ch04.html#ch04lis05">Listing 4.5</a> illustrates using data from <code>float.h</code> and <code>limits.h</code>. (Note that a compiler that doesn&#8217;t fully support the C99 standard might not accept the <code>LLONG_MIN</code> identifier.)</p>
+<p class="ex-caption"><a id="ch04lis05"/><span class="pd_ash">Listing 4.5</span> The <span class="EmpStrong">defines.c</span> Program</p>
+<p class="codelink"><a id="p04lis05a" href="ch04_images.html#p04lis05">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// defines.c -- uses defined constants from limit.h and float.<br/>#include &lt;stdio.h&gt;<br/>#include &lt;limits.h&gt;&#160;&#160;&#160;&#160;// integer limits<br/>#include &lt;float.h&gt;&#160;&#160;&#160;&#160;&#160;// floating-point limits<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;printf("Some number limits for this system:\n");<br/>&#160;&#160;&#160;&#160;printf("Biggest int: %d\n", INT_MAX);<br/>&#160;&#160;&#160;&#160;printf("Smallest long long: %lld\n", LLONG_MIN);<br/>&#160;&#160;&#160;&#160;printf("One byte = %d bits on this system.\n", CHAR_BIT);<br/>&#160;&#160;&#160;&#160;printf("Largest double: %e\n", DBL_MAX);<br/>&#160;&#160;&#160;&#160;printf("Smallest normal float: %e\n", FLT_MIN);<br/>&#160;&#160;&#160;&#160;printf("float precision = %d digits\n", FLT_DIG);<br/>&#160;&#160;&#160;&#160;printf("float epsilon = %e\n", FLT_EPSILON);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_112"/>Here is the sample output:</p>
+<p class="codelink"><a id="p112pro01a" href="ch04_images.html#p112pro01">Click here to view code image</a></p>
+<p class="pre">Some number limits for this system:<br/>Biggest int: 2147483647<br/>Smallest long long: -9223372036854775808<br/>One byte = 8 bits on this system.<br/>Largest double: 1.797693e+308<br/>Smallest normal float: 1.175494e-38<br/>float precision = 6 digits<br/>float epsilon = 1.192093e-07</p>
+<p class="noindent">The C preprocessor is a useful, helpful tool, so take advantage of it when you can. We&#8217;ll show you more applications as you move along through this book.</p>
+<div class="heading">
+<h3 id="ch04lev1sec4">Exploring and Exploiting <span class="EmpStrong">printf()</span> and <span class="EmpStrong">scanf()</span></h3>
+<p class="noindent">The functions <code>printf()</code> and <code>scanf()</code> enable you to communicate with a program. They are called <em>input/output functions</em>, or <em>I/O functions</em> for short. They are not the only I/O functions you can use with C, but they are the most versatile. Historically, these functions, like all other functions in the C library, were not part of the definition of C. C originally left the implementation of I/O up to the compiler writers; this made it possible to better match I/O to specific machines. In the interests of compatibility, various implementations all came with versions of <code>scanf()</code> and <code>printf()</code>. However, there were occasional discrepancies between implementations. The C90 and C99 standards describe standard versions of these functions, and we&#8217;ll follow that standard.</p>
+</div>
+<p class="noindent">Although <code>printf()</code> is an output function and <code>scanf()</code> is an input function, both work much the same, each using a control string and a list of arguments. We will show you how these work, first with <code>printf()</code> and then with <code>scanf()</code>.</p>
+<div class="heading">
+<h4 id="ch04lev2sec6">The <span class="EmpStrong">printf()</span> Function</h4>
+<p class="noindent">The instructions you give <code>printf()</code> when you ask it to print a variable depend on the variable type. For example, we have used the <code>%d</code> notation when printing an integer and the <code>%c</code> notation when printing a character. These notations are called <em>conversion specifications</em> because they specify how the data is to be converted into displayable form. We&#8217;ll list the conversion specifications that the ANSI C standard provides for <code>printf()</code> and then show how to use the more common ones. <a href="ch04.html#ch04tab03">Table 4.3</a> presents the conversion specifiers and the type of output they cause to be printed.</p>
+</div>
+<div class="image"><a id="ch04tab03"/><img src="graphics/04tab03.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 4.3</span> Conversion Specifiers and the Resulting Printed Output</p></div>
+<div class="heading">
+<h4 id="ch04lev2sec7"><a id="page_113"/>Using <span class="EmpStrong">printf()</span></h4>
+<p class="noindent"><a href="ch04.html#ch04lis06">Listing 4.6</a> contains a program that uses some of the conversion specifications.</p>
+</div>
+<p class="ex-caption"><a id="ch04lis06"/><span class="pd_ash">Listing 4.6</span> The <span class="EmpStrong">printout.c</span> Program</p>
+<p class="codelink"><a id="p04lis06a" href="ch04_images.html#p04lis06">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* printout.c -- uses conversion specifiers */<br/>#include &lt;stdio.h&gt;<br/>#define PI 3.141593<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int number = 7;<br/>&#160;&#160;&#160;&#160;float pies = 12.75;<br/>&#160;&#160;&#160;&#160;int cost = 7800;<br/><br/>&#160;&#160;&#160;&#160;printf("The %d contestants ate %f berry pies.\n", number,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pies);<br/>&#160;&#160;&#160;&#160;printf("The value of pi is %f.\n", PI);<br/><a id="page_114"/>&#160;&#160;&#160;&#160;printf("Farewell! thou art too dear for my possessing,\n");<br/>&#160;&#160;&#160;&#160;printf("%c%d\n", '$', 2 * cost);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The output, of course, is</p>
+<p class="codelink"><a id="p114pro01a" href="ch04_images.html#p114pro01">Click here to view code image</a></p>
+<p class="pre">The 7 contestants ate 12.750000 berry pies.<br/>The value of pi is 3.141593.<br/>Farewell! thou art too dear for my possessing,<br/>$15600</p>
+<p class="noindent">This is the format for using <code>printf()</code>:</p>
+<p class="codelink"><a id="p114pro001a" href="ch04_images.html#p114pro001">Click here to view code image</a></p>
+<p class="pre">printf(<span class="EmpItalic">Control-string</span>, <span class="EmpItalic">item1</span>, <span class="EmpItalic">item2</span>,...);</p>
+<p class="noindent"><span class="EmpItalic">Item1</span>, <span class="EmpItalic">item2</span>, and so on, are the items to be printed. They can be variables or constants, or even expressions that are evaluated first before the value is printed. <span class="EmpItalic">Control-string</span> is a character string describing how the items are to be printed. As mentioned in <a href="ch03.html#ch03">Chapter 3</a>, the control string should contain a conversion specifier for each item to be printed. For example, consider the following statement:</p>
+<p class="codelink"><a id="p114pro02a" href="ch04_images.html#p114pro02">Click here to view code image</a></p>
+<p class="pre">printf("The %d contestants ate %f berry pies.\n", number,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;pies);</p>
+<p class="noindent"><span class="EmpItalic">Control-string</span> is the phrase enclosed in double quotes. This particular control string contains two conversion specifiers corresponding to <code>number</code> and <code>pies</code>&#8212;the two items to be displayed. <a href="ch04.html#ch04fig06">Figure 4.6</a> shows another example of a <code>printf()</code> statement.</p>
+<div class="image"><a id="ch04fig06"/><img src="graphics/04fig06.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.6</span> Arguments for <code>printf().</code></p></div>
+<p class="noindent">Here is another line from the example:</p>
+<p class="codelink"><a id="p114pro03a" href="ch04_images.html#p114pro03">Click here to view code image</a></p>
+<p class="pre">printf("The value of pi is %f.\n", PI);</p>
+<p class="noindent">This time, the list of items has just one member&#8212;the symbolic constant <code>PI</code>.</p>
+<p class="noindent">As you can see in <a href="ch04.html#ch04fig07">Figure 4.7</a>, <span class="EmpItalic">Control-string</span> contains two distinct forms of information:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Characters that are actually printed</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Conversion specifications</p>
+<div class="image"><a id="page_115"/><a id="ch04fig07"/><img src="graphics/04fig07.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.7</span> Anatomy of a control string.</p></div>
+<div class="note"><hr/>
+<p class="title"><span class="pd_ash">Caution</span></p>
+<p class="notepara">Don&#8217;t forget to use one conversion specification for each item in the list following <span class="EmpItalic">Control-string</span>. Woe unto you should you forget this basic requirement! Don&#8217;t do the following:</p>
+<p class="codelink"><a id="p115pro01a" href="ch04_images.html#p115pro01">Click here to view code image</a></p>
+<p class="pre1">printf("The score was Squids %d, Slugs %d.\n", score1);</p>
+<p class="notepara">Here, there is no value for the second <code>%d</code>. The result of this faux pas depends on your system, but at best you will get partial nonsense.</p>
+<hr/></div>
+<p class="noindent">If you want to print only a phrase, you don&#8217;t need any conversion specifications. If you just want to print data, you can dispense with the running commentary. Each of the following statements from <a href="ch04.html#ch04lis06">Listing 4.6</a> is quite acceptable:</p>
+<p class="codelink"><a id="p115pro02a" href="ch04_images.html#p115pro02">Click here to view code image</a></p>
+<p class="pre">printf("Farewell! thou art too dear for my possessing,\n");<br/>printf("%c%d\n", '$', 2 * cost);</p>
+<p class="noindent">In the second statement, note that the first item on the print list was a character constant rather than a variable and that the second item is a multiplication. This illustrates that <code>printf()</code> uses values, be they variables, constants, or expressions.</p>
+<p class="noindent">Because the <code>printf()</code> function uses the <code>%</code> symbol to identify the conversion specifications, there is a slight problem if you want to print the <code>%</code> sign itself. If you simply use a lone <code>%</code> sign, the compiler thinks you have bungled a conversion specification. The way out is simple&#8212;just use two <code>%</code> symbols, as shown here:</p>
+<p class="codelink"><a id="p115pro03a" href="ch04_images.html#p115pro03">Click here to view code image</a></p>
+<p class="pre">pc = 2*6;<br/>printf("Only %d%% of Sally's gribbles were edible.\n", pc);</p>
+<p class="noindent">The following output would result:</p>
+<p class="codelink"><a id="p115pro04a" href="ch04_images.html#p115pro04">Click here to view code image</a></p>
+<p class="pre">Only 12% of Sally's gribbles were edible.</p>
+<div class="heading">
+<h4 id="ch04lev2sec8">Conversion Specification Modifiers for <span class="EmpStrong">printf()</span></h4>
+<p class="noindent">You can modify a basic conversion specification by inserting modifiers between the <code>%</code> and the defining conversion character. <a href="ch04.html#ch04tab04">Tables 4.4</a> and <a href="ch04.html#ch04tab05">4.5</a> list the characters you can place there legally. If you use more than one modifier, they should be in the same order as they appear in <a id="page_116"/><a href="ch04.html#ch04tab04">Table 4.4</a>. Not all combinations are possible. The table reflects the C99 additions; your implementation may not support all the options shown here.</p>
+</div>
+<div class="image"><a id="ch04tab04"/><img src="graphics/04tab04.jpg" alt="Image"/>
+<div class="image"><img src="graphics/04tab04a.jpg" alt="Image"/></div>
+<p class="tab-caption"><span class="pd_ash">Table 4.4</span> The <code>printf()</code> Modifiers</p></div>
+<div class="note"><hr/>
+<p class="title"><a id="page_117"/><span class="pd_ash">Note: Type Portability</span></p>
+<p class="notepara">The <code>sizeof</code> operator, recall, returns the size, in bytes, of a type or value. This should be some form of integer, but the standard only provides that it should be an unsigned integer. Thus it could be <code>unsigned int</code>, <code>unsigned long</code>, or even <code>unsigned long long</code>. So, if you were to use <code>printf()</code> to display a <code>sizeof</code> expression, you might use <code>%u</code> on one system, <code>%lu</code> one another, and <code>%llu</code> on a third. This means you would need to research the correct usage for your system and that you might need to alter your program if you move it to a different system. Well, it would have meant that except that C provides help to make the type more portable. First, the <code>stddef.h</code> header file (included when you include <code>stdio.h</code>) defines <code>size_t</code> to be whatever the type your system uses for <code>sizeof</code>; this is called the underlying type. Second, <code>printf()</code> uses the <code>z</code> modifier to indicate the corresponding type for printing. Similarly, C defines the <code>ptrdiff_t</code> type and <code>t</code> modifier to indicate whatever underlying signed integer type the system used for the difference between two addresses.</p>
+<hr/></div>
+<div class="note"><hr/>
+<p class="title"><span class="pd_ash">Note: Conversion of <code>float</code> Arguments</span></p>
+<p class="notepara">There are conversion specifiers to print the floating types <code>double</code> and <code>long double</code>. However, there is no specifier for <code>float</code>. The reason is that <code>float</code> values were automatically converted to type <code>double</code> before being used in an expression or as an argument under K&#38;R C. ANSI C (or later), in general, does not automatically convert <code>float</code> to <code>double</code>. To protect the enormous number of existing programs that assume <code>float</code> arguments are converted to <code>double</code>, however, all <code>float</code> arguments to <code>printf()</code>&#8212;as well as to any other C function not using an explicit prototype&#8212;are still automatically converted to <code>double</code>. Therefore, under either K&#38;R C or ANSI C, no special conversion specifier is needed for displaying type <code>float</code>.</p>
+<hr/></div>
+<div class="image"><a id="ch04tab05"/><img src="graphics/04tab05.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 4.5</span> The <code>printf()</code> Flags</p></div>
+<div class="heading">
+<h5 id="ch04lev3sec2"><a id="page_118"/>Examples Using Modifiers and Flags</h5>
+<p class="noindent">Let&#8217;s put these modifiers to work, beginning with a look at the effect of the field width modifier on printing an integer. Consider the program in <a href="ch04.html#ch04lis07">Listing 4.7</a>.</p>
+</div>
+<p class="ex-caption"><a id="ch04lis07"/><span class="pd_ash">Listing 4.7</span> The <span class="EmpStrong">width.c</span> Program</p>
+<p class="codelink"><a id="p04lis07a" href="ch04_images.html#p04lis07">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* width.c -- field widths */<br/>#include &lt;stdio.h&gt;<br/>#define PAGES 959<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;printf("*%d*\n", PAGES);<br/>&#160;&#160;&#160;&#160;printf("*%2d*\n", PAGES);<br/>&#160;&#160;&#160;&#160;printf("*%10d*\n", PAGES);<br/>&#160;&#160;&#160;&#160;printf("*%-10d*\n", PAGES);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a href="ch04.html#ch04lis07">Listing 4.7</a> prints the same quantity four times using four different conversion specifications. It uses an asterisk (<code>*</code>) to show you where each field begins and ends. The output looks as follows:</p>
+<p class="pre"><a id="page_119"/>*959*<br/>*959*<br/>*&#160;&#160;&#160;&#160;&#160;&#160;&#160;959*<br/>*959&#160;&#160;&#160;&#160;&#160;&#160;&#160;*</p>
+<p class="noindent">The first conversion specification is <code>%d</code> with no modifiers. It produces a field with the same width as the integer being printed. This is the default option; that is, it&#8217;s what&#8217;s printed if you don&#8217;t give further instructions. The second conversion specification is <code>%2d</code>. This should produce a field width of 2, but because the integer is three digits long, the field is expanded automatically to fit the number. The next conversion specification is <code>%10d</code>. This produces a field 10 spaces wide, and, indeed, there are seven blanks and three digits between the asterisks, with the number tucked into the right end of the field. The final specification is <code>%-10d</code>. It also produces a field 10 spaces wide, and the <code>-</code> puts the number at the left end, just as advertised. After you get used to it, this system is easy to use and gives you nice control over the appearance of your output. Try altering the value for <code>PAGES</code> to see how different numbers of digits are printed.</p>
+<p class="noindent">Now look at some floating-point formats. Enter, compile, and run the program in <a href="ch04.html#ch04lis08">Listing 4.8</a>.</p>
+<p class="ex-caption"><a id="ch04lis08"/><span class="pd_ash">Listing 4.8</span> The <span class="EmpStrong">floats.</span><span class="EmpItalic">c</span> Program</p>
+<p class="codelink"><a id="p04lis08a" href="ch04_images.html#p04lis08">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// floats.c -- some floating-point combinations<br/>#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;const double RENT = 3852.99;&#160;&#160;// const-style constant<br/><br/>&#160;&#160;&#160;&#160;printf("*%f*\n", RENT);<br/>&#160;&#160;&#160;&#160;printf("*%e*\n", RENT);<br/>&#160;&#160;&#160;&#160;printf("*%4.2f*\n", RENT);<br/>&#160;&#160;&#160;&#160;printf("*%3.1f*\n", RENT);<br/>&#160;&#160;&#160;&#160;printf("*%10.3f*\n", RENT);<br/>&#160;&#160;&#160;&#160;printf("*%10.3E*\n", RENT);<br/>&#160;&#160;&#160;&#160;printf("*%+4.2f*\n", RENT);<br/>&#160;&#160;&#160;&#160;printf("*%010.2f*\n", RENT);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">This time, the program uses the keyword <code>const</code> to create a symbolic constant. The output is</p>
+<p class="pre">*3852.990000*<br/>*3.852990e+03*<br/>*3852.99*<br/>*3853.0*<br/>*&#160;&#160;3852.990*<br/>* 3.853E+03*<br/><a id="page_120"/>*+3852.99*<br/>*0003852.99*</p>
+<p class="noindent">The example begins with the default version, <code>%f</code>. In this case, there are two defaults&#8212;the field width and the number of digits to the right of the decimal. The second default is six digits, and the field width is whatever it takes to hold the number.</p>
+<p class="noindent">Next is the default for <code>%e</code>. It prints one digit to the left of the decimal point and six places to the right. We&#8217;re getting a lot of digits! The cure is to specify the number of decimal places to the right of the decimal, and the next four examples in this segment do that. Notice how the fourth and the sixth examples cause the output to be rounded off. Also, the sixth example uses <code>E</code> instead of <code>e</code>.</p>
+<p class="noindent">Finally, the <code>+</code> flag causes the result to be printed with its algebraic sign, which is a plus sign in this case, and the <code>0</code> flag produces leading zeros to pad the result to the full field width. Note that in the specifier <code>%010.2f</code>, the first <code>0</code> is a flag, and the remaining digits before the period (<code>10</code>) specify the field width.</p>
+<p class="noindent">You can modify the <code>RENT</code> value to see how variously sized values are printed. <a href="ch04.html#ch04lis09">Listing 4.9</a> demonstrates a few more combinations.</p>
+<p class="ex-caption"><a id="ch04lis09"/><span class="pd_ash">Listing 4.9</span> The <span class="EmpStrong">flags.c</span> Program</p>
+<p class="codelink"><a id="p04lis09a" href="ch04_images.html#p04lis09">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* flags.c -- illustrates some formatting flags */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;printf("%x %X %#x\n", 31, 31, 31);<br/>&#160;&#160;&#160;&#160;printf("**%d**% d**% d**\n", 42, 42, -42);<br/>&#160;&#160;&#160;&#160;printf("**%5d**%5.3d**%05d**%05.3d**\n", 6, 6, 6, 6);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The output looks as follows:</p>
+<p class="pre">1f 1F 0x1f<br/>**42** 42**-42**<br/>**&#160;&#160;&#160;&#160;6**&#160;&#160;006**00006**&#160;&#160;006**</p>
+<p class="noindent">First, <code>1f</code> is the hex equivalent of 31. The <code>x</code> specifier yields <code>1f</code>, and the <code>X</code> specifier yields <code>1F</code>. Using the <code>#</code> flag provides an initial <code>0x</code>.</p>
+<p class="noindent">The second line of output illustrates how using a space in the specifier produces a leading space for positive values, but not for negative values. This can produce a pleasing output because positive and negative values with the same number of significant digits are printed with the same field widths.</p>
+<p class="noindent"><a id="page_121"/>The third line illustrates how using a precision specifier (<code>%5.3d</code>) with an integer form produces enough leading zeros to pad the number to the minimum value of digits (three, in this case). Using the <code>0</code> flag, however, pads the number with enough leading zeros to fill the whole field width. Finally, if you provide both the <code>0</code> flag and the precision specifier, the <code>0</code> flag is ignored.</p>
+<p class="noindent">Now let&#8217;s examine some of the string options. Consider the example in <a href="ch04.html#ch04lis10">Listing 4.10</a>.</p>
+<p class="ex-caption"><a id="ch04lis10"/><span class="pd_ash">Listing 4.10</span> The <span class="EmpStrong">stringf.c</span> Program</p>
+<p class="codelink"><a id="p04lis10a" href="ch04_images.html#p04lis10">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* stringf.c -- string formatting */<br/>#include &lt;stdio.h&gt;<br/>#define BLURB "Authentic imitation!"<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;printf("[%2s]\n", BLURB);<br/>&#160;&#160;&#160;&#160;printf("[%24s]\n", BLURB);<br/>&#160;&#160;&#160;&#160;printf("[%24.5s]\n", BLURB);<br/>&#160;&#160;&#160;&#160;printf("[%-24.5s]\n", BLURB);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="noindent">Here is the output:</p>
+<p class="pre">[Authentic imitation!]<br/>[&#160;&#160;&#160;&#160;Authentic imitation!]<br/>[&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Authe]<br/>[Authe&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;]</p>
+<hr/>
+<p class="noindent">Notice how, for the <code>%2s</code> specification, the field is expanded to contain all the characters in the string. Also notice how the precision specification limits the number of characters printed. The <code>.5</code> in the format specifier tells <code>printf()</code> to print just five characters. Again, the <code>-</code> modifier left-justifies the text.</p>
+<div class="heading">
+<h5 id="ch04lev3sec3">Using What You Just Learned</h5>
+<p class="noindent">Okay, you&#8217;ve seen some examples. Now, how would you set up a statement to print something having the following form?</p>
+</div>
+<p class="codelink"><a id="p121pro01a" href="ch04_images.html#p121pro01">Click here to view code image</a></p>
+<p class="pre">The NAME family just may be $XXX.XX dollars richer!</p>
+<p class="noindent">Here, <code>NAME</code> and <code>XXX.XX</code> represent values that will be supplied by variables in the program&#8212;say, <code>name[40]</code> and <code>cash</code>.</p>
+<p class="noindent">One solution is</p>
+<p class="codelink"><a id="p121pro02a" href="ch04_images.html#p121pro02">Click here to view code image</a></p>
+<p class="pre">printf("The %s family just may be $%.2f richer!\n",name,cash);</p>
+<div class="heading">
+<h4 id="ch04lev2sec9"><a id="page_122"/>What Does a Conversion Specification Convert?</h4>
+<p class="noindent">Let&#8217;s take a closer look at what a conversion specification converts. It converts a value stored in the computer in some binary format to a series of characters (a string) to be displayed. For example, the number 76 may be stored internally as binary 01001100. The <code>%d</code> conversion specifier converts this to the characters <code>7</code> and <code>6</code>, displaying <code>76</code>. The <code>%x</code> conversion converts the same value (<code>01001100</code>) to the hexadecimal representation <code>4c</code>. The <code>%c</code> converts the same value to the character representation <code>L</code>.</p>
+</div>
+<p class="noindent">The term <em>conversion</em> is probably somewhat misleading because it might suggest that the original value is replaced with a converted value. Conversion specifications are really translation specifications; <code>%d</code> means &#8220;translate the given value to a decimal integer text representation and print the representation.&#8221;</p>
+<div class="heading">
+<h5 id="ch04lev3sec4">Mismatched Conversions</h5>
+<p class="noindent">Naturally, you should match the conversion specification to the type of value being printed. Often, you have choices. For instance, if you want to print a type <code>int</code> value, you can use <code>%d</code>, <code>%x,</code> or <code>%o</code>. All these specifiers assume that you are printing a type <code>int</code> value; they merely provide different representations of the value. Similarly, you can use <code>%f</code>, <code>%e</code>, or <code>%g</code> to represent a type <code>double</code> value.</p>
+</div>
+<p class="noindent">What if you mismatch the conversion specification to the type? You&#8217;ve seen in the preceding chapter that mismatches can cause problems. This is a very important point to keep in mind, so <a href="ch04.html#ch04lis11">Listing 4.11</a> shows some more examples of mismatches within the integer family.</p>
+<p class="ex-caption"><a id="ch04lis11"/><span class="pd_ash">Listing 4.11</span> The <span class="EmpStrong">intconv.c</span> Program</p>
+<p class="codelink"><a id="p04lis11a" href="ch04_images.html#p04lis11">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* intconv.c -- some mismatched integer conversions */<br/>#include &lt;stdio.h&gt;<br/>#define PAGES 336<br/>#define WORDS 65618<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;short num = PAGES;<br/>&#160;&#160;&#160;&#160;short mnum = -PAGES;<br/><br/>&#160;&#160;&#160;&#160;printf("num as short and unsigned short:&#160;&#160;%hd %hu\n", num,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;num);<br/>&#160;&#160;&#160;&#160;printf("-num as short and unsigned short: %hd %hu\n", mnum,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;mnum);<br/>&#160;&#160;&#160;&#160;printf("num as int and char: %d %c\n", num, num);<br/>&#160;&#160;&#160;&#160;printf("WORDS as int, short, and char: %d %hd %c\n",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;WORDS, WORDS, WORDS);<br/>&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_123"/>Our system produces the following results:</p>
+<p class="codelink"><a id="p123pro01a" href="ch04_images.html#p123pro01">Click here to view code image</a></p>
+<p class="pre">num as short and unsigned short:&#160;&#160;336 336<br/>-num as short and unsigned short: -336 65200<br/>num as int and char: 336 P<br/>WORDS as int, short, and char: 65618 82 R</p>
+<p class="noindent">Looking at the first line, you can see that both <code>%hd</code> and <code>%hu</code> produce <code>336</code> as output for the variable <code>num</code>; no problem there. On the second line, the <code>%u</code> (unsigned) version of <code>mnum</code> came out as <code>65200</code>, however, not as the <code>336</code> you might have expected; this results from the way that signed <code>short int</code> values are represented on our reference system. First, they are 2 bytes in size. Second, the system uses a method called the <em>two&#8217;s complement</em> to represent signed integers. In this method, the numbers 0 to 32767 represent themselves, and the numbers 32768 to 65535 represent negative numbers, with 65535 being &#8722;1, 65534 being &#8722;2, and so forth. Therefore, <code>&#8722;336</code> is represented by <code>65536 - 336</code>, or <code>65200</code>. So 65200 represents &#8722;336 when interpreted as a signed <code>int</code> and represents 65200 when interpreted as an unsigned <code>int</code>. Be wary! One number can be interpreted as two different values. Not all systems use this method to represent negative integers. Nonetheless, there is a moral: Don&#8217;t expect a <code>%u</code> conversion to simply strip the sign from a number.</p>
+<p class="noindent">The third line shows what happens if you try to convert a value greater than 255 to a character. On this system, a <code>short int</code> is 2 bytes and a <code>char</code> is 1 byte. When <code>printf()</code> prints 336 using <code>%c</code>, it looks at only 1 byte out of the 2 used to hold 336. This truncation (see <a href="ch04.html#ch04fig08">Figure 4.8</a>) amounts to dividing the integer by 256 and keeping just the remainder. In this case, the remainder is 80, which is the ASCII value for the character <em>P</em>. More technically, you can say that the number is interpreted <em>modulo 256</em>, which means using the remainder when the number is divided by 256.</p>
+<div class="image"><a id="ch04fig08"/><img src="graphics/04fig08.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.8</span> Reading 336 as a character.</p></div>
+<p class="noindent">Finally, we tried printing an integer (65618) larger than the maximum <code>short int</code> (32767) allowed on our system. Again, the computer does its modulo thing. The number 65618, because of its size, is stored as a 4-byte <code>int</code> value on our system. When we print it using the <code>%hd</code> specification, <code>printf()</code> uses only the last 2 bytes. This corresponds to using the remainder after dividing by 65536. In this case, the remainder is 82. A remainder between 32767 and 65536 would be printed as a negative number because of the way negative numbers are stored. Systems with different integer sizes would have the same general behavior, but with different numerical values.</p>
+<p class="noindent"><a id="page_124"/>When you start mixing integer and floating types, the results are more bizarre. Consider, for example, <a href="ch04.html#ch04lis12">Listing 4.12</a>.</p>
+<p class="ex-caption"><a id="ch04lis12"/><span class="pd_ash">Listing 4.12</span> The <span class="EmpStrong">floatcnv.c</span> Program</p>
+<p class="codelink"><a id="p04lis12a" href="ch04_images.html#p04lis12">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* floatcnv.c -- mismatched floating-point conversions */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;float n1 = 3.0;<br/>&#160;&#160;&#160;&#160;double n2 = 3.0;<br/>&#160;&#160;&#160;&#160;long n3 = 2000000000;<br/>&#160;&#160;&#160;&#160;long n4 = 1234567890;<br/><br/>&#160;&#160;&#160;&#160;printf("%.1e %.1e %.1e %.1e\n", n1, n2, n3, n4);<br/>&#160;&#160;&#160;&#160;printf("%ld %ld\n", n3, n4);<br/>&#160;&#160;&#160;&#160;printf("%ld %ld %ld %ld\n", n1, n2, n3, n4);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">On one system, <a href="ch04.html#ch04lis12">Listing 4.12</a> produces the following output:</p>
+<p class="codelink"><a id="p124pro01a" href="ch04_images.html#p124pro01">Click here to view code image</a></p>
+<p class="pre">3.0e+00 3.0e+00 3.1e+46 1.7e+266<br/>2000000000 1234567890<br/>0 1074266112 0 1074266112</p>
+<p class="noindent">The first line of output shows that using a <code>%e</code> specifier does not convert an integer to a floating-point number. Consider, for example, what happens when you try to print <code>n3</code> (type <code>long</code>) using the <code>%e</code> specifier. First, the <code>%e</code> specifier causes <code>printf()</code> to expect a type <code>double</code> value, which is an 8-byte value on this system. When <code>printf()</code> looks at <code>n3</code>, which is a 4-byte value on this system, it also looks at the adjacent 4 bytes. Therefore, it looks at an 8-byte unit in which the actual n3 is embedded. Second, it interprets the bits in this unit as a floating-point number. Some bits, for example, would be interpreted as an exponent. So even if <code>n3</code> had the correct number of bits, they would be interpreted differently under <code>%e</code> than under <code>%ld</code>. The net result is nonsense.</p>
+<p class="noindent">The first line also illustrates what we mentioned earlier&#8212;that <code>float</code> is converted to <code>double</code> when used as arguments to <code>printf()</code>. On this system, <code>float</code> is 4 bytes, but <code>n1</code> was expanded to 8 bytes so that <code>printf()</code> would display it correctly.</p>
+<p class="noindent">The second line of output shows that <code>printf()</code> can print <code>n3</code> and <code>n4</code> correctly if the correct specifier is used.</p>
+<p class="noindent">The third line of output shows that even the correct specifier can produce phony results if the <code>printf()</code> statement has mismatches elsewhere. As you might expect, trying to print a floating-point value with an <code>%ld</code> specifier fails, but here, trying to print a type <code>long</code> using <code>%ld</code> fails! The problem lies in how C passes information to a function. The exact details of this failure are implementation dependent, but the sidebar &#8220;<a href="#ch04sb01">Passing Arguments</a>&#8221; discusses a representative system.</p>
+<div class="sidebar"><a id="page_125"/><hr/>
+<p class="title"><a id="ch04sb01"/>Passing Arguments</p>
+<p class="sidebarpara">The mechanics of argument passing depend on the implementation. This is how argument passing works on one system. The function call looks as follows:</p>
+<p class="codelink"><a id="p125pro01a" href="ch04_images.html#p125pro01">Click here to view code image</a></p>
+<p class="pre1">printf("%ld %ld %ld %ld\n", n1, n2, n3, n4);</p>
+<p class="sidebarpara">This call tells the computer to hand over the values of the variables <code>n1</code>, <code>n2</code>, <code>n3</code>, and <code>n4</code> to the computer. Here&#8217;s one common way that&#8217;s accomplished. The program places the values in an area of memory called the <em>stack</em>. When the computer puts these values on the stack, it is guided by the types of the variables, not by the conversion specifiers. Consequently, for <code>n1</code>, it places 8 bytes on the stack (<code>float</code> is converted to <code>double</code>). Similarly, it places 8 more bytes for <code>n2</code>, followed by 4 bytes each for <code>n3</code> and <code>n4</code>. Then control shifts to the <code>printf()</code> function. This function reads the values off the stack but, when it does so, it reads them according to the conversion specifiers. The <code>%ld</code> specifier indicates that <code>printf()</code> should read 4 bytes, so <code>printf()</code> reads the first 4 bytes in the stack as its first value. This is just the first half of <code>n1</code>, and it is interpreted as a <code>long</code> integer. The next <code>%ld</code> specifier reads 4 more bytes; this is just the second half of <code>n1</code> and is interpreted as a second <code>long</code> integer (see <a href="ch04.html#ch04fig09">Figure 4.9</a>). Similarly, the third and fourth instances of <code>%ld</code> cause the first and second halves of <code>n2</code> to be read and to be interpreted as two more <code>long</code> integers, so although we have the correct specifiers for <code>n3</code> and <code>n4</code>, <code>printf()</code> is reading the wrong bytes.</p>
+<div class="image"><a id="ch04fig09"/><img src="graphics/04fig09.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 4.9</span> Passing arguments.</p></div>
+<hr/></div>
+<div class="heading">
+<h5 id="ch04lev3sec5"><a id="page_126"/>The Return Value of <span class="EmpStrong">printf()</span></h5>
+<p class="noindent">As mentioned in <a href="ch02.html#ch02">Chapter 2</a>, a C function generally has a return value. This is a value that the function computes and returns to the calling program. For example, the C library contains a <code>sqrt()</code> function that takes a number as an argument and returns its square root. The return value can be assigned to a variable, can be used in a computation, can be passed as an argument&#8212;in short, it can be used like any other value. The <code>printf()</code> function also has a return value; it returns the number of characters it printed. If there is an output error, <code>printf()</code> returns a negative value. (Some ancient versions of <code>printf()</code> have different return values.)</p>
+</div>
+<p class="noindent">The return value for <code>printf()</code> is incidental to its main purpose of printing output, and it usually isn&#8217;t used. One reason you might use the return value is to check for output errors. This is more commonly done when writing to a file rather than to a screen. If a full CD or DVD prevented writing from taking place, you could then have the program take some appropriate action, such as beeping the terminal for 30 seconds. However, you have to know about the <code>if</code> statement before doing that sort of thing. The simple example in <a href="ch04.html#ch04lis13">Listing 4.13</a> shows how you can determine the return value.</p>
+<p class="ex-caption"><a id="ch04lis13"/><span class="pd_ash">Listing 4.13</span> The <span class="EmpStrong">prntval.c</span> Program</p>
+<p class="codelink"><a id="p04lis13a" href="ch04_images.html#p04lis13">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* prntval.c -- finding printf()'s return value */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int bph2o = 212;<br/>&#160;&#160;&#160;&#160;int rv;<br/><br/>&#160;&#160;&#160;&#160;rv = printf("%d F is water's boiling point.\n", bph2o);<br/>&#160;&#160;&#160;&#160;printf("The printf() function printed %d characters.\n",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;rv);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The output is as follows:</p>
+<p class="codelink"><a id="p126pro01a" href="ch04_images.html#p126pro01">Click here to view code image</a></p>
+<p class="pre">212 F is water's boiling point.<br/>The printf() function printed 32 characters.</p>
+<p class="noindent">First, the program used the form <code>rv = printf(...);</code> to assign the return value to <code>rv</code>. This statement therefore performs two tasks: printing information and assigning a value to a variable. Second, note that the count includes all the printed characters, including the spaces and the unseen newline character.</p>
+<div class="heading">
+<h5 id="ch04lev3sec6">Printing Long Strings</h5>
+<p class="noindent">Occasionally, <code>printf()</code> statements are too long to put on one line. Because C ignores whitespace (spaces, tabs, newlines) except when used to separate elements, you can spread <a id="page_127"/>a statement over several lines, as long as you put your line breaks between elements. For example, <a href="ch04.html#ch04lis13">Listing 4.13</a> used two lines for a statement.</p>
+</div>
+<p class="codelink"><a id="p127pro01a" href="ch04_images.html#p127pro01">Click here to view code image</a></p>
+<p class="pre">printf("The printf() function printed %d characters.\n",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;rv);</p>
+<p class="noindent">The line is broken between the comma element and <code>rv</code>. To show a reader that the line was being continued, the example indents the <code>rv</code>. C ignores the extra spaces.</p>
+<p class="noindent">However, you cannot break a quoted string in the middle. Suppose you try something like the following:</p>
+<p class="codelink"><a id="p127pro02a" href="ch04_images.html#p127pro02">Click here to view code image</a></p>
+<p class="pre">printf("The printf() function printed %d<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;characters.\n", rv);</p>
+<p class="noindent">C will complain that you have an illegal character in a string constant. You can use <code>\n</code> in a string to symbolize the newline character, but you can&#8217;t have the actual newline character generated by the Enter (or Return) key in a string.</p>
+<p class="noindent">If you do have to split a string, you have three choices, as shown in <a href="ch04.html#ch04lis14">Listing 4.14</a>.</p>
+<p class="ex-caption"><a id="ch04lis14"/><span class="pd_ash">Listing 4.14</span> The <span class="EmpStrong">longstrg.c</span> Program</p>
+<p class="codelink"><a id="p04lis14a" href="ch04_images.html#p04lis14">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* longstrg.c &#8211;&#8211; printing long strings */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;printf("Here's one way to print a ");<br/>&#160;&#160;&#160;&#160;printf("long string.\n");<br/>&#160;&#160;&#160;&#160;printf("Here's another way to print a \<br/>long string.\n");<br/>&#160;&#160;&#160;&#160;printf("Here's the newest way to print a "<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"long string.\n");&#160;&#160;&#160;&#160;&#160;&#160;/* ANSI C */<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is the output:</p>
+<p class="codelink"><a id="p127pro03a" href="ch04_images.html#p127pro03">Click here to view code image</a></p>
+<p class="pre">Here's one way to print a long string.<br/>Here's another way to print a long string.<br/>Here's the newest way to print a long string.</p>
+<p class="noindent">Method 1 is to use more than one <code>printf()</code> statement. Because the first string printed doesn&#8217;t end with a <code>\n</code> character, the second string continues where the first ends.</p>
+<p class="noindent">Method 2 is to terminate the end of the first line with a backslash/return combination. This causes the text onscreen to start a new line without a newline character being included in the string. The effect is to continue the string over to the next line. However, the next line has to <a id="page_128"/>start at the far left, as shown. If you indent that line, say, five spaces, those five spaces become part of the string.</p>
+<p class="noindent">Method 3, which ANSI C introduced, is string concatenation. If you follow one quoted string constant with another, separated only by whitespace, C treats the combination as a single string, so the following three forms are equivalent:</p>
+<p class="codelink"><a id="p128pro01a" href="ch04_images.html#p128pro01">Click here to view code image</a></p>
+<p class="pre">printf("Hello, young lovers, wherever you are.");<br/>printf("Hello, young "&#160;&#160;&#160;&#160;"lovers" ", wherever you are.");<br/>printf("Hello, young lovers"<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;", wherever you are.");</p>
+<p class="noindent">With all these methods, you should include any required spaces in the strings: <code>"young" "lovers"</code> becomes <code>"younglovers"</code>, but the combination <code>"young " "lovers"</code> is <code>"young lovers"</code>.</p>
+<div class="heading">
+<h4 id="ch04lev2sec10">Using <span class="EmpStrong">scanf()</span></h4>
+<p class="noindent">Now let&#8217;s go from output to input and examine the <code>scanf()</code> function. The C library contains several input functions, and <code>scanf()</code> is the most general of them, because it can read a variety of formats. Of course, input from the keyboard is text because the keys generate text characters: letters, digits, and punctuation. When you want to enter, say, the integer 2014, you type the characters <code>2 0 1</code> and <code>4</code>. If you want to store that as a numerical value rather than as a string, your program has to convert the string character-by-character to a numerical value; that is what <code>scanf()</code> does! It converts string input into various forms: integers, floating-point numbers, characters, and C strings. It is the inverse of <code>printf()</code>, which converts integers, floating-point numbers, characters, and C strings to text that is to be displayed onscreen.</p>
+</div>
+<p class="noindent">Like <code>printf()</code>, <code>scanf()</code> uses a control string followed by a list of arguments. The control string indicates the destination data types for the input stream of characters. The chief difference is in the argument list. The <code>printf()</code> function uses variable names, constants, and expressions. The <code>scanf()</code> function uses pointers to variables. Fortunately, you don&#8217;t have to know anything about pointers to use the function. Just remember these simple rules:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> If you use <code>scanf()</code> to read a value for one of the basic variable types we&#8217;ve discussed, precede the variable name with an <code>&#38;</code>.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> If you use <code>scanf()</code> to read a string into a character array, don&#8217;t use an <code>&#38;</code>.</p>
+<p class="noindent"><a href="ch04.html#ch04lis15">Listing 4.15</a> presents a short program illustrating these rules.</p>
+<p class="ex-caption"><a id="ch04lis15"/><span class="pd_ash">Listing 4.15</span> The <span class="EmpStrong">input.c</span> Program</p>
+<p class="codelink"><a id="p04lis15a" href="ch04_images.html#p04lis15">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// input.c -- when to use &#38;<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int age;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// variable<br/><a id="page_129"/>&#160;&#160;&#160;&#160;float assets;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// variable<br/>&#160;&#160;&#160;&#160;char pet[30];&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// string<br/><br/>&#160;&#160;&#160;&#160;printf("Enter your age, assets, and favorite pet.\n");<br/>&#160;&#160;&#160;&#160;scanf("%d %f", &#38;age, &#38;assets); // use the &#38; here<br/>&#160;&#160;&#160;&#160;scanf("%s", pet);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// no &#38; for char array<br/>&#160;&#160;&#160;&#160;printf("%d $%.2f %s\n", age, assets, pet);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is a sample exchange:</p>
+<p class="codelink"><a id="p129pro01a" href="ch04_images.html#p129pro01">Click here to view code image</a></p>
+<p class="pre">Enter your age, assets, and favorite pet.<br/><span class="EmpStrong">38</span><br/><span class="EmpStrong">92360.88 llama</span><br/>38 $92360.88 llama</p>
+<p class="noindent">The <code>scanf()</code> function uses whitespace (newlines, tabs, and spaces) to decide how to divide the input into separate fields. It matches up consecutive conversion specifications to consecutive fields, skipping over the whitespace in between. Note how this sample run spread the input over two lines. You could just as well have used one or five lines, as long as you had at least one newline, space, or tab between each entry:</p>
+<p class="codelink"><a id="p129pro02a" href="ch04_images.html#p129pro02">Click here to view code image</a></p>
+<p class="pre">Enter your age, assets, and favorite pet.<br/>&#160;&#160;<span class="EmpStrong">42</span><br/><br/>&#160;&#160;&#160;&#160;&#160;<span class="EmpStrong">2121.45</span><br/><br/>&#160;&#160;&#160;&#160;<span class="EmpStrong">guppy</span><br/>42 $2121.45 guppy</p>
+<p class="noindent">The only exception to this is the <code>%c</code> specification, which reads the very next character, even if that character is whitespace. We&#8217;ll return to this topic in a moment.</p>
+<p class="noindent">The <code>scanf()</code> function uses pretty much the same set of conversion-specification characters as <code>printf()</code> does. The main difference is that <code>printf()</code> uses <code>%f</code>, <code>%e</code>, <code>%E</code>, <code>%g</code>, and <code>%G</code> for both type <code>float</code> and type <code>double</code>, whereas <code>scanf()</code> uses them just for type <code>float</code>, requiring the <code>l</code> modifier for <code>double</code>. <a href="ch04.html#ch04tab06">Table 4.6</a> lists the main conversion specifiers as described in the C99 standard.</p>
+<div class="image"><a id="ch04tab06"/><img src="graphics/04tab06.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 4.6</span> ANSI C Conversion Specifiers for <code>scanf()</code></p></div>
+<p class="noindent"><a id="page_130"/>You also can use modifiers in the conversion specifiers shown in <a href="ch04.html#ch04tab06">Table 4.6</a>. The modifiers go between the percent sign and the conversion letter. If you use more than one in a specifier, they should appear in the same order as shown in <a href="ch04.html#ch04tab07">Table 4.7</a>.</p>
+<div class="image"><a id="ch04tab07"/><img src="graphics/04tab07.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 4.7</span> Conversion Modifiers for <code>scanf()</code></p></div>
+<p class="noindent"><a id="page_131"/>As you can see, using conversion specifiers can be involved, and these tables have omitted some of the features. The omitted features primarily facilitate reading selected data from highly formatted sources, such as punched cards or other data records. Because this book uses <code>scanf()</code> primarily as a convenient means for feeding data to a program interactively, it won&#8217;t discuss the more esoteric features.</p>
+<div class="heading">
+<h5 id="ch04lev3sec7">The <span class="EmpStrong">scanf()</span> View of Input</h5>
+<p class="noindent">Let&#8217;s look in more detail at how <code>scanf()</code> reads input. Suppose you use a <code>%d</code> specifier to read an integer. The <code>scanf()</code> function begins reading input a character at a time. It skips over whitespace characters (spaces, tabs, and newlines) until it finds a non-whitespace character. Because it is attempting to read an integer, <code>scanf()</code> expects to find a digit character or, perhaps, a sign (<code>+</code> or <code>-</code>). If it finds a digit or a sign, it saves that character and then reads the next character. If that is a digit, it saves the digit and reads the next character. <code>scanf()</code> continues reading and saving characters until it encounters a nondigit. It then concludes that it has reached the end of the integer. <code>scanf()</code> places the nondigit back into the input. This means that the next time the program goes to read input, it starts at the previously rejected, nondigit character. Finally, <code>scanf()</code> computes the numerical value corresponding to the digits (and possible sign) it read and places that value in the specified variable.</p>
+</div>
+<p class="noindent">If you use a field width, <code>scanf()</code> halts at the field end or at the first whitespace, whichever comes first.</p>
+<p class="noindent">What if the first non-whitespace character is, say, an <code>A</code> instead of a digit? Then <code>scanf()</code> stops right there and places the <code>A</code> (or whatever) back in the input. No value is assigned to the specified variable, and the next time the program reads input, it starts at the <code>A</code> again. If your program has only <code>%d</code> specifiers, <code>scanf()</code> will never get past that <code>A</code>. Also, if you use a <code>scanf()</code> statement with several specifiers, C requires the function to stop reading input at the first failure.</p>
+<p class="noindent"><a id="page_132"/>Reading input using the other numeric specifiers works much the same as the <code>%d</code> case. The main difference is that <code>scanf()</code> may recognize more characters as being part of the number. For instance, the <code>%x</code> specifier requires that <code>scanf()</code> recognize the hexadecimal digits a&#8211;f and A&#8211;F. Floating-point specifiers require <code>scanf()</code> to recognize decimal points, e-notation, and the new p-notation.</p>
+<p class="noindent">If you use an <code>%s</code> specifier, any character other than whitespace is acceptable, so <code>scanf()</code> skips whitespace to the first non-whitespace character and then saves up non-whitespace characters until hitting whitespace again. This means that <code>%s</code> results in <code>scanf()</code> reading a single word&#8212;that is, a string with no whitespace in it. If you use a field width, <code>scanf()</code> stops at the end of the field or at the first whitespace, whichever comes first. You can&#8217;t use the field width to make <code>scanf()</code> read more than one word for one <code>%s</code> specifier. A final point: When <code>scanf()</code> places the string in the designated array, it adds the terminating <code>'\0'</code> to make the array contents a C string.</p>
+<p class="noindent">If you use a <code>%c</code> specifier, all input characters are fair game. If the next input character is a space or a newline, a space or a newline is assigned to the indicated variable; whitespace is not skipped.</p>
+<p class="noindent">Actually, <code>scanf()</code> is not the most commonly used input function in C. It is featured here because of its versatility (it can read all the different data types), but C has several other input functions, such as <code>getchar()</code> and <code>fgets()</code>, that are better suited for specific tasks, such as reading single characters or reading strings containing spaces. We will cover some of these functions in <a href="ch07.html#ch07">Chapter 7</a>, &#8220;<a href="ch07.html#ch07">C Control Statements: Branching and Jumps</a>&#8221;; <a href="ch11.html#ch11">Chapter 11</a>, &#8220;<a href="ch11.html#ch11">Character Strings and String Functions</a>&#8221;; and <a href="ch13.html#ch13">Chapter 13</a>, &#8220;<a href="ch13.html#ch13">File Input/Output</a>.&#8221; In the meantime, if you need an integer, decimal fraction, a character, or a string, you can use <code>scanf()</code>.</p>
+<div class="heading">
+<h5 id="ch04lev3sec8">Regular Characters in the Format String</h5>
+<p class="noindent">The <code>scanf()</code> function does enable you to place ordinary characters in the format string. Ordinary characters other than the space character must be matched exactly by the input string. For example, suppose you accidentally place a comma between two specifiers:</p>
+</div>
+<p class="pre">scanf("%d,%d", &#38;n, &#38;m);</p>
+<p class="noindent">The <code>scanf()</code> function interprets this to mean that you will type a number, type a comma, and then type a second number. That is, you would have to enter two integers as follows:</p>
+<p class="pre">88,121</p>
+<p class="noindent">Because the comma comes immediately after the <code>%d</code> in the format string, you would have to type it immediately after the <code>88</code>. However, because <code>scanf()</code> skips over whitespace preceding an integer, you could type a space or newline after the comma when entering the input. That is,</p>
+<p class="pre">88, 121</p>
+<p class="noindent">and</p>
+<p class="pre">88,<br/>121</p>
+<p class="noindent"><a id="page_133"/>also would be accepted.</p>
+<p class="noindent">A space in the format string means to skip over any whitespace before the next input item. For instance, the statement</p>
+<p class="pre">scanf("%d ,%d", &#38;n, &#38;m);</p>
+<p class="noindent">would accept any of the following input lines:</p>
+<p class="pre">88,121<br/>88&#160;&#160;,121<br/>88 ,&#160;&#160;121</p>
+<p class="noindent">Note that the concept of &#8220;any whitespace&#8221; includes the special cases of no whitespace.</p>
+<p class="noindent">Except for <code>%c</code>, the specifiers automatically skip over whitespace preceding an input value, so <code>scanf("%d%d", &#38;n, &#38;m)</code> behaves the same as <code>scanf("%d %d", &#38;n, &#38;m)</code>. For <code>%c</code>, adding a space character to the format string does make a difference. For example, if <code>%c</code> is preceded by a space in the format string, <code>scanf()</code> does skip to the first non-whitespace character. That is, the command <code>scanf("%c", &#38;ch)</code> reads the first character encountered in input, and <code>scanf(" %c", &#38;ch)</code> reads the first non-whitespace character encountered.</p>
+<div class="heading">
+<h5 id="ch04lev3sec9">The <span class="EmpStrong">scanf()</span> Return Value</h5>
+<p class="noindent">The <code>scanf()</code> function returns the number of items that it successfully reads. If it reads no items, which happens if you type a nonnumeric string when it expects a number, <code>scanf()</code> returns the value <code>0</code>. It returns <code>EOF</code> when it detects the condition known as &#8220;end of file.&#8221; (<code>EOF</code> is a special value defined in the <code>stdio.h</code> file. Typically, a <code>#define</code> directive gives <code>EOF</code> the value <code>&#8211;1</code>.) We&#8217;ll discuss end of file in <a href="ch06.html#ch06">Chapter 6</a>, &#8220;<a href="ch06.html#ch06">C Control Statements: Looping</a>,&#8221; and make use of <code>scanf()</code>&#8217;s return value later in the book. After you learn about <code>if</code> statements and <code>while</code> statements, you can use the <code>scanf()</code> return value to detect and handle mismatched input.</p>
+</div>
+<div class="heading">
+<h4 id="ch04lev2sec11">The <span class="EmpStrong">*</span> Modifier with <span class="EmpStrong">printf()</span> and <span class="EmpStrong">scanf()</span></h4>
+<p class="noindent">Both <code>printf()</code> and <code>scanf()</code> can use the <code>*</code> modifier to modify the meaning of a specifier, but they do so in dissimilar fashions. First, let&#8217;s see what the <code>*</code> modifier can do for <code>printf()</code>.</p>
+</div>
+<p class="noindent">Suppose that you don&#8217;t want to commit yourself to a field width in advance but rather you want the program to specify it. You can do this by using <code>*</code> instead of a number for the field width, but you also have to add an argument to tell what the field width should be. That is, if you have the conversion specifier <code>%*d</code>, the argument list should include a value for <code>*</code> <em>and</em> a value for <code>d</code>. The technique also can be used with floating-point values to specify the precision as well as the field width. <a href="ch04.html#ch04lis16">Listing 4.16</a> is a short example showing how this works.</p>
+<p class="ex-caption"><a id="ch04lis16"/><span class="pd_ash">Listing 4.16</span> The <span class="EmpStrong">varwid.c</span> Program</p>
+<p class="codelink"><a id="p04lis16a" href="ch04_images.html#p04lis16">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* varwid.c -- uses variable-width output field */<br/>#include &lt;stdio.h&gt;<br/><a id="page_134"/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;unsigned width, precision;<br/>&#160;&#160;&#160;&#160;int number = 256;<br/>&#160;&#160;&#160;&#160;double weight = 242.5;<br/><br/>&#160;&#160;&#160;&#160;printf("Enter a field width:\n");<br/>&#160;&#160;&#160;&#160;scanf("%d", &#38;width);<br/>&#160;&#160;&#160;&#160;printf("The number is :%*d:\n", width, number);<br/>&#160;&#160;&#160;&#160;printf("Now enter a width and a precision:\n");<br/>&#160;&#160;&#160;&#160;scanf("%d %d", &#38;width, &#38;precision);<br/>&#160;&#160;&#160;&#160;printf("Weight = %*.*f\n", width, precision, weight);<br/>&#160;&#160;&#160;&#160;printf("Done!\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The variable <code>width</code> provides the <code>field width</code>, and <code>number</code> is the number to be printed. Because the <code>*</code> precedes the <code>d</code> in the specifier, <code>width</code> comes before <code>number</code> in <code>printf()</code>&#8217;s argument list. Similarly, <code>width</code> and <code>precision</code> provide the formatting information for printing <code>weight</code>. Here is a sample run:</p>
+<p class="codelink"><a id="p134pro01a" href="ch04_images.html#p134pro01">Click here to view code image</a></p>
+<p class="pre">Enter a field width:<br/><span class="EmpStrong">6</span><br/>The number is :&#160;&#160;&#160;256:<br/>Now enter a width and a precision:<br/><span class="EmpStrong">8 3</span><br/>Weight =&#160;&#160;242.500<br/>Done!</p>
+<p class="noindent">Here, the reply to the first question was <code>6</code>, so <code>6</code> was the field width used. Similarly, the second reply produced a width of <code>8</code> with <code>3</code> digits to the right of the decimal. More generally, a program could decide on values for these variables after looking at the value of <code>weight</code>.</p>
+<p class="noindent">The <code>*</code> serves quite a different purpose for <code>scanf()</code>. When placed between the <code>%</code> and the specifier letter, it causes that function to skip over corresponding input. <a href="ch04.html#ch04lis17">Listing 4.17</a> provides an example.</p>
+<p class="ex-caption"><a id="ch04lis17"/><span class="pd_ash">Listing 4.17</span> The <span class="EmpStrong">skip2.c</span> Program</p>
+<p class="codelink"><a id="p04lis17a" href="ch04_images.html#p04lis17">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* skiptwo.c -- skips over first two integers of input */<br/>#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int n;<br/><br/>&#160;&#160;&#160;&#160;printf("Please enter three integers:\n");<br/><a id="page_135"/>&#160;&#160;&#160;&#160;scanf("%*d %*d %d", &#38;n);<br/>&#160;&#160;&#160;&#160;printf("The last integer was %d\n", n);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The <code>scanf()</code> instruction in <a href="ch04.html#ch04lis17">Listing 4.17</a> says, &#8220;Skip two integers and copy the third into <code>n</code>.&#8221; Here is a sample run:</p>
+<p class="pre">Please enter three integers:<br/><span class="EmpStrong">2013 2014 2015</span><br/>The last integer was 2015</p>
+<p class="noindent">This skipping facility is useful if, for example, a program needs to read a particular column of a file that has data arranged in uniform columns.</p>
+<div class="heading">
+<h4 id="ch04lev2sec12">Usage Tips for <span class="EmpStrong">printf()</span></h4>
+<p class="noindent">Specifying fixed field widths is useful when you want to print columns of data. Because the default field width is just the width of the number, the repeated use of, say,</p>
+</div>
+<p class="codelink"><a id="p135pro01a" href="ch04_images.html#p135pro01">Click here to view code image</a></p>
+<p class="pre">printf("%d %d %d\n", val1, val2, val3);</p>
+<p class="noindent">produces ragged columns if the numbers in a column have different sizes. For example, the output could look like the following:</p>
+<p class="pre">12 234 1222<br/>4 5 23<br/>22334 2322 10001</p>
+<p class="noindent">(This assumes that the value of the variables has been changed between <code>print</code> statements.)</p>
+<p class="noindent">The output can be cleaned up by using a sufficiently large fixed field width. For example, using</p>
+<p class="codelink"><a id="p135pro02a" href="ch04_images.html#p135pro02">Click here to view code image</a></p>
+<p class="pre">printf("%9d %9d %9d\n", val1, val2, val3);</p>
+<p class="noindent">yields the following:</p>
+<p class="pre">&#160;&#160;&#160;12&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;234&#160;&#160;&#160;&#160;&#160;&#160;&#160;1222<br/>&#160;&#160;&#160;&#160;4&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;5&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;23<br/>22334&#160;&#160;&#160;&#160;&#160;&#160;&#160;2322&#160;&#160;&#160;&#160;&#160;&#160;10001</p>
+<p class="noindent">Leaving a blank between one conversion specification and the next ensures that one number never runs into the next, even if it overflows its own field. This is so because the regular characters in the control string, including spaces, are printed.</p>
+<p class="noindent">On the other hand, if a number is to be embedded in a phrase, it is often convenient to specify a field as small or smaller than the expected number width. This makes the number fit in without unnecessary blanks. For example,</p>
+<p class="codelink"><a id="page_136"/><a id="p136pro01a" href="ch04_images.html#p136pro01">Click here to view code image</a></p>
+<p class="pre">printf("Count Beppo ran %.2f miles in 3 hours.\n", distance);</p>
+<p class="noindent">might produce</p>
+<p class="codelink"><a id="p136pro02a" href="ch04_images.html#p136pro02">Click here to view code image</a></p>
+<p class="pre">Count Beppo ran 10.22 miles in 3 hours.</p>
+<p class="noindent">Changing the conversion specification to <code>%10.2f</code> would give you the following:</p>
+<p class="codelink"><a id="p136pro03a" href="ch04_images.html#p136pro03">Click here to view code image</a></p>
+<p class="pre">Count Beppo ran&#160;&#160;&#160;&#160;&#160;&#160;10.22 miles in 3 hours.</p>
+<div class="sidebar"><hr/>
+<p class="title"><span class="pd_ash">Locale Choices</span></p>
+<p class="sidebarpara">The United States and many other parts of the world use a period to separate the integer part of a decimal value from the fractional part, as in 3.14159. But many other parts of the world use a comma instead, as in 3,14159. You may have noticed that the <code>printf()</code> and <code>scanf()</code> specifiers don&#8217;t seem to offer the comma format. But C hasn&#8217;t ignored the rest of the world. As outlined in <a href="app02.html#app02">Appendix B</a>, <a href="app02.html#app02lev1sec5">Section V</a>, &#8220;<a href="app02.html#app02lev1sec5">The Standard ANSI C Library with C99 Additions</a>,&#8221; C supports the concept of a <em>locale</em>. This gives a C program the option of choosing a particular locale. For example, it might specify a Netherlands locale, and <code>printf()</code> and <code>scanf()</code> would use the local convention (a comma, in this case) when displaying and reading floating-point values. Also, once you specified that environment, you would use the comma convention for numbers appearing in your code:</p>
+<p class="codelink"><a id="p136pro04a" href="ch04_images.html#p136pro04">Click here to view code image</a></p>
+<p class="pre1">double pi = 3,14159;&#160;&#160;// Netherlands locale</p>
+<p class="sidebarpara">The C standard requires but two locales: <code>"C"</code> and <code>""</code>. By default, programs use the <code>"C"</code> locale which, basically, is U.S. usage. The <code>""</code> locale stands for a local locale in use on your system. In principle, it could be the same as the <code>"C"</code> locale. In practice, operating systems such as Unix, Linux, and Windows offer long lists of locale choices. However, they might not offer the same lists.</p>
+<hr/></div>
+<div class="heading">
+<h3 id="ch04lev1sec5">Key Concepts</h3>
+<p class="noindent">The C <code>char</code> type represents a single character. To represent a sequence of characters, C uses the character string. One form of string is the character constant, in which the characters are enclosed in double quotation marks; <code>"Good luck, my friend"</code> is an example. You can store a string in a character array, which consists of adjacent bytes in memory. Character strings, whether expressed as a character constant or stored in a character array, are terminated by a hidden character called the <em>null</em> character.</p>
+</div>
+<p class="noindent">It&#8217;s a good idea to represent numerical constants in a program symbolically, either by using <code>#define</code> or the keyword <code>const</code>. Symbolic constants make a program more readable and easier to maintain and modify.</p>
+<p class="noindent">The standard C input and output functions <code>scanf()</code> and <code>printf()</code> use a system in which you have to match type specifiers in the first argument to values in the subsequent arguments. Matching, say, an <code>int</code> specifier such as <code>%d</code> to a <code>float</code> value produces odd results. You have to <a id="page_137"/>exert care to match the number and type of specifiers to the rest of the function arguments. For <code>scanf()</code>, remember to prefix variables&#8217; names with the address operator (<code>&#38;</code>).</p>
+<p class="noindent">Whitespace characters (tabs, spaces, and newlines) play a critical role in how <code>scanf()</code> views input. Except when in the <code>%c</code> mode (which reads just the next character), <code>scanf()</code> skips over whitespace characters to the first non-whitespace character when reading input. It then keeps reading characters either until encountering whitespace or until encountering a character that doesn&#8217;t fit the type being read. Let&#8217;s consider what happens if we feed the identical input line to several different <code>scanf()</code> input modes. Start with the following input line:</p>
+<p class="pre">-13.45e12#&#160;&#160;0</p>
+<p class="noindent">First, suppose we use the <code>%d</code> mode; <code>scanf()</code> would read the three characters (<code>&#8722;13</code>) and stop at the period, leaving the period as the next input character. <code>scanf()</code> then would convert the character sequence <code>&#8722;13</code> into the corresponding integer value and store that value in the destination <code>int</code> variable. Next, reading the same line in the <code>%f</code> mode, <code>scanf()</code> would read the <code>&#8722;13.45E12</code> characters and stop at the <code>#</code> symbol, leaving it as the next input character. It then would convert the character sequence <code>&#8722;13.45E12</code> into the corresponding floating-point value and store that value in the destination <code>float</code> variable. Reading the same line in the <code>%s</code> mode, <code>scanf()</code> would read <code>&#8722;13.45E12#</code>, stopping at the space, leaving it as the next input character. It then would store the character codes for these 10 characters into the destination character array, appending a null character at the end. Finally, reading the same line using the <code>%c</code> specifier, <code>scanf()</code> would read and store the first character, in this case a space.</p>
+<div class="heading">
+<h3 id="ch04lev1sec6">Summary</h3>
+<p class="noindent">A string is a series of characters treated as a unit. In C, strings are represented by a series of characters terminated by the null character, which is the character whose ASCII code is 0. Strings can be stored in character arrays. An array is a series of items, or elements, all of the same type. To declare an array called <code>name</code> that has 30 elements of type <code>char</code>, do the following:</p>
+</div>
+<p class="pre">char name[30];</p>
+<p class="noindent">Be sure to allot a number of elements sufficient to hold the entire string, including the null character.</p>
+<p class="noindent">String constants are represented by enclosing the string in double quotes: <code>"This is an example of a string"</code>.</p>
+<p class="noindent">The <code>strlen()</code> function (declared in the <code>string.h</code> header file) can be used to find the length of a string (not counting the terminating null character). The <code>scanf()</code> function, when used with the <code>%s</code> specifier, can be used to read in single-word strings.</p>
+<p class="noindent">The C preprocessor searches a source code program for preprocessor directives, which begin with the <code>#</code> symbol, and acts upon them before the program is compiled. The <code>#include</code> directive causes the processor to add the contents of another file to your file at the location of the directive. The <code>#define</code> directive lets you establish manifest constants&#8212;that is, symbolic <a id="page_138"/>representations for constants. The <code>limits.h</code> and <code>float.h</code> header files use <code>#define</code> to define a set of constants representing various properties of integer and floating-point types. You also can use the <code>const</code> modifier to create symbolic constants.</p>
+<p class="noindent">The <code>printf()</code> and <code>scanf()</code> functions provide versatile support for input and output. Each uses a control string containing embedded conversion specifiers to indicate the number and type of data items to be read or printed. Also, you can use the conversion specifiers to control the appearance of the output: field widths, decimal places, and placement within a field.</p>
+<div class="heading">
+<h3 id="ch04lev1sec7">Review Questions</h3>
+<p class="noindent">You&#8217;ll find answers to the review questions in <a href="app01.html#app01">Appendix A</a>, &#8220;<a href="app01.html#app01">Answers to the Review Questions</a>.&#8221;</p>
+</div>
+<p class="question"><strong><a id="ch04que01" href="app01.html#ch04ans01">1</a>.</strong> Run <a href="ch04.html#ch04lis01">Listing 4.1</a> again, but this time give your first and last name when it asks you for your first name. What happens? Why?</p>
+<p class="question"><strong><a id="ch04que02" href="app01.html#ch04ans02">2</a>.</strong> Assuming that each of the following examples is part of a complete program, what will each one print?</p>
+<p class="questiona"><strong>a.</strong></p>
+<p class="codelink"><a id="p138pro01a" href="ch04_images.html#p138pro01">Click here to view code image</a></p>
+<p class="pre2">printf("He sold the painting for $%2.2f.\n", 2.345e2);</p>
+<p class="questiona"><strong>b.</strong></p>
+<p class="codelink"><a id="p138pro02a" href="ch04_images.html#p138pro02">Click here to view code image</a></p>
+<p class="pre2">printf("%c%c%c\n", 'H', 105, '\41');</p>
+<p class="questiona"><strong>c.</strong></p>
+<p class="codelink"><a id="p138pro03a" href="ch04_images.html#p138pro03">Click here to view code image</a></p>
+<p class="pre2">#define Q "His Hamlet was funny without being vulgar."<br/><br/>&#160;&#160;&#160;printf("%s\nhas %d characters.\n", Q, strlen(Q));</p>
+<p class="questiona"><strong>d.</strong></p>
+<p class="codelink"><a id="p138pro04a" href="ch04_images.html#p138pro04">Click here to view code image</a></p>
+<p class="pre2">printf("Is %2.2e the same as %2.2f?\n", 1201.0, 1201.0);</p>
+<p class="question"><strong><a id="ch04que03" href="app01.html#ch04ans03">3</a>.</strong> In Question 2c, what changes could you make so that string <code>Q</code> is printed out enclosed in double quotation marks?</p>
+<p class="question"><strong><a id="ch04que04" href="app01.html#ch04ans04">4</a>.</strong> It&#8217;s find the error time!</p>
+<p class="codelink"><a id="p138pro05a" href="ch04_images.html#p138pro05">Click here to view code image</a></p>
+<p class="pre1">define B booboo<br/>define X 10<br/>main(int)<br/>{<br/>&#160;&#160;&#160;int age;<br/>&#160;&#160;&#160;char name;<br/><br/><a id="page_139"/>&#160;&#160;&#160;printf("Please enter your first name.");<br/>&#160;&#160;&#160;scanf("%s", name);<br/>&#160;&#160;&#160;printf("All right, %c, what's your age?\n", name);<br/>&#160;&#160;&#160;scanf("%f", age);<br/>&#160;&#160;&#160;xp = age + X;<br/>&#160;&#160;&#160;printf("That's a %s! You must be at least %d.\n", B, xp);<br/>&#160;&#160;&#160;rerun 0;<br/>}</p>
+<p class="question"><strong><a id="ch04que05" href="app01.html#ch04ans05">5</a>.</strong> Suppose a program starts as follows:</p>
+<p class="pre1">#define BOOK "War and Peace"<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;float cost =12.99;<br/>&#160;&#160;&#160;float percent = 80.0;</p>
+<p class="questionp">Construct a <code>printf()</code> statement that uses <code>BOOK</code>, <code>cost</code>, and <code>percent</code> to print the following:</p>
+<p class="codelink"><a id="p139pro01a" href="ch04_images.html#p139pro01">Click here to view code image</a></p>
+<p class="pre1">This copy of "War and Peace" sells for $12.99.<br/>That is 80% of list.</p>
+<p class="question"><strong><a id="ch04que06" href="app01.html#ch04ans06">6</a>.</strong> What conversion specification would you use to print each of the following?</p>
+<p class="questiona"><strong>a.</strong> A decimal integer with a field width equal to the number of digits</p>
+<p class="questiona"><strong>b.</strong> A hexadecimal integer in the form 8A in a field width of 4</p>
+<p class="questiona"><strong>c.</strong> A floating-point number in the form 232.346 with a field width of 10</p>
+<p class="questiona"><strong>d.</strong> A floating-point number in the form 2.33e+002 with a field width of 12</p>
+<p class="questiona"><strong>e.</strong> A string left-justified in a field of width 30</p>
+<p class="question"><strong><a id="ch04que07" href="app01.html#ch04ans07">7</a>.</strong> Which conversion specification would you use to print each of the following?</p>
+<p class="questiona"><strong>a.</strong> An <code>unsigned long</code> integer in a field width of 15</p>
+<p class="questiona"><strong>b.</strong> A hexadecimal integer in the form 0x8a in a field width of 4</p>
+<p class="questiona"><strong>c.</strong> A floating-point number in the form 2.33E+02 that is left-justified in a field width of 12</p>
+<p class="questiona"><strong>d.</strong> A floating-point number in the form +232.346 in a field width of 10</p>
+<p class="questiona"><strong>e.</strong> The first eight characters of a string in a field eight characters wide</p>
+<p class="question"><a id="page_140"/><strong><a id="ch04que08" href="app01.html#ch04ans08">8</a>.</strong> What conversion specification would you use to print each of the following?</p>
+<p class="questiona"><strong>a.</strong> A decimal integer having a minimum of four digits in a field width of 6</p>
+<p class="questiona"><strong>b.</strong> An octal integer in a field whose width will be given in the argument list</p>
+<p class="questiona"><strong>c.</strong> A character in a field width of 2</p>
+<p class="questiona"><strong>d.</strong> A floating-point number in the form +3.13 in a field width equal to the number of characters in the number</p>
+<p class="questiona"><strong>e.</strong> The first five characters in a string left-justified in a field of width 7</p>
+<p class="question"><strong><a id="ch04que09" href="app01.html#ch04ans09">9</a>.</strong> For each of the following input lines, provide a <code>scanf()</code> statement to read it. Also declare any variables or arrays used in the statement.</p>
+<p class="questiona"><strong>a.</strong> 101</p>
+<p class="questiona"><strong>b.</strong> 22.32 8.34E&#8722;09</p>
+<p class="questiona"><strong>c.</strong> linguini</p>
+<p class="questiona"><strong>d.</strong> catch 22</p>
+<p class="questiona"><strong>e.</strong> catch 22 (but skip over catch)</p>
+<p class="question1"><strong><a id="ch04que10" href="app01.html#ch04ans10">10</a>.</strong> What is whitespace?</p>
+<p class="question1"><strong><a id="ch04que11" href="app01.html#ch04ans11">11</a>.</strong> What&#8217;s wrong with the following statement and how can you fix it?</p>
+<p class="codelink"><a id="p140pro01a" href="ch04_images.html#p140pro01">Click here to view code image</a></p>
+<p class="pre1">printf("The double type is %z bytes..\n", sizeof (double));</p>
+<p class="question1"><strong><a id="ch04que12" href="app01.html#ch04ans12">12</a>.</strong> Suppose that you would rather use parentheses than braces in your programs. How well would the following work?</p>
+<p class="pre1">#define ( {<br/>#define ) }</p>
+<div class="heading">
+<h3 id="ch04lev1sec8">Programming Exercises</h3>
+<p class="indenthangingN"><strong>1.</strong> Write a program that asks for your first name, your last name, and then prints the names in the format <em>last, first</em>.</p>
+</div>
+<p class="indenthangingN"><strong>2.</strong> Write a program that requests your first name and does the following with it:</p>
+<p class="indenthangingNa"><strong>a.</strong> Prints it enclosed in double quotation marks</p>
+<p class="indenthangingNa"><strong>b.</strong> Prints it in a field 20 characters wide, with the whole field in quotes and the name at the right end of the field</p>
+<p class="indenthangingNa"><a id="page_141"/><strong>c.</strong> Prints it at the left end of a field 20 characters wide, with the whole field enclosed in quotes</p>
+<p class="indenthangingNa"><strong>d.</strong> Prints it in a field three characters wider than the name</p>
+<p class="indenthangingN"><strong>3.</strong> Write a program that reads in a floating-point number and prints it first in decimal-point notation and then in exponential notation. Have the output use the following formats (the number of digits shown in the exponent may be different for your system):</p>
+<p class="indenthangingNa"><strong>a.</strong> The input is <code>21.3</code> or <code>2.1e+001</code>.</p>
+<p class="indenthangingNa"><strong>b.</strong> The input is <code>+21.290</code> or <code>2.129E+001</code>.</p>
+<p class="indenthangingN"><strong>4.</strong> Write a program that requests your height in inches and your name, and then displays the information in the following form:</p>
+<p class="codelink"><a id="p141pro01a" href="ch04_images.html#p141pro01">Click here to view code image</a></p>
+<p class="pre1">Dabney, you are 6.208 feet tall</p>
+<p class="indenthangingNP">Use type <code>float</code>, and use <code>/</code> for division. If you prefer, request the height in centimeters and display it in meters.</p>
+<p class="indenthangingN"><strong>5.</strong> Write a program that requests the download speed in megabits per second (Mbs) and the size of a file in megabytes (MB). The program should calculate the download time for the file. Note that in this context one byte is eight bits. Use type <code>float</code>, and use <code>/</code> for division. The program should report all three values (download speed, file size, and download time) showing two digits to the right of the decimal point, as in the following:</p>
+<p class="codelink"><a id="p141pro02a" href="ch04_images.html#p141pro02">Click here to view code image</a></p>
+<p class="pre1">At 18.12 megabits per second, a file of 2.20 megabytes<br/>downloads in 0.97 seconds.</p>
+<p class="indenthangingN"><strong>6.</strong> Write a program that requests the user&#8217;s first name and then the user&#8217;s last name. Have it print the entered names on one line and the number of letters in each name on the following line. Align each letter count with the end of the corresponding name, as in the following:</p>
+<p class="pre1">Melissa Honeybee<br/>&#160;&#160;&#160;&#160;&#160;&#160;7&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;8</p>
+<p class="indenthangingNP">Next, have it print the same information, but with the counts aligned with the beginning of each name.</p>
+<p class="pre1">Melissa Honeybee<br/>7&#160;&#160;&#160;&#160;&#160;&#160;&#160;8</p>
+<p class="indenthangingN"><strong>7.</strong> Write a program that sets a type <code>double</code> variable to 1.0/3.0 and a type <code>float</code> variable to 1.0/3.0. Display each result three times&#8212;once showing four digits to the right of the decimal, once showing 12 digits to the right of the decimal, and once showing 16 digits <a id="page_142"/>to the right of the decimal. Also have the program include <code>float.h</code> and display the values of <code>FLT_DIG</code> and <code>DBL_DIG</code>. Are the displayed values of 1.0/3.0 consistent with these values?</p>
+<p class="indenthangingN"><strong>8.</strong> Write a program that asks the user to enter the number of miles traveled and the number of gallons of gasoline consumed. It should then calculate and display the miles-per-gallon value, showing one place to the right of the decimal. Next, using the fact that one gallon is about 3.785 liters and one mile is about 1.609 kilometers, it should convert the mile-per-gallon value to a liters-per-100-km value, the usual European way of expressing fuel consumption, and display the result, showing one place to the right of the decimal. Note that the U. S. scheme measures the distance traveled per amount of fuel (higher is better), whereas the European scheme measures the amount of fuel per distance (lower is better). Use symbolic constants (using <code>const</code> or <code>#define</code>) for the two conversion factors.</p>
+</body>
+</html>

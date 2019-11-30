@@ -1,0 +1,65 @@
+<<page_iv>>*C Primer Plus*\\
+*Sixth Edition*\\
+Copyright © 2014 by Pearson Education, Inc.
+
+All rights reserved. No part of this book shall be reproduced, stored in a retrieval system, or transmitted by any means, electronic, mechanical, photocopying, recording, or otherwise, without written permission from the publisher. No patent liability is assumed with respect to the use of the information contained herein. Although every precaution has been taken in the preparation of this book, the publisher and author assume no responsibility for errors or omissions. Nor is any liability assumed for damages resulting from the use of the information contained herein.
+
+ISBN-13: 978-0-321-92842-9\\
+ISBN-10: 0-321-92842-3
+
+Library of Congress Control Number: 2013953007
+
+Printed in the United States of America
+
+First Printing: December 2013
+
+*Acquisitions Editor*\\
+Mark Taber
+
+*Managing Editor*\\
+Sandra Schroeder
+
+*Project Editor*\\
+Mandie Frank
+
+*Copy Editor*\\
+Geneil Breeze
+
+*Indexer*\\
+Johnna VanHoose Dinse
+
+*Proofreader*\\
+Jess DeGabriele
+
+*Technical Editor*\\
+Danny Kalev
+
+*Publishing Coordinator*\\
+Vanessa Evans
+
+*Designer*\\
+Chuti Prasertsith
+
+*Page Layout*\\
+Jake McFarland
+
+Trademarks
+
+All terms mentioned in this book that are known to be trademarks or service marks have been appropriately capitalized. Pearson cannot attest to the accuracy of this information. Use of a term in this book should not be regarded as affecting the validity of any trademark or service mark.
+
+Warning and Disclaimer
+
+Every effort has been made to make this book as complete and as accurate as possible, but no warranty or fitness is implied. The information provided is on an “as is” basis.
+
+Bulk Sales
+
+Pearson offers excellent discounts on this book when ordered in quantity for bulk purchases or special sales. For more information, please contact
+
+*U.S. Corporate and Government Sales\\
+1-800-382-3419\\
+[[mailto:corpsales@pearsontechgroup.com][corpsales@pearsontechgroup.com]]*
+
+For sales outside of the U.S., please contact
+
+*International Sales\\
+[[mailto:international@pearsoned.com][international@pearsoned.com]]*

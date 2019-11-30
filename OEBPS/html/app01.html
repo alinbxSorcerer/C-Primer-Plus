@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>A. Answers to the Review Questions</title>
+<link rel="stylesheet" type="text/css" href="9780133432381.css"/>
+</head>
+<body>
+<h2 id="app01"><a id="page_861"/><span class="pd_ash">A.</span> Answers to the Review Questions</h2>
+<div class="heading">
+<h3 id="app01lev1sec1">Answers to Review Questions for Chapter 1</h3>
+<p class="question1"><strong><a id="ch01ans01" href="ch01.html#ch01que01">1</a>.</strong> A perfectly portable program is one whose source code can, without modification, be compiled to a successful program on a variety of different computer systems.</p>
+</div>
+<p class="question1"><strong><a id="ch01ans02" href="ch01.html#ch01que02">2</a>.</strong> A source code file contains code as written in whatever language the programmer is using. An object code file contains machine language code; it need not be the code for a complete program. An executable file contains the complete code, in machine language, constituting an executable program.</p>
+<p class="question1"><strong><a id="ch01ans03" href="ch01.html#ch01que03">3</a>.</strong>&#160;&#160;&#160;<strong>a.</strong> Defining program objectives.</p>
+<p class="answer-a"><strong>b.</strong> Designing the program.</p>
+<p class="answer-a"><strong>c.</strong> Coding the program.</p>
+<p class="answer-a"><strong>d.</strong> Compiling the program.</p>
+<p class="answer-a"><strong>e.</strong> Running the program.</p>
+<p class="answer-a"><strong>f.</strong> Testing and debugging the program.</p>
+<p class="answer-a"><strong>g.</strong> Maintaining and modifying the program.</p>
+<p class="question1"><strong><a id="ch01ans04" href="ch01.html#ch01que04">4</a>.</strong> A compiler translates source code (for example, code written in C) to the equivalent machine language code, also termed <em>object code</em>.</p>
+<p class="question1"><strong><a id="ch01ans05" href="ch01.html#ch01que05">5</a>.</strong> The linker combines translated source code with library code and start-up code to produce an executable program.</p>
+<div class="heading">
+<h3 id="app01lev1sec2"><a id="page_862"/>Answers to Review Questions for Chapter 2</h3>
+<p class="question1"><strong><a id="ch02ans01" href="ch02.html#ch02que01">1</a>.</strong> They are called functions.</p>
+</div>
+<p class="question1"><strong><a id="ch02ans02" href="ch02.html#ch02que02">2</a>.</strong> A syntax error is a violation of the rules governing how sentences or programs are put together. Here&#8217;s an example in English: &#8220;Me speak English good.&#8221; Here&#8217;s an example in C:</p>
+<p class="codelink"><a id="p862pro01a" href="app01_images.html#p862pro01">Click here to view code image</a></p>
+<p class="pre1">printf"Where are the parentheses?";.</p>
+<p class="question1"><strong><a id="ch02ans03" href="ch02.html#ch02que03">3</a>.</strong> A semantic error is one of meaning. Here&#8217;s an example in English: &#8220;This sentence is excellent Czech.&#8221; Here&#8217;s a C example:</p>
+<p class="pre1">thrice_n = 3 + n;</p>
+<p class="question1"><strong><a id="ch02ans04" href="ch02.html#ch02que04">4</a>.</strong>&#160;&#160;&#160;Line 1: Begin the line with a <code>#</code>; spell the file <code>stdio.h</code>; place the filename within angle brackets.</p>
+<p class="answerp">Line 2: Use <code>()</code>, not <code>{}</code>; end the comment with <code>*/</code>, not <code>/*</code>.</p>
+<p class="answerp">Line 3: Use <code>{</code>, not <code>(</code>.</p>
+<p class="answerp">Line 4: Complete the statement with a semicolon.</p>
+<p class="answerp">Line 5: Indiana got this one (the blank line) right!</p>
+<p class="answerp">Line 6: Use <code>=</code>, not <code>:=</code> for assignment. (Apparently, Indiana knows a little Pascal.) Use 52, not 56, weeks per year.</p>
+<p class="answerp">Line 7: Should be</p>
+<p class="codelink"><a id="p862pro02a" href="app01_images.html#p862pro02">Click here to view code image</a></p>
+<p class="pre1">printf("There are %d weeks in a year.\n", s);</p>
+<p class="answerp">Line 9: There isn&#8217;t a line 9, but there should be, and it should consist of the closing brace, <code>}</code>.</p>
+<p class="answerp">Here&#8217;s how the code looks after these changes:</p>
+<p class="codelink"><a id="p862pro03a" href="app01_images.html#p862pro03">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void) /* this prints the number of weeks in a year */<br/>{<br/>&#160;&#160;&#160;&#160;int s;<br/><br/>&#160;&#160;&#160;&#160;s = 52;<br/>&#160;&#160;&#160;&#160;printf("There are %d weeks in a year.\n", s);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch02ans05" href="ch02.html#ch02que05">5</a>.</strong>&#160;&#160;&#160;<strong>a.</strong> <code>Baa Baa Black Sheep. Have you any wool</code>?</p>
+<p class="answerp"><a id="page_863"/>(Note that there is no space after the period. You could have had a space by using <code>"Have</code> instead of <code>"Have</code>.)</p>
+<p class="answer-a"><strong>b.</strong></p>
+<p class="pre2">Begone!<br/>O creature of lard!</p>
+<p class="answerap">(Note that the cursor is left at the end of the second line.)</p>
+<p class="answer-a"><strong>c.</strong></p>
+<p class="pre2">What?<br/>No/nfish?</p>
+<p class="answerap">(Note that the slash [<code>/</code>] does not have the same effect as the backslash [<code>\</code>]; it simply prints as a slash.)</p>
+<p class="answer-a"><strong>d.</strong> <code>2 + 2 = 4</code></p>
+<p class="answerap">(Note how each <code>%d</code> is replaced by the corresponding variable value from the list. Note, too, that <code>+</code> means addition and that calculation can be done inside a <code>printf()</code> statement.)</p>
+<p class="question1"><strong><a id="ch02ans06" href="ch02.html#ch02que06">6</a>.</strong> <code>int</code> and <code>char</code> (<code>main</code> is a function name, function is a technical term for describing C, and <code>=</code> is an operator).</p>
+<p class="question1"><strong><a id="ch02ans07" href="ch02.html#ch02que07">7</a>.</strong> <code>printf("There were %d words and %d lines.\n", words, lines);</code></p>
+<p class="question1"><strong><a id="ch02ans08" href="ch02.html#ch02que08">8</a>.</strong> After line 7, <code>a</code> is 5 and <code>b</code> is 2. After line 8, both <code>a</code> and <code>b</code> are 5. After line 9, both <code>a</code> and <code>b</code> are still 5. (Note that <code>a</code> can&#8217;t be 2 because by the time you say <code>a = b;</code>, <code>b</code> has already been changed to 5.)</p>
+<p class="question1"><strong><a id="ch02ans09" href="ch02.html#ch02que09">9</a>.</strong> After line 7, <code>x</code> is 10 and <code>b</code> is 5. After line 8, <code>x</code> is 10 and <code>y</code> is 15. After line 9, <code>x</code> is 150 and <code>y</code> is 15.</p>
+<div class="heading">
+<h3 id="app01lev1sec3">Answers to Review Questions for Chapter 3</h3>
+<p class="question1a"><strong><a id="ch03ans01" href="ch03.html#ch03que01">1</a>. &#160;&#160;a.</strong> <code>int</code>, possibly <code>short</code> or <code>unsigned</code> or <code>unsigned short</code>; population is a whole number.</p>
+</div>
+<p class="answer-a"><strong>b.</strong> <code>float</code>; it&#8217;s unlikely the cost will be an exact integer. (You could use <code>double</code> but don&#8217;t really need the extra precision.)</p>
+<p class="answer-a"><strong>c.</strong> <code>char</code>.</p>
+<p class="answer-a"><strong>d.</strong> <code>int</code>, possibly <code>unsigned</code>.</p>
+<p class="question1"><strong><a id="ch03ans02" href="ch03.html#ch03que02">2</a>.</strong> One reason is that <code>long</code> may accommodate larger numbers than <code>int</code> on your system; another reason is that if you do need to handle larger values, you improve portability by using a type guaranteed to be at least 32 bits on all systems.</p>
+<p class="question1"><a id="page_864"/><strong><a id="ch03ans03" href="ch03.html#ch03que03">3</a>.</strong> To get exactly 32 bits, you could use <code>int32_t</code>, provided it was defined for your system. To get the smallest type that could store at least 32 bits, use <code>int_least32_t</code>. And to get the type that would provide the fastest computations for 32 bits, choose <code>int_fast32_t</code>.</p>
+<p class="question1"><strong><a id="ch03ans04" href="ch03.html#ch03que04">4</a>.</strong>&#160;&#160;&#160;a. <code>char</code> constant (but stored as type <code>int</code>)</p>
+<p class="answer-a"><strong>b.</strong> <code>int</code> constant</p>
+<p class="answer-a"><strong>c.</strong> <code>double</code> constant</p>
+<p class="answer-a"><strong>d.</strong> <code>unsigned int</code> constant, hexadecimal format</p>
+<p class="answer-a"><strong>e.</strong> <code>double</code> constant</p>
+<p class="question1"><strong><a id="ch03ans05" href="ch03.html#ch03que05">5</a>.</strong>&#160;&#160;&#160;Line 1: Should be <code>#include &lt;stdio.h&gt;</code>.</p>
+<p class="answerp">Line 2: Should be <code>int main(void)</code>.</p>
+<p class="answerp">Line 3: Use <code>{</code>, not <code>(</code>.</p>
+<p class="answerp">Line 4: Should be a comma, not a semicolon, between <code>g</code> and <code>h</code>.</p>
+<p class="answerp">Line 5: Fine.</p>
+<p class="answerp">Line 6 (the blank line): Fine.</p>
+<p class="answerp">Line 7: There should be at least one digit before the <code>e</code>. Either <code>1e21</code> or <code>1.0e21</code> is okay, although rather large.</p>
+<p class="answerp">Line 8: Fine, at least in terms of syntax.</p>
+<p class="answerp">Line 9: Use <code>}</code>, not <code>)</code>.</p>
+<p class="answerp">Missing lines: First, <code>rate</code> is never assigned a value. Second, the variable <code>h</code> is never used. Also, the program never informs you of the results of its calculation. None of these errors will stop the program from running (although you might be given a warning about the unused variable), but they do detract from its already limited usefulness. Also, there should be a <code>return</code> statement at the end.</p>
+<p class="answerp">Here is one possible correct version:</p>
+<p class="codelink"><a id="p864pro01a" href="app01_images.html#p864pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;float g, h;<br/>&#160;&#160;float tax, rate;<br/><br/>&#160;&#160;rate = 0.08;<br/>&#160;&#160;g = 1.0e5;<br/>&#160;&#160;tax = rate*g;<br/>&#160;&#160;h = g + tax;<br/><a id="page_865"/>&#160;&#160;printf("You owe $%f plus $%f in taxes for a total of $%f.\n", g, tax, h);<br/>&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch03ans06" href="ch03.html#ch03que06">6</a>.</strong></p>
+<div class="image"><img src="graphics/865tab01.jpg" alt="Image"/></div>
+<p class="question1"><strong><a id="ch03ans07" href="ch03.html#ch03que07">7</a>.</strong></p>
+<div class="image"><img src="graphics/865tab02.jpg" alt="Image"/></div>
+<p class="question1"><strong><a id="ch03ans08" href="ch03.html#ch03que08">8</a>.</strong></p>
+<p class="codelink"><a id="p865pro01a" href="app01_images.html#p865pro01">Click here to view code image</a></p>
+<p class="pre1">printf("The odds against the %d were %ld to 1.\n", imate, shot);<br/>printf("A score of %f is not an %c grade.\n", log, grade);</p>
+<p class="question1"><strong><a id="ch03ans09" href="ch03.html#ch03que09">9</a>.</strong></p>
+<p class="pre1">ch = '\r';<br/>ch = 13;<br/>ch = '\015'<br/>ch = '\xd'</p>
+<p class="question2"><a id="page_866"/><strong><a id="ch03ans10" href="ch03.html#ch03que10">10</a>.</strong> &#160;&#160;Line 0: Should have <code>#include &lt;stdio.h&gt;</code>.</p>
+<p class="answerp">Line 1: Use <code>/*</code> and <code>*/</code> or else <code>//</code></p>
+<p class="answerp">Line 3: <code>int cows, legs;</code></p>
+<p class="answerp">Line 4: <code>count?\n");</code></p>
+<p class="answerp">Line 5: <code>%d</code>, not <code>%c</code>; replace <code>legs</code> with <code>&#38;legs</code></p>
+<p class="answerp">Line 7: <code>%d</code>, not <code>%f</code></p>
+<p class="answerp">Also, add a <code>return</code> statement.</p>
+<p class="answerp">Here&#8217;s one correct version:</p>
+<p class="codelink"><a id="p866pro01a" href="app01_images.html#p866pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void) /* this program is perfect */<br/>{<br/>&#160;&#160;&#160;int cows, legs;<br/>&#160;&#160;&#160;printf("How many cow legs did you count?\n");<br/>&#160;&#160;&#160;scanf("%d", &#38;legs);<br/>&#160;&#160;&#160;cows = legs / 4;<br/>&#160;&#160;&#160;printf("That implies there are %d cows.\n", cows);<br/>&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch03ans11" href="ch03.html#ch03que11">11</a>. a.</strong> A newline character</p>
+<p class="answer-a"><strong>b.</strong> A backslash character</p>
+<p class="answer-a"><strong>c.</strong> A double quotation mark</p>
+<p class="answer-a"><strong>d.</strong> A tab character</p>
+<div class="heading">
+<h3 id="app01lev1sec4">Answers to Review Questions for Chapter 4</h3>
+<p class="question1"><strong><a id="ch04ans01" href="ch04.html#ch04que01">1</a>.</strong> The program malfunctions. The first <code>scanf()</code> statement reads just your first name, leaving your last name untouched but still stored in the input &#8220;buffer.&#8221; (This buffer is just a temporary storage area used to store the input.) When the next <code>scanf()</code> statement comes along looking for your weight, it picks up where the last reading attempt ended, and it tries to read your last name as your weight. This frustrates <code>scanf()</code>. On the other hand, if you respond to the name request with something such as <code>Lasha 144</code>, it uses 144 as your weight, even though you typed it before your weight was requested.</p>
+</div>
+<p class="question1"><strong><a id="ch04ans02" href="ch04.html#ch04que02">2</a>.</strong> a. <code>He sold the painting for $234.50.</code></p>
+<p class="answer-a"><strong>b.</strong> <code>Hi!</code></p>
+<p class="answerp"><a id="page_867"/>(Note: The first character is a character constant, the second is a decimal integer converted to a character, and the third is an ASCII representation, in octal, of a character constant.)</p>
+<p class="answer-a"><strong>c.</strong></p>
+<p class="codelink"><a id="p867pro01a" href="app01_images.html#p867pro01">Click here to view code image</a></p>
+<p class="pre1">His Hamlet was funny without being vulgar.<br/>has 42 characters.</p>
+<p class="answer-a"><strong>d.</strong> <code>Is 1.20e+003 the same as 1201.00?</code></p>
+<p class="question1"><strong><a id="ch04ans03" href="ch04.html#ch04que03">3</a>.</strong> Use <code>\"</code>, as in the following:</p>
+<p class="codelink"><a id="p867pro02a" href="app01_images.html#p867pro02">Click here to view code image</a></p>
+<p class="pre1">printf("\"%s\"\nhas %d characters.\n", Q, strlen(Q));</p>
+<p class="question1"><strong><a id="ch04ans04" href="ch04.html#ch04que04">4</a>.</strong> Here is a corrected version:</p>
+<p class="codelink"><a id="p867pro03a" href="app01_images.html#p867pro03">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;&#160;&#160;&#160;/* don't forget this&#160;&#160;&#160;&#160;*/<br/>#define B "booboo"&#160;&#160;&#160;/* add #, quotes&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>#define X 10&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* add #&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>int main(void)&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* instead of main(int) */<br/>{<br/>&#160;&#160;&#160;int age;<br/>&#160;&#160;&#160;int xp;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* declare all variables */<br/>&#160;&#160;&#160;char name[40];&#160;&#160;&#160;/* make into an array&#160;&#160;&#160;&#160;*/<br/><br/>&#160;&#160;&#160;printf("Please enter your first name.\n"); /* \n for readability */<br/>&#160;&#160;&#160;scanf("%s", name);<br/>&#160;&#160;&#160;printf("All right, %s, what's your age?\n", name); /* %s for string */<br/>&#160;&#160;&#160;scanf("%d", &#38;age);&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* %d, not %f, &#38;age, not age */<br/>&#160;&#160;&#160;xp = age + X;<br/>&#160;&#160;&#160;printf("That's a %s! You must be at least %d.\n", B, xp);<br/>&#160;&#160;&#160;return 0;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* not rerun&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>}</p>
+<p class="question1"><strong><a id="ch04ans05" href="ch04.html#ch04que05">5</a>.</strong> Recall the <code>%%</code> construction for printing <code>%</code>.</p>
+<p class="codelink"><a id="p867pro04a" href="app01_images.html#p867pro04">Click here to view code image</a></p>
+<p class="pre1">printf("This copy of \"%s\" sells for $%0.2f.\n", BOOK, cost);<br/><br/>printf("That is %0.0f%% of list.\n", percent);</p>
+<p class="question1"><strong><a id="ch04ans06" href="ch04.html#ch04que06">6</a>.&#160;&#160;&#160;a.</strong> <code>%d</code></p>
+<p class="answer-a"><strong>b.</strong> <code>%4X</code></p>
+<p class="answer-a"><strong>c.</strong> <code>%10.3f</code></p>
+<p class="answer-a"><strong>d.</strong> <code>%12.2e</code></p>
+<p class="answer-a"><strong>e.</strong> <code>%-30s</code></p>
+<p class="question1"><strong><a id="ch04ans07" href="ch04.html#ch04que07">7</a>.&#160;&#160;&#160;a.</strong> <code>%15lu</code></p>
+<p class="answer-a"><strong>b.</strong> <code>%#4x</code></p>
+<p class="answer-a"><a id="page_868"/><strong>c.</strong> <code>%-12.2E</code></p>
+<p class="answer-a"><strong>d.</strong> <code>%+10.3f</code></p>
+<p class="answer-a"><strong>e.</strong> <code>%8.8s</code></p>
+<p class="question1"><strong><a id="ch04ans08" href="ch04.html#ch04que08">8</a>.&#160;&#160;&#160;a.</strong> <code>%6.4d</code></p>
+<p class="answer-a"><strong>b.</strong> <code>%*o</code></p>
+<p class="answer-a"><strong>c.</strong> <code>%2c</code></p>
+<p class="answer-a"><strong>d.</strong> <code>%+0.2f</code></p>
+<p class="answer-a"><strong>e.</strong> <code>%-7.5s</code></p>
+<p class="question1"><strong><a id="ch04ans09" href="ch04.html#ch04que09">9</a>.</strong> a.</p>
+<p class="codelink"><a id="p868pro01a" href="app01_images.html#p868pro01">Click here to view code image</a></p>
+<p class="pre1">int dalmations;<br/>&#160;&#160;&#160;scanf("%d", &#38;dalmations);</p>
+<p class="answer-a"><strong>b.</strong></p>
+<p class="codelink"><a id="p868pro02a" href="app01_images.html#p868pro02">Click here to view code image</a></p>
+<p class="pre1">float kgs, share;<br/>&#160;&#160;&#160;scanf("%f%f", &#38;kgs, &#38;share);</p>
+<p class="answerp">(Note: For input, <code>e</code>, <code>f</code>, and <code>g</code> can be used interchangeably. Also, for all but <code>%c</code>, it makes no difference if you leave spaces between the conversion specifiers.)</p>
+<p class="answer-a"><strong>c.</strong></p>
+<p class="pre1">char pasta[20];<br/>&#160;&#160;&#160;scanf("%s", pasta);</p>
+<p class="answer-a"><strong>d.</strong></p>
+<p class="codelink"><a id="p868pro03a" href="app01_images.html#p868pro03">Click here to view code image</a></p>
+<p class="pre1">char action[20];<br/>&#160;&#160;&#160;int value;<br/>&#160;&#160;&#160;scanf("%s %d", action, &#38;value);</p>
+<p class="answer-a"><strong>e.</strong></p>
+<p class="codelink"><a id="p868pro04a" href="app01_images.html#p868pro04">Click here to view code image</a></p>
+<p class="pre1">int value;<br/>&#160;&#160;&#160;scanf("%*s %d", &#38;value);</p>
+<p class="question1"><strong><a id="ch04ans10" href="ch04.html#ch04que10">10</a>.</strong> Whitespace consists of spaces, tabs, and newlines. C uses whitespace to separate tokens from one another; <code>scanf()</code> uses whitespace to separate consecutive input items from each other.</p>
+<p class="question1"><strong><a id="ch04ans11" href="ch04.html#ch04que11">11</a>.</strong> The <code>z</code> in <code>%z</code> is a modifier, not a specifier, so it requires a specifier for it to modify. You could use <code>%zd</code> to print the result in base 10 or use a different specifier to print using a different base, for example, <code>%zx</code> for hexadecimal.</p>
+<p class="question1"><strong><a id="ch04ans12" href="ch04.html#ch04que12">12</a>.</strong> The substitutions would take place. Unfortunately, the preprocessor cannot discriminate between those parentheses that should be replaced with braces and those that should not. Therefore,</p>
+<p class="codelink"><a id="page_869"/><a id="p869pro01a" href="app01_images.html#p869pro01">Click here to view code image</a></p>
+<p class="pre1">#define ( {<br/>#define ) }<br/>int main(void)<br/><br/>(<br/>&#160;&#160;&#160;&#160;printf("Hello, O Great One!\n");<br/>)</p>
+<p class="answerp">becomes</p>
+<p class="codelink"><a id="p869pro001a" href="app01_images.html#p869pro001">Click here to view code image</a></p>
+<p class="pre1">int main{void}<br/>{<br/>&#160;&#160;&#160;&#160;printf{"Hello, O Great One!\n"};<br/>}</p>
+<div class="heading">
+<h3 id="app01lev1sec5">Answers to Review Questions for Chapter 5</h3>
+<p class="question1"><strong><a id="ch05ans01" href="ch05.html#ch05que01">1</a>.&#160;&#160;&#160;a.</strong> <code>30</code>.</p>
+</div>
+<p class="answer-a"><strong>b.</strong> <code>27</code> (not <code>3</code>). <code>(12 + 6)/(2*3)</code> would give <code>3</code>.</p>
+<p class="answer-a"><strong>c.</strong> <code>x = 1, y = 1</code> (integer division).</p>
+<p class="answer-a"><strong>d.</strong> <code>x = 3</code> (integer division) and <code>y = 9</code>.</p>
+<p class="question1"><strong><a id="ch05ans02" href="ch05.html#ch05que02">2</a>. a.</strong>&#160;&#160;&#160;<code>6</code> (reduces to <code>3 + 3.3</code>)</p>
+<p class="answer-a"><strong>b.</strong> <code>52</code></p>
+<p class="answer-a"><strong>c.</strong> <code>0</code> (reduces to <code>0 * 22.0</code>)</p>
+<p class="answer-a"><strong>d.</strong> <code>13</code> (reduces to <code>66.0 / 5</code> or <code>13.2</code> and is then assigned to <code>int</code>)</p>
+<p class="question1"><strong><a id="ch05ans03" href="ch05.html#ch05que03">3</a>. a.</strong>&#160;&#160;&#160;<code>37.5</code> (reduces to <code>7.5 * 5.0</code>)</p>
+<p class="answer-a"><strong>b.</strong> <code>1.5</code> (reduces to <code>30.0 / 20.0</code>)</p>
+<p class="answer-a"><strong>c.</strong> <code>35</code> (reduces to <code>7 * 5</code>)</p>
+<p class="answer-a"><strong>d.</strong> <code>37</code> (reduces to <code>150 / 4</code>)</p>
+<p class="answer-a"><strong>e.</strong> <code>37.5</code> (reduces to <code>7.5 * 5</code>)</p>
+<p class="answer-a"><strong>f.</strong> <code>35.0</code> (reduces to <code>7 * 5.0</code>)</p>
+<p class="question1"><strong><a id="ch05ans04" href="ch05.html#ch05que04">4</a>.</strong>&#160;&#160;&#160;<strong>Line 0</strong>: Should include <code>&lt;stdio.h&gt;</code>.</p>
+<p class="answerp"><strong>Line 3</strong>: Should end in a semicolon, not a comma.</p>
+<p class="answerp"><strong>Line 6</strong>: The <code>while</code> statement sets up an infinite loop because the value of <code>i</code> remains <code>1</code> and is always less than <code>30</code>. Presumably, we meant to write <code>while(i++ &lt; 30)</code>.</p>
+<p class="answerp"><strong>Lines 6&#8211;8</strong>: The indentation implies that we wanted lines 7 and 8 to form a block, but the lack of braces means that the <code>while</code> loop includes only line 7. Braces should be added.</p>
+<p class="answerp"><a id="page_870"/><strong>Line 7</strong>: Because <code>1</code> and <code>i</code> are both integers, the result of the division will be <code>1</code> when <code>i</code> is <code>1</code>, and <code>0</code> for all larger values. Using <code>n = 1.0/i;</code> would cause <code>i</code> to be converted to floating point before division and would yield nonzero answers.</p>
+<p class="answerp"><strong>Line 8</strong>: We omitted a newline character (<code>\n</code>) in the control statement. This causes the numbers to be printed on one line, if possible.</p>
+<p class="answerp"><strong>Line 10</strong>: Should be <code>return 0;</code>.</p>
+<p class="answerp">Here is a corrected version:</p>
+<p class="codelink"><a id="p870pro01a" href="app01_images.html#p870pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;int i = 1;<br/>&#160;&#160;float n;<br/>&#160;&#160;printf("Watch out! Here come a bunch of fractions!\n");<br/>&#160;&#160;while (i++ &lt; 30)<br/>&#160;&#160;{<br/>&#160;&#160;&#160;&#160;n = 1.0/i;<br/>&#160;&#160;&#160;&#160;printf(" %f\n", n);<br/>&#160;&#160;}<br/>&#160;&#160;printf("That's all, folks!\n");<br/>&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch05ans05" href="ch05.html#ch05que05">5</a>.</strong> The main problem lies in the relationship between the test statement (is <code>sec</code> greater than 0?) and the <code>scanf()</code> statement that fetches the value of <code>sec</code>. In particular, the first time the test is made, the program hasn&#8217;t had a chance to even get a value for <code>sec</code>, and the comparison will be made to some garbage value that happens to be at that memory location; it might or might not be greater than 0. One solution, albeit an inelegant one, is to initialize <code>sec</code> to, say, <code>1</code> so that the test is passed the first time through. This uncovers a second problem. When you finally type <code>0</code> to halt the program, <code>sec</code> doesn&#8217;t get checked until <em>after</em> the loop is finished, and the results for 0 seconds are printed out. What you really want is to have a <code>scanf()</code> statement just before the <code>while</code> test is made. You can accomplish that by altering the central part of the program to read this way:</p>
+<p class="codelink"><a id="p870pro02a" href="app01_images.html#p870pro02">Click here to view code image</a></p>
+<p class="pre1">scanf("%d", &#38;sec);<br/>while ( sec &gt; 0 ) {<br/>&#160;&#160;min = sec/S_TO_M;<br/>&#160;&#160;left = sec % S_TO_M;<br/>&#160;&#160;printf("%d sec is %d min, %d sec. \n", sec, min, left);<br/>&#160;&#160;printf("Next input?\n");<br/>&#160;&#160;scanf("%d", &#38;sec);<br/>}</p>
+<p class="answerp"><a id="page_871"/>The first time through, the <code>scanf()</code> outside the loop is used. Thereafter, the <code>scanf()</code> at the end of the loop (and hence just before the loop begins again) is used. This is a common method for handling problems of this sort, which is why <a href="ch05.html#ch05lis09">Listing 5.9</a> used it.</p>
+<p class="question1"><strong><a id="ch05ans06" href="ch05.html#ch05que06">6</a>.</strong> Here is the output:</p>
+<p class="pre1">%s! C is cool!<br/>! C is cool!<br/>11<br/>11<br/>12<br/>11</p>
+<p class="answerp">Let&#8217;s explain. The first <code>printf()</code> statement is the same as this:</p>
+<p class="codelink"><a id="p871pro01a" href="app01_images.html#p871pro01">Click here to view code image</a></p>
+<p class="pre1">printf("%s! C is cool!\n","%s! C is cool!\n");</p>
+<p class="answerp">The second print statement first increments <code>num</code> to <code>11</code> and then prints the value. The third print statement prints <code>num</code>, which is <code>11</code>, and then increments it to <code>12</code>. The fourth print statement prints the current value of <code>n</code>, which still is <code>12</code>, and then decrements <code>n</code> to <code>11</code>. The final print statement prints the current value of <code>num</code>, which is <code>11</code>.</p>
+<p class="question1"><strong><a id="ch05ans07" href="ch05.html#ch05que07">7</a>.</strong> Here is the output:</p>
+<p class="pre1">SOS:4 4.00</p>
+<p class="answerp">The expression <code>c1 - c2</code> has the same value as <code>'S' - '0'</code>, which in ASCII is <code>83 - 79</code>.</p>
+<p class="question1"><strong><a id="ch05ans08" href="ch05.html#ch05que08">8</a>.</strong> It prints on one line the digits 1 through 10 in fields that are five columns wide and then starts a new line:</p>
+<p class="codelink"><a id="p871pro02a" href="app01_images.html#p871pro02">Click here to view code image</a></p>
+<p class="pre1">1&#160;&#160;&#160;&#160;2&#160;&#160;&#160;&#160;3&#160;&#160;&#160;&#160;4&#160;&#160;&#160;&#160;5&#160;&#160;&#160;&#160;6&#160;&#160;&#160;&#160;7&#160;&#160;&#160;&#160;8&#160;&#160;&#160;&#160;9&#160;&#160;&#160;10</p>
+<p class="question1"><strong><a id="ch05ans09" href="ch05.html#ch05que09">9</a>.</strong> Here is one possibility, which assumes that the letters are coded consecutively, as is the case for ASCII:</p>
+<p class="codelink"><a id="p871pro03a" href="app01_images.html#p871pro03">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;&#160;char ch = 'a';<br/>&#160;&#160;&#160;&#160;&#160;while (ch &lt;= 'g')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%5c", ch++);<br/>&#160;&#160;&#160;&#160;&#160;printf("\n");<br/>&#160;&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch05ans10" href="ch05.html#ch05que10">10</a>.</strong> Here is the output for each example:</p>
+<p class="answer-a"><strong>a.</strong> <code>1 2</code></p>
+<p class="answerap">Note that <code>x</code> is incremented and then compared. The cursor is left on the same line.</p>
+<p class="answer-a"><a id="page_872"/><strong>b.</strong></p>
+<p class="pre1">101<br/>102<br/>103<br/>104</p>
+<p class="answerp">Note that this time <code>x</code> is compared and then incremented. In both this case and in example a, <code>x</code> is incremented before printing takes place. Note, too, that indenting the second <code>printf()</code> statement does not make it part of the <code>while</code> loop. Therefore, it is called only once, after the <code>while</code> loop ends.</p>
+<p class="answer-a"><strong>c.</strong> <code>stuvw</code></p>
+<p class="answerap">Here, there is no incrementing until after the first <code>printf()</code>.</p>
+<p class="question1"><strong><a id="ch05ans11" href="ch05.html#ch05que11">11</a>.</strong> This is an ill-constructed program. Because the <code>while</code> statement doesn&#8217;t use braces, only the <code>printf()</code> statement is part of the loop, so the program prints the message <code>COMPUTER BYTES DOG</code> indefinitely until you can kill the program.</p>
+<p class="question1"><strong><a id="ch05ans12" href="ch05.html#ch05que12">12</a>.&#160;&#160;a.</strong> <code>x = x + 10;</code></p>
+<p class="answer-a"><strong>b.</strong> <code>x++; or ++x; or x = x + 1;</code></p>
+<p class="answer-a"><strong>c.</strong> <code>c = 2 * (a + b);</code></p>
+<p class="answer-a"><strong>d.</strong> <code>c = a + 2* b;</code></p>
+<p class="question1"><strong><a id="ch05ans13" href="ch05.html#ch05que13">13</a>.&#160;&#160;a.</strong> <code>x--; or --x; or x = x - 1;</code></p>
+<p class="answer-a"><strong>b.</strong> <code>m = n % k;</code></p>
+<p class="answer-a"><strong>c.</strong> <code>p = q / (b - a);</code></p>
+<p class="answer-a"><strong>d.</strong> <code>x = (a + b) / (c * d);</code></p>
+<div class="heading">
+<h3 id="app01lev1sec6">Answers to Review Questions for Chapter 6</h3>
+<p class="question1"><strong><a id="ch06ans01" href="ch06.html#ch06que01">1</a>.</strong> <code>2</code>, <code>7</code>, <code>70</code>, <code>64</code>, <code>8</code>, <code>2</code></p>
+</div>
+<p class="question1"><strong><a id="ch06ans02" href="ch06.html#ch06que02">2</a>.</strong> It would produce the following output:</p>
+<p class="pre1">36 18&#160;&#160;9&#160;&#160;4&#160;&#160;2&#160;&#160;1</p>
+<p class="answerp">If <code>value</code> were <code>double</code>, the test would remain true even when <code>value</code> became less than 1. The loop would continue until floating-point underflow yielded a value of 0. Also, the <code>%3d</code> specifier would be the wrong choice.</p>
+<p class="question1"><strong><a id="ch06ans03" href="ch06.html#ch06que03">3</a>.&#160;&#160;&#160;a.</strong> <code>x &gt; 5</code></p>
+<p class="answer-a"><strong>b.</strong> <code>scanf("%lf",&#38;x) != 1</code></p>
+<p class="answer-a"><strong>c.</strong> <code>x == 5</code></p>
+<p class="question1"><a id="page_873"/><strong><a id="ch06ans04" href="ch06.html#ch06que04">4</a>.&#160;&#160;&#160;a.</strong> <code>scanf("%d", &#38;x) == 1</code></p>
+<p class="answer-a"><strong>b.</strong> <code>x != 5</code></p>
+<p class="answer-a"><strong>c.</strong> <code>x &gt;= 20</code></p>
+<p class="question1"><strong><a id="ch06ans05" href="ch06.html#ch06que05">5</a>.</strong>&#160;&#160;Line 4: Should be <code>list[10]</code>.</p>
+<p class="answerp">Line 6: Commas should be semicolons.</p>
+<p class="answerp">Line 6: The range for <code>i</code> should be from 0 to 9, not 1 to 10.</p>
+<p class="answerp">Line 9: Commas should be semicolons.</p>
+<p class="answerp">Line 9: <code>&gt;=</code> should be <code>&lt;=</code>. Otherwise, when <code>i</code> is <code>1</code>, the loop runs for quite a while.</p>
+<p class="answerp">Line 10: There should be another closing brace between lines 9 and 10. One brace closes the compound statement, and one closes the program. In between should be a <code>return 0;</code> line.</p>
+<p class="answerp">Here&#8217;s a corrected version:</p>
+<p class="codelink"><a id="p873pro01a" href="app01_images.html#p873pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 3&#160;&#160;*/<br/>&#160;&#160;int i, j, list[10];&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 4&#160;&#160;*/<br/><br/>&#160;&#160;for (i = 0; i &lt;&#160;&#160;10;&#160;&#160;i++)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 6&#160;&#160;*/<br/>&#160;&#160;{&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 7&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;&#160;&#160;list[i] = 2*i + 3;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 8&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;&#160;&#160;for (j = 1; j &lt;= i; j++)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 9&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf(" %d", list[j]);&#160;&#160;&#160;&#160;&#160;&#160;/* line 10 */<br/>&#160;&#160;&#160;&#160;&#160;&#160;printf("\n");&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* line 11 */<br/>&#160;&#160;}<br/>&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch06ans06" href="ch06.html#ch06que06">6</a>.</strong> Here&#8217;s one way:</p>
+<p class="codelink"><a id="p873pro02a" href="app01_images.html#p873pro02">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;int col, row;<br/><br/>&#160;&#160;&#160;for (row = 1; row &lt;= 4; row++)<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;for (col = 1; col &lt;= 8; col++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("$");<br/>&#160;&#160;&#160;&#160;&#160;&#160;printf("\n");<br/>&#160;&#160;&#160;}<br/><a id="page_874"/>&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch06ans07" href="ch06.html#ch06que07">7</a>.&#160;&#160;&#160;a.</strong> It would produce the following output:</p>
+<p class="codelink"><a id="p874pro01a" href="app01_images.html#p874pro01">Click here to view code image</a></p>
+<p class="pre1">Hi! Hi! Hi! Bye! Bye! Bye! Bye! Bye!</p>
+<p class="answer-a"><strong>b.</strong> It would produce the following output:</p>
+<p class="pre1">ACGM</p>
+<p class="answerap">Because the code adds an <code>int</code> value to a <code>char</code> value, a compiler might warn of possible loss of significant digits.</p>
+<p class="question1"><strong><a id="ch06ans08" href="ch06.html#ch06que08">8</a>.&#160;&#160;&#160;a.</strong> It would produce the following output:</p>
+<p class="pre1">Go west, youn</p>
+<p class="answer-a"><strong>b.</strong> It would produce the following output:</p>
+<p class="pre1">Hp!xftu-!zpvo</p>
+<p class="answer-a"><strong>c.</strong> It would produce the following output:</p>
+<p class="pre1">Go west, young</p>
+<p class="answer-a"><strong>d.</strong> It would produce the following output:</p>
+<p class="pre1">$o west, youn</p>
+<p class="question1"><strong><a id="ch06ans09" href="ch06.html#ch06que09">9</a>.</strong> Here is the output you should get:</p>
+<p class="pre1">31|32|33|30|31|32|33|<br/>***<br/>1<br/>5<br/>9<br/>13<br/><br/>***<br/>2 6<br/>4 8<br/>8 10<br/><br/>***<br/>======<br/>=====<br/>====<br/>===<br/>==</p>
+<p class="question1"><strong><a id="ch06ans10" href="ch06.html#ch06que10">10</a>.&#160;&#160;a.</strong> <code>mint</code></p>
+<p class="answer-a"><strong>b.</strong> 10 elements</p>
+<p class="answer-a"><a id="page_875"/><strong>c.</strong> Type <code>double</code> values</p>
+<p class="answer-a"><strong>d.</strong> Line ii is correct; <code>mint[2]</code> is a type <code>double</code> value and <code>&#38;mint[2]</code> is its location.</p>
+<p class="question1"><strong><a id="ch06ans11" href="ch06.html#ch06que11">11</a>.</strong> Because the first element has index <code>0</code>, the loop range should be <code>0</code> to <code>SIZE - 1</code>, not <code>1</code> to <code>SIZE</code>. Making that change, however, causes the first element to be assigned the value <code>0</code> instead of <code>2</code>. So rewrite the loop this way:</p>
+<p class="codelink"><a id="p875pro01a" href="app01_images.html#p875pro01">Click here to view code image</a></p>
+<p class="pre1">for (index = 0; index &lt; SIZE; index++)<br/>&#160;&#160;&#160;&#160;by_twos[index] = 2 * (index + 1);</p>
+<p class="answerp">Similarly, the limits for the second loop should be changed. Also, an array index should be used with the array name:</p>
+<p class="codelink"><a id="p875pro02a" href="app01_images.html#p875pro02">Click here to view code image</a></p>
+<p class="pre1">for( index = 0; index &lt; SIZE; index++)<br/>&#160;&#160;&#160;&#160;&#160;printf("%d ", by_twos[index]);</p>
+<p class="answerp">One dangerous aspect of bad loop limits is that the program may work; however, because it is placing data where it shouldn&#8217;t, it might not work at some time in the future, forming sort of a programming time bomb.</p>
+<p class="question1"><strong><a id="ch06ans12" href="ch06.html#ch06que12">12</a>.</strong> It should declare the return type as <code>long</code>, and it should have a <code>return</code> statement that returns a <code>long</code> value.</p>
+<p class="question1"><strong><a id="ch06ans13" href="ch06.html#ch06que13">13</a>.</strong> Typecasting <code>num</code> to <code>long</code> makes sure the calculation is done as a <code>long</code> calculation, not an <code>int</code> calculation. On a system with a 16-bit <code>int</code>, multiplying two <code>int</code>s produces a result that is truncated to an <code>int</code> before the value is returned, possibly losing data.</p>
+<p class="codelink"><a id="p875pro03a" href="app01_images.html#p875pro03">Click here to view code image</a></p>
+<p class="pre1">long square(int num)<br/><br/>{<br/><br/>&#160;&#160;&#160;return ((long) num) * num;<br/><br/>}</p>
+<p class="question1"><strong><a id="ch06ans14" href="ch06.html#ch06que14">14</a>.</strong> Here is the output:</p>
+<p class="codelink"><a id="p875pro04a" href="app01_images.html#p875pro04">Click here to view code image</a></p>
+<p class="pre1">1: Hi!<br/>k = 1<br/>k is 1 in the loop<br/>Now k is 3<br/>k = 3<br/>k is 3 in the loop<br/>Now k is 5<br/>k = 5<br/>k is 5 in the loop<br/>Now k is 7<br/>k = 7</p>
+<div class="heading">
+<h3 id="app01lev1sec7"><a id="page_876"/>Answers to Review Questions for Chapter 7</h3>
+<p class="question1"><strong><a id="ch07ans01" href="ch07.html#ch07que01">1</a>.</strong> True: b.</p>
+</div>
+<p class="question1"><strong><a id="ch07ans02" href="ch07.html#ch07que02">2</a>.&#160;&#160;&#160;a.</strong> <code>number &gt;= 90 &#38;&#38; number &lt; 100</code></p>
+<p class="answer-a"><strong>b.</strong> <code>ch != 'q' &#38;&#38; ch != 'k'</code></p>
+<p class="answer-a"><strong>c.</strong> <code>(number &gt;= 1 &#38;&#38; number &lt;= 9) &#38;&#38; number != 5</code></p>
+<p class="answer-a"><strong>d.</strong> <code>!(number &gt;= 1 &#38;&#38; number &lt;= 9)</code> is one choice, but</p>
+<p class="answerp"><code>number &lt; 1 || number &gt; 9</code> is simpler to understand</p>
+<p class="question1"><strong><a id="ch07ans03" href="ch07.html#ch07que03">3</a>.</strong>&#160;&#160;Line 5: Should be <code>scanf("%d %d", &#38;weight, &#38;height);</code>. Don&#8217;t forget those <code>&#38;</code>s for <code>scanf()</code>. Also, this line should be preceded by a line prompting input.</p>
+<p class="answerp">Line 9: What is meant is <code>(height &lt; 72 &#38;&#38; height &gt; 64)</code>. However, the first part of the expression is unnecessary because height must be less than 72 for the <code>else if</code> to be reached in the first place. Therefore, a simple <code>(height &gt; 64)</code> will serve. But line 6 already guarantees that <code>height &gt; 64</code>, so no test at all is needed, and the <code>if else</code> should just be an <code>else</code>.</p>
+<p class="answerp">Line 11: The condition is redundant; the second subexpression (<code>weight</code> not less than or equal to 300) means the same as the first. A simple <code>(weight &gt; 300)</code> is all that is needed. But there is more trouble. Line 11 gets attached to the wrong <code>if</code>! Clearly, this <code>else</code> is meant to go along with line 6. By the most recent <code>if</code> rule, however, it will be associated with the <code>if</code> of line 9. Therefore, line 11 is reached when <code>weight</code> is less than 100 and <code>height</code> is 64 or under. This makes it impossible for <code>weight</code> to exceed 300 when this statement is reached.</p>
+<p class="answerp">Lines 7 through 10: Should be enclosed in braces. Then line 11 will become an alternative to line 6, not to line 9. Alternatively, if the <code>if else</code> on line 9 is replaced with a simple <code>else</code>, no braces are needed.</p>
+<p class="answerp">Line 13: Simplify to <code>if (height &gt; 48)</code>. Actually, you can omit this line entirely because line 12 already makes this test.</p>
+<p class="answerp">Line 15: This <code>else</code> associates with the last <code>if</code>, the one on line 13. Enclose lines 13 and 14 in braces to force this <code>else</code> to associate with the <code>if</code> of line 11. Or, as suggested, simply eliminate line 13.</p>
+<p class="answerp">Here&#8217;s a corrected version:</p>
+<p class="codelink"><a id="p876pro01a" href="app01_images.html#p876pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;int weight, height;&#160;&#160;/* weight in lbs, height in inches */<br/><br/>&#160;&#160;&#160;printf("Enter your weight in pounds and ");<br/><a id="page_877"/>&#160;&#160;&#160;printf("your height in inches.\n");<br/>&#160;&#160;&#160;scanf("%d %d", &#38;weight, &#38;height);<br/>&#160;&#160;&#160;if (weight &lt; 100 &#38;&#38; height &gt; 64)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (height &gt;= 72)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("You are very tall for your weight.\n");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("You are tall for your weight.\n");<br/>&#160;&#160;&#160;else if (weight &gt; 300 &#38;&#38; height &lt; 48)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf(" You are quite short for your weight.\n");<br/>&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Your weight is ideal.\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch07ans04" href="ch07.html#ch07que04">4</a>.&#160;&#160;&#160;a.</strong> <code>1</code>. The assertion is true, which numerically is a <code>1</code>.</p>
+<p class="answer-a"><strong>b.</strong> <code>0</code>. 3 is not less than 2.</p>
+<p class="answer-a"><strong>c.</strong> <code>1</code>. If the first expression is false, the second is true, and vice versa; just one true expression is needed.</p>
+<p class="answer-a"><strong>d.</strong> <code>6</code>, because the value of <code>6 &gt; 2</code> is <code>1</code>.</p>
+<p class="answer-a"><strong>e.</strong> <code>10</code>, because the test condition is true.</p>
+<p class="answer-a"><strong>f.</strong> <code>0</code>. If <code>x &gt; y</code> is true, the value of the expression is <code>y &gt; x</code>, which is false in that case, or <code>0</code>. If <code>x &gt; y</code> is false, the value of the expression is <code>x &gt; y</code>, which is false in that case.</p>
+<p class="question1"><strong><a id="ch07ans05" href="ch07.html#ch07que05">5</a>.</strong> The program prints the following:</p>
+<p class="codelink"><a id="p877pro01a" href="app01_images.html#p877pro01">Click here to view code image</a></p>
+<p class="pre1">*#%*#%$#%*#%*#%$#%*#%*#%$#%*#%*#%</p>
+<p class="answerp">Despite what the indentation suggests, the <code>#</code> is printed during every loop because it is not part of a compound statement.</p>
+<p class="question1"><strong><a id="ch07ans06" href="ch07.html#ch07que06">6</a>.</strong> The program prints the following:</p>
+<p class="pre1">fat hat cat Oh no!<br/>hat cat Oh no!<br/>cat Oh no!</p>
+<p class="question1"><strong><a id="ch07ans07" href="ch07.html#ch07que07">7</a>.</strong> The comments on lines 5 through 7 should be terminated with <code>*/</code>, or else you can replace <code>/*</code> with <code>//</code>. The expression <code>'a' &lt;= ch &gt;= 'z'</code> should be replaced with this:</p>
+<p class="pre1">ch &gt;= 'a' &#38;&#38; ch &lt;= 'z'</p>
+<p class="answerp">Or, more simply and more portably, you can include <code>ctype.h</code> and use <code>islower()</code>. Incidentally, <code>'a' &lt;= ch &gt;= 'z'</code> is valid C in terms of syntax; it just doesn&#8217;t have the right meaning. Because relational operators associate left to right, the expression is interpreted as <code>('a' &lt;= ch) &gt;= 'z'</code>. The expression in parentheses has the value <code>1</code> or <code>0</code> <a id="page_878"/>(true or false), and this value is checked to see whether it is equal to or greater than the numeric code for <code>'z'</code>. Neither <code>0</code> nor <code>1</code> satisfies that test, so the whole expression always evaluates to <code>0</code> (false). In the second test expression, <code>||</code> should be <code>&#38;&#38;</code>. Also, although <code>!(ch &lt; 'A')</code> is both valid and correct in meaning, <code>ch &gt;= 'A'</code> is simpler. The <code>'Z'</code> should be followed by two closing parentheses, not one. Again, more simply, use <code>isupper()</code>. The <code>oc++;</code> statement should be preceded by an <code>else</code>. Otherwise, it is incremented every character. The control expression in the <code>printf()</code> call should be enclosed in double quotes.</p>
+<p class="answerp">Here is a corrected version:</p>
+<p class="codelink"><a id="p878pro01a" href="app01_images.html#p878pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>#include &lt;ctype.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;char ch;<br/>&#160;&#160;int lc = 0;&#160;&#160;&#160;&#160;/* lowercase char count */<br/>&#160;&#160;int uc = 0;&#160;&#160;&#160;&#160;/* uppercase char count */<br/>&#160;&#160;int oc = 0;&#160;&#160;&#160;&#160;/* other char count&#160;&#160;&#160;&#160;&#160;*/<br/><br/>&#160;&#160;while ((ch = getchar()) != '#')<br/>&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (islower(ch))<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;lc++;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;else if (isupper(ch))<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uc++;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;oc++;<br/>&#160;&#160;}<br/>&#160;&#160;printf("%d lowercase, %d uppercase, %d other", lc, uc, oc);<br/>&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch07ans08" href="ch07.html#ch07que08">8</a>.</strong> Unhappily, it prints the same line indefinitely:</p>
+<p class="codelink"><a id="p878pro02a" href="app01_images.html#p878pro02">Click here to view code image</a></p>
+<p class="pre1">You are 65. Here is your gold watch.</p>
+<p class="answerp">The problem is that the line</p>
+<p class="pre1">if (age = 65)</p>
+<p class="answerp">sets <code>age</code> to <code>65</code>, which tests as true every loop cycle.</p>
+<p class="question1"><strong><a id="ch07ans09" href="ch07.html#ch07que09">9</a>.</strong> Here is the resulting run using the given input:</p>
+<p class="pre1"><span class="EmpStrong">q</span><br/>Step 1<br/>Step 2<br/><a id="page_879"/>Step 3<br/><span class="EmpStrong">c</span><br/>Step 1<br/><span class="EmpStrong">h</span><br/>Step 1<br/>Step 3<br/><span class="EmpStrong">b</span><br/>Step 1<br/>Done</p>
+<p class="answerp">Note that both <code>b</code> and <code>#</code> terminate the loop, but that entering <code>b</code> elicits the printing of step 1, and entering <code>#</code> doesn&#8217;t.</p>
+<p class="question1"><strong><a id="ch07ans10" href="ch07.html#ch07que10">10</a>.</strong> Here is one solution:</p>
+<p class="codelink"><a id="p879pro01a" href="app01_images.html#p879pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;char ch;<br/><br/>&#160;&#160;while ((ch = getchar()) != '#')<br/>&#160;&#160;{<br/>&#160;&#160;&#160;&#160;if (ch != '\n')<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Step 1\n");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (ch == 'b')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;break;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;else if (ch != 'c')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (ch != 'h')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Step 2\n");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Step 3\n");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;}<br/>&#160;&#160;printf("Done\n");<br/>&#160;&#160;return 0;<br/>}</p>
+<div class="heading">
+<h3 id="app01lev1sec8">Answers to Review Questions for Chapter 8</h3>
+<p class="question1"><strong><a id="ch08ans01" href="ch08.html#ch08que01">1</a>.</strong> The expression <code>putchar(getchar())</code> causes the program to read the next input character and to print it; the return value from <code>getchar()</code> is the argument to <code>putchar()</code>. No, <code>getchar(putchar())</code> is invalid because <code>getchar()</code> doesn&#8217;t use an argument and <code>putchar()</code> needs one.</p>
+</div>
+<p class="question1"><a id="page_880"/><strong><a id="ch08ans02" href="ch08.html#ch08que02">2</a>.&#160;&#160;&#160;a.</strong> Display the H character.</p>
+<p class="answer-a"><strong>b.</strong> Sound the alert if the system uses ASCII.</p>
+<p class="answer-a"><strong>c.</strong> Move the cursor to the beginning of the next line.</p>
+<p class="answer-a"><strong>d.</strong> Backspace.</p>
+<p class="question1"><strong><a id="ch08ans03" href="ch08.html#ch08que03">3</a>.</strong> <code>count &lt;essay &gt;essayct</code> or else <code>count &gt;essayct &lt;essay</code></p>
+<p class="question1"><strong><a id="ch08ans04" href="ch08.html#ch08que04">4</a>.</strong> None are valid.</p>
+<p class="question1"><strong><a id="ch08ans05" href="ch08.html#ch08que05">5</a>.</strong> It&#8217;s a signal (a special value) returned by <code>getchar()</code> and <code>scanf()</code> to indicate that they have detected the end of a file.</p>
+<p class="question1"><strong><a id="ch08ans06" href="ch08.html#ch08que06">6</a>.&#160;&#160;&#160;a.</strong> The output is as follows:</p>
+<p class="pre1">If you qu</p>
+<p class="answerp">Note that the character <code>I</code> is distinct from the character <code>i</code>. Also note that the <code>i</code> is not printed because the loop quits upon detecting it.</p>
+<p class="answer-a"><strong>b.</strong> The output for ASCII is as follows:</p>
+<p class="pre1">HJacrthjacrt</p>
+<p class="answerp">The first time through, <code>ch</code> has the value <code>H</code>. The <code>ch++</code> causes the value to be used (printed) and then incremented (to <code>I</code>). Then the <code>++ch</code> causes the value to be incremented (to <code>J</code>) and then used (printed). After that, the next character (<code>a</code>) is read, and the process is repeated. An important point to note here is that the incrementations affect the value of <code>ch</code> after it has been assigned a value; they don&#8217;t somehow cause the program to move through the input queue.</p>
+<p class="question1"><strong><a id="ch08ans07" href="ch08.html#ch08que07">7</a>.</strong> C&#8217;s standard I/O library maps diverse file forms to uniform streams that can be handled equivalently.</p>
+<p class="question1"><strong><a id="ch08ans08" href="ch08.html#ch08que08">8</a>.</strong> Numeric input skips over spaces and newlines, but character input does not. Suppose you have code like this:</p>
+<p class="codelink"><a id="p880pro01a" href="app01_images.html#p880pro01">Click here to view code image</a></p>
+<p class="pre1">int score;<br/>char grade;<br/>printf("Enter the score.\n");<br/>scanf("%s", %score);<br/>printf("Enter the letter grade.\n");<br/>grade = getchar();</p>
+<p class="answerp">If you enter <code>98</code> for the score and then press the Enter key to send the score to the program, you also sent a newline character, which becomes the next input character and is read into <code>grade</code> as the grade value. If you precede character input with numeric input, you should add code to dispose of the newline character before the character input takes place.</p>
+<div class="heading">
+<h3 id="app01lev1sec9"><a id="page_881"/>Answers to Review Questions for Chapter 9</h3>
+<p class="question1"><strong><a id="ch09ans01" href="ch09.html#ch09que01">1</a>.</strong> A formal parameter is a variable that is defined in the function being called. The actual argument is the value appearing in the function call; this value is assigned to the formal argument. You can think of the actual argument as being the value to which the formal parameter is initialized when the function is called.</p>
+</div>
+<p class="question1"><strong><a id="ch09ans02" href="ch09.html#ch09que02">2</a>.&#160;&#160;&#160;a.</strong> <code>void donut(int n)</code></p>
+<p class="answer-a"><strong>b.</strong> <code>int gear(int t1, int t2)</code></p>
+<p class="answer-a"><strong>c.</strong> <code>int guess(void)</code></p>
+<p class="answer-a"><strong>d.</strong> <code>void stuff_it(double d, double *pd)</code></p>
+<p class="question1"><strong><a id="ch09ans03" href="ch09.html#ch09que03">3</a>.&#160;&#160;&#160;a.</strong> <code>char n_to_char(int n)</code></p>
+<p class="answer-a"><strong>b.</strong> <code>int digits(double x, int n)</code></p>
+<p class="answer-a"><strong>c.</strong> <code>double * which(double * p1, double * p2)</code></p>
+<p class="answer-a"><strong>d.</strong> <code>int random(void)</code></p>
+<p class="question1"><strong><a id="ch09ans04" href="ch09.html#ch09que04">4</a>.</strong></p>
+<p class="pre1">int sum(int a, int b)<br/>{<br/>&#160;&#160;&#160;&#160;return a + b;<br/>}</p>
+<p class="question1"><strong><a id="ch09ans05" href="ch09.html#ch09que05">5</a>.</strong> Replace <code>int</code> with <code>double</code> throughout:</p>
+<p class="codelink"><a id="p881pro01a" href="app01_images.html#p881pro01">Click here to view code image</a></p>
+<p class="pre1">double sum(double a, double b)<br/><br/>{<br/>&#160;&#160;&#160;&#160;return a + b;<br/><br/>}</p>
+<p class="question1"><strong><a id="ch09ans06" href="ch09.html#ch09que06">6</a>.</strong> This function needs to use pointers:</p>
+<p class="codelink"><a id="p881pro02a" href="app01_images.html#p881pro02">Click here to view code image</a></p>
+<p class="pre1">void alter(int * pa, int * pb)<br/>{<br/>&#160;&#160;&#160;&#160;int temp;<br/>&#160;&#160;&#160;&#160;temp = *pa + *pb;<br/>&#160;&#160;&#160;&#160;*pb = *pa - *pb;<br/>&#160;&#160;&#160;&#160;*pa = temp;<br/>}</p>
+<p class="answerp"><a id="page_882"/>or</p>
+<p class="codelink"><a id="p882pro01a" href="app01_images.html#p882pro01">Click here to view code image</a></p>
+<p class="pre1">void alter(int * pa, int * pb)<br/>{<br/>&#160;&#160;&#160;&#160;*pa += *pb;<br/>&#160;&#160;&#160;&#160;*pb = *pa - 2 * *pb;<br/>}</p>
+<p class="question1"><strong><a id="ch09ans07" href="ch09.html#ch09que07">7</a>.</strong> Yes; <code>num</code> should be declared in the <code>salami()</code> argument list, not after the brace. Also, it should be <code>count++</code>, not <code>num++</code>.</p>
+<p class="question1"><strong><a id="ch09ans08" href="ch09.html#ch09que08">8</a>.</strong> Here is one solution:</p>
+<p class="codelink"><a id="p882pro02a" href="app01_images.html#p882pro02">Click here to view code image</a></p>
+<p class="pre1">int largest(int a, int b, int c)<br/>{<br/>&#160;&#160;&#160;&#160;int max = a;<br/>&#160;&#160;&#160;&#160;if (b &gt; max)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;max = b;<br/>&#160;&#160;&#160;&#160;if (c &gt; max)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;max = c;<br/>&#160;&#160;&#160;&#160;return max;<br/>}</p>
+<p class="question1"><strong><a id="ch09ans09" href="ch09.html#ch09que09">9</a>.</strong> Here is a minimal program; the <code>showmenu()</code> and <code>getchoice()</code> functions are possible solutions to parts a and b.</p>
+<p class="codelink"><a id="p882pro03a" href="app01_images.html#p882pro03">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>void showmenu(void);&#160;&#160;&#160;&#160;&#160;/* declare functions used */<br/>int getchoice(int, int);<br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;int res;<br/><br/>&#160;&#160;&#160;&#160;showmenu();<br/>&#160;&#160;&#160;&#160;while ((res = getchoice(1,4)) != 4)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("I like choice %d.\n", res);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;showmenu();<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("Bye!\n");<br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/>void showmenu(void)<br/>{<br/>&#160;&#160;&#160;&#160;printf("Please choose one of the following:\n");<br/>&#160;&#160;&#160;&#160;printf("1) copy files&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2) move files\n");<br/>&#160;&#160;&#160;&#160;printf("3) remove files&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;4) quit\n");<br/>&#160;&#160;&#160;&#160;printf("Enter the number of your choice:\n");<br/><a id="page_883"/>}<br/><br/>int getchoice(int low, int high)<br/>{<br/>&#160;&#160;&#160;&#160;int ans;<br/>&#160;&#160;&#160;&#160;int good;<br/>&#160;&#160;&#160;&#160;good = scanf("%d", &#38;ans);<br/>&#160;&#160;&#160;&#160;while (good == 1 &#38;&#38; (ans &lt; low || ans&#160;&#160;&gt; high))<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d is not a valid choice; try again\n", ans);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;showmenu();<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;scanf("%d", &#38;ans);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;if (good != 1)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Non-numeric input. ");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ans = 4;<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;return ans;<br/>}</p>
+<div class="heading">
+<h3 id="app01lev1sec10">Answers to Review Questions for Chapter 10</h3>
+<p class="question1"><strong><a id="ch10ans01" href="ch10.html#ch10que01">1</a>.</strong> The printout is this:</p>
+</div>
+<p class="pre1">8 8<br/>4 4<br/>0 0<br/>2 2</p>
+<p class="question1"><strong><a id="ch10ans02" href="ch10.html#ch10que02">2</a>.</strong> The array <code>ref</code> has four elements because that is the number of values in the initialization list.</p>
+<p class="question1"><strong><a id="ch10ans03" href="ch10.html#ch10que03">3</a>.</strong> The array name <code>ref</code> points to the first element of the array, the integer <code>8</code>. The expression <code>ref + 1</code> points to the second element, the integer <code>4</code>. The construction <code>++ref</code> is not a valid C expression; <code>ref</code> is a constant, not a variable.</p>
+<p class="question1"><strong><a id="ch10ans04" href="ch10.html#ch10que04">4</a>.</strong> <code>ptr</code> points to the first element, and <code>ptr + 2</code> points to the third element, which would be the first element of the second row.</p>
+<p class="answer-a"><strong>a.</strong> 12 and 16.</p>
+<p class="answer-a"><strong>b.</strong> 12 and 14 (just the 12 goes in the first row because of the braces).</p>
+<p class="question1"><strong><a id="ch10ans05" href="ch10.html#ch10que05">5</a>.</strong> <code>ptr</code> points to the first row and <code>ptr+1</code> points to the second row; <code>*ptr</code> points to the first element in the first row, and <code>*(ptr + 1)</code> points to the first element of the second row.</p>
+<p class="answer-a"><a id="page_884"/><strong>a.</strong> 12 and 16.</p>
+<p class="answer-a"><strong>b.</strong> 12 and 14 (just the 12 goes in the first row because of the braces).</p>
+<p class="question1"><strong><a id="ch10ans06" href="ch10.html#ch10que06">6</a>.&#160;&#160;&#160;a.</strong> <code>&#38;grid[22][56]</code></p>
+<p class="answer-a"><strong>b.</strong> <code>&#38;grid[22][0] or grid[22]</code></p>
+<p class="answerp">(The latter is the name of a one-dimensional array of 100 elements, hence the address of its first element, which is the element <code>grid[22][0]</code>.)</p>
+<p class="answer-a"><strong>c.</strong> <code>&#38;grid[0][0] or grid[0] or (int *) grid</code></p>
+<p class="answerp">(Here, <code>grid[0]</code> is the address of the <code>int</code> element <code>grid[0][0]</code>, and <code>grid</code> is the address of the 100-element array <code>grid[0]</code>. The two addresses have the same numeric value but different types; the typecast makes the types the same.)</p>
+<p class="question1"><strong><a id="ch10ans07" href="ch10.html#ch10que07">7</a>.&#160;&#160;&#160;a.</strong> <code>int digits[10];</code></p>
+<p class="answer-a"><strong>b.</strong> <code>float rates[6];</code></p>
+<p class="answer-a"><strong>c.</strong> <code>int mat[3][5];</code></p>
+<p class="answer-a"><strong>d.</strong> <code>char * psa[20]</code>;</p>
+<p class="answerp">Note that <code>[ ]</code> has higher precedence than <code>*</code>, so in the absence of parentheses, the array descriptor is applied first, and then the pointer descriptor. Hence, this declaration is the same as <code>char *(psa[20]);</code>.</p>
+<p class="answer-a"><strong>e.</strong> <code>char (*pstr)[20];</code></p>
+<div class="note"><hr/>
+<p class="title"><span class="pd_ash">Note</span></p>
+<p class="notepara"><code>char *pstr[20];</code> is incorrect for e. This would make <code>pstr</code> an array of pointers instead of a pointer to an array. In particular, <code>pstr</code> would point to a single <code>char</code>, the first member of the array; <code>pstr + 1</code> would point to the next byte. With the correct declaration, <code>pstr</code> is a variable rather than an array name, and <code>pstr + 1</code> points 20 bytes beyond the initial byte.</p>
+<hr/></div>
+<p class="question1"><strong><a id="ch10ans08" href="ch10.html#ch10que08">8</a>.&#160;&#160;&#160;a.</strong> <code>int sextet[6] = {1, 2, 4, 8, 16, 32};</code></p>
+<p class="answer-a"><strong>b.</strong> <code>sextet[2]</code></p>
+<p class="answer-a"><strong>c.</strong> <code>int lots[100] = { [99] = -1};</code></p>
+<p class="answer-a"><strong>d.</strong> <code>int pots[100] = { [5] = 101, [10] = 101,</code></p>
+<p class="answerap"><code>101, 101, 101};</code></p>
+<p class="question1"><strong><a id="ch10ans09" href="ch10.html#ch10que09">9</a>.</strong> 0 through 9</p>
+<p class="question1"><strong><a id="ch10ans10" href="ch10.html#ch10que10">10</a>.&#160;&#160;&#160;a.</strong> <code>rootbeer[2] = value;</code></p>
+<p class="answerap">Valid.</p>
+<p class="answer-a"><strong>b.</strong> <code>scanf("%f", &#38;rootbeer );</code></p>
+<p class="answerap"><a id="page_885"/>Invalid; <code>rootbeer</code> is not a <code>float</code>.</p>
+<p class="answer-a"><strong>c.</strong> <code>rootbeer = value;</code></p>
+<p class="answerp">Invalid; <code>rootbeer</code> is not a <code>float</code>.</p>
+<p class="answer-a"><strong>d.</strong> <code>printf("%f", rootbeer);</code></p>
+<p class="answerap">Invalid; <code>rootbeer</code> is not a <code>float</code>.</p>
+<p class="answer-a"><strong>e.</strong> <code>things[4][4] = rootbeer[3];</code></p>
+<p class="answerap">Valid.</p>
+<p class="answer-a"><strong>f.</strong> <code>things[5] = rootbeer;</code></p>
+<p class="answerap">Invalid; can&#8217;t assign arrays.</p>
+<p class="answer-a"><strong>g.</strong> <code>pf = value;</code></p>
+<p class="answerap">Invalid; <code>value</code> is not an address.</p>
+<p class="answer-a"><strong>h.</strong> <code>pf = rootbeer;</code></p>
+<p class="answerap">Valid.</p>
+<p class="question1"><strong><a id="ch10ans11" href="ch10.html#ch10que11">11</a>.</strong> <code>int screen[800][600]</code>;</p>
+<p class="question1"><strong><a id="ch10ans12" href="ch10.html#ch10que12">12</a>.</strong> a.</p>
+<p class="codelink"><a id="p885pro01a" href="app01_images.html#p885pro01">Click here to view code image</a></p>
+<p class="pre1">void process(double ar[], int n);<br/>void processvla(int n, double ar[n]);<br/>process(trots, 20);<br/>processvla(20, trots);</p>
+<p class="answer-a"><strong>b.</strong></p>
+<p class="codelink"><a id="p885pro02a" href="app01_images.html#p885pro02">Click here to view code image</a></p>
+<p class="pre1">void process2(short ar2[30], int n);<br/>void process2vla(int n, int m, short ar2[n][m]);<br/>process2(clops, 10);<br/>process2vla(10, 30, clops);</p>
+<p class="answer-a"><strong>c.</strong></p>
+<p class="codelink"><a id="p885pro03a" href="app01_images.html#p885pro03">Click here to view code image</a></p>
+<p class="pre1">void process3(long ar3[10][15], int n);<br/>void process3vla(int n, int m,int k, long ar3[n][m][k]);<br/>process3(shots, 5);<br/>process3vla(5, 10, 15, shots);</p>
+<p class="question1"><strong><a id="ch10ans13" href="ch10.html#ch10que13">13</a>.</strong> a.</p>
+<p class="pre1">show( (int [4]) {8,3,9,2}, 4);</p>
+<p class="answer-a"><strong>b.</strong></p>
+<p class="codelink"><a id="p885pro04a" href="app01_images.html#p885pro04">Click here to view code image</a></p>
+<p class="pre1">show2( (int [][3]){{8,3,9}, {5,4,1}}, 2);</p>
+<div class="heading">
+<h3 id="app01lev1sec11"><a id="page_886"/>Answers to Review Questions for Chapter 11</h3>
+<p class="question1"><strong><a id="ch11ans01" href="ch11.html#ch11que01">1</a>.</strong> The initialization should include a <code>'\0'</code> if you want the result to be a string. Of course, the alternative syntax adds the null character automatically:</p>
+</div>
+<p class="pre1">char name[] = "Fess";</p>
+<p class="question1"><strong><a id="ch11ans02" href="ch11.html#ch11que02">2</a>.</strong></p>
+<p class="pre1">See you at the snack bar.<br/>ee you at the snack bar.<br/>See you<br/>e you</p>
+<p class="question1"><strong><a id="ch11ans03" href="ch11.html#ch11que03">3</a>.</strong></p>
+<p class="pre1">y<br/><br/>my<br/><br/>mmy<br/><br/>ummy<br/><br/>Yummy</p>
+<p class="question1"><strong><a id="ch11ans04" href="ch11.html#ch11que04">4</a>.</strong> <code>I read part of it all the way through.</code></p>
+<p class="question1"><strong><a id="ch11ans05" href="ch11.html#ch11que05">5</a>.&#160;&#160;&#160;a.</strong> <code>Ho Ho Ho!!oH oH oH</code></p>
+<p class="answer-a"><strong>b.</strong> Pointer-to-<code>char</code> (that is, <code>char *</code>).</p>
+<p class="answer-a"><strong>c.</strong> The address of the initial <em>H</em>.</p>
+<p class="answer-a"><strong>d.</strong> <code>*&#8211;&#8211;pc</code> means to decrement the pointer by 1 and use the value found there. <code>&#8211;&#8211;*pc</code> means to take the value pointed to by <code>pc</code> and decrement that value by 1 (for example, H becomes G).</p>
+<p class="answer-a"><strong>e.</strong> <code>Ho Ho Ho!!oH oH o</code></p>
+<div class="note"><hr/>
+<p class="title"><span class="pd_ash">Note</span></p>
+<p class="notepara">A null character comes between <code>!</code> and <code>!</code>, but typically it produces no printing effect.</p>
+<hr/></div>
+<p class="answer-a"><strong>f.</strong> <code>while(*pc)</code> checks to see that <code>pc</code> does not point to a null character (that is, to the end of the string). The expression uses the value at the pointed-to location.</p>
+<p class="answerap"><code>while(pc - str)</code> checks to see that <code>pc</code> does not point to the same location that <code>str</code> does (the beginning of the string). The expression uses the values of the pointers themselves.</p>
+<p class="answer-a"><a id="page_887"/><strong>g.</strong> After the first <code>while</code> loop, <code>pc</code> points to the null character. Upon entering the second loop, it is made to point to the storage location before the null character (that is, to the location just before the one that <code>str</code> points to). That byte is interpreted as a character and is printed. The pointer then backs up to the preceding byte. The terminating condition <code>(pc == str)</code> never occurs, and the process continues until you, or the system, tire.</p>
+<p class="answer-a"><strong>h.</strong> <code>pr()</code> must be declared in the calling program:</p>
+<p class="pre1">char * pr(char *);</p>
+<p class="question1"><strong><a id="ch11ans06" href="ch11.html#ch11que06">6</a>.</strong> Character variables occupy a byte, so <code>sign</code> occupies a byte. But a character constant is stored in an <code>int</code>, meaning the <code>'$'</code> typically would use 2 or 4 bytes; however, only 1 byte of the <code>int</code> is actually used to store the code for <code>'$'</code>. The string <code>"$"</code> uses 2 bytes: one to hold the code for <code>'$'</code>, and one to hold the code for <code>'\0'</code>.</p>
+<p class="question1"><strong><a id="ch11ans07" href="ch11.html#ch11que07">7</a>.</strong> Here is what you get:</p>
+<p class="codelink"><a id="p887pro01a" href="app01_images.html#p887pro01">Click here to view code image</a></p>
+<p class="pre1">How are ya, sweetie? How are ya, sweetie?<br/>Beat the clock.<br/>eat the clock.<br/>Beat the clock. Win a toy.<br/>Beat<br/>chat<br/>hat<br/>at<br/>t<br/>t<br/>at<br/>How are ya, sweetie?</p>
+<p class="question1"><strong><a id="ch11ans08" href="ch11.html#ch11que08">8</a>.</strong> Here is what you get:</p>
+<p class="pre1">faavrhee<br/>*le*on*sm</p>
+<p class="question1"><strong><a id="ch11ans09" href="ch11.html#ch11que09">9</a>.</strong> Here is one solution:</p>
+<p class="codelink"><a id="p887pro02a" href="app01_images.html#p887pro02">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;&#160;&#160;&#160;&#160;&#160;&#160;// for fgets(), getchar()<br/>char * s_gets(char * st, int n)<br/>{<br/>&#160;&#160;&#160;&#160;char * ret_val;<br/><br/>&#160;&#160;&#160;&#160;ret_val = fgets(st, n, stdin);<br/>&#160;&#160;&#160;&#160;if (ret_val)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while (*st != '\n' &#38;&#38; *st != '\0')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;st++;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (*st == '\n')<br/><a id="page_888"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*st = '\0';<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while (getchar() != '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;return ret_val;<br/>}</p>
+<p class="question1"><strong><a id="ch11ans10" href="ch11.html#ch11que10">10</a>.</strong> Here is one solution:</p>
+<p class="codelink"><a id="p888pro01a" href="app01_images.html#p888pro01">Click here to view code image</a></p>
+<p class="pre1">int strlen(const char * s)<br/>{<br/>&#160;&#160;&#160;&#160;int ct = 0;<br/><br/>&#160;&#160;&#160;&#160;while (*s++)&#160;&#160;&#160;&#160;&#160;// or while (*s++ != '\0')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ct++;<br/><br/>&#160;&#160;&#160;&#160;return(ct);<br/>}</p>
+<p class="question1"><strong><a id="ch11ans11" href="ch11.html#ch11que11">11</a>.</strong> Here is one solution:</p>
+<p class="codelink"><a id="p888pro02a" href="app01_images.html#p888pro02">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;&#160;&#160;&#160;&#160;&#160;&#160;// for fgets(), getchar()<br/>#include &lt;string.h&gt;&#160;&#160;&#160;&#160;&#160;// for strchr();<br/>char * s_gets(char * st, int n)<br/>{<br/>&#160;&#160;&#160;&#160;char * ret_val;<br/>&#160;&#160;&#160;&#160;char * find;<br/><br/>&#160;&#160;&#160;&#160;ret_val = fgets(st, n, stdin);<br/>&#160;&#160;&#160;&#160;if (ret_val)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;find = strchr(st, '\n');&#160;&#160;&#160;// look for newline<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (find)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// if the address is not NULL,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*find = '\0';&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// place a null character there<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while (getchar() != '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;return ret_val;<br/>}</p>
+<p class="question1"><strong><a id="ch11ans12" href="ch11.html#ch11que12">12</a>.</strong> Here is one solution:</p>
+<p class="codelink"><a id="p888pro03a" href="app01_images.html#p888pro03">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;&#160;&#160;&#160;&#160;&#160;&#160;/* for NULL definition&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>char * strblk(char * string)<br/>{<br/>&#160;&#160;while (*string != ' ' &#38;&#38; *string != '\0')<br/>&#160;&#160;&#160;&#160;string++;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* stops at first blank or null */<br/>&#160;&#160;if (*string == '\0')<br/>&#160;&#160;&#160;&#160;return NULL;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* NULL is the null pointer&#160;&#160;&#160;&#160;&#160;*/<br/>&#160;&#160;else<br/>&#160;&#160;&#160;&#160;return string;<br/>}</p>
+<p class="answerp">Here is a second solution that prevents the function from modifying the string but that allows the return value to be used to change the string. The expression <code>(char *) string</code> is called &#8220;casting away <code>const</code>.&#8221;</p>
+<p class="codelink"><a id="p889pro01a" href="app01_images.html#p889pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;&#160;&#160;&#160;&#160;&#160;&#160;/* for NULL definition&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>char * strblk(const char * string)<br/>{<br/>&#160;&#160;while (*string != ' ' &#38;&#38; *string != '\0')<br/><a id="page_889"/>&#160;&#160;&#160;&#160;string++;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* stops at first blank or null */<br/>&#160;&#160;if (*string == '\0')<br/>&#160;&#160;&#160;&#160;return NULL;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* NULL is the null pointer&#160;&#160;&#160;&#160;&#160;*/<br/>&#160;&#160;else<br/>&#160;&#160;&#160;&#160;return (char *) string;<br/>}</p>
+<p class="question1"><strong><a id="ch11ans13" href="ch11.html#ch11que13">13</a>.</strong> Here is one solution:</p>
+<p class="codelink"><a id="p889pro02a" href="app01_images.html#p889pro02">Click here to view code image</a></p>
+<p class="pre1">/* compare.c -- this will work */<br/>#include &lt;stdio.h&gt;<br/>#include &lt;string.h&gt;&#160;&#160;&#160;// declares strcmp()<br/>#include &lt;ctype.h&gt;<br/>#define ANSWER "GRANT"<br/>#define SIZE 40<br/>char * s_gets(char * st, int n);<br/>void ToUpper(char * str);<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;char try[SIZE];<br/><br/>&#160;&#160;&#160;&#160;puts("Who is buried in Grant's tomb?");<br/>&#160;&#160;&#160;&#160;s_gets(try, SIZE);<br/>&#160;&#160;&#160;&#160;ToUpper(try);<br/>&#160;&#160;&#160;&#160;while (strcmp(try,ANSWER) != 0)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;puts("No, that's wrong. Try again.");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;s_gets(try, SIZE);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ToUpper(try);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;puts("That's right!");<br/><br/><a id="page_890"/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/>void ToUpper(char * str)<br/>{<br/>&#160;&#160;&#160;&#160;while (*str != '\0')<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*str = toupper(*str);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;str++;<br/>&#160;&#160;&#160;&#160;}<br/>}<br/><br/>char * s_gets(char * st, int n)<br/>{<br/>&#160;&#160;&#160;&#160;char * ret_val;<br/>&#160;&#160;&#160;&#160;int i = 0;<br/><br/>&#160;&#160;&#160;&#160;ret_val = fgets(st, n, stdin);<br/>&#160;&#160;&#160;&#160;if (ret_val)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while (st[i] != '\n' &#38;&#38; st[i] != '\0')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;i++;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (st[i] == '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;st[i] = '\0';<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else // must have words[i] == '\0'<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while (getchar() != '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;return ret_val;<br/>}</p>
+<div class="heading">
+<h3 id="app01lev1sec12">Answers to Review Questions for Chapter 12</h3>
+<p class="question1"><strong><a id="ch12ans01" href="ch12.html#ch12que01">1</a>.</strong> The automatic storage class, the register storage class, and the static, no linkage storage class.</p>
+</div>
+<p class="question1"><strong><a id="ch12ans02" href="ch12.html#ch12que02">2</a>.</strong> The static, no linkage storage class; the static, internal linkage storage class; and the static, external linkage storage class.</p>
+<p class="question1"><strong><a id="ch12ans03" href="ch12.html#ch12que03">3</a>.</strong> The static, external linkage storage class. The static, internal linkage storage class.</p>
+<p class="question1"><strong><a id="ch12ans04" href="ch12.html#ch12que04">4</a>.</strong> No linkage.</p>
+<p class="question1"><strong><a id="ch12ans05" href="ch12.html#ch12que05">5</a>.</strong> The keyword <code>extern</code> is used in declarations to indicate a variable or function that has been defined elsewhere.</p>
+<p class="question1"><a id="page_891"/><strong><a id="ch12ans06" href="ch12.html#ch12que06">6</a>.</strong> Both allocate an array of 100 <code>int</code> values. The statement using <code>calloc()</code> additionally sets each element to 0.</p>
+<p class="question1"><strong><a id="ch12ans07" href="ch12.html#ch12que07">7</a>.</strong> <code>daisy</code> is known to <code>main()</code>, by default, and to <code>petal()</code>, <code>stem()</code>, and <code>root()</code> because of the <code>extern</code> declaration. The <code>extern int daisy;</code> declaration in file 2 makes <code>daisy</code> known to all the functions in file 2. The first <code>lily</code> is local to <code>main()</code>. The reference to <code>lily</code> in <code>petal()</code> is an error because there is no external <code>lily</code> in either file. There is an external static <code>lily</code>, but it is known just to functions in the second file. The first external <code>rose</code> is known to <code>root()</code>, but <code>stem()</code> has overridden it with its own local <code>rose</code>.</p>
+<p class="question1"><strong><a id="ch12ans08" href="ch12.html#ch12que08">8</a>.</strong> Here is the output:</p>
+<p class="pre1">color in main() is B<br/>color in first() is R<br/>color in main() is B<br/>color in second() is G<br/>color in main() is G</p>
+<p class="answerp">The <code>first()</code> function does not use the global <code>color</code> variable, but <code>second()</code> does.</p>
+<p class="question1a"><strong><a id="ch12ans09" href="ch12.html#ch12que09">9</a>. a.</strong> It tells you that the program will use the variable <code>plink</code>, which is local to the file containing the function. The first argument to <code>value_ct()</code> is a pointer to an integer, presumably the first element of an array of <code>n</code> members. The important point here is that the program will not be allowed to use the pointer <code>arr</code> to modify values in the original array.</p>
+<p class="answer-ab"><strong>b.</strong> No. Already, <code>value</code> and <code>n</code> are copies of original data, so there is no way for the function to alter the corresponding values in the calling program. What these declarations do accomplish is to prevent the function from altering <code>value</code> and <code>n</code> within the function. For example, the function couldn&#8217;t use the expression <code>n++</code> if <code>n</code> were qualified as <code>const</code>.</p>
+<div class="heading">
+<h3 id="app01lev1sec13">Answers to Review Questions for Chapter 13</h3>
+<p class="question1"><strong><a id="ch13ans01" href="ch13.html#ch13que01">1</a>.</strong> It should have <code>#include &lt;stdio.h&gt;</code> for its file definitions. It should declare <code>fp</code> a file pointer: <code>FILE *fp;</code>. The function <code>fopen()</code> requires a mode: <code>fopen("gelatin", "w")</code>, or perhaps the <code>"a"</code> mode. The order of the arguments to <code>fputs()</code> should be reversed. For clarity, the output string should have a newline because <code>fputs()</code> doesn&#8217;t add one automatically. The <code>fclose()</code> function requires a file pointer, not a filename: <code>fclose(fp);</code>. Here is a corrected version:</p>
+</div>
+<p class="codelink"><a id="p891pro01a" href="app01_images.html#p891pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;FILE * fp;<br/>&#160;&#160;&#160;int k;<br/><br/><a id="page_892"/>&#160;&#160;&#160;fp = fopen("gelatin", "w");<br/>&#160;&#160;&#160;for (k = 0; k &lt; 30; k++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;fputs("Nanette eats gelatin.\n", fp);<br/>&#160;&#160;&#160;fclose(fp);<br/>&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch13ans02" href="ch13.html#ch13que02">2</a>.</strong> It would open, if possible, the file whose name is the first command-line argument, and it would display onscreen each digit character in the file.</p>
+<p class="question1"><strong><a id="ch13ans03" href="ch13.html#ch13que03">3</a>.&#160;&#160;&#160;a.</strong> <code>ch = getc(fp1);</code></p>
+<p class="answer-a"><strong>b.</strong> <code>fprintf(fp2,"%c"\n",ch);</code></p>
+<p class="answer-a"><strong>c.</strong> <code>putc(ch,fp2);</code></p>
+<p class="answer-a"><strong>d.</strong> <code>fclose(fp1); /* close the terky file */</code></p>
+<div class="note"><hr/>
+<p class="title"><span class="pd_ash">Note</span></p>
+<p class="notepara"><code>fp1</code> is used for input operations because it identifies the file opened in the read mode. Similarly, <code>fp2</code> was opened in the write mode, so it is used with output functions.</p>
+<hr/></div>
+<p class="question1"><strong><a id="ch13ans04" href="ch13.html#ch13que04">4</a>.</strong> Here is one approach:</p>
+<p class="codelink"><a id="p892pro01a" href="app01_images.html#p892pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>#include &lt;stdlib.h&gt;<br/><br/>int main(int argc,char * argv[])<br/>{<br/>&#160;&#160;&#160;FILE * fp;<br/>&#160;&#160;&#160;double n;<br/>&#160;&#160;&#160;double sum = 0.0;<br/>&#160;&#160;&#160;int ct = 0;<br/><br/>if (argc == 1)<br/>&#160;&#160;&#160;&#160;&#160;&#160;fp = stdin;<br/>&#160;&#160;&#160;else if (argc == 2)<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;if ((fp = fopen(argv[1], "r")) == NULL)<br/>&#160;&#160;&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;fprintf(stderr, "Can't open %s\n", argv[1]);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;exit(EXIT_FAILURE);<br/>&#160;&#160;&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;}<br/>&#160;&#160;&#160;else<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;fprintf(stderr, "Usage: %s [filename]\n", argv[0]);<br/><a id="page_893"/>&#160;&#160;&#160;&#160;&#160;&#160;exit(EXIT_FAILURE);<br/>&#160;&#160;&#160;}<br/>&#160;&#160;&#160;while (fscanf(fp, "%lf", &#38;n) == 1)<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;sum += n;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;++ct;<br/>&#160;&#160;&#160;}<br/>&#160;&#160;&#160;if (ct &gt; 0)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("Average of %d values = %f\n", ct, sum / ct);<br/>&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("No valid data.\n");<br/><br/>&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="question1"><strong><a id="ch13ans05" href="ch13.html#ch13que05">5</a>.</strong> Here is one approach.</p>
+<p class="codelink"><a id="p893pro01a" href="app01_images.html#p893pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>#include &lt;stdlib.h&gt;<br/>#define BUF 256<br/>int has_ch(char ch, const char * line);<br/>int main(int argc,char * argv[])<br/>{<br/>&#160;&#160;&#160;FILE * fp;<br/>&#160;&#160;&#160;char ch;<br/>&#160;&#160;&#160;char line [BUF];<br/><br/>if (argc != 3)<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;printf("Usage: %s character filename\n", argv[0]);<br/>&#160;&#160;&#160;&#160;&#160;&#160;exit(EXIT_FAILURE);<br/>&#160;&#160;&#160;}<br/>&#160;&#160;&#160;ch = argv[1][0];<br/>&#160;&#160;&#160;if ((fp = fopen(argv[2], "r")) == NULL)<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;printf("Can't open %s\n", argv[2]);<br/>&#160;&#160;&#160;&#160;&#160;&#160;exit(EXIT_FAILURE);<br/>&#160;&#160;&#160;}<br/>&#160;&#160;&#160;while (fgets(line,BUF,fp) != NULL)<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;if (has_ch(ch,line))<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;fputs(line,stdout);<br/>&#160;&#160;&#160;}<br/>&#160;&#160;&#160;fclose(fp);<br/>&#160;&#160;&#160;return 0;<br/>}<br/><br/><a id="page_894"/>int has_ch(char ch, const char * line)<br/>{<br/>&#160;&#160;&#160;while (*line)<br/>&#160;&#160;&#160;&#160;&#160;&#160;if (ch == *line++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return(1);<br/>&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="answerp">The <code>fgets()</code> and <code>fputs()</code> functions work together because <code>fgets()</code> leaves the <code>\n</code> produced by Enter in the string, and <code>fputs()</code> does not add a <code>\n</code> the way that <code>puts()</code> does.</p>
+<p class="question1"><strong><a id="ch13ans06" href="ch13.html#ch13que06">6</a>.</strong> The distinction between a binary file and a text file is a system-dependent difference between file formats. The distinction between a binary stream and a text stream consists of translations performed by the program as it reads or writes streams. (A binary stream has no translations; a text stream may convert newline and other characters.)</p>
+<p class="question1a"><strong><a id="ch13ans07" href="ch13.html#ch13que07">7</a>.&#160;&#160;&#160;a.</strong> When 8238201 is saved using <code>fprintf()</code>, it&#8217;s saved as seven characters stored in 7 bytes. When <code>fwrite()</code> is used, it&#8217;s saved as a 4-byte integer using the binary representation of that numeric value.</p>
+<p class="answer-ab"><strong>b.</strong> No difference; in each case it&#8217;s saved as a 1-byte binary code.</p>
+<p class="question1"><strong><a id="ch13ans08" href="ch13.html#ch13que08">8</a>.</strong> The first is just a shorthand notation for the second; the third writes to the standard error. Normally, the standard error is directed to the same place as the standard output, but the standard error is not affected by standard output redirection.</p>
+<p class="question1"><strong><a id="ch13ans09" href="ch13.html#ch13que09">9</a>.</strong> The <code>"r+"</code> mode lets you read and write anywhere in a file, so it&#8217;s best suited. The <code>"a+"</code> mode only lets you append material to the end of the file, and the <code>"w+"</code> mode starts with a clean slate, discarding previous file contents.</p>
+<div class="heading">
+<h3 id="app01lev1sec14">Answers to Review Questions for Chapter 14</h3>
+<p class="question1"><strong><a id="ch14ans01" href="ch14.html#ch14que01">1</a>.</strong> The proper keyword is <code>struct</code>, not <code>structure</code>. The template requires either a tag before the opening brace or a variable name after the closing brace. Also, there should be a semicolon after <code>* togs</code> and at the end of the template.</p>
+</div>
+<p class="question1"><strong><a id="ch14ans02" href="ch14.html#ch14que02">2</a>.</strong> Here is the output:</p>
+<p class="pre1">6 1<br/>22 Spiffo Road<br/>S p</p>
+<p class="question1"><strong><a id="ch14ans03" href="ch14.html#ch14que03">3</a>.</strong></p>
+<p class="pre1">struct month {<br/>&#160;&#160;&#160;&#160;char name[10];<br/>&#160;&#160;&#160;&#160;char abbrev[4];<br/><a id="page_895"/>&#160;&#160;&#160;&#160;int days;<br/>&#160;&#160;&#160;&#160;int monumb;<br/>};</p>
+<p class="question1"><strong><a id="ch14ans04" href="ch14.html#ch14que04">4</a>.</strong></p>
+<p class="codelink"><a id="p895pro01a" href="app01_images.html#p895pro01">Click here to view code image</a></p>
+<p class="pre1">struct month months[12] =<br/>{<br/>&#160;&#160;&#160;&#160;{"January", "jan", 31, 1},<br/>&#160;&#160;&#160;&#160;{"February", "feb", 28, 2},<br/>&#160;&#160;&#160;&#160;{"March", "mar", 31, 3},<br/>&#160;&#160;&#160;&#160;{"April", "apr", 30, 4},<br/>&#160;&#160;&#160;&#160;{"May", "may", 31, 5},<br/>&#160;&#160;&#160;&#160;{"June", "jun", 30, 6},<br/>&#160;&#160;&#160;&#160;{"July", "jul", 31, 7},<br/>&#160;&#160;&#160;&#160;{"August", "aug", 31, 8},<br/>&#160;&#160;&#160;&#160;{"September", "sep", 30, 9},<br/>&#160;&#160;&#160;&#160;{"October", "oct", 31, 10},<br/>&#160;&#160;&#160;&#160;{"November", "nov", 30, 11},<br/>&#160;&#160;&#160;&#160;{"December", "dec", 31, 12}<br/>};</p>
+<p class="question1"><strong><a id="ch14ans05" href="ch14.html#ch14que05">5</a>.</strong></p>
+<p class="codelink"><a id="p895pro02a" href="app01_images.html#p895pro02">Click here to view code image</a></p>
+<p class="pre1">extern struct month months[];<br/>int days(int month)<br/>{<br/>&#160;&#160;&#160;int index, total;<br/><br/>&#160;&#160;&#160;if (month &lt; 1 || month &gt; 12)<br/>&#160;&#160;&#160;&#160;&#160;&#160;return(-1);&#160;&#160;/* error signal */<br/>&#160;&#160;&#160;else<br/>&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;for (index = 0, total = 0; index &lt; month; index ++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;total += months[index].days;<br/>&#160;&#160;&#160;&#160;&#160;&#160;return( total);<br/>&#160;&#160;&#160;}<br/>}</p>
+<p class="answerp">Note that <code>index</code> is one less than the month number because arrays start with subscript 0. Therefore, use <code>index &lt; month</code> instead of <code>index &lt;= month</code>.</p>
+<p class="question1"><strong><a id="ch14ans06" href="ch14.html#ch14que06">6</a>.&#160;&#160;&#160;a.</strong> Include <code>string.h</code> to provide <code>strcpy()</code>:</p>
+<p class="codelink"><a id="p895pro03a" href="app01_images.html#p895pro03">Click here to view code image</a></p>
+<p class="pre1">typedef struct lens {&#160;&#160;&#160;&#160;/* lens descriptor */<br/>&#160;&#160;&#160;&#160;float foclen;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* focal length,mm */<br/>&#160;&#160;&#160;&#160;float fstop;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* aperture&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;char brand[30];&#160;&#160;&#160;&#160;&#160;&#160;/* brand name&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>} LENS;</p>
+<p class="pre1"><a id="page_896"/>LENS bigEye[10];<br/>bigEye[2].foclen = 500;<br/>bigEye[2].fstop = 2.0;<br/>strcpy(bigEye[2].brand, "Remarkatar");</p>
+<p class="answer-a"><strong>b.</strong></p>
+<p class="codelink"><a id="p896pro01a" href="app01_images.html#p896pro01">Click here to view code image</a></p>
+<p class="pre1">LENS bigEye[10] = { [2] = {500, 2, "Remarkatar"} };</p>
+<p class="question1"><strong><a id="ch14ans07" href="ch14.html#ch14que07">7</a>.&#160;&#160;&#160;a.</strong></p>
+<p class="pre1">6<br/>Arcturan<br/>cturan</p>
+<p class="answer-a"><strong>b.</strong> Use the structure name and use the pointer:</p>
+<p class="pre1">deb.title.last<br/><br/>pb-&gt;title.last</p>
+<p class="answer-a"><strong>c.</strong> Here is one version:</p>
+<p class="codelink"><a id="p896pro02a" href="app01_images.html#p896pro02">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/><br/>#include "starfolk.h"&#160;&#160;&#160;/* make struct defs available */<br/><br/>void prbem (const struct bem * pbem )<br/>{<br/>&#160;&#160;&#160;printf("%s %s is a %d-limbed %s.\n", pbem-&gt;title.first,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pbem-&gt;title.last, pbem-&gt;limbs, pbem-&gt;type);<br/>}</p>
+<p class="question1"><strong><a id="ch14ans08" href="ch14.html#ch14que08">8</a>.&#160;&#160;&#160;a.</strong> <code>willie.born</code></p>
+<p class="answer-a"><strong>b.</strong> <code>pt-&gt;born</code></p>
+<p class="answer-a"><strong>c.</strong> <code>scanf("%d", &#38;willie.born);</code></p>
+<p class="answer-a"><strong>d.</strong> <code>scanf("%d", &#38;pt-&gt;born);</code></p>
+<p class="answer-a"><strong>e.</strong> <code>scanf("%s", willie.name.lname);</code></p>
+<p class="answer-a"><strong>f.</strong> <code>scanf("%s", pt-&gt;name.lname);</code></p>
+<p class="answer-a"><strong>g.</strong> <code>willie.name.fname[2]</code></p>
+<p class="answer-a"><strong>h.</strong> <code>strlen(willie.name.fname) + strlen(willie.name.lname)</code></p>
+<p class="question1"><strong><a id="ch14ans09" href="ch14.html#ch14que09">9</a>.</strong> Here is one possibility:</p>
+<p class="pre1">struct car {<br/><br/>&#160;&#160;&#160;&#160;char name[20];<br/>&#160;&#160;&#160;&#160;float hp;<br/><a id="page_897"/>&#160;&#160;&#160;&#160;float epampg;<br/>&#160;&#160;&#160;&#160;float wbase;<br/>&#160;&#160;&#160;&#160;int year;<br/>};</p>
+<p class="question1"><strong><a id="ch14ans10" href="ch14.html#ch14que10">10</a>.</strong> The functions could be set up like this:</p>
+<p class="codelink"><a id="p897pro01a" href="app01_images.html#p897pro01">Click here to view code image</a></p>
+<p class="pre1">struct gas {<br/>&#160;&#160;&#160;float distance;<br/>&#160;&#160;&#160;float gals;<br/>&#160;&#160;&#160;float mpg;<br/>};<br/><br/>struct gas mpgs(struct gas trip)<br/>{<br/>&#160;&#160;if (trip.gals &gt; 0)<br/>&#160;&#160;&#160;&#160;&#160;trip.mpg = trip.distance / trip.gals ;<br/>&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;trip.mpg = -1.0;<br/>&#160;&#160;return trip;<br/>}</p>
+<p class="pre1">void set_mpgs(struct gas * ptrip)<br/>{<br/>&#160;&#160;if (ptrip-&gt;gals &gt; 0)<br/>&#160;&#160;&#160;&#160;&#160;ptrip-&gt;mpg = ptrip-&gt;distance / ptrip-&gt;gals ;<br/>&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;ptrip-&gt;mpg = -1.0;<br/>}</p>
+<p class="answerp">Note that the first function cannot directly alter values in the calling program, so you must use the return value to convey the information:</p>
+<p class="codelink"><a id="p897pro02a" href="app01_images.html#p897pro02">Click here to view code image</a></p>
+<p class="pre1">struct gas idaho = {430.0, 14.8};&#160;&#160;// set first two members<br/>idaho = mpgs(idaho);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// reset structure</p>
+<p class="answerp">The second function, however, accesses the original structure directly:</p>
+<p class="codelink"><a id="p897pro03a" href="app01_images.html#p897pro03">Click here to view code image</a></p>
+<p class="pre1">struct gas ohio = {583, 17.6};&#160;&#160;&#160;// set first two members<br/>set_mpgs(&#38;ohio);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// set third member</p>
+<p class="question1"><strong><a id="ch14ans11" href="ch14.html#ch14que11">11</a>.</strong> <code>enum choices {no, yes, maybe};</code></p>
+<p class="question1"><strong><a id="ch14ans12" href="ch14.html#ch14que12">12</a>.</strong> <code>char * (*pfun)(char *, char);</code></p>
+<p class="question1"><strong><a id="ch14ans13" href="ch14.html#ch14que13">13</a>.</strong></p>
+<p class="codelink"><a id="p897pro04a" href="app01_images.html#p897pro04">Click here to view code image</a></p>
+<p class="pre1">double sum(double, double);<br/>double diff(double, double);<br/><a id="page_898"/>double times(double, double);<br/>double divide(double, double);<br/>double (*pf1[4])(double, double) = {sum, diff, times, divide};</p>
+<p class="answerp">Or, more simply, replace the last line of code with these lines:</p>
+<p class="codelink"><a id="p898pro01a" href="app01_images.html#p898pro01">Click here to view code image</a></p>
+<p class="pre1">typedef double (*ptype)(double, double);<br/>ptype pf1[4] = {sum, diff, times, divide};</p>
+<p class="answerp">To invoke the <code>diff()</code> function:</p>
+<p class="codelink"><a id="p898pro02a" href="app01_images.html#p898pro02">Click here to view code image</a></p>
+<p class="pre1">pf1[1](10.0, 2.5);&#160;&#160;&#160;&#160;&#160;// first notation<br/>(*pf1[1])(10.0, 2.5);&#160;&#160;// equivalent notation</p>
+<div class="heading">
+<h3 id="app01lev1sec15">Answers to Review Questions for Chapter 15</h3>
+<p class="question1"><strong><a id="ch15ans01" href="ch15.html#ch15que01">1</a>.&#160;&#160;&#160;a.</strong> 00000011</p>
+</div>
+<p class="answer-a"><strong>b.</strong> 00001101</p>
+<p class="answer-a"><strong>c.</strong> 00111011</p>
+<p class="answer-a"><strong>d.</strong> 01110111</p>
+<p class="question1"><strong><a id="ch15ans02" href="ch15.html#ch15que02">2</a>.&#160;&#160;&#160;a.</strong> 21, 025, 0x15</p>
+<p class="answer-a"><strong>b.</strong> 85, 0125, 0x55</p>
+<p class="answer-a"><strong>c.</strong> 76, 0114, 0x4C</p>
+<p class="answer-a"><strong>d.</strong> 157, 0235, 0x9D</p>
+<p class="question1"><strong><a id="ch15ans03" href="ch15.html#ch15que03">3</a>.&#160;&#160;&#160;a.</strong> 252</p>
+<p class="answer-a"><strong>b.</strong> 2</p>
+<p class="answer-a"><strong>c.</strong> 7</p>
+<p class="answer-a"><strong>d.</strong> 7</p>
+<p class="answer-a"><strong>e.</strong> 5</p>
+<p class="answer-a"><strong>f.</strong> 3</p>
+<p class="answer-a"><strong>g.</strong> 28</p>
+<p class="question1"><strong><a id="ch15ans04" href="ch15.html#ch15que04">4</a>.&#160;&#160;&#160;a.</strong> 255</p>
+<p class="answer-a"><strong>b.</strong> 1 (not false is true)</p>
+<p class="answer-a"><strong>c.</strong> 0</p>
+<p class="answer-a"><strong>d.</strong> 1 (true and true is true)</p>
+<p class="answer-a"><strong>e.</strong> 6</p>
+<p class="answer-a"><a id="page_899"/><strong>f.</strong> 1 (true or true is true)</p>
+<p class="answer-a"><strong>g.</strong> 40</p>
+<p class="question1"><strong><a id="ch15ans05" href="ch15.html#ch15que05">5</a>.</strong> In binary, the mask is <code>1111111</code>. In decimal, it&#8217;s <code>127</code>. In octal, it&#8217;s <code>0177</code>. In hexadecimal, it&#8217;s <code>0x7F</code>.</p>
+<p class="question1"><strong><a id="ch15ans06" href="ch15.html#ch15que06">6</a>.</strong> Both <code>bitvbal *= 2</code> and <code>bitval &lt;&lt; 1</code> double the current value of <code>bitval</code>, so they are equivalent. However, <code>mask += bitval</code> and <code>mask |= bitval</code> have the same effect only if <code>bitval</code> and <code>mask</code> have no bits set to &#8220;on&#8221; in common. For example, <code>2 | 4</code> is <code>6</code>, but so is <code>3 | 6</code>.</p>
+<p class="question1"><strong><a id="ch15ans07" href="ch15.html#ch15que07">7</a>.</strong> a.</p>
+<p class="codelink"><a id="p899pro01a" href="app01_images.html#p899pro01">Click here to view code image</a></p>
+<p class="pre1">struct tb_drives {<br/>&#160;&#160;&#160;&#160;unsigned int diskdrives&#160;&#160;: 2;<br/>&#160;&#160;&#160;&#160;unsigned int&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 1;<br/>&#160;&#160;&#160;&#160;unsigned int cdromdrives : 2;<br/>&#160;&#160;&#160;&#160;unsigned int&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 1;<br/>&#160;&#160;&#160;&#160;unsigned int harddrives&#160;&#160;: 2;<br/>};</p>
+<p class="answer-a"><strong>b.</strong></p>
+<p class="codelink"><a id="p899pro02a" href="app01_images.html#p899pro02">Click here to view code image</a></p>
+<p class="pre1">struct kb_drives {<br/>&#160;&#160;&#160;&#160;unsigned int harddrives&#160;&#160;: 2;<br/>&#160;&#160;&#160;&#160;unsigned int&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 1;<br/>&#160;&#160;&#160;&#160;unsigned int cdromdrives : 2;<br/>&#160;&#160;&#160;&#160;unsigned int&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 1;<br/>&#160;&#160;&#160;&#160;unsigned int diskdrives&#160;&#160;: 2;<br/>};</p>
+<div class="heading">
+<h3 id="app01lev1sec16">Answers to Review Questions for Chapter 16</h3>
+<p class="question1"><strong><a id="ch16ans01" href="ch16.html#ch16que01">1</a>.&#160;&#160;&#160;a.</strong> <code>dist = 5280 * miles;</code> is valid.</p>
+</div>
+<p class="answer-a"><strong>b.</strong> <code>plort = 4 * 4 + 4;</code> is valid. But if the user really wanted <code>4 * (4 + 4)</code>, he or she should have used <code>#define POD (FEET + FEET)</code>.</p>
+<p class="answer-a"><strong>c.</strong> <code>nex = = 6;;</code> is invalid. (If there were no space between the two equal signs, it would be valid but useless.) Apparently, the user forgot that he or she was writing for the preprocessor, not writing in C.</p>
+<p class="answer-a"><strong>d.</strong> <code>y = y + 5;</code> is valid. <code>berg = berg + 5 * lob;</code> is valid, but this is probably not the desired result. <code>est = berg + 5/ y + 5;</code> is valid, but this is probably not the desired result. <code>nilp = lob *-berg + 5;</code> is valid, but this is probably not the desired result.</p>
+<p class="question1"><strong><a id="ch16ans02" href="ch16.html#ch16que02">2</a>.</strong> <code>#define NEW(X) ((X) + 5)</code></p>
+<p class="question1"><a id="page_900"/><strong><a id="ch16ans03" href="ch16.html#ch16que03">3</a>.</strong> <code>#define MIN(X,Y) ( (X) &lt; (Y) ? (X) : (Y) )</code></p>
+<p class="question1"><strong><a id="ch16ans04" href="ch16.html#ch16que04">4</a>.</strong> <code>#define EVEN_GT(X,Y) ( (X) &gt; (Y) &#38;&#38; (X) % 2 == 0 ? 1 : 0 )</code></p>
+<p class="question1"><strong><a id="ch16ans05" href="ch16.html#ch16que05">5</a>.</strong> <code>#define PR(X,Y) printf(#X " is %d and " #Y " is %d\n", X,Y)</code></p>
+<p class="answerp">Because <code>X</code> and <code>Y</code> are never exposed to any other operations (such as multiplication) in this macro, you don&#8217;t have to cocoon everything in parentheses.</p>
+<p class="question1"><strong><a id="ch16ans06" href="ch16.html#ch16que06">6</a>.&#160;&#160;&#160;a.</strong> <code>#define QUARTERCENTURY 25</code></p>
+<p class="answer-a"><strong>b.</strong> <code>#define SPACE ' '</code></p>
+<p class="answer-a"><strong>c.</strong> <code>#define PS() putchar(' ')</code></p>
+<p class="answerp">or</p>
+<p class="answerapp"><code>#define PS() putchar(SPACE)</code></p>
+<p class="answer-a"><strong>d.</strong> <code>#define BIG(X) ((X) + 3)</code></p>
+<p class="answer-a"><strong>e.</strong> <code>#define SUMSQ(X,Y) ((X)*(X) + (Y)*(Y))</code></p>
+<p class="question1"><strong><a id="ch16ans07" href="ch16.html#ch16que07">7</a>.</strong> Try this:</p>
+<p class="codelink"><a id="p900pro01a" href="app01_images.html#p900pro01">Click here to view code image</a></p>
+<p class="pre1">#define P(X) printf("name: "#X"; value: %d; address: %p\n", X, &#38;X)</p>
+<p class="answerp">Or, if your implementation doesn&#8217;t recognize the <code>%p</code> specification for the address, try <code>%u</code> or <code>%lu</code>.</p>
+<p class="question1"><strong><a id="ch16ans08" href="ch16.html#ch16que08">8</a>.</strong> Use the conditional compilation directives. One way is to use <code>#ifndef</code>:</p>
+<p class="codelink"><a id="p900pro02a" href="app01_images.html#p900pro02">Click here to view code image</a></p>
+<p class="pre1">#define _SKIP_&#160;&#160;/* remove when you don't want to skip code */<br/>#ifndef _SKIP_<br/>&#160;&#160;&#160;&#160;/* code to be skipped */<br/>#endif</p>
+<p class="question1"><strong><a id="ch16ans09" href="ch16.html#ch16que09">9</a>.</strong></p>
+<p class="codelink"><a id="p900pro03a" href="app01_images.html#p900pro03">Click here to view code image</a></p>
+<p class="pre1">#ifdef PR_DATE<br/>&#160;&#160;&#160;&#160;printf("Date = %s\n", __DATE__);<br/>#endif</p>
+<p class="question1"><strong><a id="ch16ans10" href="ch16.html#ch16que10">10</a>.</strong> One version returns the value <code>x*x</code>. This just returns the type <code>double</code> value of the square. For example, <code>square(1.3)</code> would return <code>1.69</code>. The second version returns <code>(int)(x*x)</code>. This truncates the result to an <code>int</code>. Then, because the return type is <code>double</code>, the <code>int</code> value is promoted to a <code>double</code> value. So <code>1.69</code> would be converted first to <code>1</code> then to <code>1.00</code>. The final version returns <code>(int)(x*x+0.5)</code>. Adding <code>0.5</code> makes the function round to the nearest whole number instead of truncating. So <code>1.69</code> becomes <code>2.19</code>, which is truncated to <code>2</code> and then converted to <code>2.00</code>. But <code>1.44</code> becomes <code>1.94</code>, which is truncated to <code>1</code> and then converted to <code>1.00</code>.</p>
+<p class="question1"><a id="page_901"/><strong><a id="ch16ans11" href="ch16.html#ch16que11">11</a>.</strong> Here&#8217;s one possibility:</p>
+<p class="codelink"><a id="p901pro01a" href="app01_images.html#p901pro01">Click here to view code image</a></p>
+<p class="pre1">#define BOOL(X)&#160;&#160;_Generic((X), _Bool : "boolean", default : "not boolean")</p>
+<p class="question1"><strong><a id="ch16ans12" href="ch16.html#ch16que12">12</a>.</strong> The <code>argv</code> argument should be declared as type <code>char *argv[]</code>. Command-line arguments are stored as strings, so the program should first convert the string in <code>argv[1]</code> to a type <code>double</code> value&#8212;for example, by using <code>atof()</code> from the <code>stdlib.h</code> library. The <code>math.h</code> header file should be included for the <code>sqrt()</code> function. The program should check for negative values before taking a square root.</p>
+<p class="question1"><strong><a id="ch16ans13" href="ch16.html#ch16que13">13</a>.&#160;&#160;&#160;a.</strong> The function call should look like this:</p>
+<p class="codelink"><a id="p901pro02a" href="app01_images.html#p901pro02">Click here to view code image</a></p>
+<p class="pre1">qsort( (void *)scores, (size_t) 1000, sizeof (double), comp);</p>
+<p class="answer-a"><strong>b.</strong> Here&#8217;s a suitable comparison function:</p>
+<p class="codelink"><a id="p901pro03a" href="app01_images.html#p901pro03">Click here to view code image</a></p>
+<p class="pre1">int comp(const void * p1, const void * p2)<br/>{<br/>&#160;&#160;&#160;&#160;/* need to use pointers to int to access values&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;/* the type casts are optional in C, required in C++ */<br/>&#160;&#160;&#160;&#160;const int * a1 = (const int *) p1;&#160;&#160;&#160;&#160;const int * a2 = (const int *)<br/>&#160;&#160;&#160;&#160;p2;<br/><br/>&#160;&#160;&#160;&#160;if (*a1 &gt; *a2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return -1;<br/>&#160;&#160;&#160;&#160;else if (*a1 == *a2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return 0;<br/>&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return 1;<br/>}</p>
+<p class="question1"><strong><a id="ch16ans14" href="ch16.html#ch16que14">14</a>.&#160;&#160;&#160;a.</strong> The function call should look like this:</p>
+<p class="codelink"><a id="p901pro04a" href="app01_images.html#p901pro04">Click here to view code image</a></p>
+<p class="pre1">memcpy(data1, data2, 100 * sizeof(double));</p>
+<p class="answer-a"><strong>b.</strong> The function call should look like this:</p>
+<p class="codelink"><a id="p901pro05a" href="app01_images.html#p901pro05">Click here to view code image</a></p>
+<p class="pre1">memcpy(data1, data2 + 200 , 100 * sizeof(double));</p>
+<div class="heading">
+<h3 id="app01lev1sec17">Answers to Review Questions for Chapter 17</h3>
+<p class="question1"><strong><a id="ch17ans01" href="ch17.html#ch17que01">1</a>.</strong> Defining a data type consists of deciding how to store the data and designing a set of functions to manage the data.</p>
+</div>
+<p class="question1"><strong><a id="ch17ans02" href="ch17.html#ch17que02">2</a>.</strong> The list can be traversed in only one direction because each structure contains the address of the next structure, but not of the preceding structure. You could modify the structure definition so that each structure contains two pointers&#8212;one to the preceding structure and one to the next structure. The program, of course, would have to assign proper addresses to these pointers each time a new structure is added.</p>
+<p class="question1"><a id="page_902"/><strong><a id="ch17ans03" href="ch17.html#ch17que03">3</a>.</strong> An ADT is an <em>abstract data type</em>, a formal definition of the properties of a type and of the operations that can be performed with the type. An ADT should be expressed in general terms, not in terms of some specific computer language or implementation details.</p>
+<p class="question1"><strong><a id="ch17ans04" href="ch17.html#ch17que04">4</a>. Advantages of passing a variable directly:</strong> This function inspects a queue, but should not alter it. Passing a queue variable directly means the function works with a copy of the original, guaranteeing that the function does not alter the original data. When passing a variable directly, you don&#8217;t have to remember to use the address operator or a pointer.</p>
+<p class="answerp"><strong>Disadvantages of passing a variable directly:</strong> The program has to allocate enough space to hold the variable and then copy information from the original to the copy. If the variable is a large structure, using it has a time and space penalty.</p>
+<p class="answerp"><strong>Advantages of passing the address of a variable:</strong> Passing an address and accessing the original data is faster and requires less memory than passing a variable if the variable is a large structure.</p>
+<p class="answerp"><strong>Disadvantages of passing the address of a variable:</strong> You have to remember to use the address operator or a pointer. Under K&#38;R C, the function could inadvertently alter the original data, but you can overcome this objection with the ANSI C <code>const</code> qualifier.</p>
+<p class="question1"><strong><a id="ch17ans05" href="ch17.html#ch17que05">5</a>.&#160;&#160;a.</strong></p>
+<div class="image2"><img src="graphics/902tab01.jpg" alt="Image"/></div>
+<p class="answer-a"><strong>b.</strong> The following implements the stack as an array, but that information affects only the structure definition and the details of the function definitions; it doesn&#8217;t affect the interface described by the function prototypes.</p>
+<p class="codelink"><a id="p902pro01a" href="app01_images.html#p902pro01">Click here to view code image</a></p>
+<p class="pre1">/* stack.h &#8211;&#8211; interface for a stack */<br/>#include &lt;stdbool.h&gt;<br/>/* INSERT ITEM TYPE HERE */<br/>/* FOR EXAMPLE, typedef int Item; */<br/><br/>#define MAXSTACK 100<br/><br/>typedef struct stack<br/>{<br/>&#160;&#160;&#160;&#160;Item items[MAXSTACK];&#160;&#160;&#160;/* holds info&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/><a id="page_903"/>&#160;&#160;&#160;&#160;int top;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* index of first empty slot */<br/>} Stack;<br/><br/>/* operation:&#160;&#160;&#160;&#160;&#160;&#160;&#160;initialize the stack&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* precondition:&#160;&#160;&#160;&#160;ps points to a stack&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* postcondition<br/>:&#160;&#160;&#160;stack is initialized to being empty&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>void InitializeStack(Stack * ps);<br/>/* operation:&#160;&#160;&#160;&#160;&#160;&#160;&#160;check if stack is full&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* precondition:&#160;&#160;&#160;&#160;ps points to previously initialized stack&#160;&#160;*/<br/>/* postcondition:&#160;&#160;&#160;returns true if stack is full, else false&#160;&#160;*/<br/>bool FullStack(const Stack * ps);<br/><br/>/* operation:&#160;&#160;&#160;&#160;&#160;&#160;&#160;check if stack is empty&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* precondition:&#160;&#160;&#160;&#160;ps points to previously initialized stack&#160;&#160;*/<br/>/* postcondition:&#160;&#160;&#160;returns true if stack is empty, else false */<br/>bool EmptyStack(const Stack *ps);<br/><br/>/* operation:&#160;&#160;&#160;&#160;&#160;&#160;&#160;push item onto top of stack&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* precondition:&#160;&#160;&#160;&#160;ps points to previously initialized stack&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;item is to be placed on top of stack&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* postcondition:&#160;&#160;&#160;if stack is not full, item is placed at&#160;&#160;&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;top of stack and function returns&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;true; otherwise, stack is unchanged and&#160;&#160;&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;function returns false&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>bool Push(Item item, Stack * ps);<br/><br/>/* operation:&#160;&#160;&#160;&#160;&#160;&#160;&#160;remove item from top of stack&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/* precondition:&#160;&#160;&#160;&#160;ps points to previously initialized stack&#160;&#160;*/<br/>/* postcondition:&#160;&#160;&#160;if stack is not empty, item at top of&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stack is copied to *pitem and deleted from */<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;stack, and function returns true; if the&#160;&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;operation empties the stack, the stack is&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;reset to empty. If the stack is empty to&#160;&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;begin with, stack is unchanged and the&#160;&#160;&#160;&#160;&#160;*/<br/>/*&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;function returns false&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>bool Pop(Item *pitem, Stack * ps);</p>
+<p class="question1"><strong><a id="ch17ans06" href="ch17.html#ch17que06">6</a>.</strong> Maximum number of comparisons required:</p>
+<div class="image2"><img src="graphics/903tab01.jpg" alt="Image"/></div>
+<p class="question1"><a id="page_904"/><strong><a id="ch17ans07" href="ch17.html#ch17que07">7</a>.</strong> See <a href="#app01fig01">Figure A.1</a>.</p>
+<div class="image"><a id="app01fig01"/><img src="graphics/xafig01.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure A.1</span> Binary search tree of words.</p></div>
+<p class="question1"><strong><a id="ch17ans08" href="ch17.html#ch17que08">8</a>.</strong> See <a href="#app01fig02">Figure A.2</a>.</p>
+<div class="image"><a id="app01fig02"/><img src="graphics/xafig02.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure A.2</span> Binary search tree of words after removal.</p></div>
+</body>
+</html>

@@ -1,0 +1,2092 @@
+** <<page_861>>A. Answers to the Review Questions
+   :PROPERTIES:
+   :CUSTOM_ID: app01
+   :END:
+
+*** Answers to Review Questions for Chapter 1
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec1
+    :END:
+
+*[[file:ch01.html#ch01que01][1]].* A perfectly portable program is one whose source code can, without modification, be compiled to a successful program on a variety of different computer systems.
+
+*[[file:ch01.html#ch01que02][2]].* A source code file contains code as written in whatever language the programmer is using. An object code file contains machine language code; it need not be the code for a complete program. An executable file contains the complete code, in machine language, constituting an executable program.
+
+*[[file:ch01.html#ch01que03][3]].*   *a.* Defining program objectives.
+
+*b.* Designing the program.
+
+*c.* Coding the program.
+
+*d.* Compiling the program.
+
+*e.* Running the program.
+
+*f.* Testing and debugging the program.
+
+*g.* Maintaining and modifying the program.
+
+*[[file:ch01.html#ch01que04][4]].* A compiler translates source code (for example, code written in C) to the equivalent machine language code, also termed /object code/.
+
+*[[file:ch01.html#ch01que05][5]].* The linker combines translated source code with library code and start-up code to produce an executable program.
+
+*** <<page_862>>Answers to Review Questions for Chapter 2
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec2
+    :END:
+
+*[[file:ch02.html#ch02que01][1]].* They are called functions.
+
+*[[file:ch02.html#ch02que02][2]].* A syntax error is a violation of the rules governing how sentences or programs are put together. Here's an example in English: “Me speak English good.” Here's an example in C:
+
+[[file:app01_images.html#p862pro01][Click here to view code image]]
+
+printf"Where are the parentheses?";.
+
+*[[file:ch02.html#ch02que03][3]].* A semantic error is one of meaning. Here's an example in English: “This sentence is excellent Czech.” Here's a C example:
+
+thrice\_n = 3 + n;
+
+*[[file:ch02.html#ch02que04][4]].*   Line 1: Begin the line with a =#=; spell the file =stdio.h=; place the filename within angle brackets.
+
+Line 2: Use =()=, not ={}=; end the comment with =*/=, not =/*=.
+
+Line 3: Use ={=, not =(=.
+
+Line 4: Complete the statement with a semicolon.
+
+Line 5: Indiana got this one (the blank line) right!
+
+Line 6: Use ===, not =:== for assignment. (Apparently, Indiana knows a little Pascal.) Use 52, not 56, weeks per year.
+
+Line 7: Should be
+
+[[file:app01_images.html#p862pro02][Click here to view code image]]
+
+printf("There are %d weeks in a year.\n", s);
+
+Line 9: There isn't a line 9, but there should be, and it should consist of the closing brace, =}=.
+
+Here's how the code looks after these changes:
+
+[[file:app01_images.html#p862pro03][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void) /* this prints the number of weeks in a year */\\
+{\\
+    int s;\\
+\\
+    s = 52;\\
+    printf("There are %d weeks in a year.\n", s);\\
+    return 0;\\
+}
+
+*[[file:ch02.html#ch02que05][5]].*   *a.* =Baa Baa Black Sheep. Have you any wool=?
+
+<<page_863>>(Note that there is no space after the period. You could have had a space by using ="Have= instead of ="Have=.)
+
+*b.*
+
+Begone!\\
+O creature of lard!
+
+(Note that the cursor is left at the end of the second line.)
+
+*c.*
+
+What?\\
+No/nfish?
+
+(Note that the slash [=/=] does not have the same effect as the backslash [=\=]; it simply prints as a slash.)
+
+*d.* =2 + 2 = 4=
+
+(Note how each =%d= is replaced by the corresponding variable value from the list. Note, too, that =+= means addition and that calculation can be done inside a =printf()= statement.)
+
+*[[file:ch02.html#ch02que06][6]].* =int= and =char= (=main= is a function name, function is a technical term for describing C, and === is an operator).
+
+*[[file:ch02.html#ch02que07][7]].* =printf("There were %d words and %d lines.\n", words, lines);=
+
+*[[file:ch02.html#ch02que08][8]].* After line 7, =a= is 5 and =b= is 2. After line 8, both =a= and =b= are 5. After line 9, both =a= and =b= are still 5. (Note that =a= can't be 2 because by the time you say =a = b;=, =b= has already been changed to 5.)
+
+*[[file:ch02.html#ch02que09][9]].* After line 7, =x= is 10 and =b= is 5. After line 8, =x= is 10 and =y= is 15. After line 9, =x= is 150 and =y= is 15.
+
+*** Answers to Review Questions for Chapter 3
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec3
+    :END:
+
+*[[file:ch03.html#ch03que01][1]].   a.* =int=, possibly =short= or =unsigned= or =unsigned short=; population is a whole number.
+
+*b.* =float=; it's unlikely the cost will be an exact integer. (You could use =double= but don't really need the extra precision.)
+
+*c.* =char=.
+
+*d.* =int=, possibly =unsigned=.
+
+*[[file:ch03.html#ch03que02][2]].* One reason is that =long= may accommodate larger numbers than =int= on your system; another reason is that if you do need to handle larger values, you improve portability by using a type guaranteed to be at least 32 bits on all systems.
+
+<<page_864>>*[[file:ch03.html#ch03que03][3]].* To get exactly 32 bits, you could use =int32_t=, provided it was defined for your system. To get the smallest type that could store at least 32 bits, use =int_least32_t=. And to get the type that would provide the fastest computations for 32 bits, choose =int_fast32_t=.
+
+*[[file:ch03.html#ch03que04][4]].*   a. =char= constant (but stored as type =int=)
+
+*b.* =int= constant
+
+*c.* =double= constant
+
+*d.* =unsigned int= constant, hexadecimal format
+
+*e.* =double= constant
+
+*[[file:ch03.html#ch03que05][5]].*   Line 1: Should be =#include <stdio.h>=.
+
+Line 2: Should be =int main(void)=.
+
+Line 3: Use ={=, not =(=.
+
+Line 4: Should be a comma, not a semicolon, between =g= and =h=.
+
+Line 5: Fine.
+
+Line 6 (the blank line): Fine.
+
+Line 7: There should be at least one digit before the =e=. Either =1e21= or =1.0e21= is okay, although rather large.
+
+Line 8: Fine, at least in terms of syntax.
+
+Line 9: Use =}=, not =)=.
+
+Missing lines: First, =rate= is never assigned a value. Second, the variable =h= is never used. Also, the program never informs you of the results of its calculation. None of these errors will stop the program from running (although you might be given a warning about the unused variable), but they do detract from its already limited usefulness. Also, there should be a =return= statement at the end.
+
+Here is one possible correct version:
+
+[[file:app01_images.html#p864pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void)\\
+{\\
+  float g, h;\\
+  float tax, rate;\\
+\\
+  rate = 0.08;\\
+  g = 1.0e5;\\
+  tax = rate*g;\\
+  h = g + tax;\\
+<<page_865>>  printf("You owe $%f plus $%f in taxes for a total of $%f.\n", g, tax, h);\\
+  return 0;\\
+}
+
+*[[file:ch03.html#ch03que06][6]].*
+
+[[file:graphics/865tab01.jpg]]
+
+*[[file:ch03.html#ch03que07][7]].*
+
+[[file:graphics/865tab02.jpg]]
+
+*[[file:ch03.html#ch03que08][8]].*
+
+[[file:app01_images.html#p865pro01][Click here to view code image]]
+
+printf("The odds against the %d were %ld to 1.\n", imate, shot);\\
+printf("A score of %f is not an %c grade.\n", log, grade);
+
+*[[file:ch03.html#ch03que09][9]].*
+
+ch = '\r';\\
+ch = 13;\\
+ch = '\015'\\
+ch = '\xd'
+
+<<page_866>>*[[file:ch03.html#ch03que10][10]].*   Line 0: Should have =#include <stdio.h>=.
+
+Line 1: Use =/*= and =*/= or else =//=
+
+Line 3: =int cows, legs;=
+
+Line 4: =count?\n");=
+
+Line 5: =%d=, not =%c=; replace =legs= with =&legs=
+
+Line 7: =%d=, not =%f=
+
+Also, add a =return= statement.
+
+Here's one correct version:
+
+[[file:app01_images.html#p866pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void) /* this program is perfect */\\
+{\\
+   int cows, legs;\\
+   printf("How many cow legs did you count?\n");\\
+   scanf("%d", &legs);\\
+   cows = legs / 4;\\
+   printf("That implies there are %d cows.\n", cows);\\
+   return 0;\\
+}
+
+*[[file:ch03.html#ch03que11][11]]. a.* A newline character
+
+*b.* A backslash character
+
+*c.* A double quotation mark
+
+*d.* A tab character
+
+*** Answers to Review Questions for Chapter 4
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec4
+    :END:
+
+*[[file:ch04.html#ch04que01][1]].* The program malfunctions. The first =scanf()= statement reads just your first name, leaving your last name untouched but still stored in the input “buffer.” (This buffer is just a temporary storage area used to store the input.) When the next =scanf()= statement comes along looking for your weight, it picks up where the last reading attempt ended, and it tries to read your last name as your weight. This frustrates =scanf()=. On the other hand, if you respond to the name request with something such as =Lasha 144=, it uses 144 as your weight, even though you typed it before your weight was requested.
+
+*[[file:ch04.html#ch04que02][2]].* a. =He sold the painting for $234.50.=
+
+*b.* =Hi!=
+
+<<page_867>>(Note: The first character is a character constant, the second is a decimal integer converted to a character, and the third is an ASCII representation, in octal, of a character constant.)
+
+*c.*
+
+[[file:app01_images.html#p867pro01][Click here to view code image]]
+
+His Hamlet was funny without being vulgar.\\
+has 42 characters.
+
+*d.* =Is 1.20e+003 the same as 1201.00?=
+
+*[[file:ch04.html#ch04que03][3]].* Use =\"=, as in the following:
+
+[[file:app01_images.html#p867pro02][Click here to view code image]]
+
+printf("\"%s\"\nhas %d characters.\n", Q, strlen(Q));
+
+*[[file:ch04.html#ch04que04][4]].* Here is a corrected version:
+
+[[file:app01_images.html#p867pro03][Click here to view code image]]
+
+#include <stdio.h>   /* don't forget this    */\\
+#define B "booboo"   /* add #, quotes        */\\
+#define X 10         /* add #                */\\
+int main(void)       /* instead of main(int) */\\
+{\\
+   int age;\\
+   int xp;          /* declare all variables */\\
+   char name[40];   /* make into an array    */\\
+\\
+   printf("Please enter your first name.\n"); /* \n for readability */\\
+   scanf("%s", name);\\
+   printf("All right, %s, what's your age?\n", name); /* %s for string */\\
+   scanf("%d", &age);       /* %d, not %f, &age, not age */\\
+   xp = age + X;\\
+   printf("That's a %s! You must be at least %d.\n", B, xp);\\
+   return 0;                /* not rerun                 */\\
+}
+
+*[[file:ch04.html#ch04que05][5]].* Recall the =%%= construction for printing =%=.
+
+[[file:app01_images.html#p867pro04][Click here to view code image]]
+
+printf("This copy of \"%s\" sells for $%0.2f.\n", BOOK, cost);\\
+\\
+printf("That is %0.0f%% of list.\n", percent);
+
+*[[file:ch04.html#ch04que06][6]].   a.* =%d=
+
+*b.* =%4X=
+
+*c.* =%10.3f=
+
+*d.* =%12.2e=
+
+*e.* =%-30s=
+
+*[[file:ch04.html#ch04que07][7]].   a.* =%15lu=
+
+*b.* =%#4x=
+
+<<page_868>>*c.* =%-12.2E=
+
+*d.* =%+10.3f=
+
+*e.* =%8.8s=
+
+*[[file:ch04.html#ch04que08][8]].   a.* =%6.4d=
+
+*b.* =%*o=
+
+*c.* =%2c=
+
+*d.* =%+0.2f=
+
+*e.* =%-7.5s=
+
+*[[file:ch04.html#ch04que09][9]].* a.
+
+[[file:app01_images.html#p868pro01][Click here to view code image]]
+
+int dalmations;\\
+   scanf("%d", &dalmations);
+
+*b.*
+
+[[file:app01_images.html#p868pro02][Click here to view code image]]
+
+float kgs, share;\\
+   scanf("%f%f", &kgs, &share);
+
+(Note: For input, =e=, =f=, and =g= can be used interchangeably. Also, for all but =%c=, it makes no difference if you leave spaces between the conversion specifiers.)
+
+*c.*
+
+char pasta[20];\\
+   scanf("%s", pasta);
+
+*d.*
+
+[[file:app01_images.html#p868pro03][Click here to view code image]]
+
+char action[20];\\
+   int value;\\
+   scanf("%s %d", action, &value);
+
+*e.*
+
+[[file:app01_images.html#p868pro04][Click here to view code image]]
+
+int value;\\
+   scanf("%*s %d", &value);
+
+*[[file:ch04.html#ch04que10][10]].* Whitespace consists of spaces, tabs, and newlines. C uses whitespace to separate tokens from one another; =scanf()= uses whitespace to separate consecutive input items from each other.
+
+*[[file:ch04.html#ch04que11][11]].* The =z= in =%z= is a modifier, not a specifier, so it requires a specifier for it to modify. You could use =%zd= to print the result in base 10 or use a different specifier to print using a different base, for example, =%zx= for hexadecimal.
+
+*[[file:ch04.html#ch04que12][12]].* The substitutions would take place. Unfortunately, the preprocessor cannot discriminate between those parentheses that should be replaced with braces and those that should not. Therefore,
+
+<<page_869>>[[file:app01_images.html#p869pro01][Click here to view code image]]
+
+#define ( {\\
+#define ) }\\
+int main(void)\\
+\\
+(\\
+    printf("Hello, O Great One!\n");\\
+)
+
+becomes
+
+[[file:app01_images.html#p869pro001][Click here to view code image]]
+
+int main{void}\\
+{\\
+    printf{"Hello, O Great One!\n"};\\
+}
+
+*** Answers to Review Questions for Chapter 5
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec5
+    :END:
+
+*[[file:ch05.html#ch05que01][1]].   a.* =30=.
+
+*b.* =27= (not =3=). =(12 + 6)/(2*3)= would give =3=.
+
+*c.* =x = 1, y = 1= (integer division).
+
+*d.* =x = 3= (integer division) and =y = 9=.
+
+*[[file:ch05.html#ch05que02][2]]. a.*   =6= (reduces to =3 + 3.3=)
+
+*b.* =52=
+
+*c.* =0= (reduces to =0 * 22.0=)
+
+*d.* =13= (reduces to =66.0 / 5= or =13.2= and is then assigned to =int=)
+
+*[[file:ch05.html#ch05que03][3]]. a.*   =37.5= (reduces to =7.5 * 5.0=)
+
+*b.* =1.5= (reduces to =30.0 / 20.0=)
+
+*c.* =35= (reduces to =7 * 5=)
+
+*d.* =37= (reduces to =150 / 4=)
+
+*e.* =37.5= (reduces to =7.5 * 5=)
+
+*f.* =35.0= (reduces to =7 * 5.0=)
+
+*[[file:ch05.html#ch05que04][4]].*   *Line 0*: Should include =<stdio.h>=.
+
+*Line 3*: Should end in a semicolon, not a comma.
+
+*Line 6*: The =while= statement sets up an infinite loop because the value of =i= remains =1= and is always less than =30=. Presumably, we meant to write =while(i++ < 30)=.
+
+*Lines 6--8*: The indentation implies that we wanted lines 7 and 8 to form a block, but the lack of braces means that the =while= loop includes only line 7. Braces should be added.
+
+<<page_870>>*Line 7*: Because =1= and =i= are both integers, the result of the division will be =1= when =i= is =1=, and =0= for all larger values. Using =n = 1.0/i;= would cause =i= to be converted to floating point before division and would yield nonzero answers.
+
+*Line 8*: We omitted a newline character (=\n=) in the control statement. This causes the numbers to be printed on one line, if possible.
+
+*Line 10*: Should be =return 0;=.
+
+Here is a corrected version:
+
+[[file:app01_images.html#p870pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void)\\
+{\\
+  int i = 1;\\
+  float n;\\
+  printf("Watch out! Here come a bunch of fractions!\n");\\
+  while (i++ < 30)\\
+  {\\
+    n = 1.0/i;\\
+    printf(" %f\n", n);\\
+  }\\
+  printf("That's all, folks!\n");\\
+  return 0;\\
+}
+
+*[[file:ch05.html#ch05que05][5]].* The main problem lies in the relationship between the test statement (is =sec= greater than 0?) and the =scanf()= statement that fetches the value of =sec=. In particular, the first time the test is made, the program hasn't had a chance to even get a value for =sec=, and the comparison will be made to some garbage value that happens to be at that memory location; it might or might not be greater than 0. One solution, albeit an inelegant one, is to initialize =sec= to, say, =1= so that the test is passed the first time through. This uncovers a second problem. When you finally type =0= to halt the program, =sec= doesn't get checked until /after/ the loop is finished, and the results for 0 seconds are printed out. What you really want is to have a =scanf()= statement just before the =while= test is made. You can accomplish that by altering the central part of the program to read this way:
+
+[[file:app01_images.html#p870pro02][Click here to view code image]]
+
+scanf("%d", &sec);\\
+while ( sec > 0 ) {\\
+  min = sec/S\_TO\_M;\\
+  left = sec % S\_TO\_M;\\
+  printf("%d sec is %d min, %d sec. \n", sec, min, left);\\
+  printf("Next input?\n");\\
+  scanf("%d", &sec);\\
+}
+
+<<page_871>>The first time through, the =scanf()= outside the loop is used. Thereafter, the =scanf()= at the end of the loop (and hence just before the loop begins again) is used. This is a common method for handling problems of this sort, which is why [[file:ch05.html#ch05lis09][Listing 5.9]] used it.
+
+*[[file:ch05.html#ch05que06][6]].* Here is the output:
+
+%s! C is cool!\\
+! C is cool!\\
+11\\
+11\\
+12\\
+11
+
+Let's explain. The first =printf()= statement is the same as this:
+
+[[file:app01_images.html#p871pro01][Click here to view code image]]
+
+printf("%s! C is cool!\n","%s! C is cool!\n");
+
+The second print statement first increments =num= to =11= and then prints the value. The third print statement prints =num=, which is =11=, and then increments it to =12=. The fourth print statement prints the current value of =n=, which still is =12=, and then decrements =n= to =11=. The final print statement prints the current value of =num=, which is =11=.
+
+*[[file:ch05.html#ch05que07][7]].* Here is the output:
+
+SOS:4 4.00
+
+The expression =c1 - c2= has the same value as ='S' - '0'=, which in ASCII is =83 - 79=.
+
+*[[file:ch05.html#ch05que08][8]].* It prints on one line the digits 1 through 10 in fields that are five columns wide and then starts a new line:
+
+[[file:app01_images.html#p871pro02][Click here to view code image]]
+
+1    2    3    4    5    6    7    8    9   10
+
+*[[file:ch05.html#ch05que09][9]].* Here is one possibility, which assumes that the letters are coded consecutively, as is the case for ASCII:
+
+[[file:app01_images.html#p871pro03][Click here to view code image]]
+
+#include <stdio.h>\\
+\\
+int main(void)\\
+{\\
+     char ch = 'a';\\
+     while (ch <= 'g')\\
+          printf("%5c", ch++);\\
+     printf("\n");\\
+     return 0;\\
+}
+
+*[[file:ch05.html#ch05que10][10]].* Here is the output for each example:
+
+*a.* =1 2=
+
+Note that =x= is incremented and then compared. The cursor is left on the same line.
+
+<<page_872>>*b.*
+
+101\\
+102\\
+103\\
+104
+
+Note that this time =x= is compared and then incremented. In both this case and in example a, =x= is incremented before printing takes place. Note, too, that indenting the second =printf()= statement does not make it part of the =while= loop. Therefore, it is called only once, after the =while= loop ends.
+
+*c.* =stuvw=
+
+Here, there is no incrementing until after the first =printf()=.
+
+*[[file:ch05.html#ch05que11][11]].* This is an ill-constructed program. Because the =while= statement doesn't use braces, only the =printf()= statement is part of the loop, so the program prints the message =COMPUTER BYTES DOG= indefinitely until you can kill the program.
+
+*[[file:ch05.html#ch05que12][12]].  a.* =x = x + 10;=
+
+*b.* =x++; or ++x; or x = x + 1;=
+
+*c.* =c = 2 * (a + b);=
+
+*d.* =c = a + 2* b;=
+
+*[[file:ch05.html#ch05que13][13]].  a.* =x--; or --x; or x = x - 1;=
+
+*b.* =m = n % k;=
+
+*c.* =p = q / (b - a);=
+
+*d.* =x = (a + b) / (c * d);=
+
+*** Answers to Review Questions for Chapter 6
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec6
+    :END:
+
+*[[file:ch06.html#ch06que01][1]].* =2=, =7=, =70=, =64=, =8=, =2=
+
+*[[file:ch06.html#ch06que02][2]].* It would produce the following output:
+
+36 18  9  4  2  1
+
+If =value= were =double=, the test would remain true even when =value= became less than 1. The loop would continue until floating-point underflow yielded a value of 0. Also, the =%3d= specifier would be the wrong choice.
+
+*[[file:ch06.html#ch06que03][3]].   a.* =x > 5=
+
+*b.* =scanf("%lf",&x) != 1=
+
+*c.* =x == 5=
+
+<<page_873>>*[[file:ch06.html#ch06que04][4]].   a.* =scanf("%d", &x) == 1=
+
+*b.* =x != 5=
+
+*c.* =x >= 20=
+
+*[[file:ch06.html#ch06que05][5]].*  Line 4: Should be =list[10]=.
+
+Line 6: Commas should be semicolons.
+
+Line 6: The range for =i= should be from 0 to 9, not 1 to 10.
+
+Line 9: Commas should be semicolons.
+
+Line 9: =>== should be =<==. Otherwise, when =i= is =1=, the loop runs for quite a while.
+
+Line 10: There should be another closing brace between lines 9 and 10. One brace closes the compound statement, and one closes the program. In between should be a =return 0;= line.
+
+Here's a corrected version:
+
+[[file:app01_images.html#p873pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void)\\
+{                                      /* line 3  */\\
+  int i, j, list[10];                  /* line 4  */\\
+\\
+  for (i = 0; i <  10;  i++)           /* line 6  */\\
+  {                                    /* line 7  */\\
+      list[i] = 2*i + 3;               /* line 8  */\\
+      for (j = 1; j <= i; j++)         /* line 9  */\\
+          printf(" %d", list[j]);      /* line 10 */\\
+      printf("\n");                    /* line 11 */\\
+  }\\
+  return 0;\\
+}
+
+*[[file:ch06.html#ch06que06][6]].* Here's one way:
+
+[[file:app01_images.html#p873pro02][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void)\\
+{\\
+   int col, row;\\
+\\
+   for (row = 1; row <= 4; row++)\\
+   {\\
+      for (col = 1; col <= 8; col++)\\
+         printf("$");\\
+      printf("\n");\\
+   }\\
+<<page_874>>  return 0;\\
+}
+
+*[[file:ch06.html#ch06que07][7]].   a.* It would produce the following output:
+
+[[file:app01_images.html#p874pro01][Click here to view code image]]
+
+Hi! Hi! Hi! Bye! Bye! Bye! Bye! Bye!
+
+*b.* It would produce the following output:
+
+ACGM
+
+Because the code adds an =int= value to a =char= value, a compiler might warn of possible loss of significant digits.
+
+*[[file:ch06.html#ch06que08][8]].   a.* It would produce the following output:
+
+Go west, youn
+
+*b.* It would produce the following output:
+
+Hp!xftu-!zpvo
+
+*c.* It would produce the following output:
+
+Go west, young
+
+*d.* It would produce the following output:
+
+$o west, youn
+
+*[[file:ch06.html#ch06que09][9]].* Here is the output you should get:
+
+31|32|33|30|31|32|33|\\
+***\\
+1\\
+5\\
+9\\
+13\\
+\\
+***\\
+2 6\\
+4 8\\
+8 10\\
+\\
+***\\
+======\\
+=====\\
+====\\
+===\\
+==
+
+*[[file:ch06.html#ch06que10][10]].  a.* =mint=
+
+*b.* 10 elements
+
+<<page_875>>*c.* Type =double= values
+
+*d.* Line ii is correct; =mint[2]= is a type =double= value and =&mint[2]= is its location.
+
+*[[file:ch06.html#ch06que11][11]].* Because the first element has index =0=, the loop range should be =0= to =SIZE - 1=, not =1= to =SIZE=. Making that change, however, causes the first element to be assigned the value =0= instead of =2=. So rewrite the loop this way:
+
+[[file:app01_images.html#p875pro01][Click here to view code image]]
+
+for (index = 0; index < SIZE; index++)\\
+    by\_twos[index] = 2 * (index + 1);
+
+Similarly, the limits for the second loop should be changed. Also, an array index should be used with the array name:
+
+[[file:app01_images.html#p875pro02][Click here to view code image]]
+
+for( index = 0; index < SIZE; index++)\\
+     printf("%d ", by\_twos[index]);
+
+One dangerous aspect of bad loop limits is that the program may work; however, because it is placing data where it shouldn't, it might not work at some time in the future, forming sort of a programming time bomb.
+
+*[[file:ch06.html#ch06que12][12]].* It should declare the return type as =long=, and it should have a =return= statement that returns a =long= value.
+
+*[[file:ch06.html#ch06que13][13]].* Typecasting =num= to =long= makes sure the calculation is done as a =long= calculation, not an =int= calculation. On a system with a 16-bit =int=, multiplying two =int=s produces a result that is truncated to an =int= before the value is returned, possibly losing data.
+
+[[file:app01_images.html#p875pro03][Click here to view code image]]
+
+long square(int num)\\
+\\
+{\\
+\\
+   return ((long) num) * num;\\
+\\
+}
+
+*[[file:ch06.html#ch06que14][14]].* Here is the output:
+
+[[file:app01_images.html#p875pro04][Click here to view code image]]
+
+1: Hi!\\
+k = 1\\
+k is 1 in the loop\\
+Now k is 3\\
+k = 3\\
+k is 3 in the loop\\
+Now k is 5\\
+k = 5\\
+k is 5 in the loop\\
+Now k is 7\\
+k = 7
+
+*** <<page_876>>Answers to Review Questions for Chapter 7
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec7
+    :END:
+
+*[[file:ch07.html#ch07que01][1]].* True: b.
+
+*[[file:ch07.html#ch07que02][2]].   a.* =number >= 90 && number < 100=
+
+*b.* =ch != 'q' && ch != 'k'=
+
+*c.* =(number >= 1 && number <= 9) && number != 5=
+
+*d.* =!(number >= 1 && number <= 9)= is one choice, but
+
+=number < 1 || number > 9= is simpler to understand
+
+*[[file:ch07.html#ch07que03][3]].*  Line 5: Should be =scanf("%d %d", &weight, &height);=. Don't forget those =&=s for =scanf()=. Also, this line should be preceded by a line prompting input.
+
+Line 9: What is meant is =(height < 72 && height > 64)=. However, the first part of the expression is unnecessary because height must be less than 72 for the =else if= to be reached in the first place. Therefore, a simple =(height > 64)= will serve. But line 6 already guarantees that =height > 64=, so no test at all is needed, and the =if else= should just be an =else=.
+
+Line 11: The condition is redundant; the second subexpression (=weight= not less than or equal to 300) means the same as the first. A simple =(weight > 300)= is all that is needed. But there is more trouble. Line 11 gets attached to the wrong =if=! Clearly, this =else= is meant to go along with line 6. By the most recent =if= rule, however, it will be associated with the =if= of line 9. Therefore, line 11 is reached when =weight= is less than 100 and =height= is 64 or under. This makes it impossible for =weight= to exceed 300 when this statement is reached.
+
+Lines 7 through 10: Should be enclosed in braces. Then line 11 will become an alternative to line 6, not to line 9. Alternatively, if the =if else= on line 9 is replaced with a simple =else=, no braces are needed.
+
+Line 13: Simplify to =if (height > 48)=. Actually, you can omit this line entirely because line 12 already makes this test.
+
+Line 15: This =else= associates with the last =if=, the one on line 13. Enclose lines 13 and 14 in braces to force this =else= to associate with the =if= of line 11. Or, as suggested, simply eliminate line 13.
+
+Here's a corrected version:
+
+[[file:app01_images.html#p876pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void)\\
+{\\
+   int weight, height;  /* weight in lbs, height in inches */\\
+\\
+   printf("Enter your weight in pounds and ");\\
+<<page_877>>   printf("your height in inches.\n");\\
+   scanf("%d %d", &weight, &height);\\
+   if (weight < 100 && height > 64)\\
+       if (height >= 72)\\
+           printf("You are very tall for your weight.\n");\\
+       else\\
+           printf("You are tall for your weight.\n");\\
+   else if (weight > 300 && height < 48)\\
+           printf(" You are quite short for your weight.\n");\\
+   else\\
+        printf("Your weight is ideal.\n");\\
+\\
+    return 0;\\
+}
+
+*[[file:ch07.html#ch07que04][4]].   a.* =1=. The assertion is true, which numerically is a =1=.
+
+*b.* =0=. 3 is not less than 2.
+
+*c.* =1=. If the first expression is false, the second is true, and vice versa; just one true expression is needed.
+
+*d.* =6=, because the value of =6 > 2= is =1=.
+
+*e.* =10=, because the test condition is true.
+
+*f.* =0=. If =x > y= is true, the value of the expression is =y > x=, which is false in that case, or =0=. If =x > y= is false, the value of the expression is =x > y=, which is false in that case.
+
+*[[file:ch07.html#ch07que05][5]].* The program prints the following:
+
+[[file:app01_images.html#p877pro01][Click here to view code image]]
+
+*#%*#%$#%*#%*#%$#%*#%*#%$#%*#%*#%
+
+Despite what the indentation suggests, the =#= is printed during every loop because it is not part of a compound statement.
+
+*[[file:ch07.html#ch07que06][6]].* The program prints the following:
+
+fat hat cat Oh no!\\
+hat cat Oh no!\\
+cat Oh no!
+
+*[[file:ch07.html#ch07que07][7]].* The comments on lines 5 through 7 should be terminated with =*/=, or else you can replace =/*= with =//=. The expression ='a' <= ch >= 'z'= should be replaced with this:
+
+ch >= 'a' && ch <= 'z'
+
+Or, more simply and more portably, you can include =ctype.h= and use =islower()=. Incidentally, ='a' <= ch >= 'z'= is valid C in terms of syntax; it just doesn't have the right meaning. Because relational operators associate left to right, the expression is interpreted as =('a' <= ch) >= 'z'=. The expression in parentheses has the value =1= or =0= <<page_878>>(true or false), and this value is checked to see whether it is equal to or greater than the numeric code for ='z'=. Neither =0= nor =1= satisfies that test, so the whole expression always evaluates to =0= (false). In the second test expression, =||= should be =&&=. Also, although =!(ch < 'A')= is both valid and correct in meaning, =ch >= 'A'= is simpler. The ='Z'= should be followed by two closing parentheses, not one. Again, more simply, use =isupper()=. The =oc++;= statement should be preceded by an =else=. Otherwise, it is incremented every character. The control expression in the =printf()= call should be enclosed in double quotes.
+
+Here is a corrected version:
+
+[[file:app01_images.html#p878pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+#include <ctype.h>\\
+int main(void)\\
+{\\
+  char ch;\\
+  int lc = 0;    /* lowercase char count */\\
+  int uc = 0;    /* uppercase char count */\\
+  int oc = 0;    /* other char count     */\\
+\\
+  while ((ch = getchar()) != '#')\\
+  {\\
+       if (islower(ch))\\
+            lc++;\\
+       else if (isupper(ch))\\
+            uc++;\\
+       else\\
+            oc++;\\
+  }\\
+  printf("%d lowercase, %d uppercase, %d other", lc, uc, oc);\\
+  return 0;\\
+}
+
+*[[file:ch07.html#ch07que08][8]].* Unhappily, it prints the same line indefinitely:
+
+[[file:app01_images.html#p878pro02][Click here to view code image]]
+
+You are 65. Here is your gold watch.
+
+The problem is that the line
+
+if (age = 65)
+
+sets =age= to =65=, which tests as true every loop cycle.
+
+*[[file:ch07.html#ch07que09][9]].* Here is the resulting run using the given input:
+
+q\\
+Step 1\\
+Step 2\\
+<<page_879>>Step 3\\
+c\\
+Step 1\\
+h\\
+Step 1\\
+Step 3\\
+b\\
+Step 1\\
+Done
+
+Note that both =b= and =#= terminate the loop, but that entering =b= elicits the printing of step 1, and entering =#= doesn't.
+
+*[[file:ch07.html#ch07que10][10]].* Here is one solution:
+
+[[file:app01_images.html#p879pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void)\\
+{\\
+  char ch;\\
+\\
+  while ((ch = getchar()) != '#')\\
+  {\\
+    if (ch != '\n')\\
+    {\\
+       printf("Step 1\n");\\
+       if (ch == 'b')\\
+          break;\\
+       else if (ch != 'c')\\
+       {\\
+          if (ch != 'h')\\
+              printf("Step 2\n");\\
+           printf("Step 3\n");\\
+       }\\
+    }\\
+  }\\
+  printf("Done\n");\\
+  return 0;\\
+}
+
+*** Answers to Review Questions for Chapter 8
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec8
+    :END:
+
+*[[file:ch08.html#ch08que01][1]].* The expression =putchar(getchar())= causes the program to read the next input character and to print it; the return value from =getchar()= is the argument to =putchar()=. No, =getchar(putchar())= is invalid because =getchar()= doesn't use an argument and =putchar()= needs one.
+
+<<page_880>>*[[file:ch08.html#ch08que02][2]].   a.* Display the H character.
+
+*b.* Sound the alert if the system uses ASCII.
+
+*c.* Move the cursor to the beginning of the next line.
+
+*d.* Backspace.
+
+*[[file:ch08.html#ch08que03][3]].* =count <essay >essayct= or else =count >essayct <essay=
+
+*[[file:ch08.html#ch08que04][4]].* None are valid.
+
+*[[file:ch08.html#ch08que05][5]].* It's a signal (a special value) returned by =getchar()= and =scanf()= to indicate that they have detected the end of a file.
+
+*[[file:ch08.html#ch08que06][6]].   a.* The output is as follows:
+
+If you qu
+
+Note that the character =I= is distinct from the character =i=. Also note that the =i= is not printed because the loop quits upon detecting it.
+
+*b.* The output for ASCII is as follows:
+
+HJacrthjacrt
+
+The first time through, =ch= has the value =H=. The =ch++= causes the value to be used (printed) and then incremented (to =I=). Then the =++ch= causes the value to be incremented (to =J=) and then used (printed). After that, the next character (=a=) is read, and the process is repeated. An important point to note here is that the incrementations affect the value of =ch= after it has been assigned a value; they don't somehow cause the program to move through the input queue.
+
+*[[file:ch08.html#ch08que07][7]].* C's standard I/O library maps diverse file forms to uniform streams that can be handled equivalently.
+
+*[[file:ch08.html#ch08que08][8]].* Numeric input skips over spaces and newlines, but character input does not. Suppose you have code like this:
+
+[[file:app01_images.html#p880pro01][Click here to view code image]]
+
+int score;\\
+char grade;\\
+printf("Enter the score.\n");\\
+scanf("%s", %score);\\
+printf("Enter the letter grade.\n");\\
+grade = getchar();
+
+If you enter =98= for the score and then press the Enter key to send the score to the program, you also sent a newline character, which becomes the next input character and is read into =grade= as the grade value. If you precede character input with numeric input, you should add code to dispose of the newline character before the character input takes place.
+
+*** <<page_881>>Answers to Review Questions for Chapter 9
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec9
+    :END:
+
+*[[file:ch09.html#ch09que01][1]].* A formal parameter is a variable that is defined in the function being called. The actual argument is the value appearing in the function call; this value is assigned to the formal argument. You can think of the actual argument as being the value to which the formal parameter is initialized when the function is called.
+
+*[[file:ch09.html#ch09que02][2]].   a.* =void donut(int n)=
+
+*b.* =int gear(int t1, int t2)=
+
+*c.* =int guess(void)=
+
+*d.* =void stuff_it(double d, double *pd)=
+
+*[[file:ch09.html#ch09que03][3]].   a.* =char n_to_char(int n)=
+
+*b.* =int digits(double x, int n)=
+
+*c.* =double * which(double * p1, double * p2)=
+
+*d.* =int random(void)=
+
+*[[file:ch09.html#ch09que04][4]].*
+
+int sum(int a, int b)\\
+{\\
+    return a + b;\\
+}
+
+*[[file:ch09.html#ch09que05][5]].* Replace =int= with =double= throughout:
+
+[[file:app01_images.html#p881pro01][Click here to view code image]]
+
+double sum(double a, double b)\\
+\\
+{\\
+    return a + b;\\
+\\
+}
+
+*[[file:ch09.html#ch09que06][6]].* This function needs to use pointers:
+
+[[file:app01_images.html#p881pro02][Click here to view code image]]
+
+void alter(int * pa, int * pb)\\
+{\\
+    int temp;\\
+    temp = *pa + *pb;\\
+    *pb = *pa - *pb;\\
+    *pa = temp;\\
+}
+
+<<page_882>>or
+
+[[file:app01_images.html#p882pro01][Click here to view code image]]
+
+void alter(int * pa, int * pb)\\
+{\\
+    *pa += *pb;\\
+    *pb = *pa - 2 * *pb;\\
+}
+
+*[[file:ch09.html#ch09que07][7]].* Yes; =num= should be declared in the =salami()= argument list, not after the brace. Also, it should be =count++=, not =num++=.
+
+*[[file:ch09.html#ch09que08][8]].* Here is one solution:
+
+[[file:app01_images.html#p882pro02][Click here to view code image]]
+
+int largest(int a, int b, int c)\\
+{\\
+    int max = a;\\
+    if (b > max)\\
+        max = b;\\
+    if (c > max)\\
+        max = c;\\
+    return max;\\
+}
+
+*[[file:ch09.html#ch09que09][9]].* Here is a minimal program; the =showmenu()= and =getchoice()= functions are possible solutions to parts a and b.
+
+[[file:app01_images.html#p882pro03][Click here to view code image]]
+
+#include <stdio.h>\\
+void showmenu(void);     /* declare functions used */\\
+int getchoice(int, int);\\
+int main()\\
+{\\
+    int res;\\
+\\
+    showmenu();\\
+    while ((res = getchoice(1,4)) != 4)\\
+    {\\
+        printf("I like choice %d.\n", res);\\
+        showmenu();\\
+    }\\
+    printf("Bye!\n");\\
+    return 0;\\
+}\\
+void showmenu(void)\\
+{\\
+    printf("Please choose one of the following:\n");\\
+    printf("1) copy files          2) move files\n");\\
+    printf("3) remove files        4) quit\n");\\
+    printf("Enter the number of your choice:\n");\\
+<<page_883>>}\\
+\\
+int getchoice(int low, int high)\\
+{\\
+    int ans;\\
+    int good;\\
+    good = scanf("%d", &ans);\\
+    while (good == 1 && (ans < low || ans  > high))\\
+    {\\
+        printf("%d is not a valid choice; try again\n", ans);\\
+        showmenu();\\
+        scanf("%d", &ans);\\
+    }\\
+    if (good != 1)\\
+    {\\
+        printf("Non-numeric input. ");\\
+        ans = 4;\\
+    }\\
+    return ans;\\
+}
+
+*** Answers to Review Questions for Chapter 10
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec10
+    :END:
+
+*[[file:ch10.html#ch10que01][1]].* The printout is this:
+
+8 8\\
+4 4\\
+0 0\\
+2 2
+
+*[[file:ch10.html#ch10que02][2]].* The array =ref= has four elements because that is the number of values in the initialization list.
+
+*[[file:ch10.html#ch10que03][3]].* The array name =ref= points to the first element of the array, the integer =8=. The expression =ref + 1= points to the second element, the integer =4=. The construction =++ref= is not a valid C expression; =ref= is a constant, not a variable.
+
+*[[file:ch10.html#ch10que04][4]].* =ptr= points to the first element, and =ptr + 2= points to the third element, which would be the first element of the second row.
+
+*a.* 12 and 16.
+
+*b.* 12 and 14 (just the 12 goes in the first row because of the braces).
+
+*[[file:ch10.html#ch10que05][5]].* =ptr= points to the first row and =ptr+1= points to the second row; =*ptr= points to the first element in the first row, and =*(ptr + 1)= points to the first element of the second row.
+
+<<page_884>>*a.* 12 and 16.
+
+*b.* 12 and 14 (just the 12 goes in the first row because of the braces).
+
+*[[file:ch10.html#ch10que06][6]].   a.* =&grid[22][56]=
+
+*b.* =&grid[22][0] or grid[22]=
+
+(The latter is the name of a one-dimensional array of 100 elements, hence the address of its first element, which is the element =grid[22][0]=.)
+
+*c.* =&grid[0][0] or grid[0] or (int *) grid=
+
+(Here, =grid[0]= is the address of the =int= element =grid[0][0]=, and =grid= is the address of the 100-element array =grid[0]=. The two addresses have the same numeric value but different types; the typecast makes the types the same.)
+
+*[[file:ch10.html#ch10que07][7]].   a.* =int digits[10];=
+
+*b.* =float rates[6];=
+
+*c.* =int mat[3][5];=
+
+*d.* =char * psa[20]=;
+
+Note that =[ ]= has higher precedence than =*=, so in the absence of parentheses, the array descriptor is applied first, and then the pointer descriptor. Hence, this declaration is the same as =char *(psa[20]);=.
+
+*e.* =char (*pstr)[20];=
+
+--------------
+
+Note
+
+=char *pstr[20];= is incorrect for e. This would make =pstr= an array of pointers instead of a pointer to an array. In particular, =pstr= would point to a single =char=, the first member of the array; =pstr + 1= would point to the next byte. With the correct declaration, =pstr= is a variable rather than an array name, and =pstr + 1= points 20 bytes beyond the initial byte.
+
+--------------
+
+*[[file:ch10.html#ch10que08][8]].   a.* =int sextet[6] = {1, 2, 4, 8, 16, 32};=
+
+*b.* =sextet[2]=
+
+*c.* =int lots[100] = { [99] = -1};=
+
+*d.* =int pots[100] = { [5] = 101, [10] = 101,=
+
+=101, 101, 101};=
+
+*[[file:ch10.html#ch10que09][9]].* 0 through 9
+
+*[[file:ch10.html#ch10que10][10]].   a.* =rootbeer[2] = value;=
+
+Valid.
+
+*b.* =scanf("%f", &rootbeer );=
+
+<<page_885>>Invalid; =rootbeer= is not a =float=.
+
+*c.* =rootbeer = value;=
+
+Invalid; =rootbeer= is not a =float=.
+
+*d.* =printf("%f", rootbeer);=
+
+Invalid; =rootbeer= is not a =float=.
+
+*e.* =things[4][4] = rootbeer[3];=
+
+Valid.
+
+*f.* =things[5] = rootbeer;=
+
+Invalid; can't assign arrays.
+
+*g.* =pf = value;=
+
+Invalid; =value= is not an address.
+
+*h.* =pf = rootbeer;=
+
+Valid.
+
+*[[file:ch10.html#ch10que11][11]].* =int screen[800][600]=;
+
+*[[file:ch10.html#ch10que12][12]].* a.
+
+[[file:app01_images.html#p885pro01][Click here to view code image]]
+
+void process(double ar[], int n);\\
+void processvla(int n, double ar[n]);\\
+process(trots, 20);\\
+processvla(20, trots);
+
+*b.*
+
+[[file:app01_images.html#p885pro02][Click here to view code image]]
+
+void process2(short ar2[30], int n);\\
+void process2vla(int n, int m, short ar2[n][m]);\\
+process2(clops, 10);\\
+process2vla(10, 30, clops);
+
+*c.*
+
+[[file:app01_images.html#p885pro03][Click here to view code image]]
+
+void process3(long ar3[10][15], int n);\\
+void process3vla(int n, int m,int k, long ar3[n][m][k]);\\
+process3(shots, 5);\\
+process3vla(5, 10, 15, shots);
+
+*[[file:ch10.html#ch10que13][13]].* a.
+
+show( (int [4]) {8,3,9,2}, 4);
+
+*b.*
+
+[[file:app01_images.html#p885pro04][Click here to view code image]]
+
+show2( (int [][3]){{8,3,9}, {5,4,1}}, 2);
+
+*** <<page_886>>Answers to Review Questions for Chapter 11
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec11
+    :END:
+
+*[[file:ch11.html#ch11que01][1]].* The initialization should include a ='\0'= if you want the result to be a string. Of course, the alternative syntax adds the null character automatically:
+
+char name[] = "Fess";
+
+*[[file:ch11.html#ch11que02][2]].*
+
+See you at the snack bar.\\
+ee you at the snack bar.\\
+See you\\
+e you
+
+*[[file:ch11.html#ch11que03][3]].*
+
+y\\
+\\
+my\\
+\\
+mmy\\
+\\
+ummy\\
+\\
+Yummy
+
+*[[file:ch11.html#ch11que04][4]].* =I read part of it all the way through.=
+
+*[[file:ch11.html#ch11que05][5]].   a.* =Ho Ho Ho!!oH oH oH=
+
+*b.* Pointer-to-=char= (that is, =char *=).
+
+*c.* The address of the initial /H/.
+
+*d.* =*––pc= means to decrement the pointer by 1 and use the value found there. =––*pc= means to take the value pointed to by =pc= and decrement that value by 1 (for example, H becomes G).
+
+*e.* =Ho Ho Ho!!oH oH o=
+
+--------------
+
+Note
+
+A null character comes between =!= and =!=, but typically it produces no printing effect.
+
+--------------
+
+*f.* =while(*pc)= checks to see that =pc= does not point to a null character (that is, to the end of the string). The expression uses the value at the pointed-to location.
+
+=while(pc - str)= checks to see that =pc= does not point to the same location that =str= does (the beginning of the string). The expression uses the values of the pointers themselves.
+
+<<page_887>>*g.* After the first =while= loop, =pc= points to the null character. Upon entering the second loop, it is made to point to the storage location before the null character (that is, to the location just before the one that =str= points to). That byte is interpreted as a character and is printed. The pointer then backs up to the preceding byte. The terminating condition =(pc == str)= never occurs, and the process continues until you, or the system, tire.
+
+*h.* =pr()= must be declared in the calling program:
+
+char * pr(char *);
+
+*[[file:ch11.html#ch11que06][6]].* Character variables occupy a byte, so =sign= occupies a byte. But a character constant is stored in an =int=, meaning the ='$'= typically would use 2 or 4 bytes; however, only 1 byte of the =int= is actually used to store the code for ='$'=. The string ="$"= uses 2 bytes: one to hold the code for ='$'=, and one to hold the code for ='\0'=.
+
+*[[file:ch11.html#ch11que07][7]].* Here is what you get:
+
+[[file:app01_images.html#p887pro01][Click here to view code image]]
+
+How are ya, sweetie? How are ya, sweetie?\\
+Beat the clock.\\
+eat the clock.\\
+Beat the clock. Win a toy.\\
+Beat\\
+chat\\
+hat\\
+at\\
+t\\
+t\\
+at\\
+How are ya, sweetie?
+
+*[[file:ch11.html#ch11que08][8]].* Here is what you get:
+
+faavrhee\\
+*le*on*sm
+
+*[[file:ch11.html#ch11que09][9]].* Here is one solution:
+
+[[file:app01_images.html#p887pro02][Click here to view code image]]
+
+#include <stdio.h>      // for fgets(), getchar()\\
+char * s\_gets(char * st, int n)\\
+{\\
+    char * ret\_val;\\
+\\
+    ret\_val = fgets(st, n, stdin);\\
+    if (ret\_val)\\
+    {\\
+        while (*st != '\n' && *st != '\0')\\
+            st++;\\
+        if (*st == '\n')\\
+<<page_888>>            *st = '\0';\\
+        else\\
+            while (getchar() != '\n')\\
+                continue;\\
+    }\\
+    return ret\_val;\\
+}
+
+*[[file:ch11.html#ch11que10][10]].* Here is one solution:
+
+[[file:app01_images.html#p888pro01][Click here to view code image]]
+
+int strlen(const char * s)\\
+{\\
+    int ct = 0;\\
+\\
+    while (*s++)     // or while (*s++ != '\0')\\
+        ct++;\\
+\\
+    return(ct);\\
+}
+
+*[[file:ch11.html#ch11que11][11]].* Here is one solution:
+
+[[file:app01_images.html#p888pro02][Click here to view code image]]
+
+#include <stdio.h>      // for fgets(), getchar()\\
+#include <string.h>     // for strchr();\\
+char * s\_gets(char * st, int n)\\
+{\\
+    char * ret\_val;\\
+    char * find;\\
+\\
+    ret\_val = fgets(st, n, stdin);\\
+    if (ret\_val)\\
+    {\\
+        find = strchr(st, '\n');   // look for newline\\
+        if (find)                  // if the address is not NULL,\\
+            *find = '\0';          // place a null character there\\
+        else\\
+            while (getchar() != '\n')\\
+                continue;\\
+    }\\
+    return ret\_val;\\
+}
+
+*[[file:ch11.html#ch11que12][12]].* Here is one solution:
+
+[[file:app01_images.html#p888pro03][Click here to view code image]]
+
+#include <stdio.h>      /* for NULL definition          */\\
+char * strblk(char * string)\\
+{\\
+  while (*string != ' ' && *string != '\0')\\
+    string++;           /* stops at first blank or null */\\
+  if (*string == '\0')\\
+    return NULL;        /* NULL is the null pointer     */\\
+  else\\
+    return string;\\
+}
+
+Here is a second solution that prevents the function from modifying the string but that allows the return value to be used to change the string. The expression =(char *) string= is called “casting away =const=.”
+
+[[file:app01_images.html#p889pro01][Click here to view code image]]
+
+#include <stdio.h>      /* for NULL definition          */\\
+char * strblk(const char * string)\\
+{\\
+  while (*string != ' ' && *string != '\0')\\
+<<page_889>>    string++;           /* stops at first blank or null */\\
+  if (*string == '\0')\\
+    return NULL;        /* NULL is the null pointer     */\\
+  else\\
+    return (char *) string;\\
+}
+
+*[[file:ch11.html#ch11que13][13]].* Here is one solution:
+
+[[file:app01_images.html#p889pro02][Click here to view code image]]
+
+/* compare.c -- this will work */\\
+#include <stdio.h>\\
+#include <string.h>   // declares strcmp()\\
+#include <ctype.h>\\
+#define ANSWER "GRANT"\\
+#define SIZE 40\\
+char * s\_gets(char * st, int n);\\
+void ToUpper(char * str);\\
+\\
+int main(void)\\
+{\\
+    char try[SIZE];\\
+\\
+    puts("Who is buried in Grant's tomb?");\\
+    s\_gets(try, SIZE);\\
+    ToUpper(try);\\
+    while (strcmp(try,ANSWER) != 0)\\
+    {\\
+        puts("No, that's wrong. Try again.");\\
+        s\_gets(try, SIZE);\\
+        ToUpper(try);\\
+    }\\
+    puts("That's right!");\\
+\\
+<<page_890>>    return 0;\\
+}\\
+\\
+void ToUpper(char * str)\\
+{\\
+    while (*str != '\0')\\
+    {\\
+        *str = toupper(*str);\\
+        str++;\\
+    }\\
+}\\
+\\
+char * s\_gets(char * st, int n)\\
+{\\
+    char * ret\_val;\\
+    int i = 0;\\
+\\
+    ret\_val = fgets(st, n, stdin);\\
+    if (ret\_val)\\
+    {\\
+        while (st[i] != '\n' && st[i] != '\0')\\
+            i++;\\
+        if (st[i] == '\n')\\
+            st[i] = '\0';\\
+        else // must have words[i] == '\0'\\
+            while (getchar() != '\n')\\
+                continue;\\
+    }\\
+    return ret\_val;\\
+}
+
+*** Answers to Review Questions for Chapter 12
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec12
+    :END:
+
+*[[file:ch12.html#ch12que01][1]].* The automatic storage class, the register storage class, and the static, no linkage storage class.
+
+*[[file:ch12.html#ch12que02][2]].* The static, no linkage storage class; the static, internal linkage storage class; and the static, external linkage storage class.
+
+*[[file:ch12.html#ch12que03][3]].* The static, external linkage storage class. The static, internal linkage storage class.
+
+*[[file:ch12.html#ch12que04][4]].* No linkage.
+
+*[[file:ch12.html#ch12que05][5]].* The keyword =extern= is used in declarations to indicate a variable or function that has been defined elsewhere.
+
+<<page_891>>*[[file:ch12.html#ch12que06][6]].* Both allocate an array of 100 =int= values. The statement using =calloc()= additionally sets each element to 0.
+
+*[[file:ch12.html#ch12que07][7]].* =daisy= is known to =main()=, by default, and to =petal()=, =stem()=, and =root()= because of the =extern= declaration. The =extern int daisy;= declaration in file 2 makes =daisy= known to all the functions in file 2. The first =lily= is local to =main()=. The reference to =lily= in =petal()= is an error because there is no external =lily= in either file. There is an external static =lily=, but it is known just to functions in the second file. The first external =rose= is known to =root()=, but =stem()= has overridden it with its own local =rose=.
+
+*[[file:ch12.html#ch12que08][8]].* Here is the output:
+
+color in main() is B\\
+color in first() is R\\
+color in main() is B\\
+color in second() is G\\
+color in main() is G
+
+The =first()= function does not use the global =color= variable, but =second()= does.
+
+*[[file:ch12.html#ch12que09][9]]. a.* It tells you that the program will use the variable =plink=, which is local to the file containing the function. The first argument to =value_ct()= is a pointer to an integer, presumably the first element of an array of =n= members. The important point here is that the program will not be allowed to use the pointer =arr= to modify values in the original array.
+
+*b.* No. Already, =value= and =n= are copies of original data, so there is no way for the function to alter the corresponding values in the calling program. What these declarations do accomplish is to prevent the function from altering =value= and =n= within the function. For example, the function couldn't use the expression =n++= if =n= were qualified as =const=.
+
+*** Answers to Review Questions for Chapter 13
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec13
+    :END:
+
+*[[file:ch13.html#ch13que01][1]].* It should have =#include <stdio.h>= for its file definitions. It should declare =fp= a file pointer: =FILE *fp;=. The function =fopen()= requires a mode: =fopen("gelatin", "w")=, or perhaps the ="a"= mode. The order of the arguments to =fputs()= should be reversed. For clarity, the output string should have a newline because =fputs()= doesn't add one automatically. The =fclose()= function requires a file pointer, not a filename: =fclose(fp);=. Here is a corrected version:
+
+[[file:app01_images.html#p891pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+int main(void)\\
+{\\
+   FILE * fp;\\
+   int k;\\
+\\
+<<page_892>>   fp = fopen("gelatin", "w");\\
+   for (k = 0; k < 30; k++)\\
+       fputs("Nanette eats gelatin.\n", fp);\\
+   fclose(fp);\\
+   return 0;\\
+}
+
+*[[file:ch13.html#ch13que02][2]].* It would open, if possible, the file whose name is the first command-line argument, and it would display onscreen each digit character in the file.
+
+*[[file:ch13.html#ch13que03][3]].   a.* =ch = getc(fp1);=
+
+*b.* =fprintf(fp2,"%c"\n",ch);=
+
+*c.* =putc(ch,fp2);=
+
+*d.* =fclose(fp1); /* close the terky file */=
+
+--------------
+
+Note
+
+=fp1= is used for input operations because it identifies the file opened in the read mode. Similarly, =fp2= was opened in the write mode, so it is used with output functions.
+
+--------------
+
+*[[file:ch13.html#ch13que04][4]].* Here is one approach:
+
+[[file:app01_images.html#p892pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+#include <stdlib.h>\\
+\\
+int main(int argc,char * argv[])\\
+{\\
+   FILE * fp;\\
+   double n;\\
+   double sum = 0.0;\\
+   int ct = 0;\\
+\\
+if (argc == 1)\\
+      fp = stdin;\\
+   else if (argc == 2)\\
+   {\\
+      if ((fp = fopen(argv[1], "r")) == NULL)\\
+      {\\
+         fprintf(stderr, "Can't open %s\n", argv[1]);\\
+         exit(EXIT\_FAILURE);\\
+      }\\
+   }\\
+   else\\
+   {\\
+      fprintf(stderr, "Usage: %s [filename]\n", argv[0]);\\
+<<page_893>>      exit(EXIT\_FAILURE);\\
+   }\\
+   while (fscanf(fp, "%lf", &n) == 1)\\
+   {\\
+      sum += n;\\
+          ++ct;\\
+   }\\
+   if (ct > 0)\\
+         printf("Average of %d values = %f\n", ct, sum / ct);\\
+   else\\
+         printf("No valid data.\n");\\
+\\
+   return 0;\\
+}
+
+*[[file:ch13.html#ch13que05][5]].* Here is one approach.
+
+[[file:app01_images.html#p893pro01][Click here to view code image]]
+
+#include <stdio.h>\\
+#include <stdlib.h>\\
+#define BUF 256\\
+int has\_ch(char ch, const char * line);\\
+int main(int argc,char * argv[])\\
+{\\
+   FILE * fp;\\
+   char ch;\\
+   char line [BUF];\\
+\\
+if (argc != 3)\\
+   {\\
+      printf("Usage: %s character filename\n", argv[0]);\\
+      exit(EXIT\_FAILURE);\\
+   }\\
+   ch = argv[1][0];\\
+   if ((fp = fopen(argv[2], "r")) == NULL)\\
+   {\\
+      printf("Can't open %s\n", argv[2]);\\
+      exit(EXIT\_FAILURE);\\
+   }\\
+   while (fgets(line,BUF,fp) != NULL)\\
+   {\\
+      if (has\_ch(ch,line))\\
+         fputs(line,stdout);\\
+   }\\
+   fclose(fp);\\
+   return 0;\\
+}\\
+\\
+<<page_894>>int has\_ch(char ch, const char * line)\\
+{\\
+   while (*line)\\
+      if (ch == *line++)\\
+         return(1);\\
+   return 0;\\
+}
+
+The =fgets()= and =fputs()= functions work together because =fgets()= leaves the =\n= produced by Enter in the string, and =fputs()= does not add a =\n= the way that =puts()= does.
+
+*[[file:ch13.html#ch13que06][6]].* The distinction between a binary file and a text file is a system-dependent difference between file formats. The distinction between a binary stream and a text stream consists of translations performed by the program as it reads or writes streams. (A binary stream has no translations; a text stream may convert newline and other characters.)
+
+*[[file:ch13.html#ch13que07][7]].   a.* When 8238201 is saved using =fprintf()=, it's saved as seven characters stored in 7 bytes. When =fwrite()= is used, it's saved as a 4-byte integer using the binary representation of that numeric value.
+
+*b.* No difference; in each case it's saved as a 1-byte binary code.
+
+*[[file:ch13.html#ch13que08][8]].* The first is just a shorthand notation for the second; the third writes to the standard error. Normally, the standard error is directed to the same place as the standard output, but the standard error is not affected by standard output redirection.
+
+*[[file:ch13.html#ch13que09][9]].* The ="r+"= mode lets you read and write anywhere in a file, so it's best suited. The ="a+"= mode only lets you append material to the end of the file, and the ="w+"= mode starts with a clean slate, discarding previous file contents.
+
+*** Answers to Review Questions for Chapter 14
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec14
+    :END:
+
+*[[file:ch14.html#ch14que01][1]].* The proper keyword is =struct=, not =structure=. The template requires either a tag before the opening brace or a variable name after the closing brace. Also, there should be a semicolon after =* togs= and at the end of the template.
+
+*[[file:ch14.html#ch14que02][2]].* Here is the output:
+
+6 1\\
+22 Spiffo Road\\
+S p
+
+*[[file:ch14.html#ch14que03][3]].*
+
+struct month {\\
+    char name[10];\\
+    char abbrev[4];\\
+<<page_895>>    int days;\\
+    int monumb;\\
+};
+
+*[[file:ch14.html#ch14que04][4]].*
+
+[[file:app01_images.html#p895pro01][Click here to view code image]]
+
+struct month months[12] =\\
+{\\
+    {"January", "jan", 31, 1},\\
+    {"February", "feb", 28, 2},\\
+    {"March", "mar", 31, 3},\\
+    {"April", "apr", 30, 4},\\
+    {"May", "may", 31, 5},\\
+    {"June", "jun", 30, 6},\\
+    {"July", "jul", 31, 7},\\
+    {"August", "aug", 31, 8},\\
+    {"September", "sep", 30, 9},\\
+    {"October", "oct", 31, 10},\\
+    {"November", "nov", 30, 11},\\
+    {"December", "dec", 31, 12}\\
+};
+
+*[[file:ch14.html#ch14que05][5]].*
+
+[[file:app01_images.html#p895pro02][Click here to view code image]]
+
+extern struct month months[];\\
+int days(int month)\\
+{\\
+   int index, total;\\
+\\
+   if (month < 1 || month > 12)\\
+      return(-1);  /* error signal */\\
+   else\\
+   {\\
+      for (index = 0, total = 0; index < month; index ++)\\
+            total += months[index].days;\\
+      return( total);\\
+   }\\
+}
+
+Note that =index= is one less than the month number because arrays start with subscript 0. Therefore, use =index < month= instead of =index <= month=.
+
+*[[file:ch14.html#ch14que06][6]].   a.* Include =string.h= to provide =strcpy()=:
+
+[[file:app01_images.html#p895pro03][Click here to view code image]]
+
+typedef struct lens {    /* lens descriptor */\\
+    float foclen;        /* focal length,mm */\\
+    float fstop;         /* aperture        */\\
+    char brand[30];      /* brand name      */\\
+} LENS;
+
+<<page_896>>LENS bigEye[10];\\
+bigEye[2].foclen = 500;\\
+bigEye[2].fstop = 2.0;\\
+strcpy(bigEye[2].brand, "Remarkatar");
+
+*b.*
+
+[[file:app01_images.html#p896pro01][Click here to view code image]]
+
+LENS bigEye[10] = { [2] = {500, 2, "Remarkatar"} };
+
+*[[file:ch14.html#ch14que07][7]].   a.*
+
+6\\
+Arcturan\\
+cturan
+
+*b.* Use the structure name and use the pointer:
+
+deb.title.last\\
+\\
+pb->title.last
+
+*c.* Here is one version:
+
+[[file:app01_images.html#p896pro02][Click here to view code image]]
+
+#include <stdio.h>\\
+\\
+#include "starfolk.h"   /* make struct defs available */\\
+\\
+void prbem (const struct bem * pbem )\\
+{\\
+   printf("%s %s is a %d-limbed %s.\n", pbem->title.first,\\
+          pbem->title.last, pbem->limbs, pbem->type);\\
+}
+
+*[[file:ch14.html#ch14que08][8]].   a.* =willie.born=
+
+*b.* =pt->born=
+
+*c.* =scanf("%d", &willie.born);=
+
+*d.* =scanf("%d", &pt->born);=
+
+*e.* =scanf("%s", willie.name.lname);=
+
+*f.* =scanf("%s", pt->name.lname);=
+
+*g.* =willie.name.fname[2]=
+
+*h.* =strlen(willie.name.fname) + strlen(willie.name.lname)=
+
+*[[file:ch14.html#ch14que09][9]].* Here is one possibility:
+
+struct car {\\
+\\
+    char name[20];\\
+    float hp;\\
+<<page_897>>    float epampg;\\
+    float wbase;\\
+    int year;\\
+};
+
+*[[file:ch14.html#ch14que10][10]].* The functions could be set up like this:
+
+[[file:app01_images.html#p897pro01][Click here to view code image]]
+
+struct gas {\\
+   float distance;\\
+   float gals;\\
+   float mpg;\\
+};\\
+\\
+struct gas mpgs(struct gas trip)\\
+{\\
+  if (trip.gals > 0)\\
+     trip.mpg = trip.distance / trip.gals ;\\
+  else\\
+     trip.mpg = -1.0;\\
+  return trip;\\
+}
+
+void set\_mpgs(struct gas * ptrip)\\
+{\\
+  if (ptrip->gals > 0)\\
+     ptrip->mpg = ptrip->distance / ptrip->gals ;\\
+  else\\
+     ptrip->mpg = -1.0;\\
+}
+
+Note that the first function cannot directly alter values in the calling program, so you must use the return value to convey the information:
+
+[[file:app01_images.html#p897pro02][Click here to view code image]]
+
+struct gas idaho = {430.0, 14.8};  // set first two members\\
+idaho = mpgs(idaho);               // reset structure
+
+The second function, however, accesses the original structure directly:
+
+[[file:app01_images.html#p897pro03][Click here to view code image]]
+
+struct gas ohio = {583, 17.6};   // set first two members\\
+set\_mpgs(&ohio);                  // set third member
+
+*[[file:ch14.html#ch14que11][11]].* =enum choices {no, yes, maybe};=
+
+*[[file:ch14.html#ch14que12][12]].* =char * (*pfun)(char *, char);=
+
+*[[file:ch14.html#ch14que13][13]].*
+
+[[file:app01_images.html#p897pro04][Click here to view code image]]
+
+double sum(double, double);\\
+double diff(double, double);\\
+<<page_898>>double times(double, double);\\
+double divide(double, double);\\
+double (*pf1[4])(double, double) = {sum, diff, times, divide};
+
+Or, more simply, replace the last line of code with these lines:
+
+[[file:app01_images.html#p898pro01][Click here to view code image]]
+
+typedef double (*ptype)(double, double);\\
+ptype pf1[4] = {sum, diff, times, divide};
+
+To invoke the =diff()= function:
+
+[[file:app01_images.html#p898pro02][Click here to view code image]]
+
+pf1[1](10.0, 2.5);     // first notation\\
+(*pf1[1])(10.0, 2.5);  // equivalent notation
+
+*** Answers to Review Questions for Chapter 15
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec15
+    :END:
+
+*[[file:ch15.html#ch15que01][1]].   a.* 00000011
+
+*b.* 00001101
+
+*c.* 00111011
+
+*d.* 01110111
+
+*[[file:ch15.html#ch15que02][2]].   a.* 21, 025, 0x15
+
+*b.* 85, 0125, 0x55
+
+*c.* 76, 0114, 0x4C
+
+*d.* 157, 0235, 0x9D
+
+*[[file:ch15.html#ch15que03][3]].   a.* 252
+
+*b.* 2
+
+*c.* 7
+
+*d.* 7
+
+*e.* 5
+
+*f.* 3
+
+*g.* 28
+
+*[[file:ch15.html#ch15que04][4]].   a.* 255
+
+*b.* 1 (not false is true)
+
+*c.* 0
+
+*d.* 1 (true and true is true)
+
+*e.* 6
+
+<<page_899>>*f.* 1 (true or true is true)
+
+*g.* 40
+
+*[[file:ch15.html#ch15que05][5]].* In binary, the mask is =1111111=. In decimal, it's =127=. In octal, it's =0177=. In hexadecimal, it's =0x7F=.
+
+*[[file:ch15.html#ch15que06][6]].* Both =bitvbal *= 2= and =bitval << 1= double the current value of =bitval=, so they are equivalent. However, =mask += bitval= and =mask |= bitval= have the same effect only if =bitval= and =mask= have no bits set to “on” in common. For example, =2 | 4= is =6=, but so is =3 | 6=.
+
+*[[file:ch15.html#ch15que07][7]].* a.
+
+[[file:app01_images.html#p899pro01][Click here to view code image]]
+
+struct tb\_drives {\\
+    unsigned int diskdrives  : 2;\\
+    unsigned int             : 1;\\
+    unsigned int cdromdrives : 2;\\
+    unsigned int             : 1;\\
+    unsigned int harddrives  : 2;\\
+};
+
+*b.*
+
+[[file:app01_images.html#p899pro02][Click here to view code image]]
+
+struct kb\_drives {\\
+    unsigned int harddrives  : 2;\\
+    unsigned int             : 1;\\
+    unsigned int cdromdrives : 2;\\
+    unsigned int             : 1;\\
+    unsigned int diskdrives  : 2;\\
+};
+
+*** Answers to Review Questions for Chapter 16
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec16
+    :END:
+
+*[[file:ch16.html#ch16que01][1]].   a.* =dist = 5280 * miles;= is valid.
+
+*b.* =plort = 4 * 4 + 4;= is valid. But if the user really wanted =4 * (4 + 4)=, he or she should have used =#define POD (FEET + FEET)=.
+
+*c.* =nex = = 6;;= is invalid. (If there were no space between the two equal signs, it would be valid but useless.) Apparently, the user forgot that he or she was writing for the preprocessor, not writing in C.
+
+*d.* =y = y + 5;= is valid. =berg = berg + 5 * lob;= is valid, but this is probably not the desired result. =est = berg + 5/ y + 5;= is valid, but this is probably not the desired result. =nilp = lob *-berg + 5;= is valid, but this is probably not the desired result.
+
+*[[file:ch16.html#ch16que02][2]].* =#define NEW(X) ((X) + 5)=
+
+<<page_900>>*[[file:ch16.html#ch16que03][3]].* =#define MIN(X,Y) ( (X) < (Y) ? (X) : (Y) )=
+
+*[[file:ch16.html#ch16que04][4]].* =#define EVEN_GT(X,Y) ( (X) > (Y) && (X) % 2 == 0 ? 1 : 0 )=
+
+*[[file:ch16.html#ch16que05][5]].* =#define PR(X,Y) printf(#X " is %d and " #Y " is %d\n", X,Y)=
+
+Because =X= and =Y= are never exposed to any other operations (such as multiplication) in this macro, you don't have to cocoon everything in parentheses.
+
+*[[file:ch16.html#ch16que06][6]].   a.* =#define QUARTERCENTURY 25=
+
+*b.* =#define SPACE ' '=
+
+*c.* =#define PS() putchar(' ')=
+
+or
+
+=#define PS() putchar(SPACE)=
+
+*d.* =#define BIG(X) ((X) + 3)=
+
+*e.* =#define SUMSQ(X,Y) ((X)*(X) + (Y)*(Y))=
+
+*[[file:ch16.html#ch16que07][7]].* Try this:
+
+[[file:app01_images.html#p900pro01][Click here to view code image]]
+
+#define P(X) printf("name: "#X"; value: %d; address: %p\n", X, &X)
+
+Or, if your implementation doesn't recognize the =%p= specification for the address, try =%u= or =%lu=.
+
+*[[file:ch16.html#ch16que08][8]].* Use the conditional compilation directives. One way is to use =#ifndef=:
+
+[[file:app01_images.html#p900pro02][Click here to view code image]]
+
+#define \_SKIP\_  /* remove when you don't want to skip code */\\
+#ifndef \_SKIP\_\\
+    /* code to be skipped */\\
+#endif
+
+*[[file:ch16.html#ch16que09][9]].*
+
+[[file:app01_images.html#p900pro03][Click here to view code image]]
+
+#ifdef PR\_DATE\\
+    printf("Date = %s\n", \_\_DATE\_\_);\\
+#endif
+
+*[[file:ch16.html#ch16que10][10]].* One version returns the value =x*x=. This just returns the type =double= value of the square. For example, =square(1.3)= would return =1.69=. The second version returns =(int)(x*x)=. This truncates the result to an =int=. Then, because the return type is =double=, the =int= value is promoted to a =double= value. So =1.69= would be converted first to =1= then to =1.00=. The final version returns =(int)(x*x+0.5)=. Adding =0.5= makes the function round to the nearest whole number instead of truncating. So =1.69= becomes =2.19=, which is truncated to =2= and then converted to =2.00=. But =1.44= becomes =1.94=, which is truncated to =1= and then converted to =1.00=.
+
+<<page_901>>*[[file:ch16.html#ch16que11][11]].* Here's one possibility:
+
+[[file:app01_images.html#p901pro01][Click here to view code image]]
+
+#define BOOL(X)  \_Generic((X), \_Bool : "boolean", default : "not boolean")
+
+*[[file:ch16.html#ch16que12][12]].* The =argv= argument should be declared as type =char *argv[]=. Command-line arguments are stored as strings, so the program should first convert the string in =argv[1]= to a type =double= value---for example, by using =atof()= from the =stdlib.h= library. The =math.h= header file should be included for the =sqrt()= function. The program should check for negative values before taking a square root.
+
+*[[file:ch16.html#ch16que13][13]].   a.* The function call should look like this:
+
+[[file:app01_images.html#p901pro02][Click here to view code image]]
+
+qsort( (void *)scores, (size\_t) 1000, sizeof (double), comp);
+
+*b.* Here's a suitable comparison function:
+
+[[file:app01_images.html#p901pro03][Click here to view code image]]
+
+int comp(const void * p1, const void * p2)\\
+{\\
+    /* need to use pointers to int to access values      */\\
+    /* the type casts are optional in C, required in C++ */\\
+    const int * a1 = (const int *) p1;    const int * a2 = (const int *)\\
+    p2;\\
+\\
+    if (*a1 > *a2)\\
+        return -1;\\
+    else if (*a1 == *a2)\\
+        return 0;\\
+    else\\
+        return 1;\\
+}
+
+*[[file:ch16.html#ch16que14][14]].   a.* The function call should look like this:
+
+[[file:app01_images.html#p901pro04][Click here to view code image]]
+
+memcpy(data1, data2, 100 * sizeof(double));
+
+*b.* The function call should look like this:
+
+[[file:app01_images.html#p901pro05][Click here to view code image]]
+
+memcpy(data1, data2 + 200 , 100 * sizeof(double));
+
+*** Answers to Review Questions for Chapter 17
+    :PROPERTIES:
+    :CUSTOM_ID: app01lev1sec17
+    :END:
+
+*[[file:ch17.html#ch17que01][1]].* Defining a data type consists of deciding how to store the data and designing a set of functions to manage the data.
+
+*[[file:ch17.html#ch17que02][2]].* The list can be traversed in only one direction because each structure contains the address of the next structure, but not of the preceding structure. You could modify the structure definition so that each structure contains two pointers---one to the preceding structure and one to the next structure. The program, of course, would have to assign proper addresses to these pointers each time a new structure is added.
+
+<<page_902>>*[[file:ch17.html#ch17que03][3]].* An ADT is an /abstract data type/, a formal definition of the properties of a type and of the operations that can be performed with the type. An ADT should be expressed in general terms, not in terms of some specific computer language or implementation details.
+
+*[[file:ch17.html#ch17que04][4]]. Advantages of passing a variable directly:* This function inspects a queue, but should not alter it. Passing a queue variable directly means the function works with a copy of the original, guaranteeing that the function does not alter the original data. When passing a variable directly, you don't have to remember to use the address operator or a pointer.
+
+*Disadvantages of passing a variable directly:* The program has to allocate enough space to hold the variable and then copy information from the original to the copy. If the variable is a large structure, using it has a time and space penalty.
+
+*Advantages of passing the address of a variable:* Passing an address and accessing the original data is faster and requires less memory than passing a variable if the variable is a large structure.
+
+*Disadvantages of passing the address of a variable:* You have to remember to use the address operator or a pointer. Under K&R C, the function could inadvertently alter the original data, but you can overcome this objection with the ANSI C =const= qualifier.
+
+*[[file:ch17.html#ch17que05][5]].  a.*
+
+[[file:graphics/902tab01.jpg]]
+
+*b.* The following implements the stack as an array, but that information affects only the structure definition and the details of the function definitions; it doesn't affect the interface described by the function prototypes.
+
+[[file:app01_images.html#p902pro01][Click here to view code image]]
+
+/* stack.h ---- interface for a stack */\\
+#include <stdbool.h>\\
+/* INSERT ITEM TYPE HERE */\\
+/* FOR EXAMPLE, typedef int Item; */\\
+\\
+#define MAXSTACK 100\\
+\\
+typedef struct stack\\
+{\\
+    Item items[MAXSTACK];   /* holds info                */\\
+<<page_903>>    int top;                /* index of first empty slot */\\
+} Stack;\\
+\\
+/* operation:       initialize the stack                       */\\
+/* precondition:    ps points to a stack                       */\\
+/* postcondition\\
+:   stack is initialized to being empty        */\\
+void InitializeStack(Stack * ps);\\
+/* operation:       check if stack is full                     */\\
+/* precondition:    ps points to previously initialized stack  */\\
+/* postcondition:   returns true if stack is full, else false  */\\
+bool FullStack(const Stack * ps);\\
+\\
+/* operation:       check if stack is empty                    */\\
+/* precondition:    ps points to previously initialized stack  */\\
+/* postcondition:   returns true if stack is empty, else false */\\
+bool EmptyStack(const Stack *ps);\\
+\\
+/* operation:       push item onto top of stack                */\\
+/* precondition:    ps points to previously initialized stack  */\\
+/*                  item is to be placed on top of stack       */\\
+/* postcondition:   if stack is not full, item is placed at    */\\
+/*                  top of stack and function returns          */\\
+/*                  true; otherwise, stack is unchanged and    */\\
+/*                  function returns false                     */\\
+bool Push(Item item, Stack * ps);\\
+\\
+/* operation:       remove item from top of stack              */\\
+/* precondition:    ps points to previously initialized stack  */\\
+/* postcondition:   if stack is not empty, item at top of      */\\
+/*                  stack is copied to *pitem and deleted from */\\
+/*                  stack, and function returns true; if the   */\\
+/*                  operation empties the stack, the stack is  */\\
+/*                  reset to empty. If the stack is empty to   */\\
+/*                  begin with, stack is unchanged and the     */\\
+/*                  function returns false                     */\\
+bool Pop(Item *pitem, Stack * ps);
+
+*[[file:ch17.html#ch17que06][6]].* Maximum number of comparisons required:
+
+[[file:graphics/903tab01.jpg]]
+
+<<page_904>>*[[file:ch17.html#ch17que07][7]].* See [[#app01fig01][Figure A.1]].
+
+<<app01fig01>>[[file:graphics/xafig01.jpg]]
+Figure A.1 Binary search tree of words.
+
+*[[file:ch17.html#ch17que08][8]].* See [[#app01fig02][Figure A.2]].
+
+<<app01fig02>>[[file:graphics/xafig02.jpg]]
+Figure A.2 Binary search tree of words after removal.
+
+

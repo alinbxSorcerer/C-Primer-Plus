@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>16. The C Preprocessor and the C Library</title>
+<link rel="stylesheet" type="text/css" href="9780133432381.css"/>
+</head>
+<body>
+<h2 id="ch16"><a id="page_711"/><span class="pd_ash">16.</span> The C Preprocessor and the C Library</h2>
+<p class="noindent">You will learn about the following in this chapter:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Preprocessor directives:</p>
+<p class="indenthangingBP"><code>#define</code>, <code>#include</code>, <code>#ifdef</code></p>
+<p class="indenthangingBP"><code>#else</code>, <code>#endif</code>, <code>#ifndef</code></p>
+<p class="indenthangingBP"><code>#if</code>, <code>#elif</code>, <code>#line</code>, <code>#error</code>, <code>#pragma</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Keywords:</p>
+<p class="indenthangingBP"><code>_Generic</code>, <code>_Noreturn</code>, <code>_Static_assert</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Functions/Macros:</p>
+<p class="indenthangingBP"><code>sqrt()</code>, <code>atan()</code>, <code>atan2()</code></p>
+<p class="indenthangingBP"><code>exit()</code>, <code>atexit()</code></p>
+<p class="indenthangingBP"><code>assert()</code></p>
+<p class="indenthangingBP"><code>memcpy()</code>, <code>memmove()</code></p>
+<p class="indenthangingBP"><code>va_start()</code>, <code>va_arg()</code>, <code>va_copy()</code>, <code>va_end()</code></p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> More capabilities of the C preprocessor</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Function-like macros and conditional compilation</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> The generic selection expression</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Inline functions</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> The C library in general and some of its handy functions in particular</p>
+<p class="noindent">The C language proper is built on the C keywords, expressions, and statements as well as the rules for using them. The C standard, however, goes beyond describing just the C language. It also describes how the C preprocessor should perform, establishes which functions form the <a id="page_712"/>standard C library, and details how these functions work. We&#8217;ll explore the C preprocessor and the C library in this chapter, beginning with the preprocessor.</p>
+<p class="noindent">The preprocessor looks at your program before it is compiled (hence the term <em>pre</em>processor). Following your preprocessor directives, the preprocessor replaces the symbolic abbreviations in your program with the directions they represent. The preprocessor can include other files at your request, and it can select which code the compiler sees. The preprocessor doesn&#8217;t know about C. Basically, it takes some text and converts it to other text. This description does not do justice to its true utility and value, so let&#8217;s turn to examples. You&#8217;ve encountered examples of <code>#define</code> and <code>#include</code> all along. Now we can gather what you have learned in one place and add to it.</p>
+<div class="heading">
+<h3 id="ch16lev1sec1">First Steps in Translating a Program</h3>
+<p class="noindent">The compiler has to put a program through some translation phases before jumping into preprocessing. The compiler starts its work by mapping characters appearing in the source code to the source character set. This takes care of multibyte characters and trigraphs&#8212;character extensions that make the outer face of C more international. (<a href="app02.html#app02">Appendix B</a> &#8220;<a href="app02.html#app02lev1sec7">Reference Section VII, Expanded Character Support</a>,&#8221; gives an overview of these extensions.)</p>
+</div>
+<p class="noindent">Second, the compiler locates each instance of a backslash followed by a newline character and deletes them. That is, two physical lines such as</p>
+<p class="pre">printf("That's wond\<br/>erful!\n");</p>
+<p class="noindent">are converted to a single <em>logical line</em>:</p>
+<p class="codelink"><a id="p0712pro01a" href="ch16_images.html#p0712pro01">Click here to view code image</a></p>
+<p class="pre">printf("That's wonderful\n!");</p>
+<p class="noindent">Note that in this context, &#8220;newline character&#8221; means the character produced by pressing the Enter key to start a new line in your source code file; it doesn&#8217;t mean the symbolic representation <code>\n</code>.</p>
+<p class="noindent">This feature is useful as a preparation for preprocessing because preprocessing expressions are required to be one logical line long, but that one logical line can be more than one physical line.</p>
+<p class="noindent">Next, the compiler breaks the text into a sequence of preprocessing tokens and sequences of whitespace and comments. (In basic terms, tokens are groups separated from each other by spaces, tabs, or line breaks; this chapter will look at tokens in more detail later.) One point of interest now is that each comment is replaced by one space character. So something such as</p>
+<p class="codelink"><a id="p0712pro02a" href="ch16_images.html#p0712pro02">Click here to view code image</a></p>
+<p class="pre">int/* this doesn't look like a space*/fox;</p>
+<p class="noindent">becomes</p>
+<p class="pre">int fox;</p>
+<p class="noindent"><a id="page_713"/>Also, an implementation may choose to replace each sequence of whitespace characters (other than a newline) with a single space. Finally, the program is ready for the preprocessing phase, and the preprocessor looks for potential preprocessing directives, indicated by a <code>#</code> symbol at the beginning of a line.</p>
+<div class="heading">
+<h3 id="ch16lev1sec2">Manifest Constants: <span class="EmpStrong">#define</span></h3>
+<p class="noindent">The <code>#define</code> preprocessor directive, like all preprocessor directives, begins with the <code>#</code> symbol at the beginning of a line. The ANSI and subsequent standards permit the <code>#</code> symbol to be preceded by spaces or tabs, and it allows for space between the <code>#</code> and the remainder of the directive. However, older versions of C typically require that the directive begin in the leftmost column and that there be no spaces between the <code>#</code> and the remainder of the directive. A directive can appear anywhere in the source file, and the definition holds from its place of appearance to the end of the file. We have used directives heavily to define symbolic, or <em>manifest</em>, constants in our programs, but they have more range than that, as we will show. <a href="ch16.html#ch16lis01">Listing 16.1</a> illustrates some of the possibilities and properties of the <code>#define</code> directive.</p>
+</div>
+<p class="noindent">Preprocessor directives run until the first newline following the <code>#</code>. That is, a directive is limited to one line in length. However, as mentioned earlier, the combination backslash/newline is deleted before preprocessing begins, so you can spread the directive over several physical lines. These lines, however, constitute a single logical line.</p>
+<p class="ex-caption"><a id="ch16lis01"/><span class="pd_ash">Listing 16.1</span> The <span class="EmpStrong">preproc.c</span> Program</p>
+<p class="codelink"><a id="p016lis01a" href="ch16_images.html#p016lis01">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* preproc.c -- simple preprocessor examples */<br/>#include &lt;stdio.h&gt;<br/>#define TWO 2&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* you can use comments if you like&#160;&#160;&#160;*/<br/>#define OW "Consistency is the last refuge of the unimagina\<br/>tive. - Oscar Wilde" /* a backslash continues a definition */<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* to the next line&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*/<br/>#define FOUR&#160;&#160;TWO*TWO<br/>#define PX printf("X is %d.\<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int x = TWO;<br/><br/>&#160;&#160;&#160;&#160;PX;<br/>&#160;&#160;&#160;&#160;x = FOUR;<br/>&#160;&#160;&#160;&#160;printf(FMT, x);<br/>&#160;&#160;&#160;&#160;printf("%s\n", OW);<br/>&#160;&#160;&#160;&#160;printf("TWO: OW\n");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent"><a id="page_714"/>Each <code>#define</code> line (logical line, that is) has three parts. The first part is the <code>#define</code> directive itself. The second part is your chosen abbreviation, known as a <em>macro</em>. Some macros, like these examples, represent values; they are called <em>object-like macros</em>. (C also has <em>function-like macros</em>, and we&#8217;ll get to them later.) The macro name must have no spaces in it, and it must conform to the same naming rules that C variables follow: Only letters, digits, and the underscore (<code>_</code>) character can be used, and the first character cannot be a digit. The third part (the remainder of the line) is termed the <em>replacement list</em> or <em>body</em> (see <a href="ch16.html#ch16fig01">Figure 16.1</a>). When the preprocessor finds an example of one of your macros within your program, it almost always replaces it with the body. (There is one exception, as we will show you in just a moment.) This process of going from a macro to a final replacement is called <em>macro expansion</em>. Note that you can use standard C comments on a <code>#define</code> line; as mentioned earlier, each is replaced by a space before the preprocessor sees it.</p>
+<div class="image"><a id="ch16fig01"/><img src="graphics/16fig01.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 16.1</span> Parts of an object-like macro definition.</p></div>
+<p class="noindent">Let&#8217;s run the example and see how it works:</p>
+<p class="codelink"><a id="p714pro01a" href="ch16_images.html#p714pro01">Click here to view code image</a></p>
+<p class="pre">X is 2.<br/>X is 4.<br/>Consistency is the last refuge of the unimaginative. - Oscar Wilde<br/>TWO: OW</p>
+<p class="noindent">Here&#8217;s what happened. The statement</p>
+<p class="pre">int x = TWO;</p>
+<p class="noindent">becomes</p>
+<p class="pre">int x = 2;</p>
+<p class="noindent">as <code>2</code> is substituted for <code>TWO</code>. Then the statement</p>
+<p class="pre">PX;</p>
+<p class="noindent">becomes</p>
+<p class="pre">printf("X is %d.\n", x);</p>
+<p class="noindent">as that wholesale substitution is made. This is a new wrinkle, because up to now we&#8217;ve used macros only to represent constants. Here you see that a macro can express any string, even a <a id="page_715"/>whole C expression. Note, though, that this is a constant string; <code>PX</code> will print only a variable named <code>x</code>.</p>
+<p class="noindent">The next line also represents something new. You might think that <code>FOUR</code> is replaced by <code>4</code>, but the actual process is this:</p>
+<p class="pre">x = FOUR;</p>
+<p class="noindent">becomes</p>
+<p class="pre">x = TWO*TWO;</p>
+<p class="noindent">which then becomes</p>
+<p class="pre">x = 2*2;</p>
+<p class="noindent">The macro expansion process ends there. The actual multiplication takes place not while the preprocessor works, but during compilation, because the C compiler evaluates all constant expressions (expressions with just constants) at compile time. The preprocessor does no calculation; it just makes the suggested substitutions very literally.</p>
+<p class="noindent">Note that a macro definition can include other macros. (Some compilers do not support this nesting feature.)</p>
+<p class="noindent">In the next line</p>
+<p class="pre">printf (FMT, x);</p>
+<p class="noindent">becomes</p>
+<p class="pre">printf("X is %d.\n",x);</p>
+<p class="noindent">as <code>FMT</code> is replaced by the corresponding string. This approach could be handy if you had a lengthy control string that you had to use several times. Alternatively, you can do the following:</p>
+<p class="codelink"><a id="p715pro01" href="ch16_images.html#p715pro01a">Click here to view code image</a></p>
+<p class="pre">const char * fmt = "X is %d.\n";</p>
+<p class="noindent">Then you can use <code>fmt</code> as the <code>printf()</code> control string.</p>
+<p class="noindent">In the next line, <code>OW</code> is replaced by the corresponding string. The double quotation marks make the replacement string a character string constant. The compiler will store it in an array terminated with a null character. Therefore,</p>
+<p class="pre">#define HAL 'Z'</p>
+<p class="noindent">defines a character constant, but</p>
+<p class="pre">#define HAP "Z"</p>
+<p class="noindent">defines a character string: <code>Z\O</code>.</p>
+<p class="noindent">In the example, we used a backslash immediately before the end of the line to extend the string to the next line:</p>
+<p class="codelink"><a id="page_716"/><a id="p716pro01a" href="ch16_images.html#p716pro01">Click here to view code image</a></p>
+<p class="pre">#define OW "Consistency is the last refuge of the unimagina\<br/>tive. - Oscar Wilde"</p>
+<p class="noindent">Note that the second line is flush left. Suppose, instead, we did this:</p>
+<p class="codelink"><a id="p716pro02a" href="ch16_images.html#p716pro02">Click here to view code image</a></p>
+<p class="pre">#define OW "Consistency is the last refuge of the unimagina\<br/>&#160;&#160;&#160;&#160;tive. - Oscar Wilde"</p>
+<p class="noindent">Then the output would be this:</p>
+<p class="codelink"><a id="p716pro03a" href="ch16_images.html#p716pro03">Click here to view code image</a></p>
+<p class="pre">Consistency is the last refuge of the unimagina&#160;&#160;&#160;&#160;tive. - Oscar Wilde</p>
+<p class="noindent">The space between the beginning of the line and <code>tive</code> counts as part of the string.</p>
+<p class="noindent">In general, wherever the preprocessor finds one of your macros in your program, it replaces it literally with the equivalent replacement text. If that string also contains macros, they, too, are replaced. The one exception to replacement is a macro found within double quotation marks. Therefore,</p>
+<p class="pre">printf("TWO: OW");</p>
+<p class="noindent">prints <code>TWO: OW</code> literally instead of printing</p>
+<p class="codelink"><a id="p716pro04a" href="ch16_images.html#p716pro04">Click here to view code image</a></p>
+<p class="pre">2: Consistency is the last refuge of the unimaginative. - Oscar Wilde</p>
+<p class="noindent">To print this last line, you would use this:</p>
+<p class="pre">printf("%d: %s\n", TWO, OW);</p>
+<p class="noindent">Here, the macros are outside the double quotation marks.</p>
+<p class="noindent">When should you use symbolic constants? You should use them for most numeric constants. If the number is some constant used in a calculation, a symbolic name makes its meaning clearer. If the number is an array size, a symbolic name makes it simpler to change the array size and loop limits later. If the number is a system code for, say, <code>EOF</code>, a symbolic representation makes your program much more portable; just change one <code>EOF</code> definition. Mnemonic value, easy alterability, portability&#8212;these features all make symbolic constants worthwhile.</p>
+<p class="noindent">It is true that the <code>const</code> keyword now supported by C allows for a more flexible way of creating constants. With <code>const</code> you can create global constants and local constants, numeric constants, array constants, and structure constants. On the other hand, macro constants can be used to specify the sizes of standard arrays and as initialization values for <code>const</code> values:</p>
+<p class="codelink"><a id="p716pro05a" href="ch16_images.html#p716pro05">Click here to view code image</a></p>
+<p class="pre">#define LIMIT 20<br/>const int LIM = 50;<br/>static int data1[LIMIT];&#160;&#160;&#160;&#160;// valid<br/>static int data2[LIM];&#160;&#160;&#160;&#160;&#160;&#160;// not required to be valid<br/>const int LIM2 = 2 * LIMIT; // valid<br/>const int LIM3 = 2 * LIM;&#160;&#160;&#160;// not required to be valid</p>
+<p class="noindent"><a id="page_717"/>Let&#8217;s look at the &#8220;not required to be valid&#8221; comments. In C, the array size for nonautomatic arrays is supposed to be an integer constant expression, meaning that it&#8217;s a combination of integer constants, such as <code>5</code>, enumeration constants, and <code>sizeof</code> expressions. This doesn&#8217;t include values declared using <code>const</code>. (This is one respect in which C++ differs from C; in C++ you can use <code>const</code> values as part of constant expressions.) However, an implementation may accept other forms of constant expressions. So, for example, GCC 4.7.3 doesn&#8217;t accept the declaration for <code>data2</code>, but Clang 4.6 does.</p>
+<div class="heading">
+<h4 id="ch16lev2sec1">Tokens</h4>
+<p class="noindent">Technically, the body of a macro is considered to be a string of <em>tokens</em> rather than a string of characters. C preprocessor tokens are the separate &#8220;words&#8221; in the body of a macro definition. They are separated from one another by whitespace. For example, the definition</p>
+</div>
+<p class="pre">#define FOUR 2*2</p>
+<p class="noindent">has one token&#8212;the sequence <code>2*2</code>&#8212;but the definition</p>
+<p class="pre">#define SIX 2 * 3</p>
+<p class="noindent">has three tokens in it: <code>2</code>, <code>*</code>, and <code>3</code>.</p>
+<p class="noindent">Character strings and token strings differ in how multiple spaces in a body are treated. Consider this definition:</p>
+<p class="pre">#define EIGHT 4&#160;&#160;&#160;&#160;*&#160;&#160;&#160;&#160;8</p>
+<p class="noindent">A preprocessor that interprets the body as a character string would replace <code>EIGHT</code> with <code>4 * 8</code>. That is, the extra spaces would be part of the replacement, but a preprocessor that interprets the body as tokens will replace <code>EIGHT</code> with three tokens separated by single spaces: <code>4 * 8</code>. In other words, the character string interpretation views the spaces as part of the body, but the token interpretation views the spaces as separators between the tokens of the body. In practice, some C compilers have viewed macro bodies as strings rather than as tokens. The difference is of practical importance only for usages more intricate than what we&#8217;re attempting here.</p>
+<p class="noindent">Incidentally, the C compiler takes a more complex view of tokens than the preprocessor does. The compiler understands the rules of C and doesn&#8217;t necessarily require spaces to separate tokens. For example, the C compiler would view <code>2*2</code> as three tokens because it recognizes that each <code>2</code> is a constant and that <code>*</code> is an operator.</p>
+<div class="heading">
+<h4 id="ch16lev2sec2">Redefining Constants</h4>
+<p class="noindent">Suppose you define <code>LIMIT</code> to be 20, and then later in the same file you define it again as 25. This process is called <em>redefining a constant</em>. Implementations differ on redefinition policy. Some consider it an error unless the new definition is the same as the old. Others allow redefinition, perhaps issuing a warning. The ANSI standard takes the first view, allowing redefinition only if the new definition duplicates the old.</p>
+</div>
+<p class="noindent"><a id="page_718"/>Having the same definition means the bodies must have the same tokens in the same order. Therefore, these two definitions agree:</p>
+<p class="pre">#define SIX 2 * 3<br/>#define SIX 2&#160;&#160;&#160;&#160;&#160;&#160;&#160;*&#160;&#160;&#160;&#160;3</p>
+<p class="noindent">Both have the same three tokens, and the extra spaces are not part of the body. The next definition is considered different:</p>
+<p class="pre">#define SIX 2*3</p>
+<p class="noindent">It has just one token, not three, so it doesn&#8217;t match. If you want to redefine a macro, use the <code>#undef</code> directive, which we discuss later.</p>
+<p class="noindent">If you do have constants that you need to redefine, it might be easier to use the <code>const</code> keyword and scope rules to accomplish that end.</p>
+<div class="heading">
+<h3 id="ch16lev1sec3">Using Arguments with <span class="EmpStrong">#define</span></h3>
+<p class="noindent">By using arguments, you can create <em>function-like macros</em> that look and act much like functions. A macro with arguments looks very similar to a function because the arguments are enclosed within parentheses. Function-like macro definitions have one or more arguments in parentheses, and these arguments then appear in the replacement portion, as shown in <a href="ch16.html#ch16fig02">Figure 16.2</a>.</p>
+</div>
+<div class="image"><a id="ch16fig02"/><img src="graphics/16fig02.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 16.2</span> Parts of a function-like macro definition.</p></div>
+<p class="noindent">Here&#8217;s a sample definition:</p>
+<p class="pre">#define SQUARE(X) X*X</p>
+<p class="noindent">It can be used in program like this:</p>
+<p class="pre">z = SQUARE(2);</p>
+<p class="noindent">This looks like a function call, but it doesn&#8217;t necessarily behave identically. <a href="ch16.html#ch16lis02">Listing 16.2</a> illustrates using this and a second macro. Some of the examples also point out possible pitfalls, so read them carefully.</p>
+<p class="ex-caption"><a id="page_719"/><a id="ch16lis02"/><span class="pd_ash">Listing 16.2</span> The <span class="EmpStrong">mac_arg.c</span> Program</p>
+<p class="codelink"><a id="p016lis02a" href="ch16_images.html#p016lis02">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* mac_arg.c -- macros with arguments */<br/>#include &lt;stdio.h&gt;<br/>#define SQUARE(X) X*X<br/>#define PR(X)&#160;&#160;&#160;printf("The result is %d.\n", X)<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int x = 5;<br/>&#160;&#160;&#160;&#160;int z;<br/><br/>&#160;&#160;&#160;&#160;printf("x = %d\n", x);<br/>&#160;&#160;&#160;&#160;z = SQUARE(x);<br/>&#160;&#160;&#160;&#160;printf("Evaluating SQUARE(x): ");<br/>&#160;&#160;&#160;&#160;PR(z);<br/>&#160;&#160;&#160;&#160;z = SQUARE(2);<br/>&#160;&#160;&#160;&#160;printf("Evaluating SQUARE(2): ");<br/>&#160;&#160;&#160;&#160;PR(z);<br/>&#160;&#160;&#160;&#160;printf("Evaluating SQUARE(x+2): ");<br/>&#160;&#160;&#160;&#160;PR(SQUARE(x+2));<br/>&#160;&#160;&#160;&#160;printf("Evaluating 100/SQUARE(2): ");<br/>&#160;&#160;&#160;&#160;PR(100/SQUARE(2));<br/>&#160;&#160;&#160;&#160;printf("x is %d.\n", x);<br/>&#160;&#160;&#160;&#160;printf("Evaluating SQUARE(++x): ");<br/>&#160;&#160;&#160;&#160;PR(SQUARE(++x));<br/>&#160;&#160;&#160;&#160;printf("After incrementing, x is %x.\n", x);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">The <code>SQUARE</code> macro has this definition:</p>
+<p class="pre">#define SQUARE(X) X*X</p>
+<p class="noindent">Here, <code>SQUARE</code> is the macro identifier, the <code>X</code> in <code>SQUARE(X)</code> is the macro argument, and <code>X*X</code> is the replacement list. Wherever <code>SQUARE(x)</code> appears in <a href="ch16.html#ch16lis02">Listing 16.2</a>, it is replaced by <code>x*x</code>. This differs from the earlier examples in that you are free to use symbols other than <code>x</code> when you use this macro. The <code>x</code> in the macro definition is replaced by the symbol used in the macro call in the program. Therefore, <code>SQUARE(2)</code> is replaced by <code>2*2</code>, so the <code>x</code> really does act as an argument.</p>
+<p class="noindent">However, as you will soon see, a macro argument does not work exactly like a function argument. Here are the results of running the program. Note that some of the answers are different from what you might expect. Indeed, your compiler might not even give the same answer as what&#8217;s shown here for the next-to-last line:</p>
+<p class="codelink"><a id="p719pro01a" href="ch16_images.html#p719pro01">Click here to view code image</a></p>
+<p class="pre">x = 5<br/>Evaluating SQUARE(x): The result is 25.<br/>Evaluating SQUARE(2): The result is 4.<br/><a id="page_720"/>Evaluating SQUARE(x+2): The result is 17.<br/>Evaluating 100/SQUARE(2): The result is 100.<br/>x is 5.<br/>Evaluating SQUARE(++x): The result is 42.<br/>After incrementing, x is 7.</p>
+<p class="noindent">The first two lines are predictable, but then you come to some peculiar results. Recall that <code>x</code> has the value <code>5</code>. This might lead you to expect that <code>SQUARE(x+2)</code> would be <code>7*7</code>, or <code>49</code>, but the printout says it is <code>17</code>, a prime number and certainly not a square! The simple reason for this misleading output is the one we have already stated&#8212;the preprocessor doesn&#8217;t make calculations; it just substitutes character sequences. Wherever the definition shows an <code>x</code>, the preprocessor substitutes the characters <code>x+2</code>. Therefore,</p>
+<p class="pre">x*x</p>
+<p class="noindent">becomes</p>
+<p class="pre">x+2*x+2</p>
+<p class="noindent">The only multiplication is <code>2*x</code>. If <code>x</code> is <code>5</code>, this is the value of this expression:</p>
+<p class="pre">5+2*5+2 = 5 + 10 + 2 = 17</p>
+<p class="noindent">This example pinpoints an important difference between a function call and a macro call. A function call passes the value of the argument to the function while the program is running. A macro call passes the argument token to the program before compilation; it&#8217;s a different process at a different time. Can the definition be fixed to make <code>SQUARE(x+2)</code> yield 36? Sure. You simply need more parentheses:</p>
+<p class="pre">#define SQUARE(x)&#160;&#160;(x)*(x)</p>
+<p class="noindent">Now <code>SQUARE(x+2)</code> becomes <code>(x+2)*(x+2)</code>, and you get the desired multiplication as the parentheses carry over in the replacement string.</p>
+<p class="noindent">This doesn&#8217;t solve all the problems, however. Consider the events leading to the next output line:</p>
+<p class="pre">100/SQUARE(2)</p>
+<p class="noindent">becomes</p>
+<p class="pre">100/2*2</p>
+<p class="noindent">By the laws of precedence, the expression is evaluated from left to right: <code>(100/2)*2</code> or <code>50*2</code> or <code>100</code>. This mix-up can be cured by defining <code>SQUARE(x)</code> as follows:</p>
+<p class="pre">#define SQUARE(x)&#160;&#160;(x*x)</p>
+<p class="noindent">This produces <code>100/(2*2)</code>, which eventually evaluates to <code>100/4</code>, or <code>25</code>.</p>
+<p class="noindent">To handle both of the previous two examples, you need this definition:</p>
+<p class="pre">#define SQUARE(x)&#160;&#160;((x)*(x))</p>
+<p class="noindent"><a id="page_721"/>The lesson here is to use as many parentheses as necessary to ensure that operations and associations are done in the right order.</p>
+<p class="noindent">Even these precautions fail to save the final example from grief:</p>
+<p class="pre">SQUARE(++x)</p>
+<p class="noindent">becomes</p>
+<p class="pre">++x*++x</p>
+<p class="noindent">and <code>x</code> gets incremented twice, once before the multiplication and once afterward:</p>
+<p class="pre">++x*++x = 6*7 = 42</p>
+<p class="noindent">Because the order of operations is left open, some compilers render the product <code>7*6</code>. Yet other compilers might increment both terms before multiplication, yielding <code>7*7</code>, or 49. Indeed, evaluating this expression results in what the standard calls undefined behavior. In all these cases, however, <code>x</code> starts with the value <code>5</code> and ends up with the value <code>7</code>, even though the code looks as though <code>x</code> was incremented just once.</p>
+<p class="noindent">The simplest remedy for this problem is to avoid using <code>++x</code> as a macro argument. In general, don&#8217;t use increment or decrement operators with macros. Note that <code>++x</code> would work as a function argument because it would be evaluated to <code>6</code>, and then the value <code>6</code> would be sent to the function.</p>
+<div class="heading">
+<h4 id="ch16lev2sec3">Creating Strings from Macro Arguments: The <span class="EmpStrong">#</span> Operator</h4>
+<p class="noindent">Here&#8217;s a function-like macro:</p>
+</div>
+<p class="codelink"><a id="p721pro01a" href="ch16_images.html#p721pro01">Click here to view code image</a></p>
+<p class="pre">#define PSQR(X)&#160;&#160;printf("The square of X is %d.\n", ((X)*(X)));</p>
+<p class="noindent">Suppose you used the macro like this:</p>
+<p class="pre">PSQR(8);</p>
+<p class="noindent">Here&#8217;s the output:</p>
+<p class="pre">The square of X is 64.</p>
+<p class="noindent">Note that the <code>X</code> in the quoted string is treated as ordinary text, not as a token that can be replaced.</p>
+<p class="noindent">Suppose you do want to include the macro argument in a string. C enables you to do that. Within the replacement part of a function-like macro, the <code>#</code> symbol becomes a preprocessing operator that converts tokens into strings. For example, say that <code>x</code> is a macro parameter, and then <code>#x</code> is that parameter name converted to the string <code>"x"</code>. This process is called <em>stringizing</em>. <a href="ch16.html#ch16lis03">Listing 16.3</a> illustrates how this process works.</p>
+<p class="ex-caption"><a id="page_722"/><a id="ch16lis03"/><span class="pd_ash">Listing 16.3</span> The <span class="EmpStrong">subst.c</span> Program</p>
+<p class="codelink"><a id="p016lis03a" href="ch16_images.html#p016lis03">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* subst.c -- substitute in string */<br/>#include &lt;stdio.h&gt;<br/>#define PSQR(x) printf("The square of " #x " is %d.\n",((x)*(x)))<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int y = 5;<br/><br/>&#160;&#160;&#160;&#160;PSQR(y);<br/>&#160;&#160;&#160;&#160;PSQR(2 + 4);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here&#8217;s the output:</p>
+<p class="pre">The square of y is 25.<br/>The square of 2 + 4 is 36.</p>
+<p class="noindent">In the first call to the macro, <code>#x</code> was replaced by <code>"y"</code>, and in the second call <code>#x</code> was replaced by <code>"2 + 4"</code>. ANSI C string concatenation then combined these strings with the other strings in the <code>printf()</code> statement to produce the final strings that were used. For example, the first invocation becomes this:</p>
+<p class="codelink"><a id="p722pro01a" href="ch16_images.html#p722pro01">Click here to view code image</a></p>
+<p class="pre">printf("The square of " "y" " is %d.\n",((y)*(y)));</p>
+<p class="noindent">Then string concatenation converts the three adjacent strings to one string:</p>
+<p class="pre">"The square of y is %d.\n"</p>
+<div class="heading">
+<h4 id="ch16lev2sec4">Preprocessor Glue: The <span class="EmpStrong">##</span> Operator</h4>
+<p class="noindent">Like the <code>#</code> operator, the <code>##</code> operator can be used in the replacement section of a function-like macro. Additionally, it can be used in the replacement section of an object-like macro. The <code>##</code> operator combines two tokens into a single token. For example, you could do this:</p>
+</div>
+<p class="pre">#define XNAME(n) x ## n</p>
+<p class="noindent">Then the macro</p>
+<p class="pre">XNAME(4)</p>
+<p class="noindent">would expand to the following:</p>
+<p class="pre">x4</p>
+<p class="noindent"><a href="ch16.html#ch16lis04">Listing 16.4</a> uses this and another macro using <code>##</code> to do a bit of token gluing.</p>
+<p class="ex-caption"><a id="page_723"/><a id="ch16lis04"/><span class="pd_ash">Listing 16.4</span> The <span class="EmpStrong">glue.c</span> Program</p>
+<p class="codelink"><a id="p016lis04a" href="ch16_images.html#p016lis04">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// glue.c -- use the ## operator<br/>#include &lt;stdio.h&gt;<br/>#define XNAME(n) x ## n<br/>#define PRINT_XN(n) printf("x" #n " = %d\n", x ## n);<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int XNAME(1) = 14;&#160;&#160;// becomes int x1 = 14;<br/>&#160;&#160;&#160;&#160;int XNAME(2) = 20;&#160;&#160;// becomes int x2 = 20;<br/>&#160;&#160;&#160;&#160;int x3 = 30;<br/>&#160;&#160;&#160;&#160;PRINT_XN(1);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// becomes printf("x1 = %d\n", x1);<br/>&#160;&#160;&#160;&#160;PRINT_XN(2);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// becomes printf("x2 = %d\n", x2);<br/>&#160;&#160;&#160;&#160;PRINT_XN(3);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// becomes printf("x3 = %d\n", x3);<br/>&#160;&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here&#8217;s the output:</p>
+<p class="pre">x1 = 14<br/>x2 = 20<br/>x3 = 30</p>
+<p class="noindent">Note how the <code>PRINT_XN()</code> macro uses the <code>#</code> operator to combine strings and the <code>##</code> operator to combine tokens into a new identifier.</p>
+<div class="heading">
+<h4 id="ch16lev2sec5">Variadic Macros: <span class="EmpStrong">...</span> and <span class="EmpStrong">__VA_ARGS</span><span class="EmpStrong">__</span></h4>
+<p class="noindent">Some functions, such as <code>printf()</code>, accept a variable number of arguments. The <code>stdvar.h</code> header file, discussed later in this chapter, provides tools for creating user-defined functions with a variable number of arguments. And C99/C11 does the same thing for macros. Although not used in the standard, the word <em>variadic</em> has come into currency to label this facility. (However, the process that has added <em>stringizing</em> and <em>variadic</em> to the C vocabulary has not yet led to labeling functions or macros with a fixed number of arguments as fixadic functions and normadic macros.)</p>
+</div>
+<p class="noindent">The idea is that the final argument in an argument list for a macro definition can be ellipses (that is, three periods). If so, the predefined macro <code>__VA_ARGS__</code> can be used in the substitution part to indicate what will be substituted for the ellipses. For example, consider this definition:</p>
+<p class="codelink"><a id="p723pro01a" href="ch16_images.html#p723pro01">Click here to view code image</a></p>
+<p class="pre">#define PR(...) printf(__VA_ARGS__)</p>
+<p class="noindent">Suppose you later invoke the macro like this:</p>
+<p class="codelink"><a id="p723pro02a" href="ch16_images.html#p723pro02">Click here to view code image</a></p>
+<p class="pre">PR("Howdy");<br/>PR("weight = %d, shipping = $%.2f\n", wt, sp);</p>
+<p class="noindent"><a id="page_724"/>For the first invocation, <code>__VA_ARGS__</code> expands to one argument:</p>
+<p class="pre">"Howdy"</p>
+<p class="noindent">For the second invocation, it expands to three arguments:</p>
+<p class="codelink"><a id="p724pro01a" href="ch16_images.html#p724pro01">Click here to view code image</a></p>
+<p class="pre">"weight = %d, shipping = $%.2f\n", wt, sp</p>
+<p class="noindent">Thus, the resulting code is this:</p>
+<p class="codelink"><a id="p724pro02a" href="ch16_images.html#p724pro02">Click here to view code image</a></p>
+<p class="pre">printf("Howdy");<br/>printf("weight = %d, shipping = $%.2f\n", wt, sp);</p>
+<p class="noindent"><a href="ch16.html#ch16lis05">Listing 16.5</a> shows a slightly more ambitious example that uses string concatenation and the <code>#</code> operator:</p>
+<p class="ex-caption"><a id="ch16lis05"/><span class="pd_ash">Listing 16.5</span> The <span class="EmpStrong">variadic.c</span> Program</p>
+<p class="codelink"><a id="p016lis05a" href="ch16_images.html#p016lis05">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// variadic.c -- variadic macros<br/>#include &lt;stdio.h&gt;<br/>#include &lt;math.h&gt;<br/>#define PR(X, ...) printf("Message " #X ": " __VA_ARGS__)<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;double x = 48;<br/>&#160;&#160;&#160;&#160;double y;<br/><br/>&#160;&#160;&#160;&#160;y = sqrt(x);<br/>&#160;&#160;&#160;&#160;PR(1, "x = %g\n", x);<br/>&#160;&#160;&#160;&#160;PR(2, "x = %.2f, y = %.4f\n", x, y);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">In the first macro call, <code>X</code> has the value <code>1</code>, so <code>#X</code> becomes <code>"1"</code>. That makes the expansion look like this:</p>
+<p class="codelink"><a id="p724pro03a" href="ch16_images.html#p724pro03">Click here to view code image</a></p>
+<p class="pre">print("Message " "1" ": " "x = %g\n", x);</p>
+<p class="noindent">Then the four strings are concatenated, reducing the call to this:</p>
+<p class="pre">print("Message 1: x = %g\n", x);</p>
+<p class="noindent">Here&#8217;s the output:</p>
+<p class="codelink"><a id="p724pro05" href="ch16_images.html#p724pro05a">Click here to view code image</a></p>
+<p class="pre">Message 1: x = 48<br/>Message 2: x = 48.00, y = 6.9282</p>
+<p class="noindent">Don&#8217;t forget, the ellipses have to be the last macro argument:</p>
+<p class="codelink"><a id="p724pro04a" href="ch16_images.html#p724pro04">Click here to view code image</a></p>
+<p class="pre">#define WRONG(X, ..., Y)&#160;&#160;#X #__VA_ARGS__ #y&#160;&#160;// won't work</p>
+<div class="heading">
+<h3 id="ch16lev1sec4"><a id="page_725"/>Macro or Function?</h3>
+<p class="noindent">Many tasks can be done by using a macro with arguments or by using a function. Which one should you use? There is no hard-and-fast rule, but here are some considerations.</p>
+</div>
+<p class="noindent">Macros are somewhat trickier to use than regular functions because they can have odd side effects if you are unwary. Some compilers limit the macro definition to one line, and it is probably best to observe that limit, even if your compiler does not.</p>
+<p class="noindent">The macro-versus-function choice represents a trade-off between time and space. A macro produces inline code; that is, you get a statement in your program. If you use the macro 20 times, you get 20 lines of code inserted into your program. If you use a function 20 times, you have just one copy of the function statements in your program, so less space is used. On the other hand, program control must shift to where the function is and then return to the calling program, and this takes longer than inline code.</p>
+<p class="noindent">Macros have an advantage in that they don&#8217;t worry about variable types. (This is because they deal with character strings, not with actual values.) Therefore, the <code>SQUARE(x)</code> macro can be used equally well with <code>int</code> or <code>float</code>.</p>
+<p class="noindent">C99 provides a third alternative&#8212;inline functions. We&#8217;ll look at them later in this chapter.</p>
+<p class="noindent">Programmers typically use macros for simple functions such as the following:</p>
+<p class="codelink"><a id="p725pro01a" href="ch16_images.html#p725pro01">Click here to view code image</a></p>
+<p class="pre">#define MAX(X,Y)&#160;&#160;&#160;&#160;((X) &gt; (Y) ? (X) : (Y))<br/>#define ABS(X)&#160;&#160;&#160;&#160;&#160;&#160;&#160;((X) &lt; 0 ? -(X) : (X))<br/>#define ISSIGN(X)&#160;&#160;&#160;((X) == '+' || (X) == '-' ? 1 : 0)</p>
+<p class="noindent">(The last macro has the value <code>1</code>, or true, if <code>x</code> is an algebraic sign character.)</p>
+<p class="noindent">Here are some points to note:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Remember that there are no spaces in the macro name, but that spaces can appear in the replacement string. ANSI C permits spaces in the argument list.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Use parentheses around each argument and around the definition as a whole. This ensures that the enclosed terms are grouped properly in an expression such as</p>
+<p class="codelink"><a id="p725pro02" href="ch16_images.html#p725pro02a">Click here to view code image</a></p>
+<p class="pre1">forks = 2 * MAX(guests + 3, last);</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Use capital letters for macro function names. This convention is not as widespread as that of using capitals for macro constants. However, one good reason for using capitals is to remind yourself to be alert to possible macro side effects.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> If you intend to use a macro instead of a function primarily to speed up a program, first try to determine whether it is likely to make a significant difference. A macro that is used once in a program probably won&#8217;t make any noticeable improvement in running time. A macro inside a nested loop is a much better candidate for speed improvements. Many systems offer program profilers to help you pin down where a program spends the most time.</p>
+<p class="noindent"><a id="page_726"/>Suppose you have developed some macro functions you like. Do you have to retype them each time you write a new program? Not if you remember the <code>#include</code> directive, reviewed in the following section.</p>
+<div class="heading">
+<h3 id="ch16lev1sec5">File Inclusion: <span class="EmpStrong">#include</span></h3>
+<p class="noindent">When the preprocessor spots an <code>#include</code> directive, it looks for the following filename and includes the contents of that file within the current file. The <code>#include</code> directive in your source code file is replaced with the text from the included file. It&#8217;s as though you sat down and typed in the entire contents of the included file at that particular location in your source file. The <code>#include</code> directive comes in two varieties:</p>
+</div>
+<div class="image2"><img src="graphics/726pro01.jpg" alt="Image"/></div>
+<p class="noindent">On a Unix system, the angle brackets tell the preprocessor to look for the file in one or more standard system directories. The double quotation marks tell it to first look in your current directory (or some other directory that you have specified in the filename) and then look in the standard places:</p>
+<div class="image2"><img src="graphics/726pro02.jpg" alt="Image"/></div>
+<p class="noindent">Integrated development environments (IDEs) also have a standard location or locations for the system header files. Many provide menu choices for specifying additional locations to be searched when angle brackets are used. As with Unix, using double quotes means to search a local directory first, but the exact directory searched depends on the compiler. Some search the same directory as that holding the source code; some search the current working directory; and some search the same directory as that holding the project file.</p>
+<p class="noindent">ANSI C doesn&#8217;t demand adherence to the directory model for files because not all computer systems are organized similarly. In general, the method used to name files is system dependent, but the use of the angle brackets and double quotation marks is not.</p>
+<p class="noindent">Why include files? Because they have information the compiler needs. The <code>stdio.h</code> file, for example, typically includes definitions of <code>EOF</code>, <code>NULL</code>, <code>getchar()</code>, and <code>putchar()</code>. The last two are defined as macro functions. It also contains function prototypes for the C I/O functions.</p>
+<p class="noindent">The <code>.h</code> suffix is conventionally used for <em>header files</em>&#8212;files with information that are placed at the head of your program. Header files often contain preprocessor statements. Some, such as <code>stdio.h</code>, come with the system, but you are free to create your own.</p>
+<p class="noindent"><a id="page_727"/>Including a large header file doesn&#8217;t necessarily add much to the size of your program. The content of header files, for the most part, is information used by the compiler to generate the final code, not material to be added to the final code.</p>
+<div class="heading">
+<h4 id="ch16lev2sec6">Header Files: An Example</h4>
+<p class="noindent">Suppose you developed a structure for holding a person&#8217;s name and also wrote some functions for using the structure. You could gather together the various declarations in a header file. <a href="ch16.html#ch16lis06">Listing 16.6</a> shows an example of this.</p>
+</div>
+<p class="ex-caption"><a id="ch16lis06"/><span class="pd_ash">Listing 16.6</span> The <span class="EmpStrong">names_st.h</span> Header File</p>
+<p class="codelink"><a id="p016lis06a" href="ch16_images.html#p016lis06">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// names_st.h -- names_st structure header file<br/>// constants<br/>#include &lt;string.h&gt;<br/>#define SLEN 32<br/><br/>// structure declarations<br/>struct names_st<br/>{<br/>&#160;&#160;&#160;&#160;char first[SLEN];<br/>&#160;&#160;&#160;&#160;char last[SLEN];<br/>};<br/><br/>// typedefs<br/>typedef struct names_st names;<br/><br/>// function prototypes<br/>void get_names(names *);<br/>void show_names(const names *);<br/>char * s_gets(char * st, int n);</p>
+<hr/>
+<p class="noindent">This header file includes many of the kinds of things commonly found in header files: #define directives, structure declarations, <code>typedef</code> statements, and function prototypes. Note that none of these things are executable code; rather, they are information that the compiler uses when it creates executable code.</p>
+<p class="noindent">This particular header file is a bit na&#239;ve. Normally, you should use <code>#ifndef</code> and <code>#define</code> to protect against multiple inclusions of a header file. We&#8217;ll return to that technique later.</p>
+<p class="noindent">Executable code normally goes into a source code file, not a header file. For example, <a href="ch16.html#ch16lis07">Listing 16.7</a> shows the function definitions for those functions prototyped in the header file. It includes the header file so that the compiler will know about <code>names</code> type.</p>
+<p class="ex-caption"><a id="page_728"/><a id="ch16lis07"/><span class="pd_ash">Listing 16.7</span> The <span class="EmpStrong">name_st.c</span> Source File</p>
+<p class="codelink"><a id="p016lis07a" href="ch16_images.html#p016lis07">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// names_st.c -- define names_st functions<br/>#include &lt;stdio.h&gt;<br/>#include "names_st.h"&#160;&#160;&#160;&#160;&#160;// include the header file<br/><br/>// function definitions<br/>void get_names(names * pn)<br/>{<br/>&#160;&#160;&#160;&#160;printf("Please enter your first name: ");<br/>&#160;&#160;&#160;&#160;s_gets(pn-&gt;first, SLEN);<br/><br/>&#160;&#160;&#160;&#160;printf("Please enter your last name: ");<br/>&#160;&#160;&#160;&#160;s_gets(pn-&gt;last, SLEN);<br/>&#160;}<br/><br/>void show_names(const names * pn)<br/>{<br/>&#160;&#160;&#160;&#160;printf("%s %s", pn-&gt;first, pn-&gt;last);<br/>}<br/><br/>char * s_gets(char * st, int n)<br/>{<br/>&#160;&#160;&#160;&#160;char * ret_val;<br/>&#160;&#160;&#160;&#160;char * find;<br/><br/>&#160;&#160;&#160;&#160;ret_val = fgets(st, n, stdin);<br/>&#160;&#160;&#160;&#160;if (ret_val)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;find = strchr(st, '\n');&#160;&#160;&#160;// look for newline<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (find)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// if the address is not NULL,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;*find = '\0';&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// place a null character there<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while (getchar() != '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// dispose of rest of line<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;return ret_val;<br/>}</p>
+<hr/>
+<p class="noindent">The <code>get_names()</code> function uses <code>fgets()</code> (via <code>s_gets()</code>) so as not to overflow the destination arrays. <a href="ch16.html#ch16lis08">Listing 16.8</a> is an example of a program that uses this header and source code file.</p>
+<p class="ex-caption"><a id="ch16lis08"/><span class="pd_ash">Listing 16.8</span> The <span class="EmpStrong">useheader.c</span> Program</p>
+<p class="codelink"><a id="p016lis08a" href="ch16_images.html#p016lis08">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// useheader.c -- use the names_st structure<br/>#include &lt;stdio.h&gt;<br/>#include "names_st.h"<br/><a id="page_729"/>// remember to link with names_st.c<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;names candidate;<br/><br/>&#160;&#160;&#160;&#160;get_names(&#38;candidate);<br/>&#160;&#160;&#160;&#160;printf("Let's welcome ");<br/>&#160;&#160;&#160;&#160;show_names(&#38;candidate);<br/>&#160;&#160;&#160;&#160;printf(" to this program!\n");<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is a sample run:</p>
+<p class="codelink"><a id="p729pro01a" href="ch16_images.html#p729pro01">Click here to view code image</a></p>
+<p class="pre">Please enter your first name: Ian<br/>Please enter your last name: Smersh<br/>Let's welcome Ian Smersh to this program!</p>
+<p class="noindent">Note the following points about this program:</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Both source code files use the <code>names_st</code> structure, so both have to include the <code>names_st.h</code> header file.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> You need to compile and link the <code>names_st.c</code> and the <code>useheader.c</code> source code files.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> Declarations and the like go into the <code>names_st.h</code> header file; function definitions go into the <code>names_st.c</code> source code file.</p>
+<div class="heading">
+<h4 id="ch16lev2sec7">Uses for Header Files</h4>
+<p class="noindent">A look through any of the standard header files can give you a good idea of the sort of information found in them. The most common forms of header contents include the following:</p>
+</div>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> <strong>Manifest constants&#8212;</strong>A typical <code>stdio.h</code> file, for instance, defines <code>EOF</code>, <code>NULL</code>, and <code>BUFSIZ</code> (the size of the standard I/O buffer).</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> <strong>Macro functions&#8212;</strong>For example, <code>getchar()</code> is usually defined as <code>getc(stdin)</code>, <code>getc()</code> is usually defined as a rather complex macro, and the <code>ctype.h</code> header typically contains macro definitions for the <code>ctype</code> functions.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> <strong>Function declarations&#8212;</strong>The <code>string.h</code> header (<code>strings.h</code> on some older systems), for example, contains function declarations for the family of string functions. Under ANSI C and later, the declarations are in function prototype form.</p>
+<p class="indenthangingB"><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> <strong>Structure template definitions&#8212;</strong>The standard I/O functions make use of a <code>FILE</code> structure containing information about a file and its associated buffer. The <code>stdio.h</code> file holds the declaration for this structure.</p>
+<p class="indenthangingB"><a id="page_730"/><span class="middle"><img src="graphics/squf.jpg" alt="Image"/></span> <strong>Type definitions&#8212;</strong>You might recall that the standard I/O functions use a pointer-to-<code>FILE</code> argument. Typically, <code>stdio.h</code> uses a <code>#define</code> or a <code>typedef</code> to make <code>FILE</code> represent a pointer to a structure. Similarly, the <code>size_t</code> and <code>time_t</code> types are defined in header files.</p>
+<p class="noindent">Many programmers develop their own standard header files to use with their programs. This is particularly valuable if you develop a family of related functions and/or structures.</p>
+<p class="noindent">Also, you can use header files to declare external variables to be shared by several files. This makes sense, for example, if you&#8217;ve developed a family of functions that share a variable for reporting a status of some kind, such as an error condition. In that case, you could define a file-scope, external-linkage variable in the source code file containing the function declarations:</p>
+<p class="codelink"><a id="p730pro01a" href="ch16_images.html#p730pro01">Click here to view code image</a></p>
+<p class="pre">int status = 0;&#160;&#160;&#160;&#160;// file scope, source code file</p>
+<p class="noindent">Then, in the header file associated with the source code file, you could place a reference declaration:</p>
+<p class="codelink"><a id="p730pro02a" href="ch16_images.html#p730pro02">Click here to view code image</a></p>
+<p class="pre">extern int status;&#160;&#160;// in header file</p>
+<p class="noindent">This code would then appear in any file in which you included the header file, making the variable available to those files that use that family of functions. This declaration also would appear, through inclusion, in the function source code file, but it&#8217;s okay to have both a defining declaration and a reference declaration in the same file, as long as the declarations agree in type.</p>
+<p class="noindent">Another candidate for inclusion in a header file is a variable or array with file scope, internal linkage, and <code>const</code> qualification. The <code>const</code> part protects against accidental changes, and the <code>static</code> part means that each file including the header gets its own copy of the constants so that there isn&#8217;t the problem of needing one file with a defining declaration and the rest with reference declarations.</p>
+<p class="noindent">The <code>#include</code> and <code>#define</code> directives are the most heavily used C preprocessor features. We&#8217;ll look at the other directives in less detail.</p>
+<div class="heading">
+<h3 id="ch16lev1sec6">Other Directives</h3>
+<p class="noindent">Programmers may have to prepare C programs or C library packages that have to work in a variety of environments. The choices of types of code can vary from one environment to another. The preprocessor provides several directives that help the programmer produce code that can be moved from one system to another by changing the values of some <code>#define</code> macros. The <code>#undef</code> directive cancels an earlier <code>#define</code> definition. The <code>#if</code>, <code>#ifdef</code>, <code>#ifndef</code>, <code>#else</code>, <code>#elif</code>, and <code>#endif</code> directives allow you to specify different alternatives for which code is compiled. The <code>#line</code> directive lets you reset line and file information, the <code>#error</code> directive lets you issue error messages, and the <code>#pragma</code> directive lets you give instructions to the compiler.</p>
+</div>
+<div class="heading">
+<h4 id="ch16lev2sec8"><a id="page_731"/>The <span class="EmpStrong">#undef</span> Directive</h4>
+<p class="noindent">The <code>#undef</code> directive &#8220;undefines&#8221; a given <code>#define</code>. That is, suppose you have this definition:</p>
+</div>
+<p class="pre">#define LIMIT 400</p>
+<p class="noindent">Then the directive</p>
+<p class="pre">#undef LIMIT</p>
+<p class="noindent">removes that definition. Now, if you like, you can redefine <code>LIMIT</code> so that it has a new value. Even if <code>LIMIT</code> is not defined in the first place, it is still valid to undefine it. If you want to use a particular name and you are unsure whether it has been used previously, you can undefine it to be on the safe side.</p>
+<div class="heading">
+<h4 id="ch16lev2sec9">Being Defined&#8212;The C Preprocessor Perspective</h4>
+<p class="noindent">The preprocessor follows the same rules as C about what constitutes an identifier: An identifier can consist only of uppercase letters, lowercase letters, digits, and underscore characters, and a digit cannot be the first character. When the preprocessor encounters an identifier in a preprocessor directive, it considers it to be either defined or undefined. Here, <em>defined</em> means defined by the preprocessor. If the identifier is a macro name created by a prior <code>#define</code> directive in the same file and it hasn&#8217;t been turned off by an <code>#undef</code> directive, it&#8217;s defined. If the identifier is not a macro but is, say, a file-scope C variable, it&#8217;s not defined as far as the preprocessor is concerned.</p>
+</div>
+<p class="noindent">A defined macro can be an object-like macro, including an empty macro, or a function-like macro:</p>
+<p class="codelink"><a id="p731pro01a" href="ch16_images.html#p731pro01">Click here to view code image</a></p>
+<p class="pre">#define LIMIT 1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// LIMIT is defined<br/>#define GOOD&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// GOOD is defined<br/>#define A(X)&#160;&#160;((-(X))*(X)) // A is defined<br/>int q;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// q not a macro, hence not defined<br/>#undef GOOD&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// GOOD not defined</p>
+<p class="noindent">Note that the scope of a <code>#define</code> macro extends from the point it is declared in a file until it is the subject of an <code>#undef</code> directive or until the end of the file, whichever comes first. Also note that the position of the <code>#define</code> in a file will depend on the position of an <code>#include</code> directive if the macro is brought in via a header file.</p>
+<p class="noindent">A few predefined macros, such as <code>__DATE__</code> and <code>__FILE__</code> (discussed later this chapter), are always considered defined and cannot be undefined.</p>
+<div class="heading">
+<h4 id="ch16lev2sec10">Conditional Compilation</h4>
+<p class="noindent">You can use the other directives mentioned to set up conditional compilations. That is, you can use them to tell the compiler to accept or ignore blocks of information or code according to conditions at the time of compilation.</p>
+</div>
+<div class="heading">
+<h5 id="ch16lev3sec1"><a id="page_732"/>The <span class="EmpStrong">#ifdef</span>, <span class="EmpStrong">#else</span>, and <span class="EmpStrong">#endif</span> Directives</h5>
+<p class="noindent">A short example will clarify what conditional compilation does. Consider the following:</p>
+</div>
+<p class="codelink"><a id="p732pro01a" href="ch16_images.html#p732pro01">Click here to view code image</a></p>
+<p class="pre">#ifdef MAVIS<br/>&#160;&#160;&#160;&#160;&#160;#include "horse.h"&#160;&#160;// gets done if MAVIS is #defined<br/>&#160;&#160;&#160;&#160;&#160;#define&#160;&#160;STABLES&#160;&#160;&#160;&#160;&#160;5<br/>#else<br/>&#160;&#160;&#160;&#160;&#160;#include "cow.h"&#160;&#160;&#160;&#160;// gets done if MAVIS isn't #defined<br/>&#160;&#160;&#160;&#160;&#160;#define&#160;&#160;STABLES&#160;&#160;&#160;15<br/>#endif</p>
+<p class="noindent">Here we&#8217;ve used the indentation allowed by newer implementations and by the ANSI standard. If you have an older implementation, you might have to move all the directives, or at least the <code>#</code> symbols (see the next example), to flush left:</p>
+<p class="codelink"><a id="p732pro02a" href="ch16_images.html#p732pro02">Click here to view code image</a></p>
+<p class="pre">#ifdef MAVIS<br/>#&#160;&#160;&#160;include "horse.h"&#160;&#160;/* gets done if MAVIS is #defined&#160;&#160;&#160;&#160;*/<br/>#&#160;&#160;&#160;define&#160;&#160;STABLES&#160;&#160;&#160;&#160;&#160;5<br/>#else<br/>#&#160;&#160;&#160;include "cow.h"&#160;&#160;&#160;&#160;/* gets done if MAVIS isn't #defined */<br/>#&#160;&#160;&#160;define&#160;&#160;STABLES&#160;&#160;&#160;15<br/>#endif</p>
+<p class="noindent">The <code>#ifdef</code> directive says that if the following identifier (<code>MAVIS</code>) has been defined by the preprocessor, follow all the directives and compile all the C code up to the next <code>#else</code> or <code>#endif</code>, whichever comes first. If there is an <code>#else</code>, everything from the <code>#else</code> to the <code>#endif</code> is done if the identifier isn&#8217;t defined.</p>
+<p class="noindent">The form <code>#ifdef #else</code> is much like that of the C <code>if else</code>. The main difference is that the preprocessor doesn&#8217;t recognize the braces (<code>{}</code>) method of marking a block, so it uses the <code>#else</code> (if any) and the <code>#endif</code> (which must be present) to mark blocks of directives. These conditional structures can be nested. You can use these directives to mark blocks of C statements, too, as <a href="ch16.html#ch16lis09">Listing 16.9</a> illustrates.</p>
+<p class="ex-caption"><a id="ch16lis09"/><span class="pd_ash">Listing 16.9</span> The <span class="EmpStrong">ifdef.c</span> Program</p>
+<p class="codelink"><a id="p016lis09a" href="ch16_images.html#p016lis09">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* ifdef.c -- uses conditional compilation */<br/>#include &lt;stdio.h&gt;<br/>#define JUST_CHECKING<br/>#define LIMIT 4<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int i;<br/>&#160;&#160;&#160;&#160;int total = 0;<br/><br/>&#160;&#160;&#160;&#160;for (i = 1; i &lt;= LIMIT; i++)<br/><a id="page_733"/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;total += 2*i*i + 1;<br/>#ifdef JUST_CHECKING<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("i=%d, running total = %d\n", i, total);<br/>#endif<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("Grand total = %d\n", total);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Compiling and running the program as shown produces this output:</p>
+<p class="pre">i=1, running total = 3<br/>i=2, running total = 12<br/>i=3, running total = 31<br/>i=4, running total = 64<br/>Grand total = 64</p>
+<p class="noindent">If you omit the <code>JUST_CHECKING</code> definition (or enclose it inside a C comment, or use <code>#undef</code> to undefine it) and recompile the program, only the final line is displayed. You can use this approach, for example, to help in program debugging. Define <code>JUST_CHECKING</code> and use a judicious selection of <code>#ifdef</code>s, and the compiler will include program code for printing intermediate values for debugging. After everything is working, you can remove the definition and recompile. If, later, you find that you need the information again, you can reinsert the definition and avoid having to retype all the extra print statements. Another possibility is using <code>#ifdef</code> to select among alternative chunks of codes suited for different C implementations.</p>
+<div class="heading">
+<h5 id="ch16lev3sec2">The <span class="EmpStrong">#ifndef</span> Directive</h5>
+<p class="noindent">The <code>#ifndef</code> directive can be used with <code>#else</code> and <code>#endif</code> in the same way that <code>#ifdef</code> is. The <code>#ifndef</code> asks whether the following identifier is <em>not</em> defined; <code>#ifndef</code> is the negative of <code>#ifdef</code>. This directive is often used to define a constant if it is not already defined. Here&#8217;s an example:</p>
+</div>
+<p class="pre">/* arrays.h&#160;&#160;*/<br/>#ifndef SIZE<br/>&#160;&#160;&#160;#define SIZE 100<br/>#endif</p>
+<p class="noindent">(Older implementations might not permit indenting the <code>#define</code> directive.)</p>
+<p class="noindent">Typically, this idiom is used to prevent multiple definitions of the same macro when you include several header files, each of which may contain a definition. In this case, the definition in the first header file included becomes the active definition and subsequent definitions in other header files are ignored.</p>
+<p class="noindent"><a id="page_734"/>Here&#8217;s another use. Suppose we place the line</p>
+<p class="pre">#include "arrays.h"</p>
+<p class="noindent">at the head of a file. This results in <code>SIZE</code> being defined as 100. But placing</p>
+<p class="pre">#define SIZE 10<br/>#include "arrays.h"</p>
+<p class="noindent">at the head sets <code>SIZE</code> to 10. Here, <code>SIZE</code> is defined by the time the lines in <code>arrays.h</code> are processed, so the <code>#define SIZE 100</code> line is skipped. You might do this, for example, to test a program using a smaller array size. When it works to your satisfaction, you can remove the <code>#define SIZE 10</code> statement and recompile. That way, you never have to worry about modifying the header array itself.</p>
+<p class="noindent">The <code>#ifndef</code> directive is commonly used to prevent multiple inclusions of a file. That is, header files usually are set up along the following lines:</p>
+<p class="codelink"><a id="p734pro01" href="ch16_images.html#p734pro01a">Click here to view code image</a></p>
+<p class="pre">/* things.h */<br/>#ifndef THINGS_H_<br/>&#160;&#160;&#160;&#160;&#160;#define THINGS_H_<br/>&#160;&#160;&#160;&#160;&#160;/* rest of include file */<br/>#endif</p>
+<p class="noindent">Suppose this file somehow got included several times. The first time the preprocessor encounters this include file, <code>THINGS_H_</code> is undefined, so the program proceeds to define <code>THINGS_H_</code> and to process the rest of the file. The next time the preprocessor encounters this file, <code>THINGS_H_</code> is defined, so the preprocessor skips the rest of the file.</p>
+<p class="noindent">Why would you include a file more than once? The most common reason is that many include files include other files, so you may include a file explicitly that another include file has already included. Why is this a problem? Some items that appear in include files, such as declarations of structure types, can appear only once in a file. The standard C header files use the <code>#ifndef</code> technique to avoid multiple inclusions. One problem is to make sure the identifier you are testing hasn&#8217;t been defined elsewhere. Vendors typically solve this by using the filename as the identifier, using uppercase, replacing periods with an underscore, and using an underscore (or, perhaps, two underscores) as a prefix and a suffix. If you check your <code>stdio.h</code> header file, for example, you&#8217;ll probably find something similar to this:</p>
+<p class="pre">#ifndef _STDIO_H<br/>#define _STDIO_H<br/>// contents of file<br/>#endif</p>
+<p class="noindent">You can do something similar. However, you should avoid using the underscore as a prefix because the standard says such usage is reserved. You wouldn&#8217;t want to accidentally define a macro that conflicts with something in the standard header files. <a href="ch16.html#ch16lis10">Listing 16.10</a> uses <code>#ifndef</code> to provide multiple-inclusion protection for the header file from <a href="ch16.html#ch16lis06">Listing 16.6</a>.</p>
+<p class="ex-caption"><a id="page_735"/><a id="ch16lis10"/><span class="pd_ash">Listing 16.10</span> The <span class="EmpStrong">names.h</span> Header File</p>
+<p class="codelink"><a id="p016lis10a" href="ch16_images.html#p016lis10">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// names.h --revised with include protection<br/><br/>#ifndef NAMES_H_<br/>#define NAMES_H_<br/><br/>// constants<br/>#define SLEN 32<br/><br/>// structure declarations<br/>struct names_st<br/>{<br/>&#160;&#160;&#160;&#160;char first[SLEN];<br/>&#160;&#160;&#160;&#160;char last[SLEN];<br/>};<br/><br/>// typedefs<br/>typedef struct names_st names;<br/><br/>// function prototypes<br/>void get_names(names *);<br/>void show_names(const names *);<br/>char * s_gets(char * st, int n);<br/><br/>#endif</p>
+<hr/>
+<p class="noindent">You can test this header file with the program shown in <a href="ch16.html#ch16lis11">Listing 16.11</a>. This program should work correctly when using the header file shown in <a href="ch16.html#ch16lis10">Listing 16.10</a>, and it should fail to compile if you remove the <code>#ifndef</code> protection from <a href="ch16.html#ch16lis10">Listing 16.10</a>.</p>
+<p class="ex-caption"><a id="ch16lis11"/><span class="pd_ash">Listing 16.11</span> The <span class="EmpStrong">doubincl.c</span> Program</p>
+<p class="codelink"><a id="p016lis11a" href="ch16_images.html#p016lis11">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// doubincl.c -- include header twice<br/>#include &lt;stdio.h&gt;<br/>#include "names.h"<br/>#include "names.h"&#160;&#160;&#160;// accidental second inclusion<br/><br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;names winner = {"Less", "Ismoor"};<br/>&#160;&#160;&#160;&#160;printf("The winner is %s %s.\n", winner.first,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;winner.last);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<div class="heading">
+<h5 id="ch16lev3sec3"><a id="page_736"/>The <span class="EmpStrong">#if</span> and <span class="EmpStrong">#elif</span> Directives</h5>
+<p class="noindent">The <code>#if</code> directive is more like the regular C <code>if</code>. It is followed by a constant integer expression that is considered true if nonzero, and you can use C&#8217;s relational and logical operators with it:</p>
+</div>
+<p class="pre">#if SYS == 1<br/>#include "ibm.h"<br/>#endif</p>
+<p class="noindent">You can use the <code>#elif</code> directive (not available in some older implementations) to extend an <code>if-else</code> sequence. For example, you could do this:</p>
+<p class="pre">#if SYS == 1<br/>&#160;&#160;&#160;&#160;&#160;#include "ibmpc.h"<br/>#elif SYS == 2<br/>&#160;&#160;&#160;&#160;&#160;#include "vax.h"<br/>#elif SYS == 3<br/>&#160;&#160;&#160;&#160;&#160;#include "mac.h"<br/>#else<br/>&#160;&#160;&#160;&#160;&#160;#include "general.h"<br/>#endif</p>
+<p class="noindent">Newer implementations offer a second way to test whether a name is defined. Instead of using</p>
+<p class="pre">#ifdef VAX</p>
+<p class="noindent">you can use this form:</p>
+<p class="pre">#if defined (VAX)</p>
+<p class="noindent">Here, <code>defined</code> is a preprocessor operator that returns <code>1</code> if its argument is <code>#defined</code> and <code>0</code> otherwise. The advantage of this newer form is that it can be used with <code>#elif</code>. Using it, you can rewrite the previous example this way:</p>
+<p class="pre">#if defined (IBMPC)<br/>&#160;&#160;&#160;&#160;&#160;#include "ibmpc.h"<br/>#elif defined (VAX)<br/>&#160;&#160;&#160;&#160;&#160;#include "vax.h"<br/>#elif defined (MAC)<br/>&#160;&#160;&#160;&#160;&#160;#include "mac.h"<br/>#else<br/>&#160;&#160;&#160;&#160;&#160;#include "general.h"<br/>#endif</p>
+<p class="noindent">If you were using these lines on, say, a VAX, you would have defined <code>VAX</code> somewhere earlier in the file with this line:</p>
+<p class="pre">#define VAX</p>
+<p class="noindent"><a id="page_737"/>One use for these conditional compilation features is to make a program more portable. By changing a few key definitions at the beginning of a file, you can set up different values and include different files for different systems.</p>
+<div class="heading">
+<h4 id="ch16lev2sec11">Predefined Macros</h4>
+<p class="noindent">The C standard specifies several predefined macros, which <a href="ch16.html#ch16tab01">Table 16.1</a> lists.</p>
+</div>
+<div class="image"><a id="ch16tab01"/><img src="graphics/16tab01.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 16.1</span> Predefined Macros</p></div>
+<p class="noindent">While we&#8217;re discussing predefined identifiers, the C99 standard provides for one called <code>__func__</code>. It expands to a string representing the name of the function containing the identifier. For this reason, the identifier has to have function scope, whereas macros essentially have file scope. Therefore, <code>__func__</code> is a C language predefined identifier rather than a predefined macro.</p>
+<p class="noindent"><a href="ch16.html#ch16lis12">Listing 16.12</a> shows several of these predefined identifiers in use. Note that some of them are C99 additions, so a pre-C99 compiler might not accept them. For GCC you may have to use the <code>-std=c99</code> or the <code>-std=c11</code> flag.</p>
+<p class="ex-caption"><a id="ch16lis12"/><span class="pd_ash">Listing 16.12</span> The <span class="EmpStrong">predef.c</span> Program</p>
+<p class="codelink"><a id="p016lis12a" href="ch16_images.html#p016lis12">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// predef.c -- predefined identifiers<br/>#include &lt;stdio.h&gt;<br/>void why_me();<br/><br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;printf("The file is %s.\n", <code>__</code>FILE<code>__</code>);<br/><a id="page_738"/>&#160;&#160;&#160;&#160;printf("The date is %s.\n", <code>__</code>DATE<code>__</code>);<br/>&#160;&#160;&#160;&#160;printf("The time is %s.\n", <code>__</code>TIME<code>__</code>);<br/>&#160;&#160;&#160;&#160;printf("The version is %ld.\n", 3TDC_VERSION<code>__</code>);<br/>&#160;&#160;&#160;&#160;printf("This is line %d.\n", <code>__</code>LINE<code>__</code>);<br/>&#160;&#160;&#160;&#160;printf("This function is %s\n", <code>__</code>func<code>__</code>);<br/>&#160;&#160;&#160;&#160;why_me();<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/><br/>void why_me()<br/>{<br/>&#160;&#160;&#160;&#160;printf("This function is %s\n", <code>__</code>func<code>__</code>);<br/>&#160;&#160;&#160;&#160;printf("This is line %d.\n", <code>__</code>LINE<code>__</code>);<br/>}</p>
+<hr/>
+<p class="noindent">Here&#8217;s a sample run:</p>
+<p class="pre">The file is predef.c.<br/>The date is Sep 23 2013.<br/>The time is 22:01:09.<br/>The version is 201112.<br/>This is line 11.<br/>This function is main<br/>This function is why_me<br/>This is line 21.</p>
+<div class="heading">
+<h4 id="ch16lev2sec12"><span class="EmpStrong">#line</span> and <span class="EmpStrong">#error</span></h4>
+<p class="noindent">The <code>#line</code> directive lets you reset the line numbering and the filename as reported by the <code>__LINE__</code> and <code>__FILE__</code> macros. You can use <code>#line</code> like this:</p>
+</div>
+<p class="codelink"><a id="p738pro01a" href="ch16_images.html#p738pro01">Click here to view code image</a></p>
+<p class="pre">#line 1000&#160;&#160;&#160;&#160;&#160;// reset current line number to 1000<br/>#line 10&#160;&#160;"cool.c"&#160;&#160;// reset line number to 10, file name to cool.c</p>
+<p class="noindent">The <code>#error</code> directive causes the preprocessor to issue an error message that includes any text in the directive. If possible, the compilation process should halt. You could use the directive like this:</p>
+<p class="codelink"><a id="p738pro02a" href="ch16_images.html#p738pro02">Click here to view code image</a></p>
+<p class="pre">#if <code>__</code>STDC_VERSION<code>__</code> != 201112L<br/>#error Not C11<br/><br/>#endif</p>
+<p class="noindent">Attempting to compile the program could then produce results like this:</p>
+<p class="codelink"><a id="page_739"/><a id="p739pro01a" href="ch16_images.html#p739pro01">Click here to view code image</a></p>
+<p class="pre">$ <span class="EmpStrong">gcc newish.c</span><br/>newish.c:14:2: error: #error Not C11<br/>$ <span class="EmpStrong">gcc -std=c11 newish.c</span><br/>$</p>
+<p class="noindent">The compilation process failed when the compiler used an older standard and succeeded when it used the C11 standard.</p>
+<div class="heading">
+<h4 id="ch16lev2sec13"><span class="EmpStrong">#pragma</span></h4>
+<p class="noindent">Modern compilers have several settings that can be modified by command-line arguments or by using an IDE menu. The <code>#pragma</code> lets you place compiler instructions in the source code. For example, while C99 was being developed, it was referred to as C9X, and one compiler used the following pragma to turn on C9X support:</p>
+</div>
+<p class="pre">#pragma c9x on</p>
+<p class="noindent">Generally, each compiler has its own set of pragmas. They might be used, for example, to control the amount of memory set aside for automatic variables or to set the strictness of error checking or to enable nonstandard language features. The C99 standard does provide for three standard pragmas of rather technical nature that we won&#8217;t discuss here.</p>
+<p class="noindent">C99 also provides the <code>_Pragma</code> preprocessor operator. It converts a string into a regular pragma. For example,</p>
+<p class="codelink"><a id="p739pro02a" href="ch16_images.html#p739pro02">Click here to view code image</a></p>
+<p class="pre">_Pragma("nonstandardtreatmenttypeB on")</p>
+<p class="noindent">is equivalent to the following:</p>
+<p class="codelink"><a id="p739pro03a" href="ch16_images.html#p739pro03">Click here to view code image</a></p>
+<p class="pre">#pragma nonstandardtreatmenttypeB on</p>
+<p class="noindent">Because the operator doesn&#8217;t use the <code>#</code> symbol, you can use it as part of a macro expansion:</p>
+<p class="codelink"><a id="p739pro04a" href="ch16_images.html#p739pro04">Click here to view code image</a></p>
+<p class="pre">#define PRAGMA(X) _Pragma(#X)<br/>#define LIMRG(X) PRAGMA(STDC CX_LIMITED_RANGE&#160;&#160;X)</p>
+<p class="noindent">Then you can use code like this:</p>
+<p class="pre">LIMRG ( ON )</p>
+<p class="noindent">Incidentally, the following definition doesn&#8217;t work, although it looks as if it might:</p>
+<p class="codelink"><a id="p739pro05a" href="ch16_images.html#p739pro05">Click here to view code image</a></p>
+<p class="pre">#define LIMRG(X) _Pragma(STDC CX_LIMITED_RANGE&#160;&#160;#X)</p>
+<p class="noindent">The problem is that it relies on string concatenation, but the compiler doesn&#8217;t concatenate strings until after preprocessing is complete.</p>
+<p class="noindent">The <code>_Pragma</code> operator does a complete job of &#8220;destringizing&#8221;; that is, escape sequences in a string are converted to the character represented. Thus,</p>
+<p class="codelink"><a id="p739pro06a" href="ch16_images.html#p739pro06">Click here to view code image</a></p>
+<p class="pre">_Pragma("use_bool \"true \"false")</p>
+<p class="noindent"><a id="page_740"/>becomes</p>
+<p class="pre">#pragma use_bool "true "false</p>
+<div class="heading">
+<h4 id="ch16lev2sec14">Generic Selection (C11)</h4>
+<p class="noindent">In programming, the term <em>generic programming</em> indicates code that is not specific to a particular type but which, once a type is specified, can be translated into code for that type. C++, for example, lets you create generic algorithms in the form of templates that the compiler can then use to instantiate code automatically for a specified type. C doesn&#8217;t have anything quite like that. However, C11 adds a new sort of expression, called a <em>generic selection expression</em>, that can be used to select a value on the basis of the type of an expression, that is, on whether the expression type is <code>int</code>, <code>double</code>, or some other type. The generic selection expression is not a preprocessor statement, but its usual use is a part of a <code>#define</code> macro definition that has some aspects of generic programming.</p>
+</div>
+<p class="noindent">A generic selection expression looks like this:</p>
+<p class="codelink"><a id="p740pro01a" href="ch16_images.html#p740pro01">Click here to view code image</a></p>
+<p class="pre">_Generic(x, int: 0, float: 1, double: 2, default: 3)</p>
+<p class="noindent">Here <code>_Generic</code> is a new C11 keyword. The parentheses following <code>_Generic</code> contain several comma-separated terms. The first term is an expression, and each remaining item is a type followed by a colon followed by a value, such as <code>float: 1</code>. The type of the first term is matched to one of the labels, and the value of the whole expression is the value following the matched label. For example, suppose <code>x</code> in the preceding expression is a type <code>int</code> variable. Then the type of <code>x</code> matches the <code>int:</code> label, making <code>0</code> the value of the whole expression. If the type doesn&#8217;t match a label, the value associated with the <code>default:</code> label is used for the whole expression. A generic selection statement is a little like a <code>switch</code> statement, except that the type of an expression rather than the value of an expression is matched to a label.</p>
+<p class="noindent">Let&#8217;s look at an example combining a generic selection statement with a macro definition:</p>
+<p class="codelink"><a id="p740pro02a" href="ch16_images.html#p740pro02">Click here to view code image</a></p>
+<p class="pre">#define MYTYPE(X) _Generic((X),\<br/>&#160;&#160;&#160;&#160;int: "int",\<br/>&#160;&#160;&#160;&#160;float : "float",\<br/>&#160;&#160;&#160;&#160;double: "double",\<br/>&#160;&#160;&#160;&#160;default: "other"\<br/>)</p>
+<p class="noindent">Recall that a macro has to be defined on one logical line, but you can use a <code>\</code> to break the one logical line into multiple physical lines. In this case, the generic selection expression evaluates to a string. For example, the macro invocation <code>MYTYPE(5)</code> evaluates to the string <code>"int"</code> because the type for the value <code>5</code> matches the <code>int:</code> label. <a href="ch16.html#ch16lis13">Listing 16.13</a> illustrates this macro further.</p>
+<p class="ex-caption"><a id="page_741"/><a id="ch16lis13"/><span class="pd_ash">Listing 16.13</span> The <span class="EmpStrong">predef.c</span> Program</p>
+<p class="codelink"><a id="p016lis13a" href="ch16_images.html#p016lis13">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">//&#160;&#160;mytype.c<br/><br/>#include &lt;stdio.h&gt;<br/><br/>#define MYTYPE(X) _Generic((X),\<br/>&#160;&#160;&#160;&#160;int: "int",\<br/>&#160;&#160;&#160;&#160;float : "float",\<br/>&#160;&#160;&#160;&#160;double: "double",\<br/>&#160;&#160;&#160;&#160;default: "other"\<br/>)<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int d = 5;<br/><br/>&#160;&#160;&#160;&#160;printf("%s\n", MYTYPE(d));&#160;&#160;&#160;&#160;&#160;// d is type int<br/>&#160;&#160;&#160;&#160;printf("%s\n", MYTYPE(2.0*d)); // 2.0* d is type double<br/>&#160;&#160;&#160;&#160;printf("%s\n", MYTYPE(3L));&#160;&#160;&#160;&#160;// 3L is type long<br/>&#160;&#160;&#160;&#160;printf("%s\n", MYTYPE(&#38;d));&#160;&#160;&#160;&#160;// &#38;d is type int *<br/>&#160;&#160;&#160;&#160;return 0;<br/>&#160;}</p>
+<hr/>
+<p class="noindent">Here is the output:</p>
+<p class="pre">int<br/>double<br/>other<br/>other</p>
+<p class="noindent">The final two instances of <code>MYTYPE()</code> use types without matching labels, so the default string is used. We could have used more type labels to extend the capabilities of the macro, but the example serves to illustrate how <code>_Generic</code>-based macros work.</p>
+<p class="noindent">When evaluating a generic selection expression, the program does not evaluate the first term; it only determines the type. And the only expression it does evaluate is the one with the matching label.</p>
+<p class="noindent">You can use <code>_Generic</code> to define macros that act like type-independent (&#8220;generic&#8221;) functions. The section later in this chapter about the <code>math</code> library provides an example.</p>
+<div class="heading">
+<h3 id="ch16lev1sec7">Inline Functions (C99)</h3>
+<p class="noindent">Normally, a function call has overhead. That means it takes execution time to set up the call, pass arguments, jump to the function code, and return. As you&#8217;ve seen, you can use a macro to place code inline, thus avoiding that overhead. C99, borrowing from C++ (but not always <a id="page_742"/>exactly), added another approach, <em>inline functions</em>. From the name, you might expect that an inline function replaces a function call with inline code, but you would be misled. What the C99 and C11 standards actually say is this: &#8220;Making a function an inline function suggests that calls to the function be as fast as possible. The extent to which such suggestions are effective is implementation-defined.&#8221; So making a function an inline function may cause the compiler to replace the function call with inline code and/or perform some other sorts of optimizations, or it may have no effect.</p>
+</div>
+<p class="noindent">There are different ways to create inline function definitions. The standard says that a function with internal linkage can be made inline and that the definition for the inline function must be in the same file in which the function is used. So a simple approach is to use the <code>inline</code> function specifier along with the <code>static</code> storage-class specifier. Usually, inline functions are defined before the first use in a file, so the definition also acts as a prototype. That is, the code would look like this:</p>
+<p class="codelink"><a id="p742pro01a" href="ch16_images.html#p742pro01">Click here to view code image</a></p>
+<p class="pre">#include &lt;stdio.h&gt;<br/>inline static void eatline()&#160;&#160;&#160;// inline definition/prototype<br/>{<br/>&#160;&#160;&#160;&#160;while (getchar() != '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;<br/>}<br/><br/>int main()<br/>{<br/>...<br/>&#160;&#160;&#160;&#160;eatline();&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// function call<br/>...<br/>}</p>
+<p class="noindent">Seeing the inline declaration, the compiler could choose, for example, to replace the <code>eatline()</code> function call with the function body. That is, the effect could end up the same as if you had written this code instead:</p>
+<p class="codelink"><a id="p742pro02a" href="ch16_images.html#p742pro02">Click here to view code image</a></p>
+<p class="pre">#include &lt;stdio.h&gt;<br/>inline static void eatline()&#160;&#160;&#160;&#160;// inline definition/prototype<br/>{<br/>&#160;&#160;&#160;&#160;while (getchar() != '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;<br/>}<br/><br/>int main()<br/>{<br/>...<br/>&#160;&#160;&#160;&#160;while (getchar() != '\n')&#160;&#160;&#160;// function call replaced<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;<br/>...<br/>}</p>
+<p class="noindent"><a id="page_743"/>Because an inline function doesn&#8217;t have a separate block of code set aside for it, you can&#8217;t take its address. (Actually, you can take the address, but then the compiler will generate a non-inline function.) Also, an inline function may not show up in a debugger.</p>
+<p class="noindent">An inline function should be short. For a long function, the time consumed in calling the function is short compared to the time spent executing the body of the function, so there is no great savings in time using an inline version.</p>
+<p class="noindent">For the compiler to make inline optimizations, it has to know the contents of the function definition. This means the inline function definition has to be in the same file as the function call. For this reason, an inline function ordinarily has internal linkage. Therefore, if you have a multifile program, you need an inline definition in each file that calls the function. The simplest way to accomplish this is to put the inline function definition in a header file and then include the header file in those files that use the function.</p>
+<p class="codelink"><a id="p743pro01a" href="ch16_images.html#p743pro01">Click here to view code image</a></p>
+<p class="pre">// eatline.h<br/>#ifndef EATLINE_H_<br/>#define EATLINE_H_<br/>inline static void eatline()<br/>{<br/>&#160;&#160;&#160;&#160;while (getchar() != '\n')<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;continue;<br/>}<br/>#endif</p>
+<p class="noindent">An inline function is an exception to the rule of not placing executable code in a header file. Because the inline function has internal linkage, defining one in several files doesn&#8217;t cause problems.</p>
+<p class="noindent">C, unlike C++, also allows a mixture of inline definitions with external definitions (function definitions with external linkage). For example, a program has the following three files:</p>
+<p class="codelink"><a id="p743pro02a" href="ch16_images.html#p743pro02">Click here to view code image</a></p>
+<p class="pre">//file1.c<br/>...<br/>inline static double square(double);<br/>double square(double x) { return x * x; }<br/><br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;double q = square(1.3);<br/>...<br/><br/>//file2.c<br/>...<br/>double square(double x) { return (int) (x*x); }<br/>void spam(double v)<br/>{<br/>&#160;&#160;&#160;&#160;double kv = square(v);<br/>...<br/><br/><a id="page_744"/>//file3.c<br/>...<br/>inline double square(double x) { return (int) (x * x + 0.5); }<br/>void masp(double w)<br/>{<br/>&#160;&#160;&#160;&#160;double kw = square(w);<br/>...</p>
+<p class="noindent">One has an <code>inline static</code> definition, as before. One has an ordinary function definition, hence having external linkage. And one has an <code>inline</code> definition that omits the <code>static</code> qualifier.</p>
+<p class="noindent">What happens? The <code>spam()</code> function in <code>file2.c</code> uses the <code>square()</code> definition in that file. That definition, having external linkage, is visible to the other files, but <code>main()</code> in <code>file1.c</code> uses the local <code>static</code> definition of <code>square()</code>. Because this definition also is <code>inline</code>, the compiler may (or may not) optimize the coding, perhaps inlining it. Finally, for <code>file3.c</code>, the compiler is free to use either (or both!) the inline definition of <code>file3.c</code> or the external linkage definition from <code>file2.c</code>. If you omit <code>static</code> from an <code>inline</code> definition, as in <code>file3</code>.c, the <code>inline</code> definition is considered as an alternative that could be used instead of the external definition.</p>
+<p class="noindent">Note that GCC implemented inline functions prior to C99 using somewhat different rules, so the GCC interpretation of <code>inline</code> can depend on which compiler flags you use.</p>
+<div class="heading">
+<h3 id="ch16lev1sec8"><span class="EmpStrong">_Noreturn</span> Functions (C11)</h3>
+<p class="noindent">When C99 added the <code>inline</code> keyword, that keyword became the sole example of a function specifier. (The keywords <code>extern</code> and <code>static</code> are termed storage-class specifiers and can be applied to data objects as well as to functions.) C11 adds a second function specifier, <code>_Noreturn</code>, to indicate a function that, upon completion, does not return to the calling function. The <code>exit()</code> function is an example of a <code>_Noreturn</code> function, for once <code>exit()</code> is called, the calling function never resumes. Note that this is different from the <code>void</code> return type. A typical <code>void</code> function does return to the calling function; it just doesn&#8217;t provide an assignable value.</p>
+</div>
+<p class="noindent">The purpose of <code>_Noreturn</code> is to inform the user and the compiler that a particular function won&#8217;t return control to the calling program. Informing the user helps to prevent misuse of the function, and informing the compiler may enable it to make some code optimizations.</p>
+<div class="heading">
+<h3 id="ch16lev1sec9">The C Library</h3>
+<p class="noindent">Originally, there was no official C library. Later, a de facto standard emerged based on the Unix implementation of C. The ANSI C committee, in turn, developed an official standard library, <a id="page_745"/>largely based on the de facto standard. Recognizing the expanded C universe, the committee then sought to redefine the library so that it could be implemented on a wide variety of systems.</p>
+</div>
+<p class="noindent">We&#8217;ve already discussed some I/O functions, character functions, and string functions from the library. In this chapter, we&#8217;ll browse through several more. First, however, let&#8217;s talk about how to use a library.</p>
+<div class="heading">
+<h4 id="ch16lev2sec15">Gaining Access to the C Library</h4>
+<p class="noindent">How you gain access to the C library depends on your implementation, so you need to see how the more general statements apply to your system. First, there are often several different places to find library functions. For example, <code>getchar()</code> is usually defined as a macro in the file <code>stdio.h</code>, but <code>strlen()</code> is usually kept in a library file. Second, different systems have different ways to reach these functions. The following sections outline three possibilities.</p>
+</div>
+<div class="heading">
+<h5 id="ch16lev3sec4">Automatic Access</h5>
+<p class="noindent">On many systems, you just compile the program and the more common library functions are made available automatically.</p>
+</div>
+<p class="noindent">Keep in mind that you should declare the function type for functions you use. Usually you can do that by including the appropriate header file. User manuals describing library functions tell you which files to include. On some older systems, however, you might have to enter the function declarations yourself. Again, the user manual indicates the function type. Also, <a href="app02.html#app02">Appendix B</a>, &#8220;<a href="app02.html#app02">Reference Section</a>,&#8221; summarizes the ANSI C library, grouping functions by header file.</p>
+<p class="noindent">In the past, header filenames have not been consistent among different implementations. The ANSI C standard groups the library functions into families, with each family having a specific header file for its function prototypes.</p>
+<div class="heading">
+<h5 id="ch16lev3sec5">File Inclusion</h5>
+<p class="noindent">If a function is defined as a macro, you can include the file containing its definition by using the <code>#include</code> directive. Often, similar macros are collected in an appropriately named header file. For example, since the introduction of ANSI C, C compilers come with a <code>ctype.h</code> file containing several macros that determine the nature of a character: uppercase, digit, and so forth.</p>
+</div>
+<div class="heading">
+<h5 id="ch16lev3sec6">Library Inclusion</h5>
+<p class="noindent">At some stage in compiling or linking a program, you might have to specify a library option. Even a system that automatically checks its standard library can have other libraries of functions less frequently used. These libraries have to be requested explicitly by using a compile-time option. Note that this process is distinct from including a header file. A header file provides a function declaration or prototype. The library option tells the system where to <a id="page_746"/>find the function code. Clearly, we can&#8217;t go through all the specifics for all systems, but these discussions should alert you to what you should look for.</p>
+</div>
+<div class="heading">
+<h4 id="ch16lev2sec16">Using the Library Descriptions</h4>
+<p class="noindent">We haven&#8217;t the space to discuss the complete library, but we will look at some representative examples. First, though, let&#8217;s take a look at documentation.</p>
+</div>
+<p class="noindent">You can find function documentation in several places. Your system might have an online manual, and integrated environments often have online help. C vendors may supply printed user&#8217;s guides describing library functions, or they might place equivalent material on a reference CD-ROM or online. Several publishers have issued reference manuals for C library functions. Some are generic in nature, and some are targeted toward specific implementations. And, as mentioned earlier, <a href="app02.html#app02">Appendix B</a> in this book provides a summary.</p>
+<p class="noindent">The key skill you need in reading the documentation is interpreting function headings. The idiom has changed with time. Here, for instance, is how <code>fread()</code> is listed in older Unix documentation:</p>
+<p class="codelink"><a id="p746pro01a" href="ch16_images.html#p746pro01">Click here to view code image</a></p>
+<p class="pre">#include &lt;stdio.h&gt;<br/><br/>fread(ptr, sizeof(*ptr), nitems, stream)<br/>FILE *stream;</p>
+<p class="noindent">First, the proper <code>include</code> file is given. No type is given for <code>fread()</code>, <code>ptr</code>, <code>sizeof(*ptr)</code>, or <code>nitems</code>. By default, in the old days, they were taken to be type <code>int</code>, but the context makes it clear that <code>ptr</code> is a pointer. (In C&#8217;s early days, pointers were handled as integers.) The <code>stream</code> argument is declared as a pointer to <code>FILE</code>. The declaration makes it look as though you are supposed to use the <code>sizeof</code> operator as the second argument. Actually, it&#8217;s saying that the value of this argument should be the size of the object pointed to by <code>ptr</code>. Often, you would use <code>sizeof</code> as illustrated, but any type <code>int</code> value satisfies the syntax.</p>
+<p class="noindent">Later, the form changed to this:</p>
+<p class="codelink"><a id="p746pro02a" href="ch16_images.html#p746pro02">Click here to view code image</a></p>
+<p class="pre">#include &lt;stdio.h&gt;<br/><br/>int fread(ptr, size, nitems, stream;)<br/>char *ptr;<br/>int size, nitems;<br/>FILE *stream;</p>
+<p class="noindent">Now all types are given explicitly, and <code>ptr</code> is treated as a pointer-to-<code>char</code>.</p>
+<p class="noindent">The ANSI C90 standard provides the following description:</p>
+<p class="codelink"><a id="p746pro03a" href="ch16_images.html#p746pro03">Click here to view code image</a></p>
+<p class="pre">#include &lt;stdio.h&gt;<br/>size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);</p>
+<p class="noindent"><a id="page_747"/>First, it uses the new prototype format. Second, it changes some types. The <code>size_t</code> type is defined as the unsigned integer type that the <code>sizeof</code> operator returns. Usually, it is either <code>unsigned int</code> or <code>unsigned long</code>. The <code>stddef.h</code> file contains a <code>typedef</code> or a <code>#define</code> for <code>size_t</code>, as do several other files, including <code>stdio.h</code>, typically by including <code>stddef.h</code>. Many functions, including <code>fread()</code>, often incorporate the <code>sizeof</code> operator as part of an actual argument. The <code>size_t</code> type makes that formal argument match this common usage.</p>
+<p class="noindent">Also, ANSI C uses pointer-to-<code>void</code> as a kind of generic pointer for situations in which pointers to different types may be used. For example, the actual first argument to <code>fread()</code> may be a pointer to an array of <code>double</code> or to a structure of some sort. If the actual argument is, say, a pointer-to-array-of-20-<code>double</code> and the formal argument is pointer-to-<code>void</code>, the compiler makes the appropriate type version without complaining about type clashes.</p>
+<p class="noindent">More recently, the C99/C11 standards incorporate the new keyword <code>restrict</code> into the description:</p>
+<p class="codelink"><a id="p747pro01a" href="ch16_images.html#p747pro01">Click here to view code image</a></p>
+<p class="pre">#include &lt;stdio.h&gt;<br/>size_t fread(void * restrict ptr, size_t size,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;size_t nmemb, FILE * restrict stream);</p>
+<p class="noindent">Now let&#8217;s turn to some specific functions.</p>
+<div class="heading">
+<h3 id="ch16lev1sec10">The Math Library</h3>
+<p class="noindent">The math library contains many useful mathematical functions. The <code>math.h</code> header file provides the function declarations or prototypes for these functions. <a href="ch16.html#ch16tab02">Table 16.2</a> lists several functions declared in <code>math.h</code>. Note that all angles are measured in radians (one radian = 180/&#960; = 57.296 degrees). <a href="app02.html#app02lev1sec5">Reference Section V</a>, &#8220;<a href="app02.html#app02lev1sec5">The Standard ANSI C Library with C99 Additions</a>,&#8221; supplies a complete list of the functions specified by the C99 standard.</p>
+</div>
+<div class="image"><a id="ch16tab02"/><img src="graphics/16tab02.jpg" alt="Image"/>
+<p class="tab-caption"><span class="pd_ash">Table 16.2</span> Some ANSI C Standard Math Functions</p></div>
+<div class="heading">
+<h4 id="ch16lev2sec17"><a id="page_748"/>A Little Trigonometry</h4>
+<p class="noindent">Let&#8217;s use the math library to solve a common problem: converting from x/y coordinates to magnitudes and angles. For example, suppose you draw, on a grid work, a line that transverses 4 units horizontally (the <code>x</code> value) and 3 units vertically (the <code>y</code> value). What is the length (magnitude) of the line and what is its direction? Trigonometry tells us the following:</p>
+</div>
+<p class="codelink"><a id="p748pro01a" href="ch16_images.html#p748pro01">Click here to view code image</a></p>
+<p class="pre">magnitude = square root (x<sup>2</sup> + y<sup>2</sup>)</p>
+<p class="noindent">and</p>
+<p class="pre">angle = arctangent (y/x)</p>
+<p class="noindent">The math library provides a square root function and a couple arctangent functions, so you can express this solution in a C program. The square root function, called <code>sqrt()</code>, takes a <code>double</code> argument and returns the argument&#8217;s square root, also as a type <code>double</code> value.</p>
+<p class="noindent">The <code>atan()</code> function takes a double argument&#8212;the tangent&#8212;and returns the angle having that value as its tangent. Unfortunately, the <code>atan()</code> function is confused by, say, a line with <code>x</code> and <code>y</code> values of <code>&#8211;5</code> and <code>&#8211;5</code>. Because (&#8211;5)/(&#8211;5) is 1, <code>atan()</code> would report 45&#176;, the same as it does for a line with <code>x</code> and <code>y</code> values of <code>5</code> and <code>5</code>. In other words, <code>atan()</code> doesn&#8217;t distinguish between a line of a given angle and one 180&#176; in the opposite direction. (Actually, <code>atan()</code> reports in radians, not degrees; we&#8217;ll discuss that conversion soon.)</p>
+<p class="noindent">Fortunately, the C library also provides the <code>atan2()</code> function. It takes two arguments: the x value and the y value. That way, the function can examine the signs of x and y and figure out the correct angle. Like <code>atan()</code>, <code>atan2()</code> returns the angle in radians. To convert to degrees, multiply the resulting angle by 180 and divide by pi. You can have the computer calculate pi by using the expression <code>4 * atan(1)</code>. <a href="ch16.html#ch16lis14">Listing 16.14</a> illustrates these steps. It also gives you a chance to review structures and the <code>typedef</code> facility.</p>
+<p class="ex-caption"><a id="page_749"/><a id="ch16lis14"/><span class="pd_ash">Listing 16.14</span> The <span class="EmpStrong">rect_pol.c</span> Program</p>
+<p class="codelink"><a id="p016lis14a" href="ch16_images.html#p016lis14">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* rect_pol.c -- converts rectangular coordinates to polar */<br/>#include &lt;stdio.h&gt;<br/>#include &lt;math.h&gt;<br/><br/>#define RAD_TO_DEG (180/(4 * atan(1)))<br/><br/>typedef struct polar_v {<br/>&#160;&#160;&#160;&#160;double magnitude;<br/>&#160;&#160;&#160;&#160;double angle;<br/>} Polar_V;<br/><br/>typedef struct rect_v {<br/>&#160;&#160;&#160;&#160;double x;<br/>&#160;&#160;&#160;&#160;double y;<br/>} Rect_V;<br/><br/>Polar_V rect_to_polar(Rect_V);<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;Rect_V input;<br/>&#160;&#160;&#160;&#160;Polar_V result;<br/><br/>&#160;&#160;&#160;&#160;puts("Enter x and y coordinates; enter q to quit:");<br/>&#160;&#160;&#160;&#160;while (scanf("%lf %lf", &#38;input.x, &#38;input.y) == 2)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;result = rect_to_polar(input);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("magnitude = %0.2f, angle = %0.2f\n",<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;result.magnitude, result.angle);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;puts("Bye.");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/>Polar_V rect_to_polar(Rect_V rv)<br/>{<br/>&#160;&#160;&#160;&#160;Polar_V pv;<br/><br/>&#160;&#160;&#160;&#160;pv.magnitude = sqrt(rv.x * rv.x + rv.y * rv.y);<br/>&#160;&#160;&#160;&#160;if (pv.magnitude == 0)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pv.angle = 0.0;<br/>&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pv.angle = RAD_TO_DEG * atan2(rv.y, rv.x);<br/><br/>&#160;&#160;&#160;&#160;return pv;<br/>}</p>
+<hr/>
+<p class="noindent">Here&#8217;s a sample run:</p>
+<p class="codelink"><a id="page_750"/><a id="p750pro01a" href="ch16_images.html#p750pro01">Click here to view code image</a></p>
+<p class="pre">Enter x and y coordinates; enter q to quit:<br/><span class="EmpStrong">10 10</span><br/>magnitude = 14.14, angle = 45.00<br/><span class="EmpStrong">-12 -5</span><br/>magnitude = 13.00, angle = -157.38<br/>q<br/>Bye.</p>
+<p class="noindent">If, when you compile, you get a message such as</p>
+<p class="pre">Undefined:&#160;&#160;&#160;&#160;&#160;_sqrt</p>
+<p class="noindent">or</p>
+<p class="pre">'sqrt': unresolved external</p>
+<p class="noindent">or something similar, your compiler-linker is not finding the math library. Unix systems may require that you instruct the linker to search the math library by using the <code>-lm</code> flag:</p>
+<p class="pre">cc rect_pol.c &#8211;lm</p>
+<p class="noindent">Note that the <code>&#8211;lm</code> flag comes at the end of the command. That&#8217;s because the linker comes into play after the compiler compiles the C file. The GCC compiler on Linux may behave in the same fashion:</p>
+<p class="pre">gcc rect_pol.c -lm</p>
+<div class="heading">
+<h4 id="ch16lev2sec18">Type Variants</h4>
+<p class="noindent">The basic floating-point math functions take type <code>double</code> arguments and return a type <code>double</code> value. You can pass them type <code>float</code> or type <code>long double</code> arguments, and the functions still work because the arguments are converted to type <code>double</code>. That&#8217;s convenient but not necessarily optimal. If double precision isn&#8217;t needed, the computations might be faster if done using single precision <code>float</code> values. And type <code>long double</code> value will lose precision when passed to a type <code>double</code> parameter; the value might not even be representable. To deal with these potential problems, the C standard provides type <code>float</code> and type <code>long double</code> versions of the standard functions, using an <code>f</code> or an <code>l</code> (&#8220;ell&#8221;) suffix on the function name. So <code>sqrtf()</code> is a type <code>float</code> version of <code>sqrt()</code>, and <code>sqrtl()</code> is a type <code>long double</code> version.</p>
+</div>
+<p class="noindent">The C11 addition of the generic selection expression lets us define a generic macro that chooses the most appropriate version of a math function based on the argument type. <a href="ch16.html#ch16lis15">Listing 16.15</a> shows two approaches.</p>
+<p class="ex-caption"><a id="ch16lis15"/><span class="pd_ash">Listing 16.15</span> The <span class="EmpStrong">generic.c</span> Program</p>
+<p class="codelink"><a id="p016lis15a" href="ch16_images.html#p016lis15">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">//&#160;&#160;generic.c&#160;&#160;-- defining generic macros<br/><br/>#include &lt;stdio.h&gt;<br/><a id="page_751"/>#include &lt;math.h&gt;<br/>#define RAD_TO_DEG (180/(4 * atanl(1)))<br/><br/>// generic square root function<br/>#define SQRT(X) _Generic((X),\<br/>&#160;&#160;&#160;&#160;long double: sqrtl, \<br/>&#160;&#160;&#160;&#160;default: sqrt, \<br/>&#160;&#160;&#160;&#160;float: sqrtf)(X)<br/><br/>// generic sine function, angle in degrees<br/>#define SIN(X) _Generic((X),\<br/>&#160;&#160;&#160;&#160;long double: sinl((X)/RAD_TO_DEG),\<br/>&#160;&#160;&#160;&#160;default:&#160;&#160;&#160;&#160;&#160;sin((X)/RAD_TO_DEG),\<br/>&#160;&#160;&#160;&#160;float:&#160;&#160;&#160;&#160;&#160;&#160;&#160;sinf((X)/RAD_TO_DEG)\<br/>)<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;float x = 45.0f;<br/>&#160;&#160;&#160;&#160;double xx = 45.0;<br/>&#160;&#160;&#160;&#160;long double xxx =45.0L;<br/><br/>&#160;&#160;&#160;&#160;long double y = SQRT(x);<br/>&#160;&#160;&#160;&#160;long double yy= SQRT(xx);<br/>&#160;&#160;&#160;&#160;long double yyy = SQRT(xxx);<br/>&#160;&#160;&#160;&#160;printf("%.17Lf\n", y);&#160;&#160;&#160;// matches float<br/>&#160;&#160;&#160;&#160;printf("%.17Lf\n", yy);&#160;&#160;// matches default<br/>&#160;&#160;&#160;&#160;printf("%.17Lf\n", yyy); // matches long double<br/>&#160;&#160;&#160;&#160;int i = 45;<br/>&#160;&#160;&#160;&#160;yy = SQRT(i);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// matches default<br/>&#160;&#160;&#160;&#160;printf("%.17Lf\n", yy);<br/>&#160;&#160;&#160;&#160;yyy= SIN(xxx);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// matches long double<br/>&#160;&#160;&#160;&#160;printf("%.17Lf\n", yyy);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is the output:</p>
+<p class="pre">6.70820379257202148<br/>6.70820393249936942<br/>6.70820393249936909<br/>6.70820393249936942<br/>0.70710678118654752</p>
+<p class="noindent">As you can see, <code>SQRT(i)</code> has the same return value as <code>SQRT(xx)</code>, as both argument types (<code>int</code> and <code>double</code>) correspond to the <code>default</code> label.</p>
+<p class="noindent"><a id="page_752"/>A point of interest is how to get a macro using <code>_Generic</code> to act like a function. The definition for <code>SIN()</code> takes perhaps the more obvious approach: Each labeled value is a function call, so the value of the <code>_Generic</code> expression is a particular function call, such as <code>sinf((X)/RAD_TO_DEG)</code>, with the argument to <code>SIN()</code> replacing the <code>X</code>.</p>
+<p class="noindent">The <code>SQRT()</code> definition is perhaps more elegant. In this case the value of the <code>_Generic</code> expression is the name of a function, such as <code>sinf</code>. The name of a function is replaced by the address of the function, so the value of the <code>_Generic</code> expression is a pointer to a function. However, the entire <code>_Generic</code> expression is followed by <code>(X)</code>, and the combination of <em>function-pointer(argument)</em> calls the pointed-to function with the indicated argument.</p>
+<p class="noindent">In short, for <code>SIN()</code>, the function call is inside the generic selection expression, while for <code>SQRT()</code> the generic selection expression evaluates to a pointer, which is then used to invoke a function.</p>
+<div class="heading">
+<h4 id="ch16lev2sec19">The <span class="EmpStrong">tgmath.h</span> Library (C99)</h4>
+<p class="noindent">The C99 standard provides a <code>tgmath.h</code> header file that defines type-generic macros similar in effect to those in <a href="ch16.html#ch16lis15">Listing 16.15</a>. If a <code>math.h</code> function is defined for each of the three types <code>float</code>, <code>double</code>, and <code>long double</code>, the <code>tgmath.h</code> file creates a type-generic macro with the same name as the double version. For instance, it defines a <code>sqrt()</code> macro that expands to the <code>sqrtf()</code>, <code>sqrt()</code>, or <code>sqrtl()</code> function, depending on the type of argument provided. In other words, the <code>sqrt()</code> macro behaves like the <code>SQRT()</code> macro in <a href="ch16.html#ch16lis15">Listing 16.15</a>.</p>
+</div>
+<p class="noindent">If the compiler supports complex arithmetic, it supports the <code>complex.h</code> header file, which declares complex analogs to math functions. For example, it declares <code>csqrtf()</code>, <code>csqrt()</code>, and <code>csqrtl()</code>, which return the complex square roots of type <code>float complex</code>, <code>double complex</code>, and <code>long double complex</code>, respectively. When such support is provided, the <code>tgmath.h sqrt()</code> macro also can expand to the corresponding complex square root function.</p>
+<p class="noindent">If you want to, say, invoke the <code>sqrt()</code> function instead of the <code>sqrt()</code> macro even though <code>tgmath.h</code> is included, you can enclose the function name in parentheses:</p>
+<p class="codelink"><a id="p752pro01a" href="ch16_images.html#p752pro01">Click here to view code image</a></p>
+<p class="pre">#include &lt;tgmath.h&gt;<br/>...<br/>&#160;&#160;&#160;&#160;float x = 44.0;<br/>&#160;&#160;&#160;&#160;double y;<br/>&#160;&#160;&#160;&#160;y = sqrt(x);&#160;&#160;&#160;// invoke macro, hence sqrtf(x)<br/>&#160;&#160;&#160;&#160;y = (sqrt)(x); // invoke function sqrt()</p>
+<p class="noindent">This works because a function-like macro name has to be followed by an opening parenthesis, which using enclosing parentheses circumvents. Otherwise, aside from order of operations, parentheses don&#8217;t affect enclosed expressions, so enclosing a function name in parentheses still results in a function call. Indeed, because of C&#8217;s strangely contradictory rules about function pointers, you also can also use <code>(*sqrt)()</code> to invoke the <code>sqrt()</code> function.</p>
+<p class="noindent">What C11 adds with <code>_Generic</code> expressions is a simple way to implement the macros of <code>tgmath.h</code> without resorting to mechanisms outside the C standard.</p>
+<div class="heading">
+<h3 id="ch16lev1sec11"><a id="page_753"/>The General Utilities Library</h3>
+<p class="noindent">The general utilities library contains a grab bag of functions, including a random-number generator, searching and sorting functions, conversion functions, and memory-management functions. You&#8217;ve already seen <code>rand()</code>, <code>srand()</code>, <code>malloc()</code>, and <code>free()</code> in <a href="ch12.html#ch12">Chapter 12</a>, &#8220;<a href="ch12.html#ch12">Storage Classes, Linkage, and Memory Management</a>.&#8221; Under ANSI C, prototypes for these functions exist in the <code>stdlib.h</code> header file. <a href="app02.html#app02">Appendix B</a>, <a href="app02.html#app02lev1sec5">Reference Section V</a> lists all the functions in this family; we&#8217;ll take a closer look at a few of them now.</p>
+</div>
+<div class="heading">
+<h4 id="ch16lev2sec20">The <span class="EmpStrong">exit()</span> and <span class="EmpStrong">atexit()</span> Functions</h4>
+<p class="noindent">We&#8217;ve already used <code>exit()</code> explicitly in several examples. In addition, the <code>exit()</code> function is invoked automatically upon return from <code>main()</code>. The ANSI standard has added a couple nice features that we haven&#8217;t used yet. The most important addition is that you can specify particular functions to be called when <code>exit()</code> executes. The <code>atexit()</code> function provides this feature by registering the functions to be called on exit; the <code>atexit()</code> function takes a function pointer as its argument. <a href="ch16.html#ch16lis16">Listing 16.16</a> shows how this works.</p>
+</div>
+<p class="ex-caption"><a id="ch16lis16"/><span class="pd_ash">Listing 16.16</span> The <span class="EmpStrong">byebye.c</span> Program</p>
+<p class="codelink"><a id="p016lis16a" href="ch16_images.html#p016lis16">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* byebye.c -- atexit() example */<br/>#include &lt;stdio.h&gt;<br/>#include &lt;stdlib.h&gt;<br/>void sign_off(void);<br/>void too_bad(void);<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;int n;<br/><br/>&#160;&#160;&#160;&#160;atexit(sign_off);&#160;&#160;&#160;&#160;/* register the sign_off() function */<br/>&#160;&#160;&#160;&#160;puts("Enter an integer:");<br/>&#160;&#160;&#160;&#160;if (scanf("%d",&#38;n) != 1)<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;puts("That's no integer!");<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;atexit(too_bad); /* register the too_bad()&#160;&#160;function */<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;exit(EXIT_FAILURE);<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;printf("%d is %s.\n", n,&#160;&#160;(n % 2 == 0)? "even" : "odd");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/>void sign_off(void)<br/>{<br/>&#160;&#160;&#160;&#160;puts("Thus terminates another magnificent program from");<br/><a id="page_754"/>&#160;&#160;&#160;&#160;puts("SeeSaw Software!");<br/>}<br/><br/>void too_bad(void)<br/>{<br/>&#160;&#160;&#160;&#160;puts("SeeSaw Software extends its heartfelt condolences");<br/>&#160;&#160;&#160;&#160;puts("to you upon the failure of your program.");<br/>}</p>
+<hr/>
+<p class="noindent">Here&#8217;s one sample run:</p>
+<p class="codelink"><a id="p754pro01a" href="ch16_images.html#p754pro01">Click here to view code image</a></p>
+<p class="pre">Enter an integer:<br/><span class="EmpStrong">212</span><br/>212 is even.<br/>Thus terminates another magnificent program from<br/>SeeSaw Software!</p>
+<p class="noindent">You might not see the final two lines if you are running in an IDE.</p>
+<p class="noindent">Here&#8217;s a second run:</p>
+<p class="codelink"><a id="p754pro02a" href="ch16_images.html#p754pro02">Click here to view code image</a></p>
+<p class="pre">Enter an integer:<br/><span class="EmpStrong">what?</span><br/>That's no integer!<br/>SeeSaw Software extends its heartfelt condolences<br/>to you upon the failure of your program.<br/>Thus terminates another magnificent program from<br/>SeeSaw Software!</p>
+<p class="noindent">You might not see the final four lines if you are running in an IDE.</p>
+<p class="noindent">Let&#8217;s look at two main areas: the use of the <code>atexit()</code> and <code>exit()</code> arguments.</p>
+<div class="heading">
+<h5 id="ch16lev3sec7">Using <span class="EmpStrong">atexit()</span></h5>
+<p class="noindent">Here&#8217;s a function that uses function pointers! To use the <code>atexit()</code> function, simply pass it the address of the function you want called on exit. Because the name of a function acts as an address when used as a function argument, use <code>sign_off</code> or <code>too_bad</code> as the argument. Then <code>atexit()</code> registers that function in a list of functions to be executed when <code>exit()</code> is called. ANSI guarantees that you can place at least 32 functions on the list. Each function is added with a separate call to <code>atexit()</code>. When the <code>exit()</code> function is finally called, it executes these functions, with the last function added being executed first.</p>
+</div>
+<p class="noindent">Notice that both <code>sign_off()</code> and <code>too_bad()</code> were called when input failed, but only <code>sign_off()</code> was called when input worked. That&#8217;s because the <code>if</code> statement registers <code>too_bad()</code> only if input fails. Also note that the last function registered was the first called.</p>
+<p class="noindent"><a id="page_755"/>The functions registered by <code>atexit()</code> should, like <code>sign_off()</code> and <code>too_bad()</code>, be type <code>void</code> functions taking no arguments. Typically, they would perform housekeeping tasks, such as updating a program-monitoring file or resetting environmental variables.</p>
+<p class="noindent">Note that <code>sign_off()</code> is called even when <code>exit()</code> is not called explicitly; that&#8217;s because <code>exit()</code> is called implicitly when <code>main()</code> terminates.</p>
+<div class="heading">
+<h5 id="ch16lev3sec8">Using <span class="EmpStrong">exit()</span></h5>
+<p class="noindent">After <code>exit()</code> executes the functions specified by <code>atexit()</code>, it does some tidying of its own. It flushes all output streams, closes all open streams, and closes temporary files created by calls to the standard I/O function <code>tmpfile()</code>. Then <code>exit()</code> returns control to the host environment and, if possible, reports a termination status to the environment. Traditionally, Unix programs have used 0 to indicate successful termination and nonzero to report failure. Unix return codes don&#8217;t necessarily work with all systems, so ANSI C defined a macro called <code>EXIT_FAILURE</code> that can be used portably to indicate failure. Similarly, it defined <code>EXIT_SUCCESS</code> to indicate success, but <code>exit()</code> also accepts 0 for that purpose. Under ANSI C, using the <code>exit()</code> function in a nonrecursive <code>main()</code> function is equivalent to using the keyword <code>return</code>. However, <code>exit()</code> also terminates programs when used in functions other than <code>main()</code>.</p>
+</div>
+<div class="heading">
+<h4 id="ch16lev2sec21">The <span class="EmpStrong">qsort()</span> Function</h4>
+<p class="noindent">The &#8220;quick sort&#8221; method is one of the most effective sorting algorithms, particularly for larger arrays. Developed by C.A.R. Hoare in 1962, it partitions arrays into ever smaller sizes until the element level is reached. First, the array is divided into two parts, with every value in one partition being less than every value in the other partition. This process continues until the array is fully sorted.</p>
+</div>
+<p class="noindent">The name for the C implementation of the quick sort algorithm is <code>qsort()</code>. The <code>qsort()</code> function sorts an array of data objects. It has the following ANSI prototype:</p>
+<p class="codelink"><a id="p755pro01a" href="ch16_images.html#p755pro01">Click here to view code image</a></p>
+<p class="pre">void qsort (void *base, size_t nmemb, size_t size,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int (*compar)(const void *, const void *));</p>
+<p class="noindent">The first argument is a pointer to the beginning of the array to be sorted. ANSI C permits any data pointer type to be typecast to a pointer-to-<code>void</code>, thus permitting the first actual argument to <code>qsort()</code> to refer to any kind of array.</p>
+<p class="noindent">The second argument is the number of items to be sorted. The prototype converts this value to type <code>size_t</code>. As you may recall from several previous mentions, <code>size_t</code> is the integer type returned by the <code>sizeof</code> operator and is defined in the standard header files.</p>
+<p class="noindent">Because <code>qsort()</code> converts its first argument to a <code>void</code> pointer, <code>qsort()</code> loses track of how big each array element is. To compensate, you must tell <code>qsort()</code> explicitly the size of the data object. That&#8217;s what the third argument is for. For example, if you are sorting an array of type <code>double</code>, you would use <code>sizeof(double)</code> for this argument.</p>
+<p class="noindent"><a id="page_756"/>Finally, <code>qsort()</code> requires a pointer to the function to be used to determine the sorting order. The comparison function should take two arguments: pointers to the two items being compared. It should return a positive integer if the first item should follow the second value, zero if the two items are the same, and a negative integer if the second item should follow the first. The <code>qsort()</code> will use this function, passing it pointer values that it calculates from the other information given to it.</p>
+<p class="noindent">The form the comparison function must take is set forth in the <code>qsort()</code> prototype for the final argument:</p>
+<p class="codelink"><a id="p756pro01a" href="ch16_images.html#p756pro01">Click here to view code image</a></p>
+<p class="pre">int (*compar)(const void *, const void *)</p>
+<p class="noindent">This states that the final argument is a pointer to a function that returns an <code>int</code> and that takes two arguments, each of which is a pointer to type <code>const void</code>. These two pointers point to the items being compared.</p>
+<p class="noindent"><a href="ch16.html#ch16lis17">Listing 16.17</a> and the discussion following it illustrate how to define a comparison function and how to use <code>qsort()</code>. The program creates an array of random floating-point values and sorts the array.</p>
+<p class="ex-caption"><a id="ch16lis17"/><span class="pd_ash">Listing 16.17</span> The <span class="EmpStrong">qsorter.c</span> Program</p>
+<p class="codelink"><a id="p016lis17a" href="ch16_images.html#p016lis17">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* qsorter.c -- using qsort to sort groups of numbers */<br/>#include &lt;stdio.h&gt;<br/>#include &lt;stdlib.h&gt;<br/><br/>#define NUM 40<br/>void fillarray(double ar[], int n);<br/>void showarray(const double ar[], int n);<br/>int mycomp(const void * p1, const void * p2);<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;double vals[NUM];<br/>&#160;&#160;&#160;&#160;fillarray(vals, NUM);<br/>&#160;&#160;&#160;&#160;puts("Random list:");<br/>&#160;&#160;&#160;&#160;showarray(vals, NUM);<br/>&#160;&#160;&#160;&#160;qsort(vals, NUM, sizeof(double), mycomp);<br/>&#160;&#160;&#160;&#160;puts("\nSorted list:");<br/>&#160;&#160;&#160;&#160;showarray(vals, NUM);<br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/>void fillarray(double ar[], int n)<br/>{<br/>&#160;&#160;&#160;&#160;int index;<br/><br/>&#160;&#160;&#160;&#160;for( index = 0; index &lt; n; index++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ar[index] = (double)rand()/((double) rand() + 0.1);<br/>}<br/><br/>void showarray(const double ar[], int n)<br/>{<br/>&#160;&#160;&#160;&#160;int index;<br/><br/>&#160;&#160;&#160;&#160;for( index = 0; index &lt; n; index++)<br/><a id="page_757"/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%9.4f ", ar[index]);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (index % 6 == 5)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;putchar('\n');<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;if (index % 6 != 0)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;putchar('\n');<br/>}<br/><br/>/* sort by increasing value */<br/>int mycomp(const void * p1, const void * p2)<br/>{<br/>&#160;&#160;&#160;&#160;/* need to use pointers to double to access values&#160;&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;const double * a1 = (const double *) p1;<br/>&#160;&#160;&#160;&#160;const double * a2 = (const double *) p2;<br/><br/>&#160;&#160;&#160;&#160;if (*a1 &lt; *a2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return -1;<br/>&#160;&#160;&#160;&#160;else if (*a1 == *a2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return 0;<br/>&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return 1;<br/>}</p>
+<hr/>
+<p class="noindent">Here is a sample run:</p>
+<p class="codelink"><a id="p757pro01a" href="ch16_images.html#p757pro01">Click here to view code image</a></p>
+<p class="pre">Random list:<br/>&#160;&#160;&#160;0.0001&#160;&#160;&#160;&#160;1.6475&#160;&#160;&#160;&#160;2.4332&#160;&#160;&#160;&#160;0.0693&#160;&#160;&#160;&#160;0.7268&#160;&#160;&#160;&#160;0.7383<br/>&#160;&#160;24.0357&#160;&#160;&#160;&#160;0.1009&#160;&#160;&#160;87.1828&#160;&#160;&#160;&#160;5.7361&#160;&#160;&#160;&#160;0.6079&#160;&#160;&#160;&#160;0.6330<br/>&#160;&#160;&#160;1.6058&#160;&#160;&#160;&#160;0.1406&#160;&#160;&#160;&#160;0.5933&#160;&#160;&#160;&#160;1.1943&#160;&#160;&#160;&#160;5.5295&#160;&#160;&#160;&#160;2.2426<br/>&#160;&#160;&#160;0.8364&#160;&#160;&#160;&#160;2.7127&#160;&#160;&#160;&#160;0.2514&#160;&#160;&#160;&#160;0.9593&#160;&#160;&#160;&#160;8.9635&#160;&#160;&#160;&#160;0.7139<br/>&#160;&#160;&#160;0.6249&#160;&#160;&#160;&#160;1.6044&#160;&#160;&#160;&#160;0.8649&#160;&#160;&#160;&#160;2.1577&#160;&#160;&#160;&#160;0.5420&#160;&#160;&#160;15.0123<br/>&#160;&#160;&#160;1.7931&#160;&#160;&#160;&#160;1.6183&#160;&#160;&#160;&#160;1.9973&#160;&#160;&#160;&#160;2.9333&#160;&#160;&#160;12.8512&#160;&#160;&#160;&#160;1.3034<br/>&#160;&#160;&#160;0.3032&#160;&#160;&#160;&#160;1.1406&#160;&#160;&#160;18.7880&#160;&#160;&#160;&#160;0.9887<br/><br/>Sorted list:<br/>&#160;&#160;&#160;0.0001&#160;&#160;&#160;&#160;0.0693&#160;&#160;&#160;&#160;0.1009&#160;&#160;&#160;&#160;0.1406&#160;&#160;&#160;&#160;0.2514&#160;&#160;&#160;&#160;0.3032<br/>&#160;&#160;&#160;0.5420&#160;&#160;&#160;&#160;0.5933&#160;&#160;&#160;&#160;0.6079&#160;&#160;&#160;&#160;0.6249&#160;&#160;&#160;&#160;0.6330&#160;&#160;&#160;&#160;0.7139<br/>&#160;&#160;&#160;0.7268&#160;&#160;&#160;&#160;0.7383&#160;&#160;&#160;&#160;0.8364&#160;&#160;&#160;&#160;0.8649&#160;&#160;&#160;&#160;0.9593&#160;&#160;&#160;&#160;0.9887<br/><a id="page_758"/>&#160;&#160;&#160;1.1406&#160;&#160;&#160;&#160;1.1943&#160;&#160;&#160;&#160;1.3034&#160;&#160;&#160;&#160;1.6044&#160;&#160;&#160;&#160;1.6058&#160;&#160;&#160;&#160;1.6183<br/>&#160;&#160;&#160;1.6475&#160;&#160;&#160;&#160;1.7931&#160;&#160;&#160;&#160;1.9973&#160;&#160;&#160;&#160;2.1577&#160;&#160;&#160;&#160;2.2426&#160;&#160;&#160;&#160;2.4332<br/>&#160;&#160;&#160;2.7127&#160;&#160;&#160;&#160;2.9333&#160;&#160;&#160;&#160;5.5295&#160;&#160;&#160;&#160;5.7361&#160;&#160;&#160;&#160;8.9635&#160;&#160;&#160;12.8512<br/>&#160;&#160;15.0123&#160;&#160;&#160;18.7880&#160;&#160;&#160;24.0357&#160;&#160;&#160;87.1828</p>
+<p class="noindent">Let&#8217;s look at two main areas: the use of <code>qsort()</code> and the definition of <code>mycomp()</code>.</p>
+<div class="heading">
+<h5 id="ch16lev3sec9">Using <span class="EmpStrong">qsort()</span></h5>
+<p class="noindent">The <code>qsort()</code> function sorts an array of data objects. The ANSI prototype, again, is this:</p>
+</div>
+<p class="codelink"><a id="p758pro01a" href="ch16_images.html#p758pro01">Click here to view code image</a></p>
+<p class="pre">void qsort (void *base, size_t nmemb, size_t size,<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;int (*compar)(const void *, const void *));</p>
+<p class="noindent">The first argument is a pointer to the beginning of the array to be sorted. In this program, the actual argument is <code>vals</code>, the name of an array of <code>double</code>, hence a pointer to the first element of the array. The ANSI prototype causes the <code>vals</code> argument to be typecast to type pointer-to-<code>void</code>. That&#8217;s because ANSI C permits any data pointer type to be typecast to a pointer-to-<code>void</code>, thus permitting the first actual argument to <code>qsort()</code> to refer to any kind of array.</p>
+<p class="noindent">The second argument is the number of items to be sorted. In <a href="ch16.html#ch16lis17">Listing 16.17</a>, it is <code>N</code>, the number of array elements. The prototype converts this value to type <code>size_t</code>.</p>
+<p class="noindent">The third argument is the size of each element&#8212;<code>sizeof(double)</code>, in this case.</p>
+<p class="noindent">The final argument is <code>mycomp</code>, the address of the function to be used for comparing elements.</p>
+<div class="heading">
+<h5 id="ch16lev3sec10">Defining <span class="EmpStrong">mycomp()</span></h5>
+<p class="noindent">As mentioned before, the <code>qsort()</code> prototype mandates the form of the comparison function:</p>
+</div>
+<p class="codelink"><a id="p758pro02a" href="ch16_images.html#p758pro02">Click here to view code image</a></p>
+<p class="pre">int (*compar)(const void *, const void *)</p>
+<p class="noindent">This states that the final argument is a pointer to a function that returns an <code>int</code> and that takes two arguments, each of which is a pointer to type <code>const void</code>. We made the prototype for the <code>mycomp()</code> function agree with this prototype:</p>
+<p class="codelink"><a id="p758pro03a" href="ch16_images.html#p758pro03">Click here to view code image</a></p>
+<p class="pre">int mycomp(const void * p1, const void * p2);</p>
+<p class="noindent">Remember that the name of the function is a pointer to the function when used as argument, so <code>mycomp</code> matches the <code>compar</code> prototype.</p>
+<p class="noindent">The <code>qsort()</code> function passes the addresses of the two elements to be compared to the comparison function. In this program, then, <code>p1</code> and <code>p2</code> are assigned the addresses of two type <code>double</code> values to be compared. Note that the first argument to <code>qsort()</code> refers to the whole array, and the two arguments in the comparison function refer to two elements in the array. There is a problem. To compare the pointed-to values, you need to dereference a pointer. Because the values are type <code>double</code>, you need to dereference a pointer to type <code>double</code>. However, <code>qsort()</code> requires pointers to type <code>void</code>. The way to get around this problem is to declare pointers of the proper type inside the function and initialize them to the values passed as arguments:</p>
+<p class="codelink"><a id="page_759"/><a id="p759pro01a" href="ch16_images.html#p759pro01">Click here to view code image</a></p>
+<p class="pre">/* sort by increasing value */<br/>int mycomp(const void * p1, const void * p2)<br/>{<br/>&#160;&#160;&#160;&#160;/* need to use pointers to double to access values&#160;&#160;&#160;*/<br/>&#160;&#160;&#160;&#160;const double * a1 = (const double *) p1;<br/>&#160;&#160;&#160;&#160;const double * a2 = (const double *) p2;<br/><br/>&#160;&#160;&#160;&#160;if (*a1 &lt; *a2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return -1;<br/>&#160;&#160;&#160;&#160;else if (*a1 == *a2)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return 0;<br/>&#160;&#160;&#160;&#160;else<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return 1;<br/>}</p>
+<p class="noindent">In short, <code>qsort()</code> and the comparison function use <code>void</code> pointers for generality. As a consequence, you have to tell <code>qsort()</code> explicitly how large each element of the array is, and within the definition of the comparison function, you have to convert its pointer arguments to pointers of the proper type for your application.</p>
+<div class="note"><hr/>
+<p class="title"><span class="pd_ash">Note: <span class="EmpItalic">void *</span> in C and in C++</span></p>
+<p class="notepara">C and C++ treat pointer-to-<code>void</code> differently. In both languages, you can assign a pointer of any type to type <code>void *</code>. The function call to <code>qsort()</code> in <a href="ch16.html#ch16lis17">Listing 16.17</a>, for example, assigns type <code>double *</code> to a type <code>void *</code> pointer. But C++ requires a type cast when assigning a <code>void *</code> pointer to a pointer of another type, whereas C doesn&#8217;t have that requirement. For instance, the <code>mycomp()</code> function in <a href="ch16.html#ch16lis17">Listing 16.17</a> has this type cast for the type <code>void *</code> pointer <code>p1</code>:</p>
+<p class="codelink"><a id="p759pro01aa" href="ch16_images.html#p759pro01a">Click here to view code image</a></p>
+<p class="pre1">const double * a1 = (const double *) p1;</p>
+<p class="notepara">In C, this type cast is optional; in C++ it is mandatory. Because the type cast version works in both languages, it makes sense to use it. Then, if you convert the program to C++, you won&#8217;t have to remember to change that part.</p>
+<hr/></div>
+<p class="noindent">Let&#8217;s look at one more example of a comparison function. Suppose you have these declarations:</p>
+<p class="pre">struct names {<br/>&#160;&#160;&#160;&#160;char first[40];<br/>&#160;&#160;&#160;&#160;char last[40];<br/>};<br/>struct names staff[100];</p>
+<p class="noindent">What should a call to <code>qsort()</code> look like? Following the model in <a href="ch16.html#ch16lis17">Listing 16.17</a>, a call could look like this:</p>
+<p class="codelink"><a id="p759pro02a" href="ch16_images.html#p759pro02">Click here to view code image</a></p>
+<p class="pre">qsort(staff, 100, sizeof(struct names), comp);</p>
+<p class="noindent"><a id="page_760"/>Here, <code>comp</code> is the name of the comparison function. What should this function look like? Suppose you want to sort by last name, then by first name. You could write the function this way:</p>
+<p class="codelink"><a id="p760pro01a" href="ch16_images.html#p760pro01">Click here to view code image</a></p>
+<p class="pre">#include &lt;string.h&gt;<br/>int comp(const void * p1, const void * p2)&#160;&#160;&#160;/* mandatory form */<br/>{<br/>&#160;&#160;&#160;&#160;/* get right type of pointer */<br/>&#160;&#160;&#160;&#160;const struct names *ps1 = (const struct names *) p1;<br/>&#160;&#160;&#160;&#160;const struct names *ps2 = (const struct names *) p2;<br/>&#160;&#160;&#160;&#160;int res;<br/><br/>&#160;&#160;&#160;&#160;res = strcmp(ps1-&gt;last, ps2-&gt;last);&#160;&#160;/* compare last names */<br/>&#160;&#160;&#160;&#160;if (res != 0)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return res;<br/>&#160;&#160;&#160;&#160;else&#160;&#160;&#160;&#160;&#160;&#160;&#160;/* last names identical, so compare first names */<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return strcmp(ps1-&gt;first, ps2-&gt;first);<br/>}</p>
+<p class="noindent">This function uses the <code>strcmp()</code> function to do the comparison; its possible return values match the requirements for the comparison function. Note that you need a pointer to a structure to use the <code>-&gt;</code> operator.</p>
+<div class="heading">
+<h3 id="ch16lev1sec12">The Assert Library</h3>
+<p class="noindent">The assert library, supported by the <code>assert.h</code> header file, is a small one designed to help with debugging programs. It consists of a macro named <code>assert()</code>. It takes as its argument an integer expression. If the expression evaluates as false (nonzero), the <code>assert()</code> macro writes an error message to the standard error stream (<code>stderr</code>) and calls the <code>abort()</code> function, which terminates the program. (The <code>abort()</code> function is prototyped in the <code>stdlib.h</code> header file.) The idea is to identify critical locations in a program where certain conditions should be true and to use the <code>assert()</code> statement to terminate the program if one of the specified conditions is not true. Typically, the argument is a relational or logical expression. If <code>assert()</code> does abort the program, it first displays the test that failed, the name of the file containing the test, and a line number.</p>
+</div>
+<div class="heading">
+<h4 id="ch16lev2sec22">Using <span class="EmpStrong">assert</span></h4>
+<p class="noindent"><a href="ch16.html#ch16lis18">Listing 16.18</a> shows a short example using <code>assert</code>. It asserts that <code>z</code> is greater than or equal to <code>0</code> before attempting to take its square root. It also mistakenly subtracts a value instead of adding it, making it possible for <code>z</code> to obtain forbidden values.</p>
+</div>
+<p class="ex-caption"><a id="page_761"/><a id="ch16lis18"/><span class="pd_ash">Listing 16.18</span> The <span class="EmpStrong">assert.c</span> Program</p>
+<p class="codelink"><a id="p016lis18a" href="ch16_images.html#p016lis18">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">/* assert.c -- use assert() */<br/>#include &lt;stdio.h&gt;<br/>#include &lt;math.h&gt;<br/>#include &lt;assert.h&gt;<br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;double x, y, z;<br/><br/>&#160;&#160;&#160;&#160;puts("Enter a pair of numbers (0 0 to quit): ");<br/>&#160;&#160;&#160;&#160;while (scanf("%lf%lf", &#38;x, &#38;y) == 2<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#38;&#38; (x != 0 || y != 0))<br/>&#160;&#160;&#160;&#160;{<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;z = x * x - y * y;&#160;&#160;/* should be + */<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;assert(z &gt;= 0);<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("answer is %f\n", sqrt(z));<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;puts("Next pair of numbers: ");<br/>&#160;&#160;&#160;&#160;}<br/>&#160;&#160;&#160;&#160;puts("Done");<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is a sample run:</p>
+<p class="codelink"><a id="p761pro02a" href="ch16_images.html#p761pro02">Click here to view code image</a></p>
+<p class="pre">Enter a pair of numbers (0 0 to quit):<br/><span class="EmpStrong">4 3</span><br/>answer is 2.645751<br/>Next pair of numbers:<br/><span class="EmpStrong">5 3</span><br/>answer is 4.000000<br/>Next pair of numbers:<br/><span class="EmpStrong">3 5</span><br/>Assertion failed: (z &gt;= 0), function main, file /Users/assert.c, line 14.</p>
+<p class="noindent">The exact wording will depend on the compiler. One potentially confusing point to note is that the message is not saying that <code>z &gt;= 0</code>; instead, it&#8217;s saying that the claim <code>z &gt;= 0</code> failed.</p>
+<p class="noindent">You could accomplish something similar with an <code>if</code> statement:</p>
+<p class="pre">if (z &lt; 0)<br/>{<br/>&#160;&#160;&#160;&#160;puts("z less than 0");<br/>&#160;&#160;&#160;&#160;abort();<br/>}</p>
+<p class="noindent"><a id="page_762"/>The <code>assert()</code> approach has several advantages, however. It identifies the file automatically. It identifies the line number where the problem occurs automatically. Finally, there&#8217;s a mechanism for turning the <code>assert()</code> macro on and off without changing code. If you think you&#8217;ve eliminated the program bugs, place the macro definition</p>
+<p class="pre">#define NDEBUG</p>
+<p class="noindent">before the location where <code>assert.h</code> is included and then recompile the program, and the compiler will deactivate all <code>assert()</code> statements in the file. If problems pop up again, you can remove the <code>#define</code> directive (or comment it out) and then recompile, thus reactivating all the <code>assert()</code> statements.</p>
+<div class="heading">
+<h4 id="ch16lev2sec23"><span class="EmpStrong">_Static_assert</span> (C11)</h4>
+<p class="noindent">The <code>assert()</code> expression is a run-time check. C11 adds a feature, the <code>_Static_assert</code> declaration, that does a compile-time check. So, <code>assert()</code> can cause a running program to abort, while <code>_Static_assert()</code> can cause a program not to compile. The latter takes two arguments. The first is a constant integer expression, and the second is a string. If the first expression evaluates to <code>0</code> (or <code>_False</code>), the compiler displays the string and does not compile the program. Let&#8217;s look at the short example of <a href="ch16.html#ch16lis19">Listing 16.19</a>, and then look at the differences between <code>assert()</code> and <code>_Static_assert()</code>.</p>
+</div>
+<p class="ex-caption"><a id="ch16lis19"/><span class="pd_ash">Listing 16.19</span> The <span class="EmpStrong">statasrt.c</span> Program</p>
+<p class="codelink"><a id="p016lis19a" href="ch16_images.html#p016lis19">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">//&#160;&#160;statasrt.c<br/>#include &lt;stdio.h&gt;<br/>#include &lt;limits.h&gt;<br/>_Static_assert(CHAR_BIT == 16, "16-bit char falsely assumed");<br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;puts("char is 16 bits.");<br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<hr/>
+<p class="noindent">Here is a sample attempt at command-line compilation:</p>
+<p class="codelink"><a id="p762pro01a" href="ch16_images.html#p762pro01">Click here to view code image</a></p>
+<p class="pre">$ clang statasrt.c<br/>statasrt.c:4:1: error: static_assert failed "16-bit char falsely assumed"<br/>_Static_assert(CHAR_BIT == 16, "16-bit char falsely assumed");<br/>^&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;~~~~~~~~~~~~~~<br/>1 error generated.<br/>$</p>
+<p class="noindent">In terms of syntax, <code>_Static_assert</code> is treated as a declaration statement. Thus, unlike most kinds of C statements, it can appear either in a function or, as in this case, external to a function.</p>
+<p class="noindent"><a id="page_763"/>The requirement that the first argument to <code>_Static_assert</code> be an integer constant expression guarantees that it can be evaluated during compilation. (Recall that <code>sizeof</code> expressions count as integer constants.) So you can&#8217;t substitute <code>_Static_assert</code> for <code>assert</code> in <a href="ch16.html#ch16lis18">Listing 16.18</a>, because that program used <code>z &gt; 0</code> for a test expression, and that&#8217;s a nonconstant expression that can be evaluated only while the program is running. You could use <code>assert(CHAR_BIT == 16)</code> in the body of <code>main()</code> in <a href="ch16.html#ch16lis19">Listing 16.19</a>, but that would alert you to an error only after you compiled and ran the program, which is more inefficient.</p>
+<p class="noindent">The <code>assert.h</code> header makes <code>static_assert</code> an alias for the C keyword <code>_Static_assert</code>. That&#8217;s to make C more compatible with C++, which uses <code>static_assert</code> as its keyword for this feature.</p>
+<div class="heading">
+<h3 id="ch16lev1sec13"><span class="EmpStrong">memcpy()</span> and <span class="EmpStrong">memmove()</span> from the <span class="EmpStrong">string.h</span> Library</h3>
+<p class="noindent">You can&#8217;t assign one array to another, so we&#8217;ve been using loops to copy one array to another, element by element. The one exception is that we&#8217;ve used the <code>strcpy()</code> and <code>strncpy()</code> functions for character arrays. The <code>memcpy()</code> and <code>memmove()</code> functions offer you almost the same convenience for other kinds of arrays. Here are the prototypes for these two functions:</p>
+</div>
+<p class="codelink"><a id="p763pro01a" href="ch16_images.html#p763pro01">Click here to view code image</a></p>
+<p class="pre">void *memcpy(void * restrict s1, const void * restrict s2, size_t n);<br/>void *memmove(void *s1, const void *s2, size_t n);</p>
+<p class="noindent">Both of these functions copy <code>n</code> bytes from the location pointed to by <code>s2</code> to the location pointed to by <code>s1</code>, and both return the value of <code>s1</code>. The difference between the two, as indicated by the keyword <code>restrict</code>, is that <code>memcpy()</code> is free to assume that there is no overlap between the two memory ranges. The <code>memmove()</code> function doesn&#8217;t make that assumption, so copying takes place as if all the bytes are first copied to a temporary buffer before being copied to the final destination. What if you use <code>memcpy()</code> when there are overlapping ranges? The behavior is undefined, meaning it might work or it might not. The compiler won&#8217;t stop you from using the <code>memcpy()</code> function when you shouldn&#8217;t, so it&#8217;s your responsibility to make sure the ranges aren&#8217;t overlapping when you use it. It&#8217;s just another part of the programmer&#8217;s burden.</p>
+<p class="noindent">Because these functions are designed to work with any data type, the two pointer arguments are type pointer-to-<code>void</code>. C allows you to assign any pointer type to pointers of the <code>void *</code> type. The other side of this tolerant acceptance is that these functions have no way of knowing what type of data is being copied. Therefore, they use the third argument to indicate the number of bytes to be copied. Note that for an array, the number of bytes is not, in general, the number of elements. So if you were copying an array of 10 <code>double</code> values, you would use <code>10*sizeof(double)</code>, not <code>10</code>, as the third argument.</p>
+<p class="noindent"><a href="ch16.html#ch16lis20">Listing 16.20</a> shows some examples using these two functions. It assumes that <code>double</code> is twice the size of <code>int</code>, and it uses the C11 <code>_Static_assert</code> feature to test that assumption.</p>
+<p class="ex-caption"><a id="page_764"/><a id="ch16lis20"/><span class="pd_ash">Listing 16.20</span> The <span class="EmpStrong">mems.c</span> Program</p>
+<p class="codelink"><a id="p016lis20a" href="ch16_images.html#p016lis20">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">// mems.c -- using memcpy() and memmove()<br/>#include &lt;stdio.h&gt;<br/>#include &lt;string.h&gt;<br/>#include &lt;stdlib.h&gt;<br/>#define SIZE 10<br/>void show_array(const int ar[], int n);<br/>// remove following if C11 _Static_assert not supported<br/>_Static_assert(sizeof(double) == 2 * sizeof(int), "double not twice int size");<br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;int values[SIZE] = {1,2,3,4,5,6,7,8,9,10};<br/>&#160;&#160;&#160;&#160;int target[SIZE];<br/>&#160;&#160;&#160;&#160;double curious[SIZE / 2] = {2.0, 2.0e5, 2.0e10, 2.0e20, 5.0e30};<br/><br/>&#160;&#160;&#160;&#160;puts("memcpy() used:");<br/>&#160;&#160;&#160;&#160;puts("values (original data): ");<br/>&#160;&#160;&#160;&#160;show_array(values, SIZE);<br/>&#160;&#160;&#160;&#160;memcpy(target, values, SIZE * sizeof(int));<br/>&#160;&#160;&#160;&#160;puts("target (copy of values):");<br/>&#160;&#160;&#160;&#160;show_array(target, SIZE);<br/><br/>&#160;&#160;&#160;&#160;puts("\nUsing memmove() with overlapping ranges:");<br/>&#160;&#160;&#160;&#160;memmove(values + 2, values, 5 * sizeof(int));<br/>&#160;&#160;&#160;&#160;puts("values -- elements 0-5 copied to 2-7:");<br/>&#160;&#160;&#160;&#160;show_array(values, SIZE);<br/><br/>&#160;&#160;&#160;&#160;puts("\nUsing memcpy() to copy double to int:");<br/>&#160;&#160;&#160;&#160;memcpy(target, curious, (SIZE / 2) * sizeof(double));<br/>&#160;&#160;&#160;&#160;puts("target -- 5 doubles into 10 int positions:");<br/>&#160;&#160;&#160;&#160;show_array(target, SIZE/2);<br/>&#160;&#160;&#160;&#160;show_array(target + 5, SIZE/2);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/>void show_array(const int ar[], int n)<br/>{<br/>&#160;&#160;&#160;&#160;int i;<br/><br/>&#160;&#160;&#160;&#160;for (i = 0; i &lt; n; i++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;printf("%d ", ar[i]);<br/>&#160;&#160;&#160;&#160;putchar('\n');<br/>}</p>
+<hr/>
+<p class="noindent">Here is the output:</p>
+<p class="codelink"><a id="p765pro01a" href="ch16_images.html#p765pro01">Click here to view code image</a></p>
+<p class="pre"><a id="page_765"/>memcpy() used:<br/>values (original data):<br/>1 2 3 4 5 6 7 8 9 10<br/>target (copy of values):<br/>1 2 3 4 5 6 7 8 9 10<br/><br/>Using memmove() with overlapping ranges:<br/>values -- elements 0-5 copied to 2-7:<br/>1 2 1 2 3 4 5 8 9 10<br/><br/>Using memcpy() to copy double to int:<br/>target -- 5 doubles into 10 int positions:<br/>0 1073741824 0 1091070464 536870912<br/>1108516959 2025163840 1143320349 -2012696540 1179618799</p>
+<p class="noindent">The last call to <code>memcpy()</code> copies data from a type <code>double</code> array to a type <code>int</code> array. This shows that <code>memcpy()</code> doesn&#8217;t know or care about data types; it just copies bytes from one location to another. (You could, for example, copy bytes from a structure to a character array.) Also, there is no data conversion. If you had a loop doing element-by-element assignment, the type <code>double</code> values would be converted to type <code>int</code> during assignment. In this case, the bytes are copied over &#8220;as is,&#8221; and the program then interprets the bit patterns as if they were type <code>int</code>.</p>
+<div class="heading">
+<h3 id="ch16lev1sec14">Variable Arguments: <span class="EmpStrong">stdarg.h</span></h3>
+<p class="noindent">Earlier, this chapter discussed variadic macros&#8212;macros that can accept a variable number of arguments. The <code>stdarg.h</code> header file provides a similar capability for functions. But the usage is a bit more involved. You have to do the following:</p>
+</div>
+<p class="indenthangingN"><strong>1.</strong> Provide a function prototype using an ellipsis.</p>
+<p class="indenthangingN"><strong>2.</strong> Create a <code>va_list</code> type variable in the function definition.</p>
+<p class="indenthangingN"><strong>3.</strong> Use a macro to initialize the variable to an argument list.</p>
+<p class="indenthangingN"><strong>4.</strong> Use a macro to access the argument list.</p>
+<p class="indenthangingN"><strong>5.</strong> Use a macro to clean up.</p>
+<p class="noindent">Let&#8217;s look at these steps in more detail. The prototype for such a function should have a parameter list with at least one parameter followed by an ellipsis:</p>
+<p class="codelink"><a id="p765pro02a" href="ch16_images.html#p765pro02">Click here to view code image</a></p>
+<p class="pre">void f1(int n, ...);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// valid<br/>int f2(const char * s, int k, ...);&#160;&#160;// valid<br/>char f3(char c1, ..., char c2);&#160;&#160;&#160;&#160;&#160;&#160;// invalid, ellipsis not last<br/>double f3(...);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// invalid, no parameter</p>
+<p class="noindent"><a id="page_766"/>The rightmost parameter (the one just before the ellipses) plays a special role; the standard uses the term <span class="EmpItalic">parmN</span> as a name to use in discussion. In the preceding examples, <span class="EmpItalic">parmN</span> would be <code>n</code> for the first case and <code>k</code> for the second case. The actual argument passed to this parameter will be the number of arguments represented by the ellipses section. For example, the <code>f1()</code> function prototyped earlier could be used this way:</p>
+<p class="codelink"><a id="p766pro01a" href="ch16_images.html#p766pro01">Click here to view code image</a></p>
+<p class="pre">f1(2, 200, 400);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// 2 additional arguments<br/>f1(4, 13, 117, 18, 23);&#160;&#160;&#160;&#160;// 4 additional arguments</p>
+<p class="noindent">Next, the <code>va_list</code> type, which is declared in the <code>stdargs.h</code> header file, represents a data object used to hold the parameters corresponding to the ellipsis part of the parameter list. The beginning of a definition of a variadic function would look something like this:</p>
+<p class="codelink"><a id="p766pro02a" href="ch16_images.html#p766pro02">Click here to view code image</a></p>
+<p class="pre">double sum(int lim,...)<br/>{<br/>&#160;&#160;&#160;&#160;va_list ap;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// declare object to hold arguments</p>
+<p class="noindent">In this example, <code>lim</code> is the <span class="EmpItalic">parmN</span> parameter, and it will indicate the number of arguments in the variable-argument list.</p>
+<p class="noindent">After this, the function will use the <code>va_start()</code> macro, also defined in <code>stdargs.h</code>, to copy the argument list to the <code>va_list</code> variable. The macro has two arguments: the <code>va_list</code> variable and the <code>parmN</code> parameter. Continuing with the previous example, the <code>va_list</code> variable is called <code>ap</code> and the <code>parmN</code> parameter is call <code>lim</code>, so the call would look like this:</p>
+<p class="codelink"><a id="p766pro03a" href="ch16_images.html#p766pro03">Click here to view code image</a></p>
+<p class="pre">va_start(ap, lim);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// initialize ap to argument list</p>
+<p class="noindent">The next step is gaining access to the contents of the argument list. This involves using <code>va_arg()</code>, another macro. It takes two arguments: a type <code>va_list</code> variable and a type name. The first time it&#8217;s called, it returns the first item in the list; the next time it&#8217;s called, it returns the next item, and so on. The type argument specifies the type of value returned. For example, if the first argument in the list were a <code>double</code> and the second were an <code>int</code>, you could do this:</p>
+<p class="codelink"><a id="p766pro04a" href="ch16_images.html#p766pro04">Click here to view code image</a></p>
+<p class="pre">double tic;<br/>int toc;<br/>...<br/>tic = va_arg(ap, double);&#160;&#160;&#160;// retrieve first argument<br/>toc = va_arg(ap, int);&#160;&#160;&#160;&#160;&#160;&#160;// retrieve second argument</p>
+<p class="noindent">Be careful. The argument type really has to match the specification. If the first argument is 10.0, the previous code for <code>tic</code> works fine. But if the argument is 10, the code may not work; the automatic conversion of <code>double</code> to <code>int</code> that works for assignment doesn&#8217;t take place here.</p>
+<p class="noindent">Finally, you should clean up by using the <code>va_end()</code> macro. It may, for example, free memory dynamically allocated to hold the arguments. This macro takes a <code>va_list</code> variable as its argument:</p>
+<p class="codelink"><a id="p766pro05a" href="ch16_images.html#p766pro05">Click here to view code image</a></p>
+<p class="pre">va_end(ap);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// clean up</p>
+<p class="noindent">After you do this, the variable <code>ap</code> may not be usable unless you use <code>va_start</code> to reinitialize it.</p>
+<p class="noindent"><a id="page_767"/>Because <code>va_arg()</code> doesn&#8217;t provide a way to back up to previous arguments, it may be useful to preserve a copy of the <code>va_list</code> type variable. C99 has added a macro for that purpose. It&#8217;s called <code>va_copy()</code>. Its two arguments are both type <code>va_list</code> variables, and it copies the second argument to the first:</p>
+<p class="codelink"><a id="p767pro01a" href="ch16_images.html#p767pro01">Click here to view code image</a></p>
+<p class="pre">va_list ap;<br/>va_list apcopy;<br/>double<br/>double tic;<br/>int toc;<br/>...<br/>va_start(ap, lim);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// initialize ap to argument list<br/>va_copy(apcopy, ap);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// make apcopy a copy of ap<br/>tic = va_arg(ap, double);&#160;&#160;&#160;// retrieve first argument<br/>toc = va_arg(ap, int);&#160;&#160;&#160;&#160;&#160;&#160;// retrieve second argument</p>
+<p class="noindent">At this point, you could still retrieve the first two items from <code>apcopy</code>, even though they have been removed from <code>ap</code>.</p>
+<p class="noindent"><a href="ch16.html#ch16lis21">Listing 16.21</a> is a short example of how the facilities can be used to create a function that sums a variable number of arguments; here, the first argument to <code>sum()</code> is the number of items to be summed.</p>
+<p class="ex-caption"><a id="ch16lis21"/><span class="pd_ash">Listing 16.21</span> The <span class="EmpStrong">varargs.c</span> Program</p>
+<p class="codelink"><a id="p016lis21a" href="ch16_images.html#p016lis21">Click here to view code image</a></p>
+<hr/>
+<p class="pre-ex">//varargs.c -- use variable number of arguments<br/>#include &lt;stdio.h&gt;<br/>#include &lt;stdarg.h&gt;<br/>double sum(int, ...);<br/><br/>int main(void)<br/>{<br/>&#160;&#160;&#160;&#160;double s,t;<br/><br/>&#160;&#160;&#160;&#160;s = sum(3, 1.1, 2.5, 13.3);<br/>&#160;&#160;&#160;&#160;t = sum(6, 1.1, 2.1, 13.1, 4.1, 5.1, 6.1);<br/>&#160;&#160;&#160;&#160;printf("return value for "<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"sum(3, 1.1, 2.5, 13.3):&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;%g\n", s);<br/>&#160;&#160;&#160;&#160;printf("return value for "<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"sum(6, 1.1, 2.1, 13.1, 4.1, 5.1, 6.1): %g\n", t);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}<br/><br/>double sum(int lim,...)<br/>{<br/>&#160;&#160;&#160;&#160;va_list ap;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// declare object to hold arguments<br/><a id="page_768"/>&#160;&#160;&#160;&#160;double tot = 0;<br/>&#160;&#160;&#160;&#160;int i;<br/><br/>&#160;&#160;&#160;&#160;va_start(ap, lim);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// initialize ap to argument list<br/>&#160;&#160;&#160;&#160;for (i = 0; i &lt; lim; i++)<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;tot += va_arg(ap, double); // access each item in argument list<br/>&#160;&#160;&#160;&#160;va_end(ap);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// clean up<br/><br/>&#160;&#160;&#160;&#160;return tot;<br/>}</p>
+<hr/>
+<p class="noindent">Here is the output:</p>
+<p class="codelink"><a id="p768pro01a" href="ch16_images.html#p768pro01">Click here to view code image</a></p>
+<p class="pre">return value for sum(3, 1.1, 2.5, 13.3):&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;16.9<br/>return value for sum(6, 1.1, 2.1, 13.1, 4.1, 5.1, 6.1): 31.6</p>
+<p class="noindent">If you check the arithmetic, you&#8217;ll find that <code>sum()</code> did add three numbers to the first function call and six numbers to the second.</p>
+<p class="noindent">All in all, using variadic functions is more involved than using variadic macros, but the functions have a greater range of application.</p>
+<div class="heading">
+<h3 id="ch16lev1sec15">Key Concepts</h3>
+<p class="noindent">The C standard doesn&#8217;t just describe the C language; it describes a package consisting of the C language, the C preprocessor, and the standard C library. The preprocessor lets you shape the compiling process, listing substitutions to be made, indicating which lines of code should be compiled, and other aspects of compiler behavior. The C library extends the reach of the language and provides prepackaged solutions to many programming problems.</p>
+</div>
+<div class="heading">
+<h3 id="ch16lev1sec16">Summary</h3>
+<p class="noindent">The C preprocessor and the C library are two important adjuncts to the C language. The C preprocessor, following preprocessor directives, adjusts your source code before it is compiled. The C library provides many functions designed to help with tasks such as input, output, file handling, memory management, sorting and searching, mathematical calculations, and string processing, to name a few. <a href="app02.html#app02">Appendix B</a>, <a href="app02.html#app02lev1sec5">Reference Section V</a> lists the complete ANSI C library.</p>
+</div>
+<div class="heading">
+<h3 id="ch16lev1sec17">Review Questions</h3>
+<p class="question"><strong><a id="ch16que01" href="app01.html#ch16ans01">1</a>.</strong> Here are groups of one or more macros followed by a source code line that uses them. What code results in each case? Is it valid code? (Assume C variables have been declared.)</p>
+</div>
+<p class="questiona"><a id="page_769"/><strong>a.</strong></p>
+<p class="codelink"><a id="p769pro01a" href="ch16_images.html#p769pro01">Click here to view code image</a></p>
+<p class="pre2">#define FPM&#160;&#160;5280&#160;&#160;&#160;&#160;&#160;/* feet per mile */<br/>dist = FPM * miles;</p>
+<p class="questiona"><strong>b.</strong></p>
+<p class="pre2">#define FEET 4<br/>#define POD FEET + FEET<br/>plort = FEET * POD;</p>
+<p class="questiona"><strong>c.</strong></p>
+<p class="pre2">#define SIX = 6;<br/>nex = SIX;</p>
+<p class="questiona"><strong>d.</strong></p>
+<p class="pre2">#define NEW(X) X + 5<br/>y = NEW(y);<br/>berg = NEW(berg) * lob;<br/>est = NEW(berg) / NEW(y);<br/>nilp = lob * NEW(-berg);</p>
+<p class="question"><strong><a id="ch16que02" href="app01.html#ch16ans02">2</a>.</strong> Fix the definition in part d of question 1 to make it more reliable.</p>
+<p class="question"><strong><a id="ch16que03" href="app01.html#ch16ans03">3</a>.</strong> Define a macro function that returns the minimum of two values.</p>
+<p class="question"><strong><a id="ch16que04" href="app01.html#ch16ans04">4</a>.</strong> Define the <code>EVEN_GT(X,Y)</code> macro, which returns 1 if <code>X</code> is even and also greater than <code>Y</code>.</p>
+<p class="question"><strong><a id="ch16que05" href="app01.html#ch16ans05">5</a>.</strong> Define a macro function that prints the representations and the values of two integer expressions. For example, it might print</p>
+<p class="pre1">3+4 is 7 and 4*12 is 48</p>
+<p class="questionp">if its arguments are <code>3+4</code> and <code>4*12</code>.</p>
+<p class="question"><strong><a id="ch16que06" href="app01.html#ch16ans06">6</a>.</strong> Create <code>#define</code> statements to accomplish the following goals:</p>
+<p class="questiona"><strong>a.</strong> Create a named constant of value <code>25</code>.</p>
+<p class="questiona"><strong>b.</strong> Have <code>SPACE</code> represent the space character.</p>
+<p class="questiona"><strong>c.</strong> Have <code>PS()</code> represent printing the space character.</p>
+<p class="questiona"><strong>d.</strong> Have <code>BIG(X)</code> represent adding 3 to <code>X</code>.</p>
+<p class="questiona"><strong>e.</strong> Have <code>SUMSQ(X,Y)</code> represent the sums of the squares of <code>X</code> and <code>Y</code>.</p>
+<p class="question"><a id="page_770"/><strong><a id="ch16que07" href="app01.html#ch16ans07">7</a>.</strong> Define a macro that prints the name, value, and address of an <code>int</code> variable in the following format:</p>
+<p class="codelink"><a id="p770pro01a" href="ch16_images.html#p770pro01">Click here to view code image</a></p>
+<p class="pre1">name: fop;&#160;&#160;value: 23;&#160;&#160;address: ff464016</p>
+<p class="question"><strong><a id="ch16que08" href="app01.html#ch16ans08">8</a>.</strong> Suppose you have a block of code you want to skip over temporarily while testing a program. How can you do so without actually removing the code from the file?</p>
+<p class="question"><strong><a id="ch16que09" href="app01.html#ch16ans09">9</a>.</strong> Show a code fragment that prints out the date of preprocessing if the macro <code>PR_DATE</code> is defined.</p>
+<p class="question1"><strong><a id="ch16que10" href="app01.html#ch16ans10">10</a>.</strong> The discussion of inline functions shows three different versions of a <code>square()</code> function. How do the three differ from one another in terms of behavior?</p>
+<p class="question1"><strong><a id="ch16que11" href="app01.html#ch16ans11">11</a>.</strong> Create a macro using a generic selection expression that evaluates to the string <code>"boolean"</code> if the macro argument is type <code>_Bool</code>, and evaluates to <code>"not boolean"</code> otherwise.</p>
+<p class="question1"><strong><a id="ch16que12" href="app01.html#ch16ans12">12</a>.</strong> What&#8217;s wrong with this program?</p>
+<p class="codelink"><a id="p770pro02a" href="ch16_images.html#p770pro02">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>int main(int argc, char argv[])<br/>{<br/>&#160;&#160;&#160;&#160;printf("The square root of %f is %f\n", argv[1],<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sqrt(argv[1]) );<br/>}</p>
+<p class="question1"><strong><a id="ch16que13" href="app01.html#ch16ans13">13</a>.</strong> Suppose <code>scores</code> is an array of 1000 <code>int</code> values that you want to sort into descending order. And suppose you are using <code>qsort()</code> and a comparison function called <code>comp()</code>.</p>
+<p class="questiona"><strong>a.</strong> What is a suitable call to <code>qsort()</code>?</p>
+<p class="questiona"><strong>b.</strong> What is a suitable definition for <code>comp()</code>?</p>
+<p class="question1"><strong><a id="ch16que14" href="app01.html#ch16ans14">14</a>.</strong> Suppose <code>data1</code> is an array of 100 <code>double</code> values and <code>data2</code> is an array of 300 <code>double</code> values.</p>
+<p class="questiona"><strong>a.</strong> Write a <code>memcpy()</code> function call that copies the first 100 elements of <code>data2</code> to <code>data1</code>.</p>
+<p class="questiona"><strong>b.</strong> Write a <code>memcpy()</code> function call that copies the last 100 elements of <code>data2</code> to <code>data1</code>.</p>
+<div class="heading">
+<h3 id="ch16lev1sec18">Programming Exercises</h3>
+<p class="indenthangingN"><strong>1.</strong> Start developing a header file of preprocessor definitions that you want to use.</p>
+</div>
+<p class="indenthangingN"><a id="page_771"/><strong>2.</strong> The harmonic mean of two numbers is obtained by taking the inverses of the two numbers, averaging them, and taking the inverse of the result. Use a <code>#define</code> directive to define a macro &#8220;function&#8221; that performs this operation. Write a simple program that tests the macro.</p>
+<p class="indenthangingN"><strong>3.</strong> Polar coordinates describe a vector in terms of magnitude and the counterclockwise angle from the x-axis to the vector. Rectangular coordinates describe the same vector in terms of x and y components (see <a href="ch16.html#ch16fig03">Figure 16.3</a>). Write a program that reads the magnitude and angle (in degrees) of a vector and then displays the x and y components. The relevant equations are these:</p>
+<p class="pre1">x = r cos A&#160;&#160;&#160;&#160;y = r sin A</p>
+<p class="indenthangingNP">To do the conversion, use a function that takes a structure containing the polar coordinates and returns a structure containing the rectangular coordinates (or use pointers to such structures, if you prefer).</p>
+<div class="image"><a id="ch16fig03"/><img src="graphics/16fig03.jpg" alt="Image"/>
+<p class="fig-caption"><span class="pd_ash">Figure 16.3</span> Rectangular and polar coordinates.</p></div>
+<p class="indenthangingN"><strong>4.</strong> The ANSI library features a <code>clock()</code> function with this description:</p>
+<p class="pre1">#include &lt;time.h&gt;<br/>clock_t clock (void);</p>
+<p class="indenthangingNP">Here, <code>clock_t</code> is a type defined in <code>time.h</code>. The function returns the processor time, which is given in some implementation-dependent units. (If the processor time is unavailable or cannot be represented, the function returns a value of <code>-1</code>.) However, <code>CLOCKS_PER_SEC</code>, also defined in <code>time.h</code>, is the number of processor time units per second. Therefore, dividing the difference between two return values of <code>clock()</code> by <code>CLOCKS_PER_SEC</code> gives you the number of seconds elapsed between the two calls. Typecasting the values to <code>double</code> before division enables you to get fractions of a second. Write a function that takes a <code>double</code> argument representing a desired time delay and <a id="page_772"/>then runs a loop until that amount of time has passed. Write a simple program that tests the function.</p>
+<p class="indenthangingN"><strong>5.</strong> Write a function that takes as arguments the name of an array of type <code>int</code> elements, the size of an array, and a value representing the number of picks. The function then should select the indicated number of items at random from the array and prints them. No array element is to be picked more than once. (This simulates picking lottery numbers or jury members.) Also, if your implementation has <code>time()</code> (discussed in <a href="ch12.html#ch12">Chapter 12</a>) or a similar function available, use its output with <code>srand()</code> to initialize the <code>rand()</code> random-number generator. Write a simple program that tests the function.</p>
+<p class="indenthangingN"><strong>6.</strong> Modify <a href="ch16.html#ch16lis17">Listing 16.17</a> so that it uses an array of <code>struct names</code> elements (as defined after the listing) instead of an array of <code>double</code>. Use fewer elements, and initialize the array explicitly to a suitable selection of names.</p>
+<p class="indenthangingN"><strong>7.</strong> Here&#8217;s a partial program using a variadic function:</p>
+<p class="codelink"><a id="p772pro01a" href="ch16_images.html#p772pro01">Click here to view code image</a></p>
+<p class="pre1">#include &lt;stdio.h&gt;<br/>#include &lt;stdlib.h&gt;<br/>#include &lt;stdarg.h&gt;<br/>void show_array(const double ar[], int n);<br/>double * new_d_array(int n, ...);<br/><br/>int main()<br/>{<br/>&#160;&#160;&#160;&#160;double * p1;<br/>&#160;&#160;&#160;&#160;double * p2;<br/><br/>&#160;&#160;&#160;&#160;p1 = new_d_array(5, 1.2, 2.3, 3.4, 4.5, 5.6);<br/>&#160;&#160;&#160;&#160;p2 = new_d_array(4, 100.0, 20.00, 8.08, -1890.0);<br/>&#160;&#160;&#160;&#160;show_array(p1, 5);<br/>&#160;&#160;&#160;&#160;show_array(p2, 4);<br/>&#160;&#160;&#160;&#160;free(p1);<br/>&#160;&#160;&#160;&#160;free(p2);<br/><br/>&#160;&#160;&#160;&#160;return 0;<br/>}</p>
+<p class="indenthangingNP">The <code>new_d_array()</code> function takes an <code>int</code> argument and a variable number of <code>double</code> arguments. The function returns a pointer to a block of memory allocated by <code>malloc()</code>. The <code>int</code> argument indicates the number of elements to be in the dynamic array, and the <code>double</code> values are used to initialize the elements, with the first value being assigned to the first element, and so on. Complete the program by providing the code for <code>show_array()</code> and <code>new_d_array()</code>.</p>
+</body>
+</html>

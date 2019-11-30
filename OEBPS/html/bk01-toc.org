@@ -1,0 +1,1308 @@
+** <<page_vi>>Table of Contents
+   :PROPERTIES:
+   :CUSTOM_ID: bk01-toc
+   :END:
+
+*[[file:pref06.html#pref06][Preface]]*
+
+*[[file:ch01.html#ch01][1 Getting Ready]]*
+
+[[file:ch01.html#ch01lev1sec1][Whence C?]]
+
+[[file:ch01.html#ch01lev1sec2][Why C?]]
+
+[[file:ch01.html#ch01lev2sec1][Design Features]]
+
+[[file:ch01.html#ch01lev2sec2][Efficiency]]
+
+[[file:ch01.html#ch01lev2sec3][Portability]]
+
+[[file:ch01.html#ch01lev2sec4][Power and Flexibility]]
+
+[[file:ch01.html#ch01lev2sec5][Programmer Oriented]]
+
+[[file:ch01.html#ch01lev2sec6][Shortcomings]]
+
+[[file:ch01.html#ch01lev1sec3][Whither C?]]
+
+[[file:ch01.html#ch01lev1sec4][What Computers Do]]
+
+[[file:ch01.html#ch01lev1sec5][High-level Computer Languages and Compilers]]
+
+[[file:ch01.html#ch01lev1sec6][Language Standards]]
+
+[[file:ch01.html#ch01lev2sec7][The First ANSI/ISO C Standard]]
+
+[[file:ch01.html#ch01lev2sec8][The C99 Standard]]
+
+[[file:ch01.html#ch01lev2sec9][The C11 Standard]]
+
+[[file:ch01.html#ch01lev1sec7][Using C: Seven Steps]]
+
+[[file:ch01.html#ch01lev2sec10][Step 1: Define the Program Objectives]]
+
+[[file:ch01.html#ch01lev2sec11][Step 2: Design the Program]]
+
+[[file:ch01.html#ch01lev2sec12][Step 3: Write the Code]]
+
+[[file:ch01.html#ch01lev2sec13][Step 4: Compile]]
+
+[[file:ch01.html#ch01lev2sec14][Step 5: Run the Program]]
+
+[[file:ch01.html#ch01lev2sec15][Step 6: Test and Debug the Program]]
+
+[[file:ch01.html#ch01lev2sec16][Step 7: Maintain and Modify the Program]]
+
+[[file:ch01.html#ch01lev2sec17][Commentary]]
+
+[[file:ch01.html#ch01lev1sec8][Programming Mechanics]]
+
+[[file:ch01.html#ch01lev2sec18][Object Code Files, Executable Files, and Libraries]]
+
+[[file:ch01.html#ch01lev2sec19][Unix System]]
+
+[[file:ch01.html#ch01lev2sec20][The GNU Compiler Collection and the LLVM Project]]
+
+[[file:ch01.html#ch01lev2sec21][Linux Systems]]
+
+[[file:ch01.html#ch01lev2sec22][Command-Line Compilers for the PC]]
+
+[[file:ch01.html#ch01lev2sec23][Integrated Development Environments (Windows)]]
+
+[[file:ch01.html#ch01lev2sec24][The Windows/Linux Option]]
+
+[[file:ch01.html#ch01lev2sec25][C on the Macintosh]]
+
+<<page_vii>>[[file:ch01.html#ch01lev1sec9][How This Book Is Organized]]
+
+[[file:ch01.html#ch01lev1sec10][Conventions Used in This Book]]
+
+[[file:ch01.html#ch01lev2sec26][Typeface]]
+
+[[file:ch01.html#ch01lev2sec27][Program Output]]
+
+[[file:ch01.html#ch01lev2sec28][Special Elements]]
+
+[[file:ch01.html#ch01lev1sec11][Summary]]
+
+[[file:ch01.html#ch01lev1sec12][Review Questions]]
+
+[[file:ch01.html#ch01lev1sec13][Programming Exercise]]
+
+*[[file:ch02.html#ch02][2 Introducing C]]*
+
+[[file:ch02.html#ch02lev1sec1][A Simple Example of C]]
+
+[[file:ch02.html#ch02lev1sec2][The Example Explained]]
+
+[[file:ch02.html#ch02lev2sec1][Pass 1: Quick Synopsis]]
+
+[[file:ch02.html#ch02lev2sec2][Pass 2: Program Details]]
+
+[[file:ch02.html#ch02lev1sec3][The Structure of a Simple Program]]
+
+[[file:ch02.html#ch02lev1sec4][Tips on Making Your Programs Readable]]
+
+[[file:ch02.html#ch02lev1sec5][Taking Another Step in Using C]]
+
+[[file:ch02.html#ch02lev2sec3][Documentation]]
+
+[[file:ch02.html#ch02lev2sec4][Multiple Declarations]]
+
+[[file:ch02.html#ch02lev2sec5][Multiplication]]
+
+[[file:ch02.html#ch02lev2sec6][Printing Multiple Values]]
+
+[[file:ch02.html#ch02lev1sec6][While You're at It---Multiple Functions]]
+
+[[file:ch02.html#ch02lev1sec7][Introducing Debugging]]
+
+[[file:ch02.html#ch02lev2sec7][Syntax Errors]]
+
+[[file:ch02.html#ch02lev2sec8][Semantic Errors]]
+
+[[file:ch02.html#ch02lev2sec9][Program State]]
+
+[[file:ch02.html#ch02lev1sec8][Keywords and Reserved Identifiers]]
+
+[[file:ch02.html#ch02lev1sec9][Key Concepts]]
+
+[[file:ch02.html#ch02lev1sec10][Summary]]
+
+[[file:ch02.html#ch02lev1sec11][Review Questions]]
+
+[[file:ch02.html#ch02lev1sec12][Programming Exercises]]
+
+*[[file:ch03.html#ch03][3 Data and C]]*
+
+[[file:ch03.html#ch03lev1sec1][A Sample Program]]
+
+[[file:ch03.html#ch03lev2sec1][What's New in This Program?]]
+
+[[file:ch03.html#ch03lev1sec2][Data Variables and Constants]]
+
+[[file:ch03.html#ch03lev1sec3][Data: Data-Type Keywords]]
+
+[[file:ch03.html#ch03lev2sec2][Integer Versus Floating-Point Types]]
+
+<<page_viii>>[[file:ch03.html#ch03lev2sec3][The Integer]]
+
+[[file:ch03.html#ch03lev2sec4][The Floating-Point Number]]
+
+[[file:ch03.html#ch03lev1sec4][Basic C Data Types]]
+
+[[file:ch03.html#ch03lev2sec5][The =int= Type]]
+
+[[file:ch03.html#ch03lev2sec6][Other Integer Types]]
+
+[[file:ch03.html#ch03lev2sec7][Using Characters: Type =char=]]
+
+[[file:ch03.html#ch03lev2sec8][The =_Bool= Type]]
+
+[[file:ch03.html#ch03lev2sec9][Portable Types: =stdint.h= and =inttypes.h=]]
+
+[[file:ch03.html#ch03lev2sec10][Types =float=, =double=, and =long double=]]
+
+[[file:ch03.html#ch03lev2sec11][Complex and Imaginary Types]]
+
+[[file:ch03.html#ch03lev2sec12][Beyond the Basic Types]]
+
+[[file:ch03.html#ch03lev2sec13][Type Sizes]]
+
+[[file:ch03.html#ch03lev1sec5][Using Data Types]]
+
+[[file:ch03.html#ch03lev1sec6][Arguments and Pitfalls]]
+
+[[file:ch03.html#ch03lev1sec7][One More Example: Escape Sequences]]
+
+[[file:ch03.html#ch03lev2sec14][What Happens When the Program Runs]]
+
+[[file:ch03.html#ch03lev2sec15][Flushing the Output]]
+
+[[file:ch03.html#ch03lev1sec8][Key Concepts]]
+
+[[file:ch03.html#ch03lev1sec9][Summary]]
+
+[[file:ch03.html#ch03lev1sec10][Review Questions]]
+
+[[file:ch03.html#ch03lev1sec11][Programming Exercises]]
+
+*[[file:ch04.html#ch04][4 Character Strings and Formatted Input/Output]]*
+
+[[file:ch04.html#ch04lev1sec1][Introductory Program]]
+
+[[file:ch04.html#ch04lev1sec2][Character Strings: An Introduction]]
+
+[[file:ch04.html#ch04lev2sec1][Type =char= Arrays and the Null Character]]
+
+[[file:ch04.html#ch04lev2sec2][Using Strings]]
+
+[[file:ch04.html#ch04lev2sec3][The =strlen()= Function]]
+
+[[file:ch04.html#ch04lev1sec3][Constants and the C Preprocessor]]
+
+[[file:ch04.html#ch04lev2sec4][The =const= Modifier]]
+
+[[file:ch04.html#ch04lev2sec5][Manifest Constants on the Job]]
+
+[[file:ch04.html#ch04lev1sec4][Exploring and Exploiting =printf()= and =scanf()=]]
+
+[[file:ch04.html#ch04lev2sec6][The =printf()= Function]]
+
+[[file:ch04.html#ch04lev2sec7][Using =printf()=]]
+
+[[file:ch04.html#ch04lev2sec8][Conversion Specification Modifiers for =printf()=]]
+
+[[file:ch04.html#ch04lev2sec9][What Does a Conversion Specification Convert?]]
+
+[[file:ch04.html#ch04lev2sec10][Using =scanf()=]]
+
+<<page_ix>>[[file:ch04.html#ch04lev2sec11][The =*= Modifier with =printf()= and =scanf()=]]
+
+[[file:ch04.html#ch04lev2sec12][Usage Tips for =printf()=]]
+
+[[file:ch04.html#ch04lev1sec5][Key Concepts]]
+
+[[file:ch04.html#ch04lev1sec6][Summary]]
+
+[[file:ch04.html#ch04lev1sec7][Review Questions]]
+
+[[file:ch04.html#ch04lev1sec8][Programming Exercises]]
+
+*[[file:ch05.html#ch05][5 Operators, Expressions, and Statements]]*
+
+[[file:ch05.html#ch05lev1sec1][Introducing Loops]]
+
+[[file:ch05.html#ch05lev1sec2][Fundamental Operators]]
+
+[[file:ch05.html#ch05lev2sec1][Assignment Operator: ===]]
+
+[[file:ch05.html#ch05lev2sec2][Addition Operator: =+=]]
+
+[[file:ch05.html#ch05lev2sec3][Subtraction Operator: =–=]]
+
+[[file:ch05.html#ch05lev2sec4][Sign Operators: =–= and =+=]]
+
+[[file:ch05.html#ch05lev2sec5][Multiplication Operator: =*=]]
+
+[[file:ch05.html#ch05lev2sec6][Division Operator: =/=]]
+
+[[file:ch05.html#ch05lev2sec7][Operator Precedence]]
+
+[[file:ch05.html#ch05lev2sec8][Precedence and the Order of Evaluation]]
+
+[[file:ch05.html#ch05lev1sec3][Some Additional Operators]]
+
+[[file:ch05.html#ch05lev2sec9][The =sizeof= Operator and the =size_t= Type]]
+
+[[file:ch05.html#ch05lev2sec10][Modulus Operator: =%=]]
+
+[[file:ch05.html#ch05lev2sec11][Increment and Decrement Operators: =++= and =--=]]
+
+[[file:ch05.html#ch05lev2sec12][Decrementing: =--=]]
+
+[[file:ch05.html#ch05lev2sec13][Precedence]]
+
+[[file:ch05.html#ch05lev2sec14][Don't Be Too Clever]]
+
+[[file:ch05.html#ch05lev1sec4][Expressions and Statements]]
+
+[[file:ch05.html#ch05lev2sec15][Expressions]]
+
+[[file:ch05.html#ch05lev2sec16][Statements]]
+
+[[file:ch05.html#ch05lev2sec17][Compound Statements (Blocks)]]
+
+[[file:ch05.html#ch05lev1sec5][Type Conversions]]
+
+[[file:ch05.html#ch05lev2sec18][The Cast Operator]]
+
+[[file:ch05.html#ch05lev1sec6][Function with Arguments]]
+
+[[file:ch05.html#ch05lev1sec7][A Sample Program]]
+
+[[file:ch05.html#ch05lev1sec8][Key Concepts]]
+
+[[file:ch05.html#ch05lev1sec9][Summary]]
+
+[[file:ch05.html#ch05lev1sec10][Review Questions]]
+
+[[file:ch05.html#ch05lev1sec11][Programming Exercises]]
+
+<<page_x>>*[[file:ch06.html#ch06][6 C Control Statements: Looping]]*
+
+[[file:ch06.html#ch06lev1sec1][Revisiting the =while= Loop]]
+
+[[file:ch06.html#ch06lev2sec1][Program Comments]]
+
+[[file:ch06.html#ch06lev2sec2][C-Style Reading Loop]]
+
+[[file:ch06.html#ch06lev1sec2][The =while= Statement]]
+
+[[file:ch06.html#ch06lev2sec3][Terminating a =while= Loop]]
+
+[[file:ch06.html#ch06lev2sec4][When a Loop Terminates]]
+
+[[file:ch06.html#ch06lev2sec5][=while=: An Entry-Condition Loop]]
+
+[[file:ch06.html#ch06lev2sec6][Syntax Points]]
+
+[[file:ch06.html#ch06lev1sec3][Which Is Bigger: Using Relational Operators and Expressions]]
+
+[[file:ch06.html#ch06lev2sec7][What Is Truth?]]
+
+[[file:ch06.html#ch06lev2sec8][What Else Is True?]]
+
+[[file:ch06.html#ch06lev2sec9][Troubles with Truth]]
+
+[[file:ch06.html#ch06lev2sec10][The New =_Bool= Type]]
+
+[[file:ch06.html#ch06lev2sec11][Precedence of Relational Operators]]
+
+[[file:ch06.html#ch06lev1sec4][Indefinite Loops and Counting Loops]]
+
+[[file:ch06.html#ch06lev1sec5][The =for= Loop]]
+
+[[file:ch06.html#ch06lev2sec12][Using =for= for Flexibility]]
+
+[[file:ch06.html#ch06lev1sec6][More Assignment Operators: =+==, =-==, =*==, =/==, =%==]]
+
+[[file:ch06.html#ch06lev1sec7][The Comma Operator]]
+
+[[file:ch06.html#ch06lev2sec13][Zeno Meets the =for= Loop]]
+
+[[file:ch06.html#ch06lev1sec8][An Exit-Condition Loop: =do while=]]
+
+[[file:ch06.html#ch06lev1sec9][Which Loop?]]
+
+[[file:ch06.html#ch06lev1sec10][Nested Loops]]
+
+[[file:ch06.html#ch06lev2sec14][Program Discussion]]
+
+[[file:ch06.html#ch06lev2sec15][A Nested Variation]]
+
+[[file:ch06.html#ch06lev1sec11][Introducing Arrays]]
+
+[[file:ch06.html#ch06lev2sec16][Using a =for= Loop with an Array]]
+
+[[file:ch06.html#ch06lev1sec12][A Loop Example Using a Function Return Value]]
+
+[[file:ch06.html#ch06lev2sec17][Program Discussion]]
+
+[[file:ch06.html#ch06lev2sec18][Using Functions with Return Values]]
+
+[[file:ch06.html#ch06lev1sec13][Key Concepts]]
+
+[[file:ch06.html#ch06lev1sec14][Summary]]
+
+[[file:ch06.html#ch06lev1sec15][Review Questions]]
+
+[[file:ch06.html#ch06lev1sec16][Programming Exercises]]
+
+<<page_xi>>*[[file:ch07.html#ch07][7 C Control Statements: Branching and Jumps]]*
+
+[[file:ch07.html#ch07lev1sec1][The =if= Statement]]
+
+[[file:ch07.html#ch07lev1sec2][Adding =else= to the =if= Statement]]
+
+[[file:ch07.html#ch07lev2sec1][Another Example: Introducing =getchar()= and =putchar()=]]
+
+[[file:ch07.html#ch07lev2sec2][The =ctype.h= Family of Character Functions]]
+
+[[file:ch07.html#ch07lev2sec3][Multiple Choice =else if=]]
+
+[[file:ch07.html#ch07lev2sec4][Pairing =else= with =if=]]
+
+[[file:ch07.html#ch07lev2sec5][More Nested =ifs=]]
+
+[[file:ch07.html#ch07lev1sec3][Let's Get Logical]]
+
+[[file:ch07.html#ch07lev2sec6][Alternate Spellings: The =iso646.h= Header File]]
+
+[[file:ch07.html#ch07lev2sec7][Precedence]]
+
+[[file:ch07.html#ch07lev2sec8][Order of Evaluation]]
+
+[[file:ch07.html#ch07lev2sec9][Ranges]]
+
+[[file:ch07.html#ch07lev1sec4][A Word-Count Program]]
+
+[[file:ch07.html#ch07lev1sec5][The Conditional Operator: =?:=]]
+
+[[file:ch07.html#ch07lev1sec6][Loop Aids: =continue= and =break=]]
+
+[[file:ch07.html#ch07lev2sec10][The =continue= Statement]]
+
+[[file:ch07.html#ch07lev2sec11][The =break= Statement]]
+
+[[file:ch07.html#ch07lev1sec7][Multiple Choice: =switch= and =break=]]
+
+[[file:ch07.html#ch07lev2sec12][Using the =switch= Statement]]
+
+[[file:ch07.html#ch07lev2sec13][Reading Only the First Character of a Line]]
+
+[[file:ch07.html#ch07lev2sec14][Multiple Labels]]
+
+[[file:ch07.html#ch07lev2sec15][=switch= and =if else=]]
+
+[[file:ch07.html#ch07lev1sec8][The =goto= Statement]]
+
+[[file:ch07.html#ch07lev2sec16][Avoiding =goto=]]
+
+[[file:ch07.html#ch07lev1sec9][Key Concepts]]
+
+[[file:ch07.html#ch07lev1sec10][Summary]]
+
+[[file:ch07.html#ch07lev1sec11][Review Questions]]
+
+[[file:ch07.html#ch07lev1sec12][Programming Exercises]]
+
+*[[file:ch08.html#ch08][8 Character Input/Output and Input Validation]]*
+
+[[file:ch08.html#ch08lev1sec1][Single-Character I/O: =getchar()= and =putchar()=]]
+
+[[file:ch08.html#ch08lev1sec2][Buffers]]
+
+[[file:ch08.html#ch08lev1sec3][Terminating Keyboard Input]]
+
+[[file:ch08.html#ch08lev2sec1][Files, Streams, and Keyboard Input]]
+
+[[file:ch08.html#ch08lev2sec2][The End of File]]
+
+[[file:ch08.html#ch08lev1sec4][Redirection and Files]]
+
+<<page_xii>>[[file:ch08.html#ch08lev2sec3][Unix, Linux, and Windows Command Prompt Redirection]]
+
+[[file:ch08.html#ch08lev1sec5][Creating a Friendlier User Interface]]
+
+[[file:ch08.html#ch08lev2sec4][Working with Buffered Input]]
+
+[[file:ch08.html#ch08lev2sec5][Mixing Numeric and Character Input]]
+
+[[file:ch08.html#ch08lev1sec6][Input Validation]]
+
+[[file:ch08.html#ch08lev2sec6][Analyzing the Program]]
+
+[[file:ch08.html#ch08lev2sec7][The Input Stream and Numbers]]
+
+[[file:ch08.html#ch08lev1sec7][Menu Browsing]]
+
+[[file:ch08.html#ch08lev2sec8][Tasks]]
+
+[[file:ch08.html#ch08lev2sec9][Toward a Smoother Execution]]
+
+[[file:ch08.html#ch08lev2sec10][Mixing Character and Numeric Input]]
+
+[[file:ch08.html#ch08lev1sec8][Key Concepts]]
+
+[[file:ch08.html#ch08lev1sec9][Summary]]
+
+[[file:ch08.html#ch08lev1sec10][Review Questions]]
+
+[[file:ch08.html#ch08lev1sec11][Programming Exercises]]
+
+*[[file:ch09.html#ch09][9 Functions]]*
+
+[[file:ch09.html#ch09lev1sec1][Reviewing Functions]]
+
+[[file:ch09.html#ch09lev2sec1][Creating and Using a Simple Function]]
+
+[[file:ch09.html#ch09lev2sec2][Analyzing the Program]]
+
+[[file:ch09.html#ch09lev2sec3][Function Arguments]]
+
+[[file:ch09.html#ch09lev2sec4][Defining a Function with an Argument: Formal Parameters]]
+
+[[file:ch09.html#ch09lev2sec5][Prototyping a Function with Arguments]]
+
+[[file:ch09.html#ch09lev2sec6][Calling a Function with an Argument: Actual Arguments]]
+
+[[file:ch09.html#ch09lev2sec7][The Black-Box Viewpoint]]
+
+[[file:ch09.html#ch09lev2sec8][Returning a Value from a Function with =return=]]
+
+[[file:ch09.html#ch09lev2sec9][Function Types]]
+
+[[file:ch09.html#ch09lev1sec2][ANSI C Function Prototyping]]
+
+[[file:ch09.html#ch09lev2sec10][The Problem]]
+
+[[file:ch09.html#ch09lev2sec11][The ANSI C Solution]]
+
+[[file:ch09.html#ch09lev2sec12][No Arguments and Unspecified Arguments]]
+
+[[file:ch09.html#ch09lev2sec13][Hooray for Prototypes]]
+
+[[file:ch09.html#ch09lev1sec3][Recursion]]
+
+[[file:ch09.html#ch09lev2sec14][Recursion Revealed]]
+
+[[file:ch09.html#ch09lev2sec15][Recursion Fundamentals]]
+
+[[file:ch09.html#ch09lev2sec16][Tail Recursion]]
+
+[[file:ch09.html#ch09lev2sec17][Recursion and Reversal]]
+
+<<page_xiii>>[[file:ch09.html#ch09lev2sec18][Recursion Pros and Cons]]
+
+[[file:ch09.html#ch09lev1sec4][Compiling Programs with Two or More Source Code Files]]
+
+[[file:ch09.html#ch09lev2sec19][Unix]]
+
+[[file:ch09.html#ch09lev2sec20][Linux]]
+
+[[file:ch09.html#ch09lev2sec21][DOS Command-Line Compilers]]
+
+[[file:ch09.html#ch09lev2sec22][Windows and Apple IDE Compilers]]
+
+[[file:ch09.html#ch09lev2sec23][Using Header Files]]
+
+[[file:ch09.html#ch09lev1sec5][Finding Addresses: The =&= Operator]]
+
+[[file:ch09.html#ch09lev1sec6][Altering Variables in the Calling Function]]
+
+[[file:ch09.html#ch09lev1sec7][Pointers: A First Look]]
+
+[[file:ch09.html#ch09lev2sec24][The Indirection Operator: =*=]]
+
+[[file:ch09.html#ch09lev2sec25][Declaring Pointers]]
+
+[[file:ch09.html#ch09lev2sec26][Using Pointers to Communicate Between Functions]]
+
+[[file:ch09.html#ch09lev1sec8][Key Concepts]]
+
+[[file:ch09.html#ch09lev1sec9][Summary]]
+
+[[file:ch09.html#ch09lev1sec10][Review Questions]]
+
+[[file:ch09.html#ch09lev1sec11][Programming Exercises]]
+
+*[[file:ch10.html#ch10][10 Arrays and Pointers]]*
+
+[[file:ch10.html#ch10lev1sec1][Arrays]]
+
+[[file:ch10.html#ch10lev2sec1][Initialization]]
+
+[[file:ch10.html#ch10lev2sec2][Designated Initializers (C99)]]
+
+[[file:ch10.html#ch10lev2sec3][Assigning Array Values]]
+
+[[file:ch10.html#ch10lev2sec4][Array Bounds]]
+
+[[file:ch10.html#ch10lev2sec5][Specifying an Array Size]]
+
+[[file:ch10.html#ch10lev1sec2][Multidimensional Arrays]]
+
+[[file:ch10.html#ch10lev2sec6][Initializing a Two-Dimensional Array]]
+
+[[file:ch10.html#ch10lev2sec7][More Dimensions]]
+
+[[file:ch10.html#ch10lev1sec3][Pointers and Arrays]]
+
+[[file:ch10.html#ch10lev1sec4][Functions, Arrays, and Pointers]]
+
+[[file:ch10.html#ch10lev2sec8][Using Pointer Parameters]]
+
+[[file:ch10.html#ch10lev2sec9][Comment: Pointers and Arrays]]
+
+[[file:ch10.html#ch10lev1sec5][Pointer Operations]]
+
+[[file:ch10.html#ch10lev1sec6][Protecting Array Contents]]
+
+[[file:ch10.html#ch10lev2sec10][Using =const= with Formal Parameters]]
+
+[[file:ch10.html#ch10lev2sec11][More About =const=]]
+
+<<page_xiv>>[[file:ch10.html#ch10lev1sec7][Pointers and Multidimensional Arrays]]
+
+[[file:ch10.html#ch10lev2sec12][Pointers to Multidimensional Arrays]]
+
+[[file:ch10.html#ch10lev2sec13][Pointer Compatibility]]
+
+[[file:ch10.html#ch10lev2sec14][Functions and Multidimensional Arrays]]
+
+[[file:ch10.html#ch10lev1sec8][Variable-Length Arrays (VLAs)]]
+
+[[file:ch10.html#ch10lev1sec9][Compound Literals]]
+
+[[file:ch10.html#ch10lev1sec10][Key Concepts]]
+
+[[file:ch10.html#ch10lev1sec11][Summary]]
+
+[[file:ch10.html#ch10lev1sec12][Review Questions]]
+
+[[file:ch10.html#ch10lev1sec13][Programming Exercises]]
+
+*[[file:ch11.html#ch11][11 Character Strings and String Functions]]*
+
+[[file:ch11.html#ch11lev1sec1][Representing Strings and String I/O]]
+
+[[file:ch11.html#ch11lev2sec1][Defining Strings Within a Program]]
+
+[[file:ch11.html#ch11lev2sec2][Pointers and Strings]]
+
+[[file:ch11.html#ch11lev1sec2][String Input]]
+
+[[file:ch11.html#ch11lev2sec3][Creating Space]]
+
+[[file:ch11.html#ch11lev2sec4][The Unfortunate =gets()= Function]]
+
+[[file:ch11.html#ch11lev2sec5][The Alternatives to =gets()=]]
+
+[[file:ch11.html#ch11lev2sec6][The =scanf()= Function]]
+
+[[file:ch11.html#ch11lev1sec3][String Output]]
+
+[[file:ch11.html#ch11lev2sec7][The =puts()= Function]]
+
+[[file:ch11.html#ch11lev2sec8][The =fputs()= Function]]
+
+[[file:ch11.html#ch11lev2sec9][The =printf()= Function]]
+
+[[file:ch11.html#ch11lev1sec4][The Do-It-Yourself Option]]
+
+[[file:ch11.html#ch11lev1sec5][String Functions]]
+
+[[file:ch11.html#ch11lev2sec10][The =strlen()= Function]]
+
+[[file:ch11.html#ch11lev2sec11][The =strcat()= Function]]
+
+[[file:ch11.html#ch11lev2sec12][The =strncat()= Function]]
+
+[[file:ch11.html#ch11lev2sec13][The =strcmp()= Function]]
+
+[[file:ch11.html#ch11lev2sec14][The =strcpy()= and =strncpy()= Functions]]
+
+[[file:ch11.html#ch11lev2sec15][The =sprintf()= Function]]
+
+[[file:ch11.html#ch11lev2sec16][Other String Functions]]
+
+[[file:ch11.html#ch11lev1sec6][A String Example: Sorting Strings]]
+
+[[file:ch11.html#ch11lev2sec17][Sorting Pointers Instead of Strings]]
+
+[[file:ch11.html#ch11lev2sec18][The Selection Sort Algorithm]]
+
+<<page_xv>>[[file:ch11.html#ch11lev1sec7][The =ctype.h= Character Functions and Strings]]
+
+[[file:ch11.html#ch11lev1sec8][Command-Line Arguments]]
+
+[[file:ch11.html#ch11lev2sec19][Command-Line Arguments in Integrated Environments]]
+
+[[file:ch11.html#ch11lev2sec20][Command-Line Arguments with the Macintosh]]
+
+[[file:ch11.html#ch11lev1sec9][String-to-Number Conversions]]
+
+[[file:ch11.html#ch11lev1sec10][Key Concepts]]
+
+[[file:ch11.html#ch11lev1sec11][Summary]]
+
+[[file:ch11.html#ch11lev1sec12][Review Questions]]
+
+[[file:ch11.html#ch11lev1sec13][Programming Exercises]]
+
+*[[file:ch12.html#ch12][12 Storage Classes, Linkage, and Memory Management]]*
+
+[[file:ch12.html#ch12lev1sec1][Storage Classes]]
+
+[[file:ch12.html#ch12lev2sec1][Scope]]
+
+[[file:ch12.html#ch12lev2sec2][Linkage]]
+
+[[file:ch12.html#ch12lev2sec3][Storage Duration]]
+
+[[file:ch12.html#ch12lev2sec4][Automatic Variables]]
+
+[[file:ch12.html#ch12lev2sec5][Register Variables]]
+
+[[file:ch12.html#ch12lev2sec6][Static Variables with Block Scope]]
+
+[[file:ch12.html#ch12lev2sec7][Static Variables with External Linkage]]
+
+[[file:ch12.html#ch12lev2sec8][Static Variables with Internal Linkage]]
+
+[[file:ch12.html#ch12lev2sec9][Multiple Files]]
+
+[[file:ch12.html#ch12lev2sec10][Storage-Class Specifier Roundup]]
+
+[[file:ch12.html#ch12lev2sec11][Storage Classes and Functions]]
+
+[[file:ch12.html#ch12lev2sec12][Which Storage Class?]]
+
+[[file:ch12.html#ch12lev1sec2][A Random-Number Function and a Static Variable]]
+
+[[file:ch12.html#ch12lev1sec3][Roll 'Em]]
+
+[[file:ch12.html#ch12lev1sec4][Allocated Memory: =malloc()= and =free()=]]
+
+[[file:ch12.html#ch12lev2sec13][The Importance of =free()=]]
+
+[[file:ch12.html#ch12lev2sec14][The =calloc()= Function]]
+
+[[file:ch12.html#ch12lev2sec15][Dynamic Memory Allocation and Variable-Length Arrays]]
+
+[[file:ch12.html#ch12lev2sec16][Storage Classes and Dynamic Memory Allocation]]
+
+[[file:ch12.html#ch12lev1sec5][ANSI C Type Qualifiers]]
+
+[[file:ch12.html#ch12lev2sec17][The =const= Type Qualifier]]
+
+[[file:ch12.html#ch12lev2sec18][The =volatile= Type Qualifier]]
+
+[[file:ch12.html#ch12lev2sec19][The =restrict= Type Qualifier]]
+
+[[file:ch12.html#ch12lev2sec20][The =_Atomic= Type Qualifier (C11)]]
+
+[[file:ch12.html#ch12lev2sec21][New Places for Old Keywords]]
+
+<<page_xvi>>[[file:ch12.html#ch12lev1sec6][Key Concepts]]
+
+[[file:ch12.html#ch12lev1sec7][Summary]]
+
+[[file:ch12.html#ch12lev1sec8][Review Questions]]
+
+[[file:ch12.html#ch12lev1sec9][Programming Exercises]]
+
+*[[file:ch13.html#ch13][13 File Input/Output]]*
+
+[[file:ch13.html#ch13lev1sec1][Communicating with Files]]
+
+[[file:ch13.html#ch13lev2sec1][What Is a File?]]
+
+[[file:ch13.html#ch13lev2sec2][The Text Mode and the Binary Mode]]
+
+[[file:ch13.html#ch13lev2sec3][Levels of I/O]]
+
+[[file:ch13.html#ch13lev2sec4][Standard Files]]
+
+[[file:ch13.html#ch13lev1sec2][Standard I/O]]
+
+[[file:ch13.html#ch13lev2sec5][Checking for Command-Line Arguments]]
+
+[[file:ch13.html#ch13lev2sec6][The =fopen()= Function]]
+
+[[file:ch13.html#ch13lev2sec7][The =getc()= and =putc()= Functions]]
+
+[[file:ch13.html#ch13lev2sec8][End-of-File]]
+
+[[file:ch13.html#ch13lev2sec9][The =fclose()= Function]]
+
+[[file:ch13.html#ch13lev2sec10][Pointers to the Standard Files]]
+
+[[file:ch13.html#ch13lev1sec3][A Simple-Minded File-Condensing Program]]
+
+[[file:ch13.html#ch13lev1sec4][File I/O: =fprintf()=, =fscanf()=, =fgets()=, and =fputs()=]]
+
+[[file:ch13.html#ch13lev2sec11][The =fprintf()= and =fscanf()= Functions]]
+
+[[file:ch13.html#ch13lev2sec12][The =fgets()= and =fputs()= Functions]]
+
+[[file:ch13.html#ch13lev1sec5][Adventures in Random Access: =fseek()= and =ftell()=]]
+
+[[file:ch13.html#ch13lev2sec13][How =fseek()= and =ftell()= Work]]
+
+[[file:ch13.html#ch13lev2sec14][Binary Versus Text Mode]]
+
+[[file:ch13.html#ch13lev2sec15][Portability]]
+
+[[file:ch13.html#ch13lev2sec16][The =fgetpos()= and =fsetpos()= Functions]]
+
+[[file:ch13.html#ch13lev1sec6][Behind the Scenes with Standard I/O]]
+
+[[file:ch13.html#ch13lev1sec7][Other Standard I/O Functions]]
+
+[[file:ch13.html#ch13lev2sec17][The =int ungetc(int c, FILE *fp)= Function]]
+
+[[file:ch13.html#ch13lev2sec18][The =int fflush()= Function]]
+
+[[file:ch13.html#ch13lev2sec19][The =int setvbuf()= Function]]
+
+[[file:ch13.html#ch13lev2sec20][Binary I/O: =fread()= and =fwrite()=]]
+
+[[file:ch13.html#ch13lev2sec21][The =size_t fwrite()= Function]]
+
+[[file:ch13.html#ch13lev2sec22][The =size_t fread()= Function]]
+
+[[file:ch13.html#ch13lev2sec23][The =int feof(FILE *fp)= and =int ferror(FILE *fp)= Functions]]
+
+[[file:ch13.html#ch13lev2sec24][An =fread()= and =fwrite()= Example]]
+
+<<page_xvii>>[[file:ch13.html#ch13lev2sec25][Random Access with Binary I/O]]
+
+[[file:ch13.html#ch13lev1sec8][Key Concepts]]
+
+[[file:ch13.html#ch13lev1sec9][Summary]]
+
+[[file:ch13.html#ch13lev1sec10][Review Questions]]
+
+[[file:ch13.html#ch13lev1sec11][Programming Exercises]]
+
+*[[file:ch14.html#ch14][14 Structures and Other Data Forms]]*
+
+[[file:ch14.html#ch14lev1sec1][Sample Problem: Creating an Inventory of Books]]
+
+[[file:ch14.html#ch14lev1sec2][Setting Up the Structure Declaration]]
+
+[[file:ch14.html#ch14lev1sec3][Defining a Structure Variable]]
+
+[[file:ch14.html#ch14lev2sec1][Initializing a Structure]]
+
+[[file:ch14.html#ch14lev2sec2][Gaining Access to Structure Members]]
+
+[[file:ch14.html#ch14lev2sec3][Initializers for Structures]]
+
+[[file:ch14.html#ch14lev1sec4][Arrays of Structures]]
+
+[[file:ch14.html#ch14lev2sec4][Declaring an Array of Structures]]
+
+[[file:ch14.html#ch14lev2sec5][Identifying Members of an Array of Structures]]
+
+[[file:ch14.html#ch14lev2sec6][Program Discussion]]
+
+[[file:ch14.html#ch14lev1sec5][Nested Structures]]
+
+[[file:ch14.html#ch14lev1sec6][Pointers to Structures]]
+
+[[file:ch14.html#ch14lev2sec7][Declaring and Initializing a Structure Pointer]]
+
+[[file:ch14.html#ch14lev2sec8][Member Access by Pointer]]
+
+[[file:ch14.html#ch14lev1sec7][Telling Functions About Structures]]
+
+[[file:ch14.html#ch14lev2sec9][Passing Structure Members]]
+
+[[file:ch14.html#ch14lev2sec10][Using the Structure Address]]
+
+[[file:ch14.html#ch14lev2sec11][Passing a Structure as an Argument]]
+
+[[file:ch14.html#ch14lev2sec12][More on Structure Features]]
+
+[[file:ch14.html#ch14lev2sec13][Structures or Pointer to Structures?]]
+
+[[file:ch14.html#ch14lev2sec14][Character Arrays or Character Pointers in a Structure]]
+
+[[file:ch14.html#ch14lev2sec15][Structure, Pointers, and =malloc()=]]
+
+[[file:ch14.html#ch14lev2sec16][Compound Literals and Structures (C99)]]
+
+[[file:ch14.html#ch14lev2sec17][Flexible Array Members (C99)]]
+
+[[file:ch14.html#ch14lev2sec18][Anonymous Structures (C11)]]
+
+[[file:ch14.html#ch14lev2sec19][Functions Using an Array of Structures]]
+
+[[file:ch14.html#ch14lev1sec8][Saving the Structure Contents in a File]]
+
+[[file:ch14.html#ch14lev2sec20][A Structure-Saving Example]]
+
+[[file:ch14.html#ch14lev2sec21][Program Points]]
+
+[[file:ch14.html#ch14lev1sec9][Structures: What Next?]]
+
+<<page_xviii>>[[file:ch14.html#ch14lev1sec10][Unions: A Quick Look]]
+
+[[file:ch14.html#ch14lev2sec22][Using Unions]]
+
+[[file:ch14.html#ch14lev2sec23][Anonymous Unions (C11)]]
+
+[[file:ch14.html#ch14lev1sec11][Enumerated Types]]
+
+[[file:ch14.html#ch14lev2sec24][=enum= Constants]]
+
+[[file:ch14.html#ch14lev2sec25][Default Values]]
+
+[[file:ch14.html#ch14lev2sec26][Assigned Values]]
+
+[[file:ch14.html#ch14lev2sec27][=enum= Usage]]
+
+[[file:ch14.html#ch14lev2sec28][Shared Namespaces]]
+
+[[file:ch14.html#ch14lev1sec12][=typedef=: A Quick Look]]
+
+[[file:ch14.html#ch14lev1sec13][Fancy Declarations]]
+
+[[file:ch14.html#ch14lev1sec14][Functions and Pointers]]
+
+[[file:ch14.html#ch14lev1sec15][Key Concepts]]
+
+[[file:ch14.html#ch14lev1sec16][Summary]]
+
+[[file:ch14.html#ch14lev1sec17][Review Questions]]
+
+[[file:ch14.html#ch14lev1sec18][Programming Exercises]]
+
+*[[file:ch15.html#ch15][15 Bit Fiddling]]*
+
+[[file:ch15.html#ch15lev1sec1][Binary Numbers, Bits, and Bytes]]
+
+[[file:ch15.html#ch15lev2sec1][Binary Integers]]
+
+[[file:ch15.html#ch15lev2sec2][Signed Integers]]
+
+[[file:ch15.html#ch15lev2sec3][Binary Floating Point]]
+
+[[file:ch15.html#ch15lev1sec2][Other Number Bases]]
+
+[[file:ch15.html#ch15lev2sec4][Octal]]
+
+[[file:ch15.html#ch15lev2sec5][Hexadecimal]]
+
+[[file:ch15.html#ch15lev1sec3][C's Bitwise Operators]]
+
+[[file:ch15.html#ch15lev2sec6][Bitwise Logical Operators]]
+
+[[file:ch15.html#ch15lev2sec7][Usage: Masks]]
+
+[[file:ch15.html#ch15lev2sec8][Usage: Turning Bits On (Setting Bits)]]
+
+[[file:ch15.html#ch15lev2sec9][Usage: Turning Bits Off (Clearing Bits)]]
+
+[[file:ch15.html#ch15lev2sec10][Usage: Toggling Bits]]
+
+[[file:ch15.html#ch15lev2sec11][Usage: Checking the Value of a Bit]]
+
+[[file:ch15.html#ch15lev2sec12][Bitwise Shift Operators]]
+
+[[file:ch15.html#ch15lev2sec13][Programming Example]]
+
+[[file:ch15.html#ch15lev2sec14][Another Example]]
+
+[[file:ch15.html#ch15lev1sec4][Bit Fields]]
+
+[[file:ch15.html#ch15lev2sec15][Bit-Field Example]]
+
+<<page_xix>>[[file:ch15.html#ch15lev2sec16][Bit Fields and Bitwise Operators]]
+
+[[file:ch15.html#ch15lev1sec5][Alignment Features (C11)]]
+
+[[file:ch15.html#ch15lev1sec6][Key Concepts]]
+
+[[file:ch15.html#ch15lev1sec7][Summary]]
+
+[[file:ch15.html#ch15lev1sec8][Review Questions]]
+
+[[file:ch15.html#ch15lev1sec9][Programming Exercises]]
+
+*[[file:ch16.html#ch16][16 The C Preprocessor and the C Library]]*
+
+[[file:ch16.html#ch16lev1sec1][First Steps in Translating a Program]]
+
+[[file:ch16.html#ch16lev1sec2][Manifest Constants: =#define=]]
+
+[[file:ch16.html#ch16lev2sec1][Tokens]]
+
+[[file:ch16.html#ch16lev2sec2][Redefining Constants]]
+
+[[file:ch16.html#ch16lev1sec3][Using Arguments with =#define=]]
+
+[[file:ch16.html#ch16lev2sec3][Creating Strings from Macro Arguments: The =#= Operator]]
+
+[[file:ch16.html#ch16lev2sec4][Preprocessor Glue: The =##= Operator]]
+
+[[file:ch16.html#ch16lev2sec5][Variadic Macros: =...= and =__VA_ARGS__=]]
+
+[[file:ch16.html#ch16lev1sec4][Macro or Function?]]
+
+[[file:ch16.html#ch16lev1sec5][File Inclusion: =#include=]]
+
+[[file:ch16.html#ch16lev2sec6][Header Files: An Example]]
+
+[[file:ch16.html#ch16lev2sec7][Uses for Header Files]]
+
+[[file:ch16.html#ch16lev1sec6][Other Directives]]
+
+[[file:ch16.html#ch16lev2sec8][The =#undef= Directive]]
+
+[[file:ch16.html#ch16lev2sec9][Being Defined---The C Preprocessor Perspective]]
+
+[[file:ch16.html#ch16lev2sec10][Conditional Compilation]]
+
+[[file:ch16.html#ch16lev2sec11][Predefined Macros]]
+
+[[file:ch16.html#ch16lev2sec12][=#line= and =#error=]]
+
+[[file:ch16.html#ch16lev2sec13][=#pragma=]]
+
+[[file:ch16.html#ch16lev2sec14][Generic Selection (C11)]]
+
+[[file:ch16.html#ch16lev1sec7][Inline Functions (C99)]]
+
+[[file:ch16.html#ch16lev1sec8][=_Noreturn= Functions (C11)]]
+
+[[file:ch16.html#ch16lev1sec9][The C Library]]
+
+[[file:ch16.html#ch16lev2sec15][Gaining Access to the C Library]]
+
+[[file:ch16.html#ch16lev2sec16][Using the Library Descriptions]]
+
+[[file:ch16.html#ch16lev1sec10][The Math Library]]
+
+[[file:ch16.html#ch16lev2sec17][A Little Trigonometry]]
+
+[[file:ch16.html#ch16lev2sec18][Type Variants]]
+
+[[file:ch16.html#ch16lev2sec19][The =tgmath.h= Library (C99)]]
+
+<<page_xx>>[[file:ch16.html#ch16lev1sec11][The General Utilities Library]]
+
+[[file:ch16.html#ch16lev2sec20][The =exit()= and =atexit()= Functions]]
+
+[[file:ch16.html#ch16lev2sec21][The =qsort()= Function]]
+
+[[file:ch16.html#ch16lev1sec12][The Assert Library]]
+
+[[file:ch16.html#ch16lev2sec22][Using =assert=]]
+
+[[file:ch16.html#ch16lev2sec23][=_Static_assert= (C11)]]
+
+[[file:ch16.html#ch16lev1sec13][=memcpy()= and =memmove()= from the =string.h= Library]]
+
+[[file:ch16.html#ch16lev1sec14][Variable Arguments: =stdarg.h=]]
+
+[[file:ch16.html#ch16lev1sec15][Key Concepts]]
+
+[[file:ch16.html#ch16lev1sec16][Summary]]
+
+[[file:ch16.html#ch16lev1sec17][Review Questions]]
+
+[[file:ch16.html#ch16lev1sec18][Programming Exercises]]
+
+*[[file:ch17.html#ch17][17 Advanced Data Representation]]*
+
+[[file:ch17.html#ch17lev1sec1][Exploring Data Representation]]
+
+[[file:ch17.html#ch17lev1sec2][Beyond the Array to the Linked List]]
+
+[[file:ch17.html#ch17lev2sec1][Using a Linked List]]
+
+[[file:ch17.html#ch17lev2sec2][Afterthoughts]]
+
+[[file:ch17.html#ch17lev1sec3][Abstract Data Types (ADTs)]]
+
+[[file:ch17.html#ch17lev2sec3][Getting Abstract]]
+
+[[file:ch17.html#ch17lev2sec4][Building an Interface]]
+
+[[file:ch17.html#ch17lev2sec5][Using the Interface]]
+
+[[file:ch17.html#ch17lev2sec6][Implementing the Interface]]
+
+[[file:ch17.html#ch17lev1sec4][Getting Queued with an ADT]]
+
+[[file:ch17.html#ch17lev2sec7][Defining the Queue Abstract Data Type]]
+
+[[file:ch17.html#ch17lev2sec8][Defining an Interface]]
+
+[[file:ch17.html#ch17lev2sec9][Implementing the Interface Data Representation]]
+
+[[file:ch17.html#ch17lev2sec10][Testing the Queue]]
+
+[[file:ch17.html#ch17lev1sec5][Simulating with a Queue]]
+
+[[file:ch17.html#ch17lev1sec6][The Linked List Versus the Array]]
+
+[[file:ch17.html#ch17lev1sec7][Binary Search Trees]]
+
+[[file:ch17.html#ch17lev2sec11][A Binary Tree ADT]]
+
+[[file:ch17.html#ch17lev2sec12][The Binary Search Tree Interface]]
+
+[[file:ch17.html#ch17lev2sec13][The Binary Tree Implementation]]
+
+[[file:ch17.html#ch17lev2sec14][Trying the Tree]]
+
+[[file:ch17.html#ch17lev2sec15][Tree Thoughts]]
+
+<<page_xxi>>[[file:ch17.html#ch17lev1sec8][Other Directions]]
+
+[[file:ch17.html#ch17lev1sec9][Key Concepts]]
+
+[[file:ch17.html#ch17lev1sec10][Summary]]
+
+[[file:ch17.html#ch17lev1sec11][Review Questions]]
+
+[[file:ch17.html#ch17lev1sec12][Programming Exercises]]
+
+*[[file:app01.html#app01][A Answers to the Review Questions]]*
+
+[[file:app01.html#app01lev1sec1][Answers to Review Questions for Chapter 1]]
+
+[[file:app01.html#app01lev1sec2][Answers to Review Questions for Chapter 2]]
+
+[[file:app01.html#app01lev1sec3][Answers to Review Questions for Chapter 3]]
+
+[[file:app01.html#app01lev1sec4][Answers to Review Questions for Chapter 4]]
+
+[[file:app01.html#app01lev1sec5][Answers to Review Questions for Chapter 5]]
+
+[[file:app01.html#app01lev1sec6][Answers to Review Questions for Chapter 6]]
+
+[[file:app01.html#app01lev1sec7][Answers to Review Questions for Chapter 7]]
+
+[[file:app01.html#app01lev1sec8][Answers to Review Questions for Chapter 8]]
+
+[[file:app01.html#app01lev1sec9][Answers to Review Questions for Chapter 9]]
+
+[[file:app01.html#app01lev1sec10][Answers to Review Questions for Chapter 10]]
+
+[[file:app01.html#app01lev1sec11][Answers to Review Questions for Chapter 11]]
+
+[[file:app01.html#app01lev1sec12][Answers to Review Questions for Chapter 12]]
+
+[[file:app01.html#app01lev1sec13][Answers to Review Questions for Chapter 13]]
+
+[[file:app01.html#app01lev1sec14][Answers to Review Questions for Chapter 14]]
+
+[[file:app01.html#app01lev1sec15][Answers to Review Questions for Chapter 15]]
+
+[[file:app01.html#app01lev1sec16][Answers to Review Questions for Chapter 16]]
+
+[[file:app01.html#app01lev1sec17][Answers to Review Questions for Chapter 17]]
+
+*[[file:app02.html#app02][B Reference Section]]*
+
+[[file:app02.html#app02lev1sec1][Section I: Additional Reading]]
+
+[[file:app02.html#app02lev2sec1][Online Resources]]
+
+[[file:app02.html#app02lev2sec2][C Language Books]]
+
+[[file:app02.html#app02lev2sec3][Programming Books]]
+
+[[file:app02.html#app02lev2sec4][Reference Books]]
+
+[[file:app02.html#app02lev2sec5][C++ Books]]
+
+[[file:app02.html#app02lev1sec2][Section II: C Operators]]
+
+[[file:app02.html#app02lev2sec6][Arithmetic Operators]]
+
+[[file:app02.html#app02lev2sec7][Relational Operators]]
+
+[[file:app02.html#app02lev2sec8][Assignment Operators]]
+
+[[file:app02.html#app02lev2sec9][Logical Operators]]
+
+<<page_xxii>>[[file:app02.html#app02lev2sec10][The Conditional Operator]]
+
+[[file:app02.html#app02lev2sec11][Pointer-Related Operators]]
+
+[[file:app02.html#app02lev2sec12][Sign Operators]]
+
+[[file:app02.html#app02lev2sec13][Structure and Union Operators]]
+
+[[file:app02.html#app02lev2sec14][Bitwise Operators]]
+
+[[file:app02.html#app02lev2sec15][Miscellaneous Operators]]
+
+[[file:app02.html#app02lev1sec3][Section III: Basic Types and Storage Classes]]
+
+[[file:app02.html#app02lev2sec16][Summary: The Basic Data Types]]
+
+[[file:app02.html#app02lev2sec17][Summary: How to Declare a Simple Variable]]
+
+[[file:app02.html#app02lev2sec18][Summary: Qualifiers]]
+
+[[file:app02.html#app02lev1sec4][Section IV: Expressions, Statements, and Program Flow]]
+
+[[file:app02.html#app02lev2sec19][Summary: Expressions and Statements]]
+
+[[file:app02.html#app02lev2sec20][Summary: The =while= Statement]]
+
+[[file:app02.html#app02lev2sec21][Summary: The =for= Statement]]
+
+[[file:app02.html#app02lev2sec22][Summary: The =do while= Statement]]
+
+[[file:app02.html#app02lev2sec23][Summary: Using =if= Statements for Making Choices]]
+
+[[file:app02.html#app02lev2sec24][Summary: Multiple Choice with =switch=]]
+
+[[file:app02.html#app02lev2sec25][Summary: Program Jumps]]
+
+[[file:app02.html#app02lev1sec5][Section V: The Standard ANSI C Library with C99 and C11 Additions]]
+
+[[file:app02.html#app02lev2sec26][Diagnostics: =assert.h=]]
+
+[[file:app02.html#app02lev2sec27][Complex Numbers: =complex.h= (C99)]]
+
+[[file:app02.html#app02lev2sec28][Character Handling: =ctype.h=]]
+
+[[file:app02.html#app02lev2sec29][Error Reporting: =errno.h=]]
+
+[[file:app02.html#app02lev2sec30][Floating-Point Environment: =fenv.h= (C99)]]
+
+[[file:app02.html#app02lev2sec31][Floating-point Characteristics: =float.h=]]
+
+[[file:app02.html#app02lev2sec32][Format Conversion of Integer Types: =inttypes.h= (C99)]]
+
+[[file:app02.html#app02lev2sec33][Alternative Spellings: =iso646.h=]]
+
+[[file:app02.html#app02lev2sec34][Localization: =locale.h=]]
+
+[[file:app02.html#app02lev2sec35][Math Library: =math.h=]]
+
+[[file:app02.html#app02lev2sec36][Non-Local Jumps: =setjmp.h=]]
+
+[[file:app02.html#app02lev2sec37][Signal Handling: =signal.h=]]
+
+[[file:app02.html#app02lev2sec38][Alignment: =stdalign.h= (C11)]]
+
+[[file:app02.html#app02lev2sec39][Variable Arguments: =stdarg.h=]]
+
+[[file:app02.html#app02lev2sec40][Atomics Support: =stdatomic.h= (C11)]]
+
+[[file:app02.html#app02lev2sec41][Boolean Support: =stdbool.h= (C99)]]
+
+[[file:app02.html#app02lev2sec42][Common Definitions: =stddef.h=]]
+
+[[file:app02.html#app02lev2sec43][Integer Types: =stdint.h=]]
+
+<<page_xxiii>>[[file:app02.html#app02lev2sec44][Standard I/O Library: =stdio.h=]]
+
+[[file:app02.html#app02lev2sec45][General Utilities: =stdlib.h=]]
+
+[[file:app02.html#app02lev2sec46][=_Noreturn=: =stdnoreturn.h=]]
+
+[[file:app02.html#app02lev2sec47][String Handling: =string.h=]]
+
+[[file:app02.html#app02lev2sec48][Type-Generic Math: =tgmath.h= (C99)]]
+
+[[file:app02.html#app02lev2sec49][Threads: =threads.h (C11)=]]
+
+[[file:app02.html#app02lev2sec50][Date and Time: =time.h=]]
+
+[[file:app02.html#app02lev2sec51][Unicode Utilities: =uchar.h= (C11)]]
+
+[[file:app02.html#app02lev2sec52][Extended Multibyte and Wide-Character Utilities: =wchar.h= (C99)]]
+
+[[file:app02.html#app02lev2sec53][Wide Character Classification and Mapping Utilities: =wctype.h= (C99)]]
+
+[[file:app02.html#app02lev1sec6][Section VI: Extended Integer Types]]
+
+[[file:app02.html#app02lev2sec54][Exact-Width Types]]
+
+[[file:app02.html#app02lev2sec55][Minimum-Width Types]]
+
+[[file:app02.html#app02lev2sec56][Fastest Minimum-Width Types]]
+
+[[file:app02.html#app02lev2sec57][Maximum-Width Types]]
+
+[[file:app02.html#app02lev2sec58][Integers That Can Hold Pointer Values]]
+
+[[file:app02.html#app02lev2sec59][Extended Integer Constants]]
+
+[[file:app02.html#app02lev1sec7][Section VII: Expanded Character Support]]
+
+[[file:app02.html#app02lev2sec60][Trigraph Sequences]]
+
+[[file:app02.html#app02lev2sec61][Digraphs]]
+
+[[file:app02.html#app02lev2sec62][Alternative Spellings: =iso646.h=]]
+
+[[file:app02.html#app02lev2sec63][Multibyte Characters]]
+
+[[file:app02.html#app02lev2sec64][Universal Character Names (UCNs)]]
+
+[[file:app02.html#app02lev2sec65][Wide Characters]]
+
+[[file:app02.html#app02lev2sec66][Wide Characters and Multibyte Characters]]
+
+[[file:app02.html#app02lev1sec8][Section VIII: C99/C11 Numeric Computational Enhancements]]
+
+[[file:app02.html#app02lev2sec67][The IEC Floating-Point Standard]]
+
+[[file:app02.html#app02lev2sec68][The =fenv.h= Header File]]
+
+[[file:app02.html#app02lev2sec69][The =STDC FP_CONTRACT= Pragma]]
+
+[[file:app02.html#app02lev2sec70][Additions to the =math.h= Library]]
+
+[[file:app02.html#app02lev2sec71][Support for Complex Numbers]]
+
+[[file:app02.html#app02lev1sec9][Section IX: Differences Between C and C++]]
+
+[[file:app02.html#app02lev2sec72][Function Prototypes]]
+
+[[file:app02.html#app02lev2sec73][=char= Constants]]
+
+[[file:app02.html#app02lev2sec74][The =const= Modifier]]
+
+[[file:app02.html#app02lev2sec75][Structures and Unions]]
+
+[[file:app02.html#app02lev2sec76][Enumerations]]
+
+<<page_xxiv>>[[file:app02.html#app02lev2sec77][Pointer-to-=void=]]
+
+[[file:app02.html#app02lev2sec78][Boolean Types]]
+
+[[file:app02.html#app02lev2sec79][Alternative Spellings]]
+
+[[file:app02.html#app02lev2sec80][Wide-Character Support]]
+
+[[file:app02.html#app02lev2sec81][Complex Types]]
+
+[[file:app02.html#app02lev2sec82][Inline Functions]]
+
+[[file:app02.html#app02lev2sec83][C99/11 Features Not Found in C++11]]
+
+*[[file:index.html#index][Index]]*
