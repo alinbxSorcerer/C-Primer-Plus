@@ -1,4 +1,4 @@
-** 3. Data and C
+* 3. Data and C
 
 
 You will learn about the following in this chapter:
@@ -27,7 +27,7 @@ Programs work with data. You feed numbers, letters, and words to the computer, a
 
 This chapter explores the two great families of data types: integer and floating point. C offers several varieties of these types. This chapter tells you what the types are, how to declare them, and how and when to use them. Also, you discover the differences between constants and variables, and as a bonus, your first interactive program is coming up shortly.
 
-*** A Sample Program
+** A Sample Program
 
 
 Once again, we begin with a sample program. As before, you'll find some unfamiliar wrinkles that we'll soon iron out for you. The program's general intent should be clear, so try compiling and running the source code shown in [[file:ch03.html#ch03lis01][Listing 3.1]]. To save time, you can omit typing the comments.
@@ -101,7 +101,7 @@ The =getchar()= function reads the next input character, so the program has to w
 
 --------------
 
-**** What's New in This Program?
+*** What's New in This Program?
 
 
 There are several new elements of C in this program:
@@ -121,12 +121,12 @@ Figure 3.1 The =scanf()= and =printf()= functions at work.
 
 This chapter explains the first two items in this list of new features: variables and constants of various data types. [[file:ch04.html#ch04][Chapter 4]], “[[file:ch04.html#ch04][Character Strings and Formatted Input/Output]],” covers the last three items, but this chapter will continue to make limited use of =scanf()= and =printf()=.
 
-*** Data Variables and Constants
+** Data Variables and Constants
 
 
 A computer, under the guidance of a program, can do many things. It can add numbers, sort names, command the obedience of a speaker or video screen, calculate cometary orbits, prepare a mailing list, dial phone numbers, draw stick figures, draw conclusions, or anything else your imagination can create. To do these tasks, the program needs to work with /data/, the numbers and characters that bear the information you use. Some types of data are preset before a program is used and keep their values unchanged throughout the life of the program. These are /constants/. Other types of data may change or be assigned values as the program runs; these are /variables/. In the sample program, =weight= is a variable and =14.5833= is a constant. What about =1700.0=? True, the price of platinum isn't a constant in real life, but this program treats it as a constant. The difference between a variable and a constant is that a variable can have its value assigned or changed while the program is running, and a constant can't.
 
-*** Data: Data-Type Keywords
+** Data: Data-Type Keywords
 
 
 Beyond the distinction between variable and constant is the distinction between different /types/ of data. Some types of data are numbers. Some are letters or, more generally, characters. The computer needs a way to identify and use these different kinds. C does this by recognizing several fundamental /data types/. If a datum is a constant, the compiler can usually tell its type just by the way it looks: =42= is an integer, and =42.100= is floating point. A variable, however, needs to have its type announced in a declaration statement. You'll learn the details of declaring variables as you move along. First, though, take a look at the fundamental type keywords recognized by C. K&R C recognized seven keywords relating to types. The C90 standard added two to the list. The C99 standard adds yet another three (see [[file:ch03.html#ch03tab01][Table 3.1]]).
@@ -152,14 +152,14 @@ A /word/ is the natural unit of memory for a given computer design. For 8-bit mi
 
 --------------
 
-**** Integer Versus Floating-Point Types
+*** Integer Versus Floating-Point Types
 
 
 Integer types? Floating-point types? If you find these terms disturbingly unfamiliar, relax. We are about to give you a brief rundown of their meanings. If you are unfamiliar with bits, bytes, and words, you might want to read the nearby sidebar about them first. Do you have to learn all the details? Not really, not any more than you have to learn the principles of internal combustion engines to drive a car, but knowing a little about what goes on inside a computer or engine can help you occasionally.
 
 For a human, the difference between integers and floating-point numbers is reflected in the way they can be written. For a computer, the difference is reflected in the way they are stored. Let's look at each of the two classes in turn.
 
-**** The Integer
+*** The Integer
 
 
 An /integer/ is a number with no fractional part. In C, an integer is never written with a decimal point. Examples are 2, --23, and 2456. Numbers such as 3.14, 0.22, and 2.000 are not integers. Integers are stored as binary numbers. The integer 7, for example, is written 111 in binary. Therefore, to store this number in an 8-bit byte, just set the first 5 bits to 0 and the last 3 bits to 1 (see [[file:ch03.html#ch03fig02][Figure 3.2]]).
@@ -167,7 +167,7 @@ An /integer/ is a number with no fractional part. In C, an integer is never writ
 [[file:graphics/03fig02.jpg]]
 Figure 3.2 Storing the integer 7 using a binary code.
 
-**** The Floating-Point Number
+*** The Floating-Point Number
 
 
 A /floating-point/ number more or less corresponds to what mathematicians call a /real number/. Real numbers include the numbers between the integers. Some floating-point numbers are 2.75, 3.16E7, 7.00, and 2e--8. Notice that adding a decimal point makes a value a floating-point value. So 7 is an integer type but 7.00 is a floating-point type. Obviously, there is more than one way to write a floating-point number. We will discuss the e-notation more fully later, but, in brief, the notation 3.16E7 means to multiply 3.16 by 10 to the 7th power; that is, by 1 followed by 7 zeros. The 7 would be termed the /exponent/ of 10.
@@ -187,19 +187,19 @@ The key point here is that the scheme used to store a floating-point number is d
 [[file:graphics/03fig03.jpg]]
 Figure 3.3 Storing the number pi in floating-point format (decimal version).
 
-*** Basic C Data Types
+** Basic C Data Types
 
 
 Now let's look at the specifics of the basic data types used by C. For each type, we describe how to declare a variable, how to represent a constant with a literal value, such as =5= or =2.78=, and what a typical use would be. Some older C compilers do not support all these types, so check your documentation to see which ones you have available.
 
-**** The int Type
+*** The int Type
 
 
 C offers many integer types, and you might wonder why one type isn't enough. The answer is that C gives the programmer the option of matching a type to a particular use. In particular, the C integer types vary in the range of values offered and in whether negative numbers can be used. The =int= type is the basic choice, but should you need other choices to meet the requirements of a particular task or machine, they are available.
 
 The =int= type is a signed integer. That means it must be an integer and it can be positive, negative, or zero. The range in possible values depends on the computer system. Typically, an =int= uses one machine word for storage. Therefore, older IBM PC compatibles, which have a 16-bit word, use 16 bits to store an =int=. This allows a range in values from =–32768= to =32767=. Current personal computers typically have 32-bit integers and fit an =int= to that size. Now the personal computer industry is moving toward 64-bit processors that naturally will use even larger integers. ISO C specifies that the minimum range for type =int= should be from =–32767= to =32767=. Typically, systems represent signed integers by using the value of a particular bit to indicate the sign. [[file:ch15.html#ch15][Chapter 15]] discusses common methods.
 
-***** Declaring an int Variable
+**** Declaring an int Variable
 
 
 As you saw in [[file:ch02.html#ch02][Chapter 2]], “[[file:ch02.html#ch02][Introducing C]],” the keyword =int= is used to declare the basic integer variable. First comes =int=, and then the chosen name of the variable, and then a semicolon. To declare more than one variable, you can declare each variable separately, or you can follow the =int= with a list of names in which each name is separated from the next by a comma. The following are valid declarations:
@@ -215,7 +215,7 @@ cows = 112;
 
 Second, a variable can pick up a value from a function---from =scanf()=, for example. Now let's look at a third way.
 
-***** Initializing a Variable
+**** Initializing a Variable
 
 
 To /initialize/ a variable means to assign it a starting, or /initial/, value. In C, this can be done as part of the declaration. Just follow the variable name with the assignment operator (===) and the value you want the variable to have. Here are some examples:
@@ -233,12 +233,12 @@ In short, these declarations create and label the storage for the variables and 
 [[file:graphics/03fig04.jpg]]
 Figure 3.4 Defining and initializing a variable.
 
-***** Type int Constants
+**** Type int Constants
 
 
 The various integers (=21=, =32=, =14=, and =94=) in the last example are /integer constants/, also called /integer literals/. When you write a number without a decimal point and without an exponent, C recognizes it as an integer. Therefore, =22= and =–44= are integer constants, but =22.0= and =2.2E1= are not. C treats most integer constants as type =int=. Very large integers can be treated differently; see the later discussion of the =long int= type in the section ="long= Constants and =long long= Constants.”
 
-***** Printing int Values
+**** Printing int Values
 
 
 You can use the =printf()= function to print =int= types. As you saw in [[file:ch02.html#ch02][Chapter 2]], the =%d= notation is used to indicate just where in a line the integer is to be printed. The =%d= is called a /format specifier/ because it indicates the form that =printf()= uses to display a value. Each =%d= in the format string must be matched by a corresponding =int= value in the list of items to be printed. That value can be an =int= variable, an =int= constant, or any other expression having an =int= value. It's your job to make sure the number of format specifiers matches the number of values; the compiler won't catch mistakes of that kind. [[file:ch03.html#ch03lis02][Listing 3.2]] presents a simple program that initializes a variable and prints the value of the variable, the value of a constant, and the value of a simple expression. It also shows what can happen if you are not careful.
@@ -277,14 +277,14 @@ For the first line of output, the first =%d= represents the =int= variable =ten=
 
 You might be annoyed that the compiler doesn't catch such an obvious error. Blame the unusual design of =printf()=. Most functions take a specific number of arguments, and the compiler can check to see whether you've used the correct number. However, =printf()= can have one, two, three, or more arguments, and that keeps the compiler from using its usual methods for error checking. Some compilers, however, will use unusual methods of checking and warn you that you might be doing something wrong. Still, it's best to remember to always check to see that the number of format specifiers you give to =printf()= matches the number of values to be displayed.
 
-***** Octal and Hexadecimal
+**** Octal and Hexadecimal
 
 
 Normally, C assumes that integer constants are decimal, or base 10, numbers. However, octal (base 8) and hexadecimal (base 16) numbers are popular with many programmers. Because 8 and 16 are powers of 2, and 10 is not, these number systems occasionally offer a more convenient way for expressing computer-related values. For example, the number 65536, which often pops up in 16-bit machines, is just 10000 in hexadecimal. Also, each digit in a hexadecimal number corresponds to exactly 4 bits. For example, the hexadecimal digit 3 is 0011 and the hexadecimal digit 5 is 0101. So the hexadecimal value 35 is the bit pattern 0011 0101, and the hexadecimal value 53 is 0101 0011. This correspondence makes it easy to go back and forth between hexadecimal and binary (base 2) notation. But how can the computer tell whether 10000 is meant to be a decimal, hexadecimal, or octal value? In C, special prefixes indicate which number base you are using. A prefix of =0x= or =0X= (zero-ex) means that you are specifying a hexadecimal value, so 16 is written as =0x10=, or =0X10=, in hexadecimal. Similarly, a =0= (zero) prefix means that you are writing in octal. For example, the decimal value 16 is written as =020= in octal. [[file:ch15.html#ch15][Chapter 15]] discusses these alternative number bases more fully.
 
 Be aware that this option of using different number systems is provided as a service for your convenience. It doesn't affect how the number is stored. That is, you can write =16= or =020= or =0x10=, and the number is stored exactly the same way in each case---in the binary code used internally by computers.
 
-***** Displaying Octal and Hexadecimal
+**** Displaying Octal and Hexadecimal
 
 
 Just as C enables you write a number in any one of three number systems, it also enables you to display a number in any of these three systems. To display an integer in octal notation instead of decimal, use =%o= instead of =%d=. To display an integer in hexadecimal, use =%x=. If you want to display the C prefixes, you can use specifiers =%#o=, =%#x=, and =%#X= to generate the =0=, =0x=, and =0X= prefixes respectively. [[file:ch03.html#ch03lis03][Listing 3.3]] shows a short example. (Recall that you may have to insert a =getchar();= statement in the code for some IDEs to keep the program execution window from closing immediately.)
@@ -318,7 +318,7 @@ dec = 100; octal = 0144; hex = 0x64
 
 You see the same value displayed in three different number systems. The =printf()= function makes the conversions. Note that the =0= and the =0x= prefixes are not displayed in the output unless you include the =#= as part of the specifier.
 
-**** Other Integer Types
+*** Other Integer Types
 
 
 When you are just learning the language, the =int= type will probably meet most of your integer needs. To be complete, however, we'll cover the other forms now. If you like, you can skim this section and jump to the discussion of the =char= type in the “[[file:ch03.html#ch03lev2sec7][Using Characters: Type =char"=]] section, returning here when you have a need.
@@ -337,7 +337,7 @@ C offers three adjective keywords to modify the basic integer type: =short=, =lo
 
 [[file:graphics/squf.jpg]] The keyword =signed= can be used with any of the signed types to make your intent explicit. For example, =short=, =short int=, =signed short=, and =signed short int= are all names for the same type.
 
-***** Declaring Other Integer Types
+**** Declaring Other Integer Types
 
 
 Other integer types are declared in the same manner as the =int= type. The following list shows several examples. Not all older C compilers recognize the last three, and the final example is new with the C99 standard.
@@ -352,7 +352,7 @@ unsigned long headcount;
 unsigned short yesvotes;
 long long ago;
 
-***** Why Multiple Integer Types?
+**** Why Multiple Integer Types?
 
 
 Why do we say that =long= and =short= types “may” use more or less storage than =int=? Because C guarantees only that =short= is no longer than =int= and that =long= is no shorter than =int=. The idea is to fit the types to the machine. For example, in the days of Windows 3, an =int= and a =short= were both 16 bits, and a =long= was 32 bits. Later, Windows and Apple systems moved to using 16 bits for =short= and 32 bits for =int= and =long=. Using 32 bits allows integers in excess of 2 billion. Now that 64-bit processors are common, there's a need for 64-bit integers, and that's the motivation for the =long long= type.
@@ -401,7 +401,7 @@ The behavior described here is mandated by the rules of C for unsigned types. Th
 
 --------------
 
-***** long Constants and long long Constants
+**** long Constants and long long Constants
 
 
 Normally, when you use a number such as 2345 in your program code, it is stored as an =int= type. What if you use a number such as 1000000 on a system in which =int= will not hold such a large number? Then the compiler treats it as a =long int=, assuming that type is large enough. If the number is larger than the =long= maximum, C treats it as =unsigned long=. If that is still insufficient, C treats the value as =long long= or =unsigned long long=, if those types are available.
@@ -412,7 +412,7 @@ Sometimes you might want the compiler to store a small number as a =long= intege
 
 Similarly, on those systems supporting the =long long= type, you can use an =ll= or =LL= suffix to indicate a =long long= value, as in =3LL=. Add a =u= or =U= to the suffix for =unsigned long long=, as in =5ull= or =10LLU= or =6LLU= or =9Ull=.
 
-***** Printing short, long, long long, and unsigned Types
+**** Printing short, long, long long, and unsigned Types
 
 
 To print an =unsigned int= number, use the =%u= notation. To print a =long= value, use the =%ld= format specifier. If =int= and =long= are the same size on your system, just =%d= will suffice, but your program will not work properly when transferred to a system on which the two types are different, so use the =%ld= specifier for =long=. You can use the =l= prefix for =x= and =o=, too. So you would use =%lx= to print a long integer in hexadecimal format and =%lo= to print in octal format. Note that although C allows both uppercase and lowercase letters for constant suffixes, these format specifiers use just lowercase.
@@ -467,7 +467,7 @@ Remember to check to see that you have one format specifier for each value being
 
 --------------
 
-**** Using Characters: Type char
+*** Using Characters: Type char
 
 
 The =char= type is used for storing characters such as letters and punctuation marks, but technically it is an integer type. Why? Because the =char= type actually stores integers, not characters. To handle characters, the computer uses a numerical code in which certain integers represent certain characters. The most commonly used code in the U.S. is the ASCII code given in the table on the inside front cover. It is the code this book assumes. In it, for example, the integer value =65= represents an uppercase /A/. So to store the letter /A/, you actually need to store the integer =65=. (Many IBM mainframes use a different code, called EBCDIC, but the principle is the same. Computer systems outside the U.S. may use entirely different codes.)
@@ -478,7 +478,7 @@ Many character sets have many more than 127 or even 255 values. For example, the
 
 The C language defines a byte to be the number of bits used by type =char=, so one can have a system with a 16-bit or 32-bit byte and =char= type.
 
-***** Declaring Type char Variables
+**** Declaring Type char Variables
 
 
 As you might expect, =char= variables are declared in the same manner as other variables. Here are some examples:
@@ -488,7 +488,7 @@ char itable, latan;
 
 This code would create three =char= variables: =response=, =itable=, and =latan=.
 
-***** Character Constants and Initialization
+**** Character Constants and Initialization
 
 
 Suppose you want to initialize a character constant to the letter /A/. Computer languages are supposed to make things easy, so you shouldn't have to memorize the ASCII code, and you don't. You can assign the character =A= to =grade= with the following initialization:
@@ -520,7 +520,7 @@ char grade = 'B';
 
 represents ='B'= as the numerical value 66 stored in a 32-bit unit, but =grade= winds up with 66 stored in an 8-bit unit. This characteristic of character constants makes it possible to define a character constant such as ='FATE'=, with four separate 8-bit ASCII codes stored in a 32-bit unit. However, attempting to assign such a character constant to a =char= variable results in only the last 8 bits being used, so the variable gets the value ='E'=.
 
-***** Nonprinting Characters
+**** Nonprinting Characters
 
 
 The single-quote technique is fine for characters, digits, and punctuation marks, but if you look through the table on the inside front cover of this book, you'll see that some of the ASCII characters are nonprinting. For example, some represent actions such as backspacing or going to the next line or making the terminal bell ring (or speaker beep). How can these be represented? C offers three ways.
@@ -579,7 +579,7 @@ At this point, you may have three questions:
 
 [[file:graphics/squf.jpg]] /If I need to use numeric code, why use, say,/ ='032'= /instead of/ =032=*?---*First, using ='032'= instead of =032= makes it clear to someone reading the code that you intend to represent a character code. Second, an escape sequence such as =032= can be embedded in part of a C string, the way =007= was in the first point.
 
-***** Printing Characters
+**** Printing Characters
 
 
 The =printf()= function uses =%c= to indicate that a character should be printed. Recall that a character variable is stored as a 1-byte integer value. Therefore, if you print the value of a =char= variable with the usual =%d= specifier, you get an integer. The =%c= format specifier tells =printf()= to display the character that has that integer as its code value. [[file:ch03.html#ch03lis05][Listing 3.5]] shows a =char= variable both ways.
@@ -616,21 +616,21 @@ When you use the program, remember to press the Enter or Return key after typing
 [[file:graphics/03fig06.jpg]]
 Figure 3.6 Data display versus data storage.
 
-***** Signed or Unsigned?
+**** Signed or Unsigned?
 
 
 Some C implementations make =char= a signed type. This means a =char= can hold values typically in the range --128 through 127. Other implementations make =char= an unsigned type, which provides a range of 0 through 255. Your compiler manual should tell you which type your =char= is, or you can check the =limits.h= header file, discussed in the next chapter.
 
 As of C90, C enabled you to use the keywords =signed= and =unsigned= with =char=. Then, regardless of what your default =char= is, =signed char= would be signed, and =unsigned char= would be unsigned. These versions of =char= are useful if you're using the type to handle small integers. For character use, just use the standard =char= type without modifiers.
 
-**** The _Bool Type
+*** The _Bool Type
 
 
 The =_Bool= type is a C99 addition that's used to represent Boolean values---that is, the logical values =true= and =false=. Because C uses the value 1 for =true= and 0 for =false=, the =_Bool= type really is just an integer type, but one that, in principle, only requires 1 bit of memory, because that is enough to cover the full range from 0 to 1.
 
 Programs use Boolean values to choose which code to execute next. Code execution is covered more fully in [[file:ch06.html#ch06][Chapter 6]], “[[file:ch06.html#ch06][C Control Statements: Looping]],” and [[file:ch07.html#ch07][Chapter 7]], so let's defer further discussion until then.
 
-**** Portable Types: stdint.h and inttypes.h
+*** Portable Types: stdint.h and inttypes.h
 
 
 By now you've probably noticed that C offers a wide variety of integer types, which is a good thing. And you probably also have noticed that the same type name doesn't necessarily mean the same thing on different systems, which is not such a good thing. It would be nice if C had types that had the same meaning regardless of the system. And, as of C99, it does---sort of.
@@ -700,7 +700,7 @@ Even though C has moved to the C11 standard, compiler writers have implemented C
 
 --------------
 
-**** Types float, double, and long double
+*** Types float, double, and long double
 
 
 The various integer types serve well for most software development projects. However, financial and mathematically oriented programs often make use of /floating-point/ numbers. In C, such numbers are called type =float=, =double=, or =long double=. They correspond to the =real= types of FORTRAN and Pascal. The floating-point approach, as already mentioned, enables you to represent a much greater range of numbers, including decimal fractions. Floating-point number representation is similar to /scientific notation/, a system used by scientists to express very large and very small numbers. Let's take a look.
@@ -720,7 +720,7 @@ C also has a =double= (for double precision) floating-point type. The =double= t
 
 C allows for a third floating-point type: =long double=. The intent is to provide for even more precision than =double=. However, C guarantees only that =long double= is at least as precise as =double=.
 
-***** Declaring Floating-Point Variables
+**** Declaring Floating-Point Variables
 
 
 Floating-point variables are declared and initialized in the same manner as their integer cousins. Here are some examples:
@@ -730,7 +730,7 @@ double trouble;
 float planck = 6.63e-34;
 long double gnp;
 
-***** Floating-Point Constants (Literals)
+**** Floating-Point Constants (Literals)
 
 
 There are many choices open to you when you write a literal floating-point constant. The basic form of a floating-point literal is a signed series of digits, including a decimal point, followed by an /e/ or /E/, followed by a signed exponent indicating the power of 10 used. Here are two valid floating-point constants:
@@ -766,7 +766,7 @@ The =a= is 10 in hex, the =.1f= is 1/16th plus 15/256^{th} (=f= is 15 in hex), a
 
 Not all C compilers have added support for this feature.
 
-***** Printing Floating-Point Values
+**** Printing Floating-Point Values
 
 
 The =printf()= function uses the =%f= format specifier to print type =float= and =double= numbers using decimal notation, and it uses =%e= to print them in exponential notation. If your system supports the hexadecimal format for floating-point numbers, you can use =a= or =A= instead of =e= or =E=. The =long double= type requires the =%Lf=, =%Le=, and =%La= specifiers to print that type. Note that both =float= and =double= use the =%f=, =%e=, or =%a= specifier for output. That's because C automatically expands type =float= values to type =double= when they are passed as arguments to any function, such as =printf()=, that doesn't explicitly prototype the argument type. [[file:ch03.html#ch03lis07][Listing 3.7]] illustrates these behaviors.
@@ -807,7 +807,7 @@ And it's 0x1.f4p+14 in hexadecimal, powers of 2 notation
 
 This example illustrates the default output. The next chapter discusses how to control the appearance of this output by setting field widths and the number of places to the right of the decimal.
 
-***** Floating-Point Overflow and Underflow
+**** Floating-Point Overflow and Underflow
 
 
 Suppose the biggest possible =float= value on your system is about 3.4E38 and you do this:
@@ -864,7 +864,7 @@ The preceding sidebar listed different possible outputs for the same program, de
 
 --------------
 
-**** Complex and Imaginary Types
+*** Complex and Imaginary Types
 
 
 Many computations in science and engineering use complex and imaginary numbers. C99 supports these numbers, with some reservations. A free-standing implementation, such as that used for embedded processors, doesn't need to have these types. (A VCR chip probably doesn't need complex numbers to do its job.) Also, more generally, the imaginary types are optional. With C11, the entire complex number package is optional.
@@ -875,7 +875,7 @@ Including the =complex.h= header file lets you substitute the word =complex= for
 
 You may wonder why the C standard doesn't simply use =complex= as the keyword instead of using =_Complex= and then adding a header file to define =complex= as =_Complex=. The standards committee is hesitant to introduce a new keyword because that can invalidate existing code that uses the same word as an identifier. For example, prior to C99, many programmers had already used, say, =struct complex= to define a structure to represent complex numbers or, perhaps, psychological conditions. (The keyword =struct=, as discussed in [[file:ch14.html#ch14][Chapter 14]], “[[file:ch14.html#ch14][Structures and Other Data Forms]],” is used to define data structures capable of holding more than one value.) Making complex a keyword would make these previous uses syntax errors. But it's much less likely that someone would have used =struct _Complex=, especially since using identifiers having an initial underscore is supposed to be reserved. So the committee settled on =_Complex= as the keyword and made =complex= available as an option for those who don't have to worry about conflicts with past usage.
 
-**** Beyond the Basic Types
+*** Beyond the Basic Types
 
 
 That finishes the list of fundamental data types. For some of you, the list must seem long. Others of you might be thinking that more types are needed. What about a character string type? C doesn't have one, but it can still deal quite well with strings. You will take a first look at strings in [[file:ch04.html#ch04][Chapter 4]].
@@ -979,7 +979,7 @@ float mass = 6.0E24;
 
 --------------
 
-**** Type Sizes
+*** Type Sizes
 
 
 What type sizes does your system use? Try running the program in [[file:ch03.html#ch03lis08][Listing 3.8]] to find out.
@@ -1024,7 +1024,7 @@ This program found the size of only six types, but you can easily modify it to f
 
 Incidentally, notice in the last few lines how a =printf()= statement can be spread over two lines. You can do this as long as the break does not occur in the quoted section or in the middle of a word.
 
-*** Using Data Types
+** Using Data Types
 
 
 When you develop a program, note the variables you need and which type they should be. Most likely, you can use =int= or possibly =float= for the numbers and =char= for the characters. Declare them at the beginning of the function that uses them. Choose a name for the variable that suggests its meaning. When you initialize a variable, match the constant type to the variable type. Here's an example:
@@ -1047,7 +1047,7 @@ The first declaration assigns 12 to =cost=; when converting floating-point value
 
 Many programmers and organizations have systematic conventions for assigning variable names in which the name indicates the type of variable. For example, you could use an =i_= prefix to indicate type =int= and =us_= to indicate =unsigned short=, so =i_smart= would be instantly recognizable as a type =int= variable and =us_verysmart= would be an =unsigned short= variable.
 
-*** Arguments and Pitfalls
+** Arguments and Pitfalls
 
 
 It's worth repeating and amplifying a caution made earlier in this chapter about using =printf()=. The items of information passed to a function, as you may recall, are termed /arguments/. For instance, the function call =printf("Hello, pal.")= has one argument: ="Hello, pal."=. A series of characters in quotes, such as ="Hello, pal."=, is called a /string/. We'll discuss strings in [[file:ch04.html#ch04][Chapter 4]]. For now, the important point is that one string, even one containing several words and punctuation marks, counts as one argument.
@@ -1102,7 +1102,7 @@ Note that using =%d= to display a =float= value doesn't convert the =float= valu
 
 None of the compilers we tried refused to compile this code; although most did issue warnings that something might be wrong. Nor were there any complaints when we ran the program. It is true that some compilers might catch this sort of error, but the C standard doesn't require them to. Therefore, the computer may not catch this kind of error, and because the program may otherwise run correctly, you might not notice the errors either. If a program doesn't print the expected number of values or if it prints unexpected values, check to see whether you've used the correct number of =printf()= arguments.
 
-*** One More Example: Escape Sequences
+** One More Example: Escape Sequences
 
 
 Let's run one more printing example, one that makes use of some of C's special escape sequences for characters. In particular, the program in [[file:ch03.html#ch03lis10][Listing 3.10]] shows how the backspace (=b=), tab (=t=), and carriage return (=r=) work. These concepts date from when computers used teletype machines for output, and they don't always translate successfully to contemporary graphical interfaces. For example, [[file:ch03.html#ch03lis10][Listing 3.10]] doesn't work as described on some Macintosh implementations.
@@ -1131,7 +1131,7 @@ int main(void)
 
 --------------
 
-**** What Happens When the Program Runs
+*** What Happens When the Program Runs
 
 
 Let's walk through this program step by step as it would work under a system in which the escape characters behave as described. (The actual behavior could be different. For instance, XCode 4.6 displays the =a=, =b=, and =r= characters as upside down question marks!)
@@ -1176,7 +1176,7 @@ The fourth =printf()= statement begins with =r=. This positions the cursor at th
 Enter your desired monthly salary: $4000.00
 Gee!    $4000.00 a month is $48000.00 a year.
 
-**** Flushing the Output
+*** Flushing the Output
 
 
 When does =printf()= actually send output to the screen? Initially, =printf()= statements send output to an intermediate storage area called a /buffer/. Every now and then, the material in the buffer is sent to the screen. The standard C rules for when output is sent from the buffer to the screen are clear: It is sent when the buffer gets full, when a newline character is encountered, or when there is impending input. (Sending the output from the buffer to the screen or file is called /flushing the buffer/.) For instance, the first two =printf()= statements don't fill the buffer and don't contain a newline, but they are immediately followed by a =scanf()= statement asking for input. That forces the =printf()= output to be sent to the screen.
@@ -1190,7 +1190,7 @@ scanf("%f", &salary);
 
 This code works whether or not impending input flushes the buffer. However, it also puts the cursor on the next line, preventing you from entering data on the same line as the prompting string. Another solution is to use the =fflush()= function described in [[file:ch13.html#ch13][Chapter 13]], “[[file:ch13.html#ch13][File Input/Output]].”
 
-*** Key Concepts
+** Key Concepts
 
 
 C has an amazing number of numeric types. This reflects the intent of C to avoid putting obstacles in the path of the programmer. Instead of mandating, say, that one kind of integer is enough, C tries to give the programmer the options of choosing a particular variety (signed or unsigned) and size that best meet the needs of a particular program.
@@ -1199,7 +1199,7 @@ Floating-point numbers are fundamentally different from integers on a computer. 
 
 In computer memory, characters are represented by a numeric code. The ASCII code is the most common in the U.S., but C supports the use of other codes. A character constant is the symbolic representation for the numeric code used on a computer system---it consists of a character enclosed in single quotes, such as ='A'=.
 
-*** Summary
+** Summary
 
 
 C has a variety of data types. The basic types fall into two categories: integer types and floating-point types. The two distinguishing features for integer types are the amount of storage allotted to a type and whether it is signed or unsigned. The smallest integer type is =char=, which can be either signed or unsigned, depending on the implementation. You can use =signed char= and =unsigned char= to explicitly specify which you want, but that's usually done when you are using the type to hold small integers rather than character codes. The other integer types include the =short=, =int=, =long=, and =long long= type. C guarantees that each of these types is at least as large as the preceding type. Each of them is a signed type, but you can use the =unsigned= keyword to create the corresponding unsigned types: =unsigned short=, =unsigned int=, =unsigned long=, and =unsigned long long=. Or you can add the =signed= modifier to explicitly state that the type is signed. Finally, there is the =_Bool= type, an unsigned type able to hold the values =0= and =1=, representing =false= and =true=.
@@ -1214,7 +1214,7 @@ Floating-point numbers can be written with a fixed decimal point, as in =9393.91
 
 The =printf()= function enables you to print various types of values by using conversion specifiers, which, in their simplest form, consist of a percent sign and a letter indicating the type, as in =%d= or =%f=.
 
-*** Review Questions
+** Review Questions
 
 
 You'll find answers to the review questions in [[file:app01.html#app01][Appendix A]], “[[file:app01.html#app01][Answers to the Review Questions]].”
@@ -1338,7 +1338,7 @@ void main(int) / this program is perfect /
 
 *d.* =t=
 
-*** Programming Exercises
+** Programming Exercises
 
 
 *1.* Find out what your system does with integer overflow, floating-point overflow, and floating-point underflow by using the experimental approach; that is, write programs having these problems. (You can check the discussion in [[file:ch04.html#ch04][Chapter 4]] of =limits.h= and =float.h= to get guidance on the largest and smallest values.)
@@ -1378,7 +1378,7 @@ Floating-point numbers can be written with a fixed decimal point, as in =9393.91
 
 The =printf()= function enables you to print various types of values by using conversion specifiers, which, in their simplest form, consist of a percent sign and a letter indicating the type, as in =%d= or =%f=.
 
-*** Review Questions
+** Review Questions
     :PROPERTIES:
     :CUSTOM_ID: ch03lev1sec10
     :END:
@@ -1504,7 +1504,7 @@ void main(int) / this program is perfect /\\
 
 *d.* =\t=
 
-*** <<page_97>>Programming Exercises
+** Programming Exercises
     :PROPERTIES:
     :CUSTOM_ID: ch03lev1sec11
     :END:
@@ -1536,3 +1536,11 @@ p notation: 0x1.01p+6
 *7.* There are 2.54 centimeters to the inch. Write a program that asks you to enter your height in inches and then displays your height in centimeters. Or, if you prefer, ask for the height in centimeters and convert that to inches.
 
 *8.* In the U.S. system of volume measurements, a pint is 2 cups, a cup is 8 ounces, an ounce is 2 tablespoons, and a tablespoon is 3 teaspoons. Write a program that requests a volume in cups and that displays the equivalent volumes in pints, ounces, tablespoons, and teaspoons. Why does a floating-point type make more sense for this application than an integer type?
+
+
+#+begin_src C
+printf ("Hello World!");
+#+end_src
+
+#+RESULTS:
+: Hello World!

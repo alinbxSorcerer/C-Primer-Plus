@@ -28,10 +28,7 @@ Let's take a look at a simple C program. This program, shown in [[file:ch02.html
 
 Listing 2.1 The first.c Program
 
-
-
---------------
-
+#+BEGIN_SRC C :results output
 #include <stdio.h>
 int main(void)                /* a simple program             */
 {
@@ -44,8 +41,10 @@ int main(void)                /* a simple program       �
 
     return 0;
 }
+#+END_SRC
 
---------------
+#+RESULTS:
+
 
 If you think this program will print something on your screen, you're right! Exactly what will be printed might not be apparent, so run the program and see the results. First, use your favorite editor (or your compiler's favorite editor) to create a file containing the text from [[file:ch02.html#ch02lis01][Listing 2.1]]. Give the file a name that ends in =.c= and that satisfies your local system's name requirements. You can use =first.c=, for example. Now compile and run the program. (Check [[file:ch01.html#ch01][Chapter 1]], “[[file:ch01.html#ch01][Getting Ready]],” for some general guidelines to this process.) If all went well, the output should look like the following:
 
@@ -458,6 +457,7 @@ Listing 2.2 The fathm_ft.c% Program
 
 // fathm_ft.c -- converts 2 fathoms to feet
 
+#+BEGIN_SRC C
 #include <stdio.h>
 int main(void)
 {
@@ -470,6 +470,9 @@ int main(void)
 
     return 0;
 }
+#+END_SRC
+
+#+RESULTS:
 
 --------------
 
@@ -968,3 +971,9 @@ one\\
 two\\
 three\\
 done!
+#+BEGIN_SRC C
+printf("Literature Programming");
+#+END_SRC
+
+#+RESULTS:
+: Literature Programming

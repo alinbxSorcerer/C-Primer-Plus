@@ -1,6 +1,6 @@
 #+title: Cover
 #+ATTR_HTML: :width 300px
-[[file:graphics/9780133432381.jpg]]
+[[file:cprimer-graphics/9780133432381.jpg]]
 
 
 ** Convert to .Org
